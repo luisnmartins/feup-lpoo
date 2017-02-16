@@ -2,68 +2,61 @@ import java.util.Scanner;
 
 public class Dungeonkeep {
 		
+	 
 		
-		public void move(int xh, int yh, char[][] map)
+	
+		public void move(int xh, int yh, char[][] map, char[] guard)
 		{
 			Boolean end = false;
 			char move;
-			int new_pos_x = xh, new_pos_y = yh;
+			Position guard_pos = new Position(1, 8);
+			Position hero_pos = new Position(xh, yh);
+			int it_guard = 0;
 			
 			while(true)
 			{
 				Scanner s = new Scanner(System.in);
 				move = s.next().charAt(0);
-				map[xh][yh] = ' ';
-				if(move == 'w'){
-					
-					if(new_pos_x != 0)
-						new_pos_x -= 1;
-				}
+				map[hero_pos.x][hero_pos.y] = ' ';
 				
-				else if(move == 'a'){
-					
-				if(new_pos_y != 0)
-					new_pos_y -= 1;
-				}
+				hero_pos.change_pos(move);
+				map[guard_pos.x][guard_pos.y] = ' ';
+				guard_pos.change_pos(guard[it_guard]);
 				
-				else if(move == 's'){
-					
-					new_pos_x += 1;
-				}
-				
-				else if(move == 'd'){
-					
-					new_pos_y += 1;
-				}
-				if(map[new_pos_x][new_pos_y] == 'I' || map[new_pos_x][new_pos_y] == 'X')
+				if(map[hero_pos.x][hero_pos.y] == 'I' || map[hero_pos.x][hero_pos.y] == 'X')
 				{
-					new_pos_x = xh;
-					new_pos_y = yh;
+					hero_pos.x = xh;
+					hero_pos.y = yh;
 				}
-				else if(map[new_pos_x-1][new_pos_y] == 'G' || map[new_pos_x][new_pos_y+1] == 'G')
+				else if((hero_pos.x == guard_pos.x && Math.abs(hero_pos.y-guard_pos.y)<=1) || (hero_pos.y == guard_pos.y && Math.abs(hero_pos.x-guard_pos.x)<=1))
 				{
 					end = true;
-					xh = new_pos_x;
-					yh = new_pos_y;
+					xh = hero_pos.x;
+					yh = hero_pos.y;
 					map[xh][yh] = 'H';
+					map[guard_pos.x][guard_pos.y] = 'G';
 					break;
 				}
-				else if(map[new_pos_x][new_pos_y] == 'K')
+				else if(map[hero_pos.x][hero_pos.y] == 'K')
 				{
 					map[5][0] = 'S';
 					map[6][0] = 'S';
-					xh = new_pos_x;
-					yh = new_pos_y;
+					xh = hero_pos.x;
+					yh = hero_pos.y;
 					map[xh][yh] = 'H';
-					break;
 				}
-				else if(map[new_pos_x][new_pos_y] == ' ')
+				else if(map[hero_pos.x][hero_pos.y] == ' ')
 				{
-					xh = new_pos_x;
-					yh = new_pos_y;
+					xh = hero_pos.x;
+					yh = hero_pos.y;
 				}
 				
 				map[xh][yh] = 'H';
+				
+				map[guard_pos.x][guard_pos.y] = 'G';
+				it_guard++;
+				if(it_guard == guard.length-1)
+					it_guard = 0 ;
 				for(int i=0; i<map.length; i++)
 				{
 					for(int j=0; j<map[i].length; j++)
@@ -90,15 +83,22 @@ public class Dungeonkeep {
 			{
 				System.out.println("LOSER!!");
 			}
-			else
-			{
-				System.out.println("YOU WIN!! CONTINUE...");
-			}
+
 		}
 		
 		public void map()
 		{
-			char[][] map= {{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}, {'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'}, {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'}, {'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'}, {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'}, {'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},{'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'}, {'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'}, {'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X'}, {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}};
+			char[][] map= { {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+							{'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'},
+							{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
+							{'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
+							{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
+							{'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
+							{'I',' ',' ',' ',' ',' ',' ',' ',' ', 'X'},
+							{'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'},
+							{'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X'},
+							{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'} };
+			char[] route = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a','a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w','w','w','w','w'};
 			for(int i=0; i<map.length; i++)
 			{
 				for(int j=0; j<map[i].length; j++)
@@ -109,7 +109,8 @@ public class Dungeonkeep {
 				}
 				System.out.print("\n");
 			}
-			move(1, 1, map);
+			move(1, 1, map, route);
+			
 		}
 		
 		public static void main(String[] args)
@@ -117,6 +118,47 @@ public class Dungeonkeep {
 			
 			Dungeonkeep dk = new Dungeonkeep();
 			dk.map();
+			
+		}
+		
+		public class Position
+		{
+			int x;
+			int y;
+					
+			Position(int x_pos, int y_pos)
+			{
+				x = x_pos;
+				y = y_pos;
+			}
+			
+			public void change_pos(char key)
+			{
+				if(key == 'w'){
+					
+					if(x != 0)
+						x -= 1;
+				}
+				
+				else if(key == 'a'){
+					
+				if(y != 0)
+					y -= 1;
+				}
+				
+				else if(key == 's'){
+					
+					x += 1;
+				}
+				
+				else if(key == 'd'){
+					
+					y += 1;
+				}
+				
+			}
+			
+			
 			
 		}
 		
