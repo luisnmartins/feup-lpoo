@@ -35,6 +35,8 @@ public class Dungeonkeep {
 			move = s.next().charAt(0);
 			
 			
+			
+			
 			if(hero_pos.x == 8 && hero_pos.y == 7)
 				map[hero_pos.x][hero_pos.y] = 'k';
 			else
@@ -297,6 +299,7 @@ public class Dungeonkeep {
 		}
 
 		public void change_pos(char key) {
+			
 			if (key == 'w') {
 
 				if (x != 0)
