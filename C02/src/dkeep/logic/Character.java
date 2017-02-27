@@ -5,6 +5,8 @@ public class Character {
 	private int x;
 	private int y;
 	private char element;
+	private int xTemp;
+	private int yTemp;
 	
 	
 	//constructor
@@ -13,6 +15,8 @@ public class Character {
 		x = xPos;
 		y = yPos;
 		element = elm;
+		xTemp = xPos;
+		yTemp = yPos;
 	}
 	
 	//setters
@@ -31,6 +35,17 @@ public class Character {
 		element = Elm;
 	}
 	
+	
+	public void setXTemp(int xPos){
+		
+		xTemp = xPos;
+		
+	}
+	public void setYTemp(int yPos)
+	{
+		yTemp = yPos;
+	}
+	
 	//getters
 	
 	public int getX()
@@ -47,5 +62,46 @@ public class Character {
 	{
 		return element;
 	}
+	
+	public int getXTemp()
+	{
+		return xTemp;
+	}
+	
+	public int getYTemp()
+	{
+		return yTemp;
+	}
+	
+	public void changePosition(char move)
+	{
+
+		if (move == 'w') {
+
+			if (xTemp != 0)
+				 xTemp -= 1;
+		}
+
+		else if (move == 'a') {
+
+			if (yTemp != 0)
+				yTemp -= 1;
+		}
+
+		else if (move == 's') {
+
+			xTemp += 1;
+		}
+
+		else if (move == 'd') {
+
+			yTemp += 1;
+		}
+		
+		
+	}
+	
+	
+	
 	
 }

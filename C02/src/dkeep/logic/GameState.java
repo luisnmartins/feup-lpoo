@@ -1,116 +1,144 @@
 package dkeep.logic;
 
+import dkeep.logic.Map;
+
+
 public class GameState {
 
-	private char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-			{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
-	private char[][] map2 = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', 'k', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
 	private Hero myHero;
 	private Ogre myOgre;
 	private Guard myGuard;
-	int level;
+	private int level;
+	private Map mymap;
 	
 	
 	public void startGame()
 	{
 		myHero = new Hero(1, 1, 'H');
 		//Monster = new Ogre(1, 4, 'O', '*');
-		myGuard = new Guard(1, 8, 'G');
+		myGuard = new Guard(1, 8, 'G', 0);
 		level = 1;
+		mymap = new Map();
 		
 	}
 	
+	public void UpdateGame(char move)
+	{
+		if(level == 1)
+		{
+			UpdateGuard();
+			UpdateHero(move);
+				
+			
+		}
+		else
+		{
+			UpdateHero(move);
+			UpdateOgre();
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
 	public void UpdateHero(char move)
 	{
-		changePosition();
+		myHero.changePosition(move);
+		if(mymap.ValidPosition(myHero.getXTemp(), myHero.getYTemp()) == false)
+		{
+			if(mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'k')
+			{
+				myHero.setX(myHero.getXTemp());
+				myHero.setY(myHero.getYTemp());
+				myHero.setKey(true);
+			}
+		}
+		else
+		{
+			myHero.setX(myHero.getXTemp());
+			myHero.setY(myHero.getYTemp());
+		}
 		
 	}
 	
 	public void UpdateGuard()
 	{
+		myGuard.changePosition(myGuard.getMoveGuard());
+		myGuard.setX(myGuard.getXTemp());
+		myGuard.setY(myGuard.getYTemp());
 		
 	}
 	
 	public void UpdateOgre()
 	{
-		
-	}
-	
-	
-	public Boolean VerifyPosition(Character piece)
-	{
-		
-		if (map[piece.getX()][piece.getY()] == 'I' || map[piece.getX()][piece.getY()] == 'X')
+		do
 		{
-			return false;
-		}
+			myOgre.changePosition(myOgre.GenerateOgre());
+			if(mymap.ValidPosition(myOgre.getXTemp(), myOgre.getYTemp()) == false)
+			{
+				if(mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'k')
+				{
+					myOgre.setElm('$');
+					break;
+				}
+			}
+			else
+			{
+				myOgre.setElm('O');
+				break;
+			}
+				
+		}while(true);
+		myOgre.setX(myOgre.getXTemp());
+		myOgre.setY(myOgre.getYTemp());
 		
-		if(piece instanceof Hero)
+		
+		
+		int[] club;
+		do
 		{
-			if(map[piece.getX()][piece.getY()] == 'k')
-				piece.set
-		}
-		
-		
+			club = myOgre.ChangeClub();
+			if(mymap.ValidPosition(club[1], club[2]) == false)
+			{
+				if(mymap.getElement(club[1], club[2]) == 'k')
+				{
+					
+					myOgre.setClubElm('$');
+					break;
+				}
+			}
+			else
+			{
+				myOgre.setClubElm('*');
+				break;
+			}
+		}while(true);
+		myOgre.setClub(club[1], club[2]);
 			
-		return true;
-	}
-	
-	public void changePosition(char move, Character piece)
-	{
-		int x = piece.getX();
-		int y = piece.getY();
-		
-		if (move == 'w') {
-
-			if (x != 0)
-				 x -= 1;
-		}
-
-		else if (move == 'a') {
-
-			if (y != 0)
-				y -= 1;
-		}
-
-		else if (move == 's') {
-
-			x += 1;
-		}
-
-		else if (move == 'd') {
-
-			y += 1;
-		}
 		
 		
 	}
-	
-	
-	
-	public int getLevel()
-	{
-		return level;
-	}
-	
-	
 
 	
 	
-	
-	
-	
-	
-	
-	
+	public void printMap() {
+		
+		char[][] map = mymap.getMap();
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				System.out.print(map[i][j]);
+				System.out.print(" ");
+
+			}
+			System.out.print("\n");
+		}
+
+	}
 }
