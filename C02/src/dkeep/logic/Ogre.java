@@ -66,6 +66,8 @@ public class Ogre extends Character {
 			return position;
 
 		}
+			
+			
 		
 		public void setClub(int x, int y)
 		{

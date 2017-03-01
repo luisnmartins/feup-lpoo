@@ -138,11 +138,28 @@ public class GameState {
 	
 	public void UpdateOgre()
 	{
+		mymap.ClearPosition(myOgre.getX(), myOgre.getY());
+		mymap.ClearPosition(myOgre.getAttackX(), myOgre.getAttackY());
+		
+		if(myOgre.getElement() == '$' && myHero.getKey() == false)
+		{
+			mymap.setMapPosition(myOgre.getX(),myOgre.getY(), 'k');
+			myOgre.setElm('O');
+			
+		}
+		
+		if(myOgre.getClubElm() == '$' && myHero.getKey() == false)
+		{	
+			myOgre.setClubElm('*');
+			
+			mymap.setMapPosition(myOgre.getAttackX(),myOgre.getAttackY(), 'k');
+		}
+		
 		
 		do
 		{
 			myOgre.changePosition(myOgre.GenerateOgre(),false);
-			mymap.ClearPosition(myOgre.getX(), myOgre.getY());
+			
 			if(mymap.ValidPosition(myOgre.getXTemp(), myOgre.getYTemp()) == false)
 			{
 				if(mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'k')
@@ -150,7 +167,7 @@ public class GameState {
 					myOgre.setElm('$');
 					break;
 				}
-				else if (mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'X' || mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'I')
+				if (mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'X' || mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'I') //||  mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == '$')
 				{
 					myOgre.setXTemp(myOgre.getX());
 					myOgre.setYTemp(myOgre.getY());
@@ -159,50 +176,41 @@ public class GameState {
 			}
 			else
 			{
-				if(myOgre.getElement() == '$')
-				{
-					myOgre.setElm('O');
-					mymap.setMapPosition(myOgre.getX(),myOgre.getY(), 'k');
-					break;
-				}
-				myOgre.setElm('O');
+
 				break;
+				
 			}
 				
 		}while(true);
 		myOgre.setX(myOgre.getXTemp());
 		myOgre.setY(myOgre.getYTemp());
+		
 		mymap.setMapPosition(myOgre.getX(), myOgre.getY(),myOgre.getElement());
+		
 		
 		
 		int[] club;
 		do
 		{
 			club = myOgre.ChangeClub();
-			mymap.ClearPosition(myOgre.getAttackX(), myOgre.getAttackY());
+			
 			if(mymap.ValidPosition(club[0], club[1]) == false)
 			{
 				if(mymap.getElement(club[0], club[1]) == 'k')
 				{
-					
 					myOgre.setClubElm('$');
 					break;
 				}
-				else if (mymap.getElement(club[0], club[1]) == 'X' || mymap.getElement(club[0], club[1]) == 'I')
+				/*if (mymap.getElement(club[0], club[1]) == 'X' || mymap.getElement(club[0], club[1]) == 'I' || mymap.getElement(club[0], club[1]) == '$')
 				{
 					
-				}
-							}
+				}*/
+			}
 			else
 			{
-				if(myOgre.getClubElm() == '$')
-				{
-					myOgre.setClubElm('*');
-					mymap.setMapPosition(myOgre.getAttackX(),myOgre.getAttackY(), 'k');
-					break;
-				}
+	
 
-				myOgre.setClubElm('*');
+			
 				break;
 			}
 		}while(true);
