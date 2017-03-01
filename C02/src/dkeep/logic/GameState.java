@@ -15,7 +15,7 @@ public class GameState {
 	private Guard myGuard;
 	private int level;
 	private Map mymap;
-	private Vector myOgres;
+	private Vector<Ogre> myOgres= new Vector<Ogre>();
 	
 	
 	public void startGame()
@@ -69,6 +69,11 @@ public class GameState {
 					mymap.setMapPosition(5, 0, 'S');
 					mymap.setMapPosition(6, 0, 'S');
 					myOgre = new Ogre(1,4,'0','*');
+					int i = ThreadLocalRandom.current().nextInt(1, 8);
+					for(; i != 0; i--)
+					{
+						myOgres.addElement(new Ogre(1,4,'0','*'));
+					}
 					
 				}else if (level == 2)
 				{
@@ -128,7 +133,9 @@ public class GameState {
 	
 	public void UpdateOgre()
 	{
-		do
+		
+			do
+		
 		{
 			myOgre.changePosition(myOgre.GenerateOgre(),false);
 			mymap.ClearPosition(myOgre.getX(), myOgre.getY());
@@ -144,9 +151,16 @@ public class GameState {
 					myOgre.setXTemp(myOgre.getX());
 					myOgre.setYTemp(myOgre.getY());
 				}
+				
 			}
 			else
 			{
+				if(myOgre.getElement() == '$')
+				{
+					myOgre.setElm('O');
+					mymap.setMapPosition(myOgre.getX(),myOgre.getY(), 'k');
+					break;
+				}
 				myOgre.setElm('O');
 				break;
 			}
@@ -174,9 +188,16 @@ public class GameState {
 				{
 					
 				}
-			}
+							}
 			else
 			{
+				if(myOgre.getClubElm() == '$')
+				{
+					myOgre.setClubElm('*');
+					mymap.setMapPosition(myOgre.getAttackX(),myOgre.getAttackY(), 'k');
+					break;
+				}
+
 				myOgre.setClubElm('*');
 				break;
 			}
@@ -187,7 +208,7 @@ public class GameState {
 		
 		
 	}
-
+	
 	
 	
 	public void printMap() {
