@@ -51,16 +51,16 @@ public class Ogre extends Character {
 			if(r%2 == 0)
 			{
 				if(r == 2)
-					position[1] -= 1;
+					position[0] -= 1;
 				else
-					position[1] += 1;
+					position[0] += 1;
 			}
 			else
 			{
 				if(r == 1)
-					position[2] += 1;
+					position[1] += 1;
 				else
-					position[2] -= 1;
+					position[1] -= 1;
 			}
 			
 			return position;
@@ -76,6 +76,20 @@ public class Ogre extends Character {
 		public void setClubElm(char element)
 		{
 			attackElement = element;
+		}
+		
+		public char getClubElm()
+		{
+			return attackElement;
+		}
+		
+		public int getAttackX()
+		{
+			return attackX;
+		}
+		public int getAttackY()
+		{
+			return attackY;
 		}
 		
 	

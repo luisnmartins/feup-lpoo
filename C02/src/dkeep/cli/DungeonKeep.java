@@ -2,6 +2,7 @@ package dkeep.cli;
 
 
 import dkeep.logic.GameState;
+import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.Scanner;
 
@@ -15,9 +16,9 @@ public class DungeonKeep {
 	public void run()
 	{
 		gs.startGame();
-		
+		int randomInd;
 		char move; // hero's movement key
-
+		gs.printMap();
 		while(true)
 		{
 			Scanner s = new Scanner(System.in);
@@ -25,6 +26,13 @@ public class DungeonKeep {
 			
 			gs.UpdateGame(move);
 			gs.printMap();
+			randomInd = ThreadLocalRandom.current().nextInt(1,10);
+			if(randomInd >= 7)
+			{
+				gs.getGuard().setCharateristic();
+			
+			}
+	
 			
 			
 		}
@@ -35,7 +43,9 @@ public class DungeonKeep {
 
 		
 		DungeonKeep dk = new DungeonKeep();
+		
 		dk.run();
+		return;
 		
 		
 		

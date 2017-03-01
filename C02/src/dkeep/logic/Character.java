@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.util.concurrent.ThreadLocalRandom;
 public class Character {
 
 	private int x;
@@ -73,29 +74,58 @@ public class Character {
 		return yTemp;
 	}
 	
-	public void changePosition(char move)
+	public void changePosition(char move,Boolean invertFlag)
 	{
 
 		if (move == 'w') {
 
-			if (xTemp != 0)
-				 xTemp -= 1;
+			
+				if(invertFlag == false)
+				{
+					if (xTemp != 0)
+					{
+						xTemp -= 1;
+					}
+				}
+				
+				else xTemp += 1;
+			
+			
 		}
 
 		else if (move == 'a') {
 
-			if (yTemp != 0)
-				yTemp -= 1;
+			if(invertFlag == false)
+				{
+					if(yTemp != 0)
+					{
+						yTemp -= 1;
+					}
+				}
+				
+				else yTemp += 1;
+			
+				
 		}
 
 		else if (move == 's') {
 
+			if(invertFlag == false)
 			xTemp += 1;
+			else {
+				if(xTemp != 0)
+				xTemp -= 1;
+			}
 		}
 
 		else if (move == 'd') {
 
+			if(invertFlag == false)
 			yTemp += 1;
+			else {
+				if(yTemp !=0)
+				yTemp -= 1;
+			}
 		}
 		
 		

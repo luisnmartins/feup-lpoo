@@ -46,6 +46,11 @@ public class Map {
 		return map;
 	}
 	
+	public void setMapPosition(int x,int y, char element)
+	{
+		map[x][y] = element;
+	}
+	
 
 
 	
