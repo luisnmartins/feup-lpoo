@@ -9,7 +9,7 @@ import dkeep.logic.Map;
 public class GameState {
 
 	
-	
+	private int gameRunning;
 	private Hero myHero;
 	private Ogre myOgre;
 	private Guard myGuard;
@@ -25,6 +25,7 @@ public class GameState {
 		myGuard = new Guard(1, 8, 'G', 0);
 		level = 1;
 		mymap = new Map();
+		gameRunning = 0;
 		
 	}
 	
@@ -69,18 +70,20 @@ public class GameState {
 					mymap.setMapPosition(5, 0, 'S');
 					mymap.setMapPosition(6, 0, 'S');
 					myOgre = new Ogre(1,4,'0','*');
-					int i = ThreadLocalRandom.current().nextInt(1, 8);
+					int i = ThreadLocalRandom.current().nextInt(1, 6);
 					for(; i != 0; i--)
 					{
 						myOgres.addElement(new Ogre(1,4,'0','*'));
 					}
 					
-				}else if (level == 2)
-				{
-					mymap.setMapPosition(1, 0, 'S');
-					
 				}
 				
+			}
+			else if(level == 2 && myHero.getKey() == true && mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'I')
+			{
+				gameRunning = 1;
+				myHero.setX(myHero.getXTemp());
+				myHero.setY(myHero.getYTemp());
 			}
 			else if (mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'X' || mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'I' || mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'g')
 			{
@@ -91,12 +94,14 @@ public class GameState {
 			{
 				level = 2;
 				mymap.ChangeLevelMap();
+				myHero.setKey(false);
 				myHero.setX(7);
 				myHero.setY(1);
 				myHero.setXTemp(7);
 				myHero.setYTemp(1);
 				
 			}
+			
 		}
 		else
 		{
@@ -134,8 +139,7 @@ public class GameState {
 	public void UpdateOgre()
 	{
 		
-			do
-		
+		do
 		{
 			myOgre.changePosition(myOgre.GenerateOgre(),false);
 			mymap.ClearPosition(myOgre.getX(), myOgre.getY());
@@ -228,5 +232,14 @@ public class GameState {
 	public Guard getGuard()
 	{
 		return myGuard;
+	}
+	public int getgameRunning()
+	{
+		return this.gameRunning;
+	}
+	
+	public int getLevel()
+	{
+		return level;
 	}
 }

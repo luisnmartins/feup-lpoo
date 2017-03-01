@@ -19,23 +19,26 @@ public class DungeonKeep {
 		int randomInd;
 		char move; // hero's movement key
 		gs.printMap();
-		while(true)
+		while(gs.getgameRunning()==0)
 		{
+			
 			Scanner s = new Scanner(System.in);
 			move = s.next().charAt(0);
 			
 			gs.UpdateGame(move);
 			gs.printMap();
 			randomInd = ThreadLocalRandom.current().nextInt(1,10);
-			if(randomInd >= 7)
+			if(randomInd >= 7 && gs.getLevel() == 1)
 			{
 				gs.getGuard().setCharateristic();
 			
 			}
-	
+			
+			
 			
 			
 		}
+		
 	}
 	
 
@@ -45,6 +48,10 @@ public class DungeonKeep {
 		DungeonKeep dk = new DungeonKeep();
 		
 		dk.run();
+		if(dk.gs.getgameRunning() == 1)
+		{
+			System.out.println("You WIN!\n");
+		}else System.out.println("Game Over!");
 		return;
 		
 		
