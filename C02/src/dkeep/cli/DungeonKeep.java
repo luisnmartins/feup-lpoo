@@ -27,7 +27,7 @@ public class DungeonKeep {
 			
 			Scanner s = new Scanner(System.in);
 			move = s.next().charAt(0);
-			s.close();
+			
 			
 			gs.UpdateGame(move);
 			gs.printMap();
@@ -43,6 +43,7 @@ public class DungeonKeep {
 			}		
 			
 		}
+		
 		
 	}
 	
