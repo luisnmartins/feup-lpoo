@@ -20,8 +20,10 @@ public class Dungeonkeep {
 			{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 	public void move(int xh, int yh) {
+		
+		
 		Boolean end = false; // gameover
-		Boolean gotKey = false; // key from both levels
+		//Boolean gotKey = false; // key from both levels
 		int level = 1; // level
 		char move;
 		Position guard_pos = new Position(1, 8, 'G');

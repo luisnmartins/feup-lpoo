@@ -1,7 +1,7 @@
 package dkeep.logic;
 
-import java.util.concurrent.ThreadLocalRandom;
-public class Character {
+
+public abstract class Character {
 
 	private int x;
 	private int y;
@@ -42,6 +42,7 @@ public class Character {
 		xTemp = xPos;
 		
 	}
+	
 	public void setYTemp(int yPos)
 	{
 		yTemp = yPos;
@@ -130,6 +131,7 @@ public class Character {
 		
 		
 	}
+	
 	
 	
 	

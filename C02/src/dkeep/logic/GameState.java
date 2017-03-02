@@ -1,50 +1,78 @@
 package dkeep.logic;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.*;
 
 import dkeep.logic.Map;
 
 
 public class GameState {
 
+	//create map
+	private Map currentmap;
+	//private Map level1map;
+	//private Map level2map;
 	
-	private int gameRunning;
+	
+	
+	//create elements
 	private Hero myHero;
-	private Ogre myOgre;
+	//private Ogre myOgre;
 	private Guard myGuard;
+	private Ogre[] myOgres;
+	
+	
+	//flag to verify GameState
+	private int gameRunning;
+	
+	//current level
 	private int level;
-	private Map mymap;
-	private Vector<Ogre> myOgres= new Vector<Ogre>();
+	
+	
+	
 	
 	
 	public void startGame()
 	{
+		
 		myHero = new Hero(1, 1, 'H');
-		//Monster = new Ogre(1, 4, 'O', '*');
 		myGuard = new Guard(1, 8, 'G', 0);
 		level = 1;
-		mymap = new Map();
+		currentmap = new Level1Map();
 		gameRunning = 0;
 		
 	}
 	
 	public void UpdateGame(char move)
 	{
+		
 		if(level == 1)
 		{
 			
 			UpdateGuard();
 			UpdateHero(move);
+			if(VerifyColisionGuard() == true)
+				return;
 			
 		}
 		else if(level == 2)
 		{
 			
+			for(int i=0; i<myOgres.length; i++)
+			{
+				UpdateOgre(myOgres[i]);
+			}
 			UpdateHero(move);
-			UpdateOgre();
-			
+			for(int i = 0; i< myOgres.length;i++){
+				
+				if( VerifyColisionOgre(myOgres[i]) == true)
+					return;
+			}
+						
 		}
+//		if(VerifyColision() == true)
+//			return;
+		
+		
 	}
 
 	
@@ -56,45 +84,62 @@ public class GameState {
 	
 	public void UpdateHero(char move)
 	{
+		
+		
+		//Clean and update hero temporary position
+		currentmap.ClearPosition(myHero.getX(), myHero.getY());
 		myHero.changePosition(move,false);
-		mymap.ClearPosition(myHero.getX(), myHero.getY());
-		if(mymap.ValidPosition(myHero.getXTemp(), myHero.getYTemp()) == false)
+		
+		
+		if(currentmap.ValidPosition(myHero.getXTemp(), myHero.getYTemp()) == false)
 		{
-			if(mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'k')
+			
+			if(currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'k')
 			{
 				myHero.setX(myHero.getXTemp());
 				myHero.setY(myHero.getYTemp());
 				myHero.setKey(true);
+				
+			
 				if (level == 1)
 				{
-					mymap.setMapPosition(5, 0, 'S');
-					mymap.setMapPosition(6, 0, 'S');
-					myOgre = new Ogre(1,4,'0','*');
+					currentmap.setMapPosition(5, 0, 'S');
+					currentmap.setMapPosition(6, 0, 'S');
+					
+					
 					int i = ThreadLocalRandom.current().nextInt(1, 6);
-					for(; i != 0; i--)
+					myOgres = new Ogre[i];
+					for(int j=0; j < i ; j++)
 					{
-						myOgres.addElement(new Ogre(1,4,'0','*'));
+						myOgres[j] = new Ogre(1,4,'O','*');
 					}
 					
 				}
+				else
+					myHero.setElm('K');
 				
 			}
-			else if(level == 2 && myHero.getKey() == true && mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'I')
+			else if(level == 2 && myHero.getKey() == true && currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'I')
 			{
 				gameRunning = 1;
 				myHero.setX(myHero.getXTemp());
 				myHero.setY(myHero.getYTemp());
+				myHero.setElm('S');
 			}
-			else if (mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'X' || mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'I' || mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'g')
+			
+			else if (currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'X' || currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'I' || currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'g')
 			{
 				myHero.setXTemp(myHero.getX());
 				myHero.setYTemp(myHero.getY());
 			}
-			else if (mymap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'S')
+			
+			
+			else if (currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'S')
 			{
 				level = 2;
-				mymap.ChangeLevelMap();
+				currentmap = new Level2Map();
 				myHero.setKey(false);
+				myHero.setElm('A');
 				myHero.setX(7);
 				myHero.setY(1);
 				myHero.setXTemp(7);
@@ -108,42 +153,65 @@ public class GameState {
 			myHero.setX(myHero.getXTemp());
 			myHero.setY(myHero.getYTemp());
 		}
-		mymap.setMapPosition(myHero.getX(), myHero.getY(),myHero.getElement());
+		currentmap.setMapPosition(myHero.getX(), myHero.getY(),myHero.getElement());
 		
 	}
+	
 	
 	public void UpdateGuard()
 	{
 		if(myGuard.getCharateristic() == true && myGuard.getType() == 1)
 		{
-			mymap.setMapPosition(myGuard.getX(),myGuard.getY(), 'g');
-		}else if(myGuard.getCharateristic() == true && myGuard.getType() == 2)
+			myGuard.setElm('g');
+			currentmap.setMapPosition(myGuard.getX(),myGuard.getY(), 'g');
+		}
+		
+		else if(myGuard.getCharateristic() == true && myGuard.getType() == 2)
 		{
 			
 			myGuard.changePosition(myGuard.getMoveGuard(), true);
-			mymap.ClearPosition(myGuard.getX(), myGuard.getY());
+			currentmap.ClearPosition(myGuard.getX(), myGuard.getY());
 			myGuard.setX(myGuard.getXTemp());
 			myGuard.setY(myGuard.getYTemp());
-			mymap.setMapPosition(myGuard.getX(), myGuard.getY(),myGuard.getElement());
+			currentmap.setMapPosition(myGuard.getX(), myGuard.getY(),myGuard.getElement());
 		}
 		else
 		{
-		myGuard.changePosition(myGuard.getMoveGuard(),false);
-		mymap.ClearPosition(myGuard.getX(), myGuard.getY());
-		myGuard.setX(myGuard.getXTemp());
-		myGuard.setY(myGuard.getYTemp());
-		mymap.setMapPosition(myGuard.getX(), myGuard.getY(),myGuard.getElement());
+			myGuard.setElm('G');
+			myGuard.changePosition(myGuard.getMoveGuard(),false);
+			currentmap.ClearPosition(myGuard.getX(), myGuard.getY());
+			myGuard.setX(myGuard.getXTemp());
+			myGuard.setY(myGuard.getYTemp());
+			currentmap.setMapPosition(myGuard.getX(), myGuard.getY(),myGuard.getElement());
 		}
 	}
 	
-	public void UpdateOgre()
+	
+	public void UpdateOgre(Ogre myOgre)
 	{
-		mymap.ClearPosition(myOgre.getX(), myOgre.getY());
-		mymap.ClearPosition(myOgre.getAttackX(), myOgre.getAttackY());
+		
+		
+			currentmap.ClearPosition(myOgre.getAttackX(), myOgre.getAttackY());
+		if(myOgre.getElement() == '8')
+		{
+			if(myOgre.getStopOgre() == 0)
+			{				
+				myOgre.setElm('O');
+			}
+			else
+			{
+				myOgre.decStopOgre();
+				currentmap.setMapPosition(myOgre.getX(), myOgre.getY(),myOgre.getElement());
+				return;
+			
+			}
+		}
+				currentmap.ClearPosition(myOgre.getX(), myOgre.getY());
+		
 		
 		if(myOgre.getElement() == '$' && myHero.getKey() == false)
 		{
-			mymap.setMapPosition(myOgre.getX(),myOgre.getY(), 'k');
+			//currentmap.setMapPosition(myOgre.getX(),myOgre.getY(), 'k');
 			myOgre.setElm('O');
 			
 		}
@@ -152,7 +220,7 @@ public class GameState {
 		{	
 			myOgre.setClubElm('*');
 			
-			mymap.setMapPosition(myOgre.getAttackX(),myOgre.getAttackY(), 'k');
+			//currentmap.setMapPosition(myOgre.getAttackX(),myOgre.getAttackY(), 'k');
 		}
 		
 		
@@ -160,14 +228,14 @@ public class GameState {
 		{
 			myOgre.changePosition(myOgre.GenerateOgre(),false);
 			
-			if(mymap.ValidPosition(myOgre.getXTemp(), myOgre.getYTemp()) == false)
+			if(currentmap.ValidPosition(myOgre.getXTemp(), myOgre.getYTemp()) == false)
 			{
-				if(mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'k')
+				if(currentmap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'k')
 				{
 					myOgre.setElm('$');
 					break;
 				}
-				if (mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'X' || mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'I') //||  mymap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == '$')
+				if (currentmap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'X' || currentmap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'I')
 				{
 					myOgre.setXTemp(myOgre.getX());
 					myOgre.setYTemp(myOgre.getY());
@@ -185,7 +253,7 @@ public class GameState {
 		myOgre.setX(myOgre.getXTemp());
 		myOgre.setY(myOgre.getYTemp());
 		
-		mymap.setMapPosition(myOgre.getX(), myOgre.getY(),myOgre.getElement());
+		currentmap.setMapPosition(myOgre.getX(), myOgre.getY(),myOgre.getElement());
 		
 		
 		
@@ -194,17 +262,14 @@ public class GameState {
 		{
 			club = myOgre.ChangeClub();
 			
-			if(mymap.ValidPosition(club[0], club[1]) == false)
+			if(currentmap.ValidPosition(club[0], club[1]) == false)
 			{
-				if(mymap.getElement(club[0], club[1]) == 'k')
+				if(currentmap.getElement(club[0], club[1]) == 'k')
 				{
 					myOgre.setClubElm('$');
 					break;
 				}
-				/*if (mymap.getElement(club[0], club[1]) == 'X' || mymap.getElement(club[0], club[1]) == 'I' || mymap.getElement(club[0], club[1]) == '$')
-				{
-					
-				}*/
+			
 			}
 			else
 			{
@@ -215,17 +280,58 @@ public class GameState {
 			}
 		}while(true);
 		myOgre.setClub(club[0], club[1]);
-		mymap.setMapPosition(club[0], club[1], myOgre.getClubElm());
+		currentmap.setMapPosition(club[0], club[1], myOgre.getClubElm());
 			
 		
 		
 	}
 	
+	public Boolean VerifyColisionGuard()
+	{
+
+			if(myGuard.getElement() != 'g')
+			{
+				if ((myHero.getX() == myGuard.getX() && Math.abs(myHero.getY() - myGuard.getY()) <= 1) || (myHero.getY() == myGuard.getY() && Math.abs(myHero.getX() - myGuard.getX()) <= 1))
+				{
+					gameRunning = 2;
+					return true;
+				}
+			}
+			return false;
+
+	}
+	public Boolean VerifyColisionOgre(Ogre myOgre)
+	{
+			if((myHero.getX() == myOgre.getX() && Math.abs(myHero.getY() - myOgre.getY()) <= 1) || (myHero.getY() == myOgre.getY() && Math.abs(myHero.getX() - myOgre.getX()) <= 1))
+			{
+				
+				myOgre.setStopOgre(2);
+				myOgre.setElm('8');
+				
+				return true;
+			}
+			else if(((myHero.getX() == myOgre.getAttackX() && Math.abs(myHero.getY() - myOgre.getAttackY()) <= 1) || (myHero.getY() == myOgre.getAttackY() && Math.abs(myHero.getX() - myOgre.getAttackX()) <= 1)) && myOgre.getStopOgre() == 0)
+			{
+				gameRunning = 2;
+				return true;
+			}
+			return false;
+		}
+		
+
+	
 	
 	
 	public void printMap() {
 		
-		char[][] map = mymap.getMap();
+		
+		if(currentmap.ValidPosition(8, 7) && level == 1)
+			currentmap.setMapPosition(8, 7, 'k');
+		
+		else if(currentmap.ValidPosition(1, 7) && level == 2 && !myHero.getKey())
+			currentmap.setMapPosition(1, 7, 'k');
+		
+		char[][] map = currentmap.getMap();
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -237,10 +343,13 @@ public class GameState {
 		}
 
 	}
+	
 	public Guard getGuard()
 	{
 		return myGuard;
 	}
+	
+	
 	public int getgameRunning()
 	{
 		return this.gameRunning;

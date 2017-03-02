@@ -46,13 +46,15 @@ public class Guard extends Character {
 	public void setCharateristic()
 	{
 		if(this.typeCharateristic == false)
-			{
+		{
 					typeCharateristic  = true;
-					if(iterator == 0)
-					{
-							iterator = moveLevel1.length-1;
-					}else iterator--;
-			}
+					if(iterator == 0){
+						
+						iterator = moveLevel1.length-1;
+					}
+					else
+						iterator--;
+		}
 		else {
 			
 			typeCharateristic = false;

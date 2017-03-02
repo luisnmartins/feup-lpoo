@@ -6,6 +6,7 @@ public class Ogre extends Character {
 		private char attackElement;
 		private int attackX;
 		private int attackY;
+		private int stopmove;
 		
 		public Ogre(int x, int y, char Elm, char attackElm)
 		{
@@ -79,6 +80,23 @@ public class Ogre extends Character {
 		{
 			attackElement = element;
 		}
+		
+		public void setStopOgre(int times)
+		{
+			stopmove = times;
+		}
+		
+		
+		public void decStopOgre()
+		{
+			stopmove--;
+		}
+		
+		public int getStopOgre()
+		{
+			return stopmove;
+		}
+		
 		
 		public char getClubElm()
 		{
