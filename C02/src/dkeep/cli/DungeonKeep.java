@@ -1,7 +1,10 @@
 package dkeep.cli;
 
 
+import dkeep.logic.GameMap;
 import dkeep.logic.GameState;
+import dkeep.logic.Level1Map;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.Scanner;
@@ -12,35 +15,29 @@ import java.util.Scanner;
  */
 public class DungeonKeep {
 
-	private GameState gs = new GameState();
+	private GameState gs;
 	
 
 	public void run()
 	{
-		gs.startGame();
-		int randomInd;
-		char move; // hero's movement key
+	
+		GameMap firstmap = new Level1Map();
+		gs = new GameState(firstmap);
+		
+		// hero's movement key
+		char move; 
 		gs.printMap();
 		
 		while(gs.getgameRunning()==0)
 		{
 			
+			System.out.print("Move: ");
 			Scanner s = new Scanner(System.in);
 			move = s.next().charAt(0);
 			
 			
 			gs.UpdateGame(move);
 			gs.printMap();
-			randomInd = ThreadLocalRandom.current().nextInt(1,101);
-			
-			
-			
-			//???????????
-			if(randomInd >= 70 && gs.getLevel() == 1)
-			{
-				gs.getGuard().setCharateristic();
-			
-			}		
 			
 		}
 		

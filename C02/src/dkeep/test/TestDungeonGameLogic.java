@@ -16,7 +16,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void TestMoveHeroIntoToFreeCell()
 	{
-		
+		//Map newMap = new Map()
 	}
 	
 }

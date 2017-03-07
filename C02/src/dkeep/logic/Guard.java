@@ -12,10 +12,10 @@ public class Guard extends Character {
 	private int guardType;
 	private Boolean typeCharateristic;
 	
-	public Guard(int xP, int yP, char Elm, int it)
+	public Guard(int xP, int yP, char Elm)
 	{
 		super(xP, yP, Elm);
-		iterator = it;
+		iterator = 0;
 		typeCharateristic = false;
 		guardType = ThreadLocalRandom.current().nextInt(1,3);
 		

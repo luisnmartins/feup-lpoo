@@ -22,31 +22,26 @@ public abstract class Character {
 	
 	//setters
 	
-	public void setX(int xPos){
+	public void setPosition(int xPos, int yPos){
 		
 		x = xPos;
+		y= yPos;
 		
 	}
-	public void setY(int yPos)
-	{
-		y = yPos;
-	}
+	
 	public void setElm(char Elm)
 	{
 		element = Elm;
 	}
 	
-	
-	public void setXTemp(int xPos){
+		
+	public void setTempPosition(int xPos, int yPos){
 		
 		xTemp = xPos;
+		yTemp = yPos;
 		
 	}
-	
-	public void setYTemp(int yPos)
-	{
-		yTemp = yPos;
-	}
+
 	
 	//getters
 	

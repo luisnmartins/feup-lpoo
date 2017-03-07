@@ -1,24 +1,21 @@
 package dkeep.logic;
 
+import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
-import dkeep.logic.Map;
+import dkeep.logic.GameMap;
 
 
 public class GameState {
+		
+	//create map to be used
+	private GameMap currentmap;
 
-	//create map
-	private Map currentmap;
-	//private Map level1map;
-	//private Map level2map;
-	
-	
-	
 	//create elements
 	private Hero myHero;
-	//private Ogre myOgre;
 	private Guard myGuard;
-	private Ogre[] myOgres;
+	private Vector<Ogre> myOgres;
+	private Key myKey;
 	
 	
 	//flag to verify GameState
@@ -28,17 +25,73 @@ public class GameState {
 	private int level;
 	
 	
+	public GameState(GameMap gameMap)
+	{
+		//set initial map
+		currentmap = gameMap;
+		
+		//set run
+		gameRunning = 0;
+		
+		//set level
+		level = 1;
+		//Initialize members...Ogre, Hero, Key, Guard
+		InitializeElements();
+		
+	}
+	
+	
+	//TODO initialize doors
+	public void InitializeElements()
+	{
+		char[][] temp_map = currentmap.getMap();
+		
+		for(int i=0; i<temp_map.length; i++)
+		{
+			for(int j=0; j<temp_map[i].length; j++)
+			{
+				if(temp_map[i][j] == 'I' && (i==0 || i== temp_map.length-1 || j== 0 || j== temp_map[i].length-1))
+				{
+					
+					
+				}
+				else if(temp_map[i][j] == 'k')
+				{
+					myKey = new Key(i, j, 'k');
+					currentmap.setMapPosition(i, j, ' ');
+				}
+				else if(temp_map[i][j] == 'H')
+				{
+					myHero = new Hero(i, j, 'H');
+					currentmap.setMapPosition(i, j, ' ');
+					
+				}
+				else if(temp_map[i][j] == 'G')
+				{
+					myGuard = new Guard(i, j, 'G');
+					currentmap.setMapPosition(i, j, ' ');
+					
+				}
+				else if(temp_map[i][j] == 'O')
+				{
+					Ogre myOgre = new Ogre(i, j, 'O', '*');
+					myOgres.addElement(myOgre);
+					currentmap.setMapPosition(i, j, ' ');
+					
+				}
+					
+			}
+		}
+	}
 	
 	
 	
 	public void startGame()
 	{
+
 		
-		myHero = new Hero(1, 1, 'H');
-		myGuard = new Guard(1, 8, 'G', 0);
-		level = 1;
 		currentmap = new Level1Map();
-		gameRunning = 0;
+		
 		
 	}
 	
@@ -57,20 +110,18 @@ public class GameState {
 		else if(level == 2)
 		{
 			
-			for(int i=0; i<myOgres.length; i++)
+			for(int i=0; i<myOgres.size(); i++)
 			{
-				UpdateOgre(myOgres[i]);
+				UpdateOgre(myOgres.get(i));
 			}
 			UpdateHero(move);
-			for(int i = 0; i< myOgres.length;i++){
+			for(int i = 0; i< myOgres.size();i++){
 				
-				if( VerifyColisionOgre(myOgres[i]) == true)
+				if( VerifyColisionOgre(myOgres.get(i)) == true)
 					return;
 			}
 						
 		}
-//		if(VerifyColision() == true)
-//			return;
 		
 		
 	}
@@ -81,7 +132,7 @@ public class GameState {
 	
 	
 	
-	
+	//TODO remove update matrix
 	public void UpdateHero(char move)
 	{
 		
@@ -91,7 +142,7 @@ public class GameState {
 		myHero.changePosition(move,false);
 		
 		
-		if(currentmap.ValidPosition(myHero.getXTemp(), myHero.getYTemp()) == false)
+		if(currentmap.moveTo(myHero.getXTemp(), myHero.getYTemp()) == false)
 		{
 			
 			if(currentmap.getElement(myHero.getXTemp(), myHero.getYTemp()) == 'k')
@@ -157,9 +208,16 @@ public class GameState {
 		
 	}
 	
-	
+	//TODO remove update matrix
 	public void UpdateGuard()
 	{
+		
+		int randomInd = ThreadLocalRandom.current().nextInt(1,101);
+		if(randomInd >= 70)
+		{
+			myGuard.setCharateristic();
+		}
+		
 		if(myGuard.getCharateristic() == true && myGuard.getType() == 1)
 		{
 			myGuard.setElm('g');
@@ -187,6 +245,7 @@ public class GameState {
 	}
 	
 	
+	//TODO remove update matrix
 	public void UpdateOgre(Ogre myOgre)
 	{
 		
@@ -228,7 +287,7 @@ public class GameState {
 		{
 			myOgre.changePosition(myOgre.GenerateOgre(),false);
 			
-			if(currentmap.ValidPosition(myOgre.getXTemp(), myOgre.getYTemp()) == false)
+			if(currentmap.moveTo(myOgre.getXTemp(), myOgre.getYTemp()) == false)
 			{
 				if(currentmap.getElement(myOgre.getXTemp(), myOgre.getYTemp()) == 'k')
 				{
@@ -262,7 +321,7 @@ public class GameState {
 		{
 			club = myOgre.ChangeClub();
 			
-			if(currentmap.ValidPosition(club[0], club[1]) == false)
+			if(currentmap.moveTo(club[0], club[1]) == false)
 			{
 				if(currentmap.getElement(club[0], club[1]) == 'k')
 				{
@@ -316,24 +375,25 @@ public class GameState {
 				return true;
 			}
 			return false;
-		}
+	}
 		
 
 	
 	
-	
+	//TODO
 	public void printMap() {
 		
 		
-		if(currentmap.ValidPosition(8, 7) && level == 1)
+		if(currentmap.moveTo(8, 7) && level == 1)
 			currentmap.setMapPosition(8, 7, 'k');
 		
-		else if(currentmap.ValidPosition(1, 7) && level == 2 && !myHero.getKey())
+		else if(currentmap.moveTo(1, 7) && level == 2 && !myHero.getKey())
 			currentmap.setMapPosition(1, 7, 'k');
 		
 		char[][] map = currentmap.getMap();
 
 		for (int i = 0; i < map.length; i++) {
+			
 			for (int j = 0; j < map[i].length; j++) {
 				System.out.print(map[i][j]);
 				System.out.print(" ");
@@ -341,12 +401,8 @@ public class GameState {
 			}
 			System.out.print("\n");
 		}
+		System.out.print('\n');
 
-	}
-	
-	public Guard getGuard()
-	{
-		return myGuard;
 	}
 	
 	

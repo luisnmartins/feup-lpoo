@@ -1,43 +1,18 @@
 package dkeep.logic;
 
-public class Level1Map implements Map {
+public class Level1Map extends GameMap {
 
-	private char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+	private static char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 			{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
-	
-	public char getElement(int x, int y)
+	public Level1Map()
 	{
-		return map[x][y];
+		super(map);
 	}
 	
-	public Boolean ValidPosition(int x, int y)
-	{
-
-		if(map[x][y] == ' ')
-			return true;
-		else
-			return false;
-	}
-	
-	public void ClearPosition(int x, int y)
-	{
-		map[x][y] = ' ';
-	}
-	
-	
-	public char[][] getMap()
-	{
-		return map;
-	}
-	
-	public void setMapPosition(int x,int y, char element)
-	{
-		map[x][y] = element;
-	}
 	
 }
