@@ -1,9 +1,11 @@
 package dkeep.cli;
 
 
+import dkeep.logic.DungeonLevel;
 import dkeep.logic.GameMap;
 import dkeep.logic.GameState;
-import dkeep.logic.Level1Map;
+import dkeep.logic.GameState.state;
+import dkeep.logic.Level;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -21,14 +23,14 @@ public class DungeonKeep {
 	public void run()
 	{
 	
-		GameMap firstmap = new Level1Map();
-		gs = new GameState(firstmap);
+		Level currentLevel = new DungeonLevel();
+		gs = new GameState(currentLevel);
 		
 		// hero's movement key
 		char move; 
 		gs.printMap();
 		
-		while(gs.getgameRunning()==0)
+		while(gs.getgameRunning()== state.RUNNING)
 		{
 			
 			System.out.print("Move: ");
@@ -51,7 +53,7 @@ public class DungeonKeep {
 		DungeonKeep dk = new DungeonKeep();
 		
 		dk.run();
-		if(dk.gs.getgameRunning() == 1){
+		if(dk.gs.getgameRunning() == state.WIN){
 			System.out.println("You WIN!\n");
 			
 		}

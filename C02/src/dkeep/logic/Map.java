@@ -1,23 +1,28 @@
 package dkeep.logic;
 
-public interface Map {
+public abstract class Map {
 
+	private char[][] map;
+	
+	public Map(char[][] map)
+	{
+		this.map = map;
+	}
+	
+	public abstract char getElement(int x, int y);
+	
+	public abstract Boolean moveTo(int x, int y);
+	
+
+	public abstract void ClearPosition(int x, int y);
+	
+	public abstract void openDoors();
+	
+	
+	public abstract char[][] getMap();
 
 	
-	public char getElement(int x, int y);
-	
-	public Boolean moveTo(int x, int y);
-	
-
-	public void ClearPosition(int x, int y);
-	
-	public void openDoors();
-	
-	
-	public char[][] getMap();
-
-	
-	public void setMapPosition(int x,int y, char element);
+	//public abstract void setMapPosition(int x,int y, char element);
 
 	
 	

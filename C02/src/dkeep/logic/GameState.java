@@ -7,41 +7,28 @@ import dkeep.logic.GameMap;
 
 
 public class GameState {
-		
-	//create map to be used
-	private GameMap currentmap;
 
-	//create elements
-	private Hero myHero;
-	private Guard myGuard;
-	private Vector<Ogre> myOgres;
-	private Key myKey;
+	public enum state{ RUNNING, WIN, LOSE}
 	
+	Level currentLevel;
 	
 	//flag to verify GameState
-	private int gameRunning;
-	
-	//current level
-	private int level;
+	private state gameRunning;
+
 	
 	
-	public GameState(GameMap gameMap)
+	public GameState(Level currentlevel)
 	{
-		//set initial map
-		currentmap = gameMap;
 		
 		//set run
-		gameRunning = 0;
+		gameRunning = state.RUNNING;
 		
-		//set level
-		level = 1;
-		//Initialize members...Ogre, Hero, Key, Guard
-		InitializeElements();
+		this.currentLevel = currentLevel;
 		
 	}
 	
 	
-	//TODO initialize doors
+	/*
 	public void InitializeElements()
 	{
 		char[][] temp_map = currentmap.getMap();
@@ -82,23 +69,33 @@ public class GameState {
 					
 			}
 		}
-	}
+	}*/
 	
 	
-	
-	public void startGame()
-	{
-
-		
-		currentmap = new Level1Map();
-		
-		
-	}
 	
 	public void UpdateGame(char move)
 	{
 		
-		if(level == 1)
+		if(currentLevel.updateGame() == false)
+			
+			//Falta considerar a mudanca de nivel
+			
+			
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	/*	if(level == 1)
 		{
 			
 			UpdateGuard();
@@ -121,7 +118,7 @@ public class GameState {
 					return;
 			}
 						
-		}
+		}*/
 		
 		
 	}
@@ -406,13 +403,10 @@ public class GameState {
 	}
 	
 	
-	public int getgameRunning()
+	public state getgameRunning()
 	{
 		return this.gameRunning;
 	}
 	
-	public int getLevel()
-	{
-		return level;
-	}
+
 }

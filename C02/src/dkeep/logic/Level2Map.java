@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Level2Map extends GameMap {
+public class Level2Map extends Map {
 
 	private static char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', 'k', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
@@ -13,5 +13,7 @@ public class Level2Map extends GameMap {
 	{
 		super(map);
 	}
+	
+	
 	
 }
