@@ -1,14 +1,12 @@
-package dkeep.logic;
+/*package dkeep.logic;
 
 
-public class GameMap implements Map {
+public class GameMap extends Map {
 		
-	char[][] map;
-	
 	
 	public GameMap(char[][] map)
 	{
-		this.map = map;
+		super(map);
 		
 	}
 	
@@ -61,4 +59,4 @@ public class GameMap implements Map {
 		return newmap;
 	}
 
-}
+}*/

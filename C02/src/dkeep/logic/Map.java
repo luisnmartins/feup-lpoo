@@ -2,7 +2,7 @@ package dkeep.logic;
 
 public abstract class Map {
 
-	private char[][] map;
+	protected char[][] map;
 	
 	public Map(char[][] map)
 	{
@@ -14,15 +14,16 @@ public abstract class Map {
 	public abstract Boolean moveTo(int x, int y);
 	
 
-	public abstract void ClearPosition(int x, int y);
+	//public abstract void ClearPosition(int x, int y);
 	
-	public abstract void openDoors();
 	
 	
 	public abstract char[][] getMap();
 
 	
 	//public abstract void setMapPosition(int x,int y, char element);
+	
+	
 
 	
 	

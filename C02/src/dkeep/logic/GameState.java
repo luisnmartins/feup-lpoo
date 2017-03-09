@@ -1,14 +1,10 @@
 package dkeep.logic;
 
-import java.util.Vector;
-import java.util.concurrent.ThreadLocalRandom;
-
-import dkeep.logic.GameMap;
 
 
 public class GameState {
 
-	public enum state{ RUNNING, WIN, LOSE}
+	public enum state{ RUNNING, WIN, LOSE, END}
 	
 	Level currentLevel;
 	
@@ -17,109 +13,43 @@ public class GameState {
 
 	
 	
+	
 	public GameState(Level currentlevel)
 	{
 		
 		//set run
 		gameRunning = state.RUNNING;
 		
-		this.currentLevel = currentLevel;
+		this.currentLevel = currentlevel;
 		
 	}
-	
-	
-	/*
-	public void InitializeElements()
-	{
-		char[][] temp_map = currentmap.getMap();
-		
-		for(int i=0; i<temp_map.length; i++)
-		{
-			for(int j=0; j<temp_map[i].length; j++)
-			{
-				if(temp_map[i][j] == 'I' && (i==0 || i== temp_map.length-1 || j== 0 || j== temp_map[i].length-1))
-				{
-					
-					
-				}
-				else if(temp_map[i][j] == 'k')
-				{
-					myKey = new Key(i, j, 'k');
-					currentmap.setMapPosition(i, j, ' ');
-				}
-				else if(temp_map[i][j] == 'H')
-				{
-					myHero = new Hero(i, j, 'H');
-					currentmap.setMapPosition(i, j, ' ');
-					
-				}
-				else if(temp_map[i][j] == 'G')
-				{
-					myGuard = new Guard(i, j, 'G');
-					currentmap.setMapPosition(i, j, ' ');
-					
-				}
-				else if(temp_map[i][j] == 'O')
-				{
-					Ogre myOgre = new Ogre(i, j, 'O', '*');
-					myOgres.addElement(myOgre);
-					currentmap.setMapPosition(i, j, ' ');
-					
-				}
-					
-			}
-		}
-	}*/
 	
 	
 	
 	public void UpdateGame(char move)
 	{
 		
-		if(currentLevel.updateGame() == false)
-			
-			//Falta considerar a mudanca de nivel
-			
-			
+		int verifyUpdate = currentLevel.updateGame(move);
 		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-	/*	if(level == 1)
-		{
-			
-			UpdateGuard();
-			UpdateHero(move);
-			if(VerifyColisionGuard() == true)
-				return;
-			
+		if(verifyUpdate == 1)
+		{	
+			gameRunning = state.LOSE;
+			System.out.println("You Lose!! Try Again");
 		}
-		else if(level == 2)
+		else if(verifyUpdate == 2)
 		{
-			
-			for(int i=0; i<myOgres.size(); i++)
+			if(currentLevel.nextLevel() == null)
 			{
-				UpdateOgre(myOgres.get(i));
+				gameRunning = state.END;
+				System.out.println("Congratzz!! You're a Hero!!");
 			}
-			UpdateHero(move);
-			for(int i = 0; i< myOgres.size();i++){
-				
-				if( VerifyColisionOgre(myOgres.get(i)) == true)
-					return;
+			else
+			{
+				currentLevel = currentLevel.nextLevel();
 			}
-						
-		}*/
-		
+					
+		}
+
 		
 	}
 
@@ -130,7 +60,7 @@ public class GameState {
 	
 	
 	//TODO remove update matrix
-	public void UpdateHero(char move)
+	/*public void UpdateHero(char move)
 	{
 		
 		
@@ -342,20 +272,7 @@ public class GameState {
 		
 	}
 	
-	public Boolean VerifyColisionGuard()
-	{
 
-			if(myGuard.getElement() != 'g')
-			{
-				if ((myHero.getX() == myGuard.getX() && Math.abs(myHero.getY() - myGuard.getY()) <= 1) || (myHero.getY() == myGuard.getY() && Math.abs(myHero.getX() - myGuard.getX()) <= 1))
-				{
-					gameRunning = 2;
-					return true;
-				}
-			}
-			return false;
-
-	}
 	public Boolean VerifyColisionOgre(Ogre myOgre)
 	{
 			if((myHero.getX() == myOgre.getX() && Math.abs(myHero.getY() - myOgre.getY()) <= 1) || (myHero.getY() == myOgre.getY() && Math.abs(myHero.getX() - myOgre.getX()) <= 1))
@@ -372,7 +289,7 @@ public class GameState {
 				return true;
 			}
 			return false;
-	}
+	}*/
 		
 
 	
@@ -381,18 +298,13 @@ public class GameState {
 	public void printMap() {
 		
 		
-		if(currentmap.moveTo(8, 7) && level == 1)
-			currentmap.setMapPosition(8, 7, 'k');
+		char[][] currentmap = currentLevel.getMap();
 		
-		else if(currentmap.moveTo(1, 7) && level == 2 && !myHero.getKey())
-			currentmap.setMapPosition(1, 7, 'k');
-		
-		char[][] map = currentmap.getMap();
 
-		for (int i = 0; i < map.length; i++) {
+		for (int i = 0; i < currentmap.length; i++) {
 			
-			for (int j = 0; j < map[i].length; j++) {
-				System.out.print(map[i][j]);
+			for (int j = 0; j < currentmap[i].length; j++) {
+				System.out.print(currentmap[i][j]);
 				System.out.print(" ");
 
 			}

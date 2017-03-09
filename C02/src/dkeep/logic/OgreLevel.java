@@ -12,19 +12,22 @@ public class OgreLevel extends Level{
 	{
 		Map dungeonmap = new Level2Map();
 		this.setMap(dungeonmap);
-		this.setHero(7, 1);
-		this.setKey(1, 7);
+		myHero = new Hero(7, 1, 'H');
+		myKey = new Key(1, 7, 'k');
+
 		
 	}
 	
 	
 	
 	
-	
+	@Override
 	//TODO criar o update game para os varios niveis
-	public boolean UpdateGame()
+	public int updateGame(char move)
 	{
-		return true;
+		
+		
+		return 2;
 	}
 	
 	

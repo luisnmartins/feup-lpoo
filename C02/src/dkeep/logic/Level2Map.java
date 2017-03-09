@@ -13,6 +13,36 @@ public class Level2Map extends Map {
 	{
 		super(map);
 	}
+
+
+	
+	public char getElement(int x, int y) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	
+	public Boolean moveTo(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
+	public void openDoors() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+	public char[][] getMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 	
 	
 	

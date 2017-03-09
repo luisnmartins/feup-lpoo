@@ -1,4 +1,4 @@
-package dkeep.test;
+/*package dkeep.test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -19,4 +19,4 @@ public class TestDungeonGameLogic {
 		//Map newMap = new Map()
 	}
 	
-}
+}*/

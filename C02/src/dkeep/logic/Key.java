@@ -6,16 +6,15 @@ public class Key {
 	private int x;
 	private int  y;
 	private char symbol;
-	private boolean found;
-	private int type;	
+	private boolean found;	
 	
-	public Key(int x, int y, char symbol, int type)
+	public Key(int x, int y, char symbol)
 	{
 		this.x = x;
 		this.y = y;
 		this.symbol = symbol;
 		this.found = false;
-		this.type = type;
+		//this.type = type;
 	}
 	
 
@@ -50,9 +49,15 @@ public class Key {
 		this.y = y;
 	}
 
-	public int getType()
+	
+	public boolean isOnTop(Character c1)
+	
 	{
-		return type;
+		if(this.x == c1.getXTemp() && this.y == c1.getYTemp())
+		{
+			return true;
+		}else return false;
 	}
+	
 	
 }

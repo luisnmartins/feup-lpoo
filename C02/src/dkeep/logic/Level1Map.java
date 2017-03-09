@@ -5,24 +5,23 @@ import java.util.List;
 
 public class Level1Map extends Map {
 
-	private static char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+	private static char[][] mapStatic= { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 			{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+			{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
-	private List<List<Integer>> doors = new ArrayList<List<Integer>>();
 	
 	
 	public Level1Map()
 	{
-		super(map);
+		super(mapStatic);
 	}
 	
 	
 	public  char getElement(int x, int y){
-		return map[x][y];
+		return this.map[x][y];
 	}
 	
 	public  Boolean moveTo(int x, int y){
@@ -33,31 +32,7 @@ public class Level1Map extends Map {
 	
 	};
 	
-
-	public  void ClearPosition(int x, int y){
-		
-		map[x][y] = ' ';
-	};
 	
-	
-	public void setDoor(int x, int y)
-	{
-		List<Integer> door = new ArrayList<Integer>();
-		doors.add(door);
-	}
-	
-	
-	//TODO set openDoors
-	public  void openDoors(){
-		
-		/*for(int i=0; i<doors.size(); i++)
-		{
-			for(int j=0; j<doors.get(i).size(); j++)
-				map[doors.get(i).get(j).intValue(), doors.get(i).get(j+1).intValue()] = 'S';
-
-		}*/
-		
-	};
 	
 	
 	public  char[][] getMap(){return map;};
