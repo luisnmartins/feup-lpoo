@@ -10,7 +10,7 @@ public class DungeonLevel extends Level{
 	
 	public DungeonLevel()
 	{
-		Map dungeonmap = new Level1Map();
+		Map dungeonmap = new Map(1);
 		this.setMap(dungeonmap);
 		myHero = new Hero(1, 1, 'H');
 		myKey = new Key(8, 7, 'k');
@@ -28,7 +28,7 @@ public class DungeonLevel extends Level{
 	@Override
 	public int updateGame(char move)
 	{	
-		System.out.println("Update Game");
+		
 		this.updateHero(move);
 		updateGuard();
 		if(VerifyColisionGuard())
@@ -93,7 +93,7 @@ public class DungeonLevel extends Level{
 	
 	public Level nextLevel()
 	{
-		return null;
+		return new OgreLevel();
 	}
 	
 	

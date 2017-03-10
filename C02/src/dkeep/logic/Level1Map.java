@@ -1,4 +1,4 @@
-package dkeep.logic;
+/*package dkeep.logic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,4 +38,4 @@ public class Level1Map extends Map {
 	public  char[][] getMap(){return map;};
 
 	
-}
+}*/

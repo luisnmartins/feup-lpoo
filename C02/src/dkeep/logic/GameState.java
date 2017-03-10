@@ -49,9 +49,16 @@ public class GameState {
 			}
 					
 		}
-
+		
+	
 		
 	}
+	
+	public int[] getHeroPosition()
+	{
+		return null;
+	}
+
 
 	
 	
@@ -273,23 +280,7 @@ public class GameState {
 	}
 	
 
-	public Boolean VerifyColisionOgre(Ogre myOgre)
-	{
-			if((myHero.getX() == myOgre.getX() && Math.abs(myHero.getY() - myOgre.getY()) <= 1) || (myHero.getY() == myOgre.getY() && Math.abs(myHero.getX() - myOgre.getX()) <= 1))
-			{
-				
-				myOgre.setStopOgre(2);
-				myOgre.setElm('8');
-				
-				return true;
-			}
-			else if(((myHero.getX() == myOgre.getAttackX() && Math.abs(myHero.getY() - myOgre.getAttackY()) <= 1) || (myHero.getY() == myOgre.getAttackY() && Math.abs(myHero.getX() - myOgre.getAttackX()) <= 1)) && myOgre.getStopOgre() == 0)
-			{
-				gameRunning = 2;
-				return true;
-			}
-			return false;
-	}*/
+	*/
 		
 
 	

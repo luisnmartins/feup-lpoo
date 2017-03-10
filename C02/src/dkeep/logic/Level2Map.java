@@ -1,4 +1,4 @@
-package dkeep.logic;
+/*package dkeep.logic;
 
 public class Level2Map extends Map {
 
@@ -46,4 +46,4 @@ public class Level2Map extends Map {
 	
 	
 	
-}
+}*/

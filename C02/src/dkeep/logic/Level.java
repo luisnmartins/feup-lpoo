@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
-public class Level {
+public abstract class Level {
 	
 	protected Map currentmap;
 	protected Hero myHero;
@@ -32,13 +32,7 @@ public class Level {
 	//return 0 - if is to continue
 	//return 1 - if hero loses
 	//return 2 - if is to change level
-	
-	public int updateGame(char move)
-	{
-		System.out.println("Update Level");
-		return 0;
-		
-	}
+	public abstract int updateGame(char move);
 	
 	//TODO make hero's update move here
 	public void updateHero(char move)
@@ -70,11 +64,12 @@ public class Level {
 		
 	}
 	
-	//TODO update key
-	public void updateKey()
+	
+	public Hero getHero()
 	{
-		
+		return myHero;
 	}
+
 	
 	public boolean changeLevel()
 	{
