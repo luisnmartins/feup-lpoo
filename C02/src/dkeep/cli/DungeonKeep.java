@@ -144,8 +144,9 @@ public class DungeonKeep {
 	
 	public state getgameRunning()
 	{
-		return gameState;
+		return gameState; 
 	}
+	
 	
 	
 }

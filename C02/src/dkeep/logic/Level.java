@@ -50,12 +50,13 @@ public abstract class Level {
 					{
 						doors.get(i).OpenDoor();
 							
-					}
+					} 
 					myHero.setTempPosition(myHero.getX(), myHero.getY());
 					canotleave = true;
 					break;
 				}
 			}
+			
 			
 			if(myKey.isOnTop(myHero))
 			{
@@ -116,6 +117,12 @@ public abstract class Level {
 	public boolean DoorsAreOpened()
 	{
 		return doors.get(0).IsOpened();
+	}
+	
+	
+	public Key getKey()
+	{
+		return this.myKey;
 	}
 	
 

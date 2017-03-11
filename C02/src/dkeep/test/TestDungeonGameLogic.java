@@ -44,8 +44,8 @@ public class TestDungeonGameLogic {
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);	
 		currentLevel.updateGame('d');
-		assertEquals(state.LOSE, currentLevel.getgameRunning());
-	
+		assertEquals(state.LOSE, currentLevel.getgameRunning()); 
+	 
 		
 	}
 	
@@ -56,8 +56,8 @@ public class TestDungeonGameLogic {
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);
 		currentLevel.NotMoveElements();
-		GameState gs = new GameState(currentLevel);			
-		gs.UpdateGame('s');
+		GameState gs = new GameState(currentLevel);			 
+		gs.UpdateGame('s'); 
 		gs.UpdateGame('a');
 		assertEquals(2, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());

@@ -196,7 +196,7 @@ public class OgreLevel extends Level{
 			char[][] maptocopy = currentmap.getMap();
 			char[][] maptosend = new char[maptocopy.length][];
 			for(int i=0; i< maptocopy.length; i++)
-			{
+			{ 
 				maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
 			}
 			

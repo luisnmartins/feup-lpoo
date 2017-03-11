@@ -13,7 +13,7 @@ public class Door {
 		this.setX(x);
 		this.setY(y);
 		this.setSymbol('I');
-		
+		 
 	}
 	
 	public void OpenDoor()
@@ -82,7 +82,7 @@ public class Door {
 	}
 
 	public char getSymbol() {
-		return symbol;
+		return symbol; 
 	}
 
 	public void setSymbol(char symbol) {
