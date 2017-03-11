@@ -4,7 +4,7 @@ package dkeep.logic;
 
 public class GameState {
 
-	public enum state{ RUNNING, WIN, LOSE, END}
+	public enum state{ RUNNING, WIN, LOSE, END, NEXTLEVEL}
 	
 	Level currentLevel;
 	
@@ -21,6 +21,7 @@ public class GameState {
 		gameRunning = state.RUNNING;
 		
 		this.currentLevel = currentlevel;
+		//this.currentLevel.NotMoveElements();
 		
 	}
 	
@@ -38,14 +39,18 @@ public class GameState {
 		}
 		else if(verifyUpdate == 2)
 		{
+			
 			if(currentLevel.nextLevel() == null)
 			{
-				gameRunning = state.END;
+				gameRunning = state.WIN;
 				System.out.println("Congratzz!! You're a Hero!!");
 			}
 			else
 			{
+				//gameRunning = state.NEXTLEVEL;
+				System.out.println("Go, go, go!! You're in the next level");
 				currentLevel = currentLevel.nextLevel();
+				
 			}
 					
 		}
@@ -54,10 +59,7 @@ public class GameState {
 		
 	}
 	
-	public int[] getHeroPosition()
-	{
-		return null;
-	}
+
 
 
 	

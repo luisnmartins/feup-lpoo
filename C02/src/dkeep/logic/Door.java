@@ -48,7 +48,7 @@ public class Door {
 	
 	public boolean doorAchieved(Character car)
 	{
-		if(car.getX() == this.getX() && car.getY() == this.getY())	
+		if(car.getXTemp() == this.getX() && car.getYTemp() == this.getY())	
 			return true;
 		else
 			return false;

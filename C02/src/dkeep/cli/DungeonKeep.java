@@ -6,15 +6,15 @@ import dkeep.logic.DungeonLevel;
 import dkeep.logic.GameState;
 import dkeep.logic.GameState.state;
 import dkeep.logic.Level;
+import dkeep.logic.Level1Map;
+import dkeep.logic.Level2Map;
+import dkeep.logic.Map;
 import dkeep.logic.OgreLevel;
 
 
 import java.util.Scanner;
 
-/**
- * @author luismartins
- *
- */
+
 public class DungeonKeep {
 
 	private GameState gs;
@@ -22,13 +22,20 @@ public class DungeonKeep {
 
 	public void run(int level)
 	{
-	
+		Map maptouse;
 		Level currentLevel;
 		
 		if(level == 1)
-			currentLevel= new DungeonLevel();
+		{
+			maptouse = new Level1Map();
+			currentLevel= new DungeonLevel(maptouse);
+		}
 		else
-			currentLevel = new OgreLevel();
+		{
+			maptouse = new Level2Map();
+			currentLevel = new OgreLevel(maptouse);
+		}
+			
 		
 		
 		gs = new GameState(currentLevel);
@@ -47,8 +54,6 @@ public class DungeonKeep {
 			System.out.print("Move: ");
 			
 			move = s.next().charAt(0);
-			
-			
 			
 			gs.UpdateGame(move);
 			gs.printMap();
@@ -72,7 +77,7 @@ public class DungeonKeep {
 		
 		dk.run(level);
 		
-		
+		s.close();
 		return;
 
 	}

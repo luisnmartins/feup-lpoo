@@ -22,7 +22,6 @@ public abstract class Level {
 	}
 
 	
-
 	public int getLevel()
 	{
 		return 0;
@@ -36,13 +35,23 @@ public abstract class Level {
 	
 	//TODO make hero's update move here
 	public void updateHero(char move)
-	{
-		System.out.println("Update Hero");
+	{		
 		myHero.changePosition(move, false);
 		int x_temp = myHero.getXTemp();
 		int y_temp = myHero.getYTemp();
+		boolean canotleave=false;
 		if(currentmap.moveTo(x_temp, y_temp))
 		{
+			for(int i=0; i<doors.size(); i++)
+			{
+				if(doors.get(i).doorAchieved(myHero) && doors.get(i).IsOpened()==false)
+				{
+					myHero.setTempPosition(myHero.getX(), myHero.getY());
+					canotleave = true;
+					break;
+				}
+			}
+			
 			if(myKey.isOnTop(myHero))
 			{
 				if(this instanceof DungeonLevel)
@@ -55,7 +64,8 @@ public abstract class Level {
 				else
 					myKey.setFound();
 			}
-			myHero.setPosition(x_temp, y_temp);
+			if(!canotleave)
+				myHero.setPosition(x_temp, y_temp);
 		}
 		else
 			myHero.setTempPosition(myHero.getX(), myHero.getY());
@@ -69,7 +79,6 @@ public abstract class Level {
 	{
 		return myHero;
 	}
-
 	
 	public boolean changeLevel()
 	{
@@ -85,6 +94,13 @@ public abstract class Level {
 	public Level nextLevel()
 	{
 		return null;
+	}
+	
+	public abstract void NotMoveElements();
+	
+	public boolean DoorsAreOpened()
+	{
+		return doors.get(0).IsOpened();
 	}
 	
 

@@ -6,41 +6,91 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DungeonLevel extends Level{
 	
 	private Guard myGuard;
+	private boolean moveGuard= true;
 	
-	
-	public DungeonLevel()
+	public DungeonLevel(Map mymap)
 	{
-		Map dungeonmap = new Map(1);
-		this.setMap(dungeonmap);
-		myHero = new Hero(1, 1, 'H');
-		myKey = new Key(8, 7, 'k');
-		myGuard = new Guard(1, 8, 'G');
+		//Map dungeonmap = new Map(1);
+		this.setMap(mymap);
 		
-		//create Doors
-		Door newdoor = new Door(5, 0);
+		
+		//analyze map to get elements and clear elements initial position in the map
+		char[][] maptoanalyze = mymap.getMap();
+		for(int i=0; i<maptoanalyze.length; i++)
+		{
+			for(int j=0; j<maptoanalyze.length; j++)
+			{
+				if(maptoanalyze[i][j] == ' ' || maptoanalyze[i][j] == 'X')
+				{}
+				
+				//create hero
+				else if(maptoanalyze[i][j] == 'H')
+				{
+						myHero = new Hero(i, j, 'H');
+						mymap.ClearPosition(i, j);
+						
+				}
+				
+				//create key
+				else if(maptoanalyze[i][j] == 'k')
+				{
+					myKey = new Key(i, j, 'k');
+					mymap.ClearPosition(i, j);
+				}
+				
+				//create Guard
+				else if(maptoanalyze[i][j] == 'G')
+				{
+					myGuard = new Guard(i, j, 'G');
+					mymap.ClearPosition(i, j);
+				}
+				
+				//create Doors
+				else if(maptoanalyze[i][j] == 'I' && (i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length))
+				{
+					Door mydoor = new Door(i, j);
+					doors.add(mydoor);
+					mymap.ClearPosition(i, j);
+				}
+				
+			}
+		}
+		
+		
+		
+		
+		
+		/*Door newdoor = new Door(5, 0);
 		doors.add(newdoor);
 		Door newdoor2 = new Door(6, 0);
-		doors.add(newdoor2);
+		doors.add(newdoor2);*/
 		
 	}
 	
-	//TODO criar o update game para os varios niveis
+	public void NotMoveElements()
+	{
+		moveGuard = false;
+	}
+	
+	
 	@Override
 	public int updateGame(char move)
 	{	
 		
 		this.updateHero(move);
-		updateGuard();
+		if(moveGuard)
+			updateGuard();
 		if(VerifyColisionGuard())
 			return 1;
 		else if(changeLevel())
 		{
-				return 2;
+			
+			return 2;
 		}
 		else return 0;
 		
 	}
-	
+
 	//TODO update guard movement
 	public void updateGuard()
 	{
@@ -93,7 +143,9 @@ public class DungeonLevel extends Level{
 	
 	public Level nextLevel()
 	{
-		return new OgreLevel();
+		return null;
+		/*Map nextmap = new Level2Map();
+		return new OgreLevel(nextmap);*/
 	}
 	
 	

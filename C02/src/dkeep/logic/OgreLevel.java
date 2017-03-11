@@ -8,12 +8,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class OgreLevel extends Level{
 	
 	
-	List<Ogre> Ogres = new ArrayList<Ogre>();
+	private List<Ogre> Ogres = new ArrayList<Ogre>();
+	private boolean moveOgres = true;
 	
-	public OgreLevel()
+	public OgreLevel(Map mymap)
 	{
-		Map dungeonmap = new Map(2);
-		this.setMap(dungeonmap);
+		//Map dungeonmap = new Map(2);
+		this.setMap(mymap);
 		myHero = new Hero(7, 1, 'H');
 		myKey = new Key(1, 7, 'k');
 		int i = ThreadLocalRandom.current().nextInt(1, 6);
@@ -38,8 +39,7 @@ public class OgreLevel extends Level{
 			if(VerifyColisionOgre(Ogres.get(i)))
 				return 1;
 		}
-		
-		
+				
 		if(changeLevel())
 			return 2;
 		else
@@ -151,6 +151,11 @@ public class OgreLevel extends Level{
 			
 			return maptosend;
 			
+		}
+		
+		public void NotMoveElements()
+		{
+			moveOgres = false;
 		}
 	
 

@@ -14,7 +14,7 @@ public class Key {
 		this.y = y;
 		this.symbol = symbol;
 		this.found = false;
-		//this.type = type;
+		
 	}
 	
 
