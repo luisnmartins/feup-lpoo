@@ -3,9 +3,9 @@ package dkeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import dkeep.cli.DungeonKeep.state;
 import dkeep.logic.DungeonLevel;
-import dkeep.logic.GameState;
-import dkeep.logic.GameState.state;
+
 import dkeep.logic.Level;
 import dkeep.logic.Map;
 
@@ -24,7 +24,6 @@ public class TestDungeonGameLogic {
 		
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);
-		//GameState gs = new GameState(currentLevel);
 		assertEquals(1, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 	}
@@ -34,8 +33,7 @@ public class TestDungeonGameLogic {
 	{
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);
-		GameState gs = new GameState(currentLevel);
-		gs.UpdateGame('w');
+		currentLevel.updateGame('w');
 		assertEquals(1, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 	}
@@ -44,10 +42,9 @@ public class TestDungeonGameLogic {
 	public void TestAdjacentPositionGuard()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);
-		GameState gs = new GameState(currentLevel);			
-		gs.UpdateGame('d');
-		assertEquals(state.LOSE, gs.getgameRunning());
+		Level currentLevel = new DungeonLevel(testmap);	
+		currentLevel.updateGame('d');
+		assertEquals(state.LOSE, currentLevel.getgameRunning());
 	
 		
 	}

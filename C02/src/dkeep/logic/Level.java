@@ -106,6 +106,11 @@ public abstract class Level {
 		return null;
 	}
 	
+	public Map nextMap()
+	{
+		return null;
+	}
+	
 	public abstract void NotMoveElements();
 	
 	public boolean DoorsAreOpened()

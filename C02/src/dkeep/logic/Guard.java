@@ -17,7 +17,7 @@ public class Guard extends Character {
 		super(xP, yP, Elm);
 		iterator = 0;
 		typeCharateristic = false;
-		guardType = ThreadLocalRandom.current().nextInt(1,4);
+		guardType = 3; //ThreadLocalRandom.current().nextInt(1,4);
 		
 	}
 	

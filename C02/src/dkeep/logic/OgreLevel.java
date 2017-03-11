@@ -67,6 +67,7 @@ public class OgreLevel extends Level{
 	//TODO criar o update game para os varios niveis
 	public int updateGame(char move)
 	{
+		System.out.println("Level2");
 		this.updateHero(move);
 		for(int i = 0; i < Ogres.size(); i++){
 			this.updateOgre(Ogres.get(i));
@@ -228,6 +229,8 @@ public class OgreLevel extends Level{
 			return maptosend;
 			
 		}
+		
+		
 		
 		public void NotMoveElements()
 		{

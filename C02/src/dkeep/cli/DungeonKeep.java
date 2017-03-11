@@ -3,8 +3,6 @@ package dkeep.cli;
 
 
 import dkeep.logic.DungeonLevel;
-import dkeep.logic.GameState;
-import dkeep.logic.GameState.state;
 import dkeep.logic.Level;
 import dkeep.logic.Level1Map;
 import dkeep.logic.Level2Map;
@@ -17,18 +15,27 @@ import java.util.Scanner;
 
 public class DungeonKeep {
 
-	private GameState gs;
 	
+	
+	
+	public enum state{ RUNNING, WIN, LOSE, END, NEXTLEVEL}
+	
+	private state gameState;
+	
+	private Level currentLevel;
 
 	public void run(int level)
 	{
+		
 		Map maptouse;
-		Level currentLevel;
+		
+		gameState = state.RUNNING;
 		
 		if(level == 1)
 		{
 			maptouse = new Level1Map();
 			currentLevel= new DungeonLevel(maptouse);
+			
 		}
 		else
 		{
@@ -37,26 +44,23 @@ public class DungeonKeep {
 		}
 			
 		
-		
-		gs = new GameState(currentLevel);
-		
 		// hero's movement key
 		char move; 
 		Scanner s = new Scanner(System.in);
 		
 		//first print
-		gs.printMap();
+		printMap();
 		
 		
-		while(gs.getgameRunning()== state.RUNNING)
+		while(gameState == state.RUNNING)
 		{
 			
 			System.out.print("Move: ");
 			
 			move = s.next().charAt(0);
 			
-			gs.UpdateGame(move);
-			gs.printMap();
+			UpdateGame(move);
+			printMap();
 			
 		}
 		s.close();
@@ -64,7 +68,63 @@ public class DungeonKeep {
 		
 	}
 	
+	public void UpdateGame(char move)
+	{
+		
+		int verifyUpdate = currentLevel.updateGame(move);
+		
+		if(verifyUpdate == 1)
+		{	
+			gameState = state.LOSE;
+			System.out.println("You Lose!! Try Again");
+		}
+		else if(verifyUpdate == 2)
+		{
+			
+			Level nextlevel = currentLevel.nextLevel();
+			
+			if(nextlevel == null)
+			{
+				gameState = state.WIN;
+				System.out.println("Congratzz!! You're a Hero!!");
+			}
+			else
+			{
+				
+				currentLevel = nextlevel;
+				System.out.println("Go, go, go!! You're in the next level");
+				
+				
+				
+			}
+					
+		}
+	}
 
+
+
+	
+	
+	public void printMap() {
+		
+		
+		char[][] currentmap = currentLevel.getMap();
+		
+
+		for (int i = 0; i < currentmap.length; i++) {
+			
+			for (int j = 0; j < currentmap[i].length; j++) {
+				System.out.print(currentmap[i][j]);
+				System.out.print(" ");
+
+			}
+			System.out.print("\n");
+		}
+		System.out.print('\n');
+
+	}
+	
+	
 	public static void main(String[] args) {
 
 		
@@ -81,5 +141,11 @@ public class DungeonKeep {
 		return;
 
 	}
+	
+	public state getgameRunning()
+	{
+		return gameState;
+	}
+	
 	
 }
