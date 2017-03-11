@@ -15,8 +15,42 @@ public class OgreLevel extends Level{
 	{
 		//Map dungeonmap = new Map(2);
 		this.setMap(mymap);
-		myHero = new Hero(7, 1, 'H');
-		myKey = new Key(1, 7, 'k');
+		
+		//analyze map to get elements and clear elements initial position in the map
+				char[][] maptoanalyze = mymap.getMap();
+				for(int i=0; i<maptoanalyze.length; i++)
+				{
+					for(int j=0; j<maptoanalyze.length; j++)
+					{
+						if(maptoanalyze[i][j] == ' ' || maptoanalyze[i][j] == 'X')
+						{}
+						
+						//create hero
+						else if(maptoanalyze[i][j] == 'H')
+						{
+								myHero = new Hero(i, j, 'A');
+								mymap.ClearPosition(i, j);
+								
+						}
+						
+						//create key
+						else if(maptoanalyze[i][j] == 'k')
+						{
+							myKey = new Key(i, j, 'k');
+							mymap.ClearPosition(i, j);
+						}
+						
+						//create Doors
+						else if(maptoanalyze[i][j] == 'I' && (i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length))
+						{
+							Door mydoor = new Door(i, j);
+							doors.add(mydoor);
+							mymap.ClearPosition(i, j);
+						}
+						
+					}
+				}
+		
 		int i = ThreadLocalRandom.current().nextInt(1, 6);
 		for(int j=0; j < i ; j++)
 		{
@@ -64,6 +98,11 @@ public class OgreLevel extends Level{
 			
 			}
 		}
+		boolean movedFlag = false;
+		do{
+			
+		
+		
 		myOgre.changePosition(myOgre.GenerateOgre(),false);
 		int x_temp = myOgre.getXTemp();
 		int y_temp = myOgre.getYTemp();
@@ -74,28 +113,57 @@ public class OgreLevel extends Level{
 				myOgre.setElm('$');
 			}else  myOgre.setElm('O');
 			
-			myOgre.setPosition(x_temp, y_temp);
+			for(int i = 0; i < doors.size();i++)
+			{
+				if(doors.get(i).doorAchieved(myOgre))
+				{
+					myOgre.setTempPosition(myOgre.getX(), myOgre.getY());
+					movedFlag = true;
+					break;
+				}
+				movedFlag = false;
+			}
+			myOgre.setPosition(myOgre.getXTemp(), myOgre.getYTemp());
+			if(!movedFlag)
+			{
+				break;
+			}
+				
+			
 		}else myOgre.setTempPosition(myOgre.getX(), myOgre.getY());
-		
+		}while(true);
 		updateOgreClub(myOgre);
-		
+
 		
 	}
 	
 	public void updateOgreClub(Ogre myOgre)
 	{
 		int[] club;
+		boolean stopFlag = false;
 		do {
 			club = myOgre.ChangeClub();
 			if(currentmap.moveTo(club[0], club[1]))
 			{
-				if(myKey.getX() == club[0] && myKey.getY() == club[1])
+				if(myKey.getX() == club[0] && myKey.getY() == club[1] && !myKey.getFound())
 				{
 					myOgre.setClubElm('$');
 					
 				}else myOgre.setClubElm('*');
-				myOgre.setClub(club[0], club[1]);
-				break;
+				for(int i = 0;i < doors.size();i++)
+				{
+					if(club[0] == doors.get(i).getX() && club[1] == doors.get(i).getY())
+					{
+						stopFlag = true;
+						break;
+					}else stopFlag = false;
+				}
+				if(!stopFlag)
+				{
+					myOgre.setClub(club[0], club[1]);
+					break;
+				}
+				
 			}
 		}while(true);
 	}
@@ -103,7 +171,7 @@ public class OgreLevel extends Level{
 	
 	public Boolean VerifyColisionOgre(Ogre myOgre)
 	{
-			if((myHero.getX() == myOgre.getX() && Math.abs(myHero.getY() - myOgre.getY()) <= 1) || (myHero.getY() == myOgre.getY() && Math.abs(myHero.getX() - myOgre.getX()) <= 1))
+			if((myHero.getX() == myOgre.getX() && Math.abs(myHero.getY() - myOgre.getY()) <= 1) || (myHero.getY() == myOgre.getY() && Math.abs(myHero.getX() - myOgre.getX()) <= 1) && myOgre.getElement()  == 'O')
 			{
 				
 				myOgre.setStopOgre(2);
@@ -112,7 +180,7 @@ public class OgreLevel extends Level{
 				
 				return false;
 			}
-			else if(((myHero.getX() == myOgre.getAttackX() && Math.abs(myHero.getY() - myOgre.getAttackY()) <= 1) || (myHero.getY() == myOgre.getAttackY() && Math.abs(myHero.getX() - myOgre.getAttackX()) <= 1)) && myOgre.getStopOgre() == 0)
+			else if(((myHero.getX() == myOgre.getAttackX() && Math.abs(myHero.getY() - myOgre.getAttackY()) <= 1) || (myHero.getY() == myOgre.getAttackY() && Math.abs(myHero.getX() - myOgre.getAttackX()) <= 1)) && myOgre.getStopOgre() == 0 && myOgre.getClubElm() == '*')
 			{
 				return true;
 			}
@@ -131,14 +199,20 @@ public class OgreLevel extends Level{
 				maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
 			}
 			
+						
+			if(myKey.getFound() == false)
+			{
 			
-			maptosend[myKey.getX()][myKey.getY()] = 'k';
+				maptosend[myKey.getX()][myKey.getY()] = 'k';
+			}
+			
 			maptosend[myHero.getX()][myHero.getY()] = myHero.getElement();
 			
 			Ogre no;
 			for(int i=0; i<Ogres.size(); i++)
 			{
 				no = Ogres.get(i);
+				
 				maptosend[no.getAttackX()][no.getAttackY()] = no.getClubElm();
 				maptosend[no.getX()][no.getY()] = no.getElement();
 				
@@ -147,6 +221,8 @@ public class OgreLevel extends Level{
 			{
 				maptosend[doors.get(i).getX()][doors.get(i).getY()] = doors.get(i).getSymbol();
 			}
+
+			
 			
 			
 			return maptosend;

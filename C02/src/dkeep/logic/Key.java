@@ -53,10 +53,12 @@ public class Key {
 	public boolean isOnTop(Character c1)
 	
 	{
+		if(!this.getFound())
 		if(this.x == c1.getXTemp() && this.y == c1.getYTemp())
 		{
 			return true;
 		}else return false;
+		else return false;
 	}
 	
 	

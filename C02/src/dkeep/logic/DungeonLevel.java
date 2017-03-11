@@ -143,9 +143,9 @@ public class DungeonLevel extends Level{
 	
 	public Level nextLevel()
 	{
-		return null;
-		/*Map nextmap = new Level2Map();
-		return new OgreLevel(nextmap);*/
+		
+		Map nextmap = new Level2Map();
+		return new OgreLevel(nextmap);
 	}
 	
 	

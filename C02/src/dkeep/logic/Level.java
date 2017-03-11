@@ -46,6 +46,11 @@ public abstract class Level {
 			{
 				if(doors.get(i).doorAchieved(myHero) && doors.get(i).IsOpened()==false)
 				{
+					if(myKey.getFound())
+					{
+						doors.get(i).OpenDoor();
+							
+					}
 					myHero.setTempPosition(myHero.getX(), myHero.getY());
 					canotleave = true;
 					break;
@@ -61,8 +66,13 @@ public abstract class Level {
 						doors.get(i).OpenDoor();
 					}
 				}
-				else
+				else if(this instanceof OgreLevel)
+				{
+					
 					myKey.setFound();
+					myHero.setElm('K');
+				}
+					
 			}
 			if(!canotleave)
 				myHero.setPosition(x_temp, y_temp);
