@@ -247,6 +247,11 @@ public class OgreLevel extends Level{
 		{
 			moveOgres = false;
 		}
+		
+		public Ogre getFirstOgre()
+		{
+			return this.Ogres.get(0);
+		}
 	
 
 }
