@@ -3,6 +3,10 @@ package dkeep.logic;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
+import dkeep.cli.DungeonKeep.state;
+
+
+
 public class DungeonLevel extends Level{
 	
 	private Guard myGuard;
@@ -74,20 +78,20 @@ public class DungeonLevel extends Level{
 	
 	
 	@Override
-	public int updateGame(char move)
+	public state updateGame(char move)
 	{	
 		
 		this.updateHero(move);
 		if(moveGuard)
 			updateGuard();
 		if(VerifyColisionGuard())
-			return 1;
+			return state.LOSE;
 		else if(changeLevel())
 		{
 			
-			return 2;
+			return state.NEXTLEVEL;
 		}
-		else return 0;
+		else return state.RUNNING;
 		
 	}
 
@@ -135,11 +139,7 @@ public class DungeonLevel extends Level{
 
 	}
 	
-	
-	public int getLevel()
-	{
-		return 1;
-	}
+
 	
 	public Level nextLevel()
 	{

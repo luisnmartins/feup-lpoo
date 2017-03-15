@@ -59,7 +59,7 @@ public class DungeonKeep {
 			
 			move = s.next().charAt(0);
 			
-			UpdateGame(move);
+			updateGame(move);
 			printMap();
 			
 		}
@@ -68,42 +68,42 @@ public class DungeonKeep {
 		
 	}
 	
-	public void UpdateGame(char move)
+	public void updateGame(char move)
 	{
 		
-		int verifyUpdate = currentLevel.updateGame(move);
+		gameState = currentLevel.updateGame(move);
 		
-		if(verifyUpdate == 1)
-		{	
-			gameState = state.LOSE;
-			System.out.println("You Lose!! Try Again");
-		}
-		else if(verifyUpdate == 2)
+		switch(gameState)
 		{
-			
-			Level nextlevel = currentLevel.nextLevel();
-			
-			if(nextlevel == null)
+			case LOSE:
 			{
-				gameState = state.WIN;
-				System.out.println("Congratzz!! You're a Hero!!");
+				System.out.println("You Lose!! Try Again");
+				break;
 			}
-			else
+			case NEXTLEVEL:
 			{
-				
-				currentLevel = nextlevel;
-				System.out.println("Go, go, go!! You're in the next level");
-				
-				
-				
-			}
+				Level nextlevel = currentLevel.nextLevel();
+				if(nextlevel == null)
+				{
+					gameState = state.WIN;
+					System.out.println("Congratzz!! You're a Hero!!");
+				}
+				else
+				{
 					
+					currentLevel = nextlevel;
+					System.out.println("Go, go, go!! You're in the next level");
+					gameState = state.RUNNING;			
+					
+				}
+				break;
+			}
 		}
+					
 	}
 
 
 
-	
 	
 	public void printMap() {
 		

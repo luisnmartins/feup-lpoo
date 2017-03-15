@@ -3,7 +3,7 @@ package dkeep.logic;
 public class Level2Map extends Map {
 
 	private static char[][] mapStatic = {  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-											{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', 'k', 'X' }, 
+											{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', 'k', 'X' }, 
 											{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 											{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
 											{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
@@ -12,7 +12,7 @@ public class Level2Map extends Map {
 											{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
 											{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
-	
+
 	public Level2Map()
 	{
 		super(mapStatic);

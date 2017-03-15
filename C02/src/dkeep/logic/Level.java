@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import dkeep.cli.DungeonKeep.state;
 import java.util.ArrayList;
 
 public abstract class Level {
@@ -22,16 +23,12 @@ public abstract class Level {
 	}
 
 	
-	public int getLevel()
-	{
-		return 0;
-	}
-	
+
 	
 	//return 0 - if is to continue
 	//return 1 - if hero loses
 	//return 2 - if is to change level
-	public abstract int updateGame(char move);
+	public abstract state updateGame(char move);
 	
 	//TODO make hero's update move here
 	public void updateHero(char move)

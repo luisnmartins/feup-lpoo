@@ -25,9 +25,9 @@ public class TestOgreLevelGameLogic {
 	{
 		
 		Map testmap = new Map(map);
-		Level currentLevel = new OgreLevel(testmap);
-		currentLevel.updateGame('d');
-		//assertEquals(state.LOSE,)
+		OgreLevel currentLevel = new OgreLevel(testmap);
+		currentLevel.NotMoveElements();	
+		assertEquals(state.LOSE, currentLevel.updateGame('d'));
 	}
 	
 	@Test
@@ -35,8 +35,10 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap);
-		currentLevel.updateHero('s');
-		currentLevel.updateHero('s');
+		currentLevel.NotMoveElements();	
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('s');
+		assertTrue(currentLevel.getKey().getFound());
 		assertEquals('K',currentLevel.getHero().getElement());
 		
 	}
@@ -46,8 +48,9 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap);
-		currentLevel.updateHero('s');
-		currentLevel.updateHero('d');
+		currentLevel.NotMoveElements();	
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('d');
 		assertFalse(currentLevel.DoorsAreOpened());
 	}
 	
@@ -56,11 +59,13 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap);
-		currentLevel.updateHero('s');
-		currentLevel.updateHero('s');
+		currentLevel.NotMoveElements();
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('s');
 		assertTrue(currentLevel.getKey().getFound());
-		currentLevel.updateHero('w');
-		currentLevel.updateHero('a');
+		currentLevel.updateGame('w');
+		currentLevel.updateGame('a');
+		currentLevel.getMap();
 		assertTrue(currentLevel.DoorsAreOpened()); 
 		
 	}
@@ -68,6 +73,16 @@ public class TestOgreLevelGameLogic {
 	@Test
 	public void testHeroWins()
 	{
+		Map testmap = new Map(map);
+		Level currentLevel = new OgreLevel(testmap);
+		currentLevel.NotMoveElements();
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('w');
+		currentLevel.updateGame('a');
+		assertEquals(state.NEXTLEVEL, currentLevel.updateGame('a'));
+		assertNull(currentLevel.nextLevel());
 		
+				
 	}
 }

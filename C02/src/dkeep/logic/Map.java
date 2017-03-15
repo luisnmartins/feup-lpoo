@@ -36,9 +36,9 @@ public class Map {
 		}*/
 	}
 	
-	public char getElement(int x, int y) {
+	/*public char getElement(int x, int y) {
 		return this.map[x][y];
-	}
+	}*/
 	
 	public  Boolean moveTo(int x, int y) {
 		if(map[x][y] == 'X' || map[x][y] == 'I')

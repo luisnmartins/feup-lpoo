@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import dkeep.cli.DungeonKeep.state;
+
 public class OgreLevel extends Level{
 	
 	
@@ -40,6 +42,15 @@ public class OgreLevel extends Level{
 							mymap.ClearPosition(i, j);
 						}
 						
+						else if(maptoanalyze[i][j] == 'O')
+						{
+							int rand = ThreadLocalRandom.current().nextInt(1, 6);
+							for(int startRand=0; startRand < rand ; startRand++)
+							{
+								Ogres.add(new Ogre(i,j,'O','*'));
+							}
+						}
+						
 						//create Doors
 						else if(maptoanalyze[i][j] == 'I' && (i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length))
 						{
@@ -51,11 +62,7 @@ public class OgreLevel extends Level{
 					}
 				}
 		
-		int i = ThreadLocalRandom.current().nextInt(1, 6);
-		for(int j=0; j < i ; j++)
-		{
-			Ogres.add(new Ogre(1,4,'O','*'));
-		}
+		
 
 		
 	}
@@ -65,20 +72,21 @@ public class OgreLevel extends Level{
 	
 	@Override
 	//TODO criar o update game para os varios niveis
-	public int updateGame(char move)
+	public state updateGame(char move)
 	{
 		System.out.println("Level2");
 		this.updateHero(move);
 		for(int i = 0; i < Ogres.size(); i++){
-			this.updateOgre(Ogres.get(i));
+			if(moveOgres)
+				this.updateOgre(Ogres.get(i));
 			if(VerifyColisionOgre(Ogres.get(i)))
-				return 1;
+				return state.LOSE;
 		}
 				
 		if(changeLevel())
-			return 2;
+			return state.NEXTLEVEL;
 		else
-			return 0;
+			return state.RUNNING;
 	}
 	
 	
@@ -100,9 +108,8 @@ public class OgreLevel extends Level{
 			}
 		}
 		boolean movedFlag = false;
-		do{
-			
 		
+		do{		
 		
 		myOgre.changePosition(myOgre.GenerateOgre(),false);
 		int x_temp = myOgre.getXTemp();
@@ -174,12 +181,16 @@ public class OgreLevel extends Level{
 	{
 			if((myHero.getX() == myOgre.getX() && Math.abs(myHero.getY() - myOgre.getY()) <= 1) || (myHero.getY() == myOgre.getY() && Math.abs(myHero.getX() - myOgre.getX()) <= 1) && myOgre.getElement()  == 'O')
 			{
+				if(moveOgres)
+				{
+					myOgre.setStopOgre(2);
+					myOgre.setElm('8');
+					myOgre.setClubElm(' ');
+					return false;
+				}
+				else
+					return true;
 				
-				myOgre.setStopOgre(2);
-				myOgre.setElm('8');
-				myOgre.setClubElm(' ');
-				
-				return false;
 			}
 			else if(((myHero.getX() == myOgre.getAttackX() && Math.abs(myHero.getY() - myOgre.getAttackY()) <= 1) || (myHero.getY() == myOgre.getAttackY() && Math.abs(myHero.getX() - myOgre.getAttackX()) <= 1)) && myOgre.getStopOgre() == 0 && myOgre.getClubElm() == '*')
 			{

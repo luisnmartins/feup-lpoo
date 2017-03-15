@@ -10,7 +10,7 @@ public class Hero extends Character {
 		Key = false;
 	}
 	
-	public void setKey(Boolean bool)
+	/*public void setKey(Boolean bool)
 	{
 		Key = bool;
 	}
@@ -18,7 +18,7 @@ public class Hero extends Character {
 	public Boolean getKey()
 	{
 		return Key;
-	}
+	}*/
 	
 	
 	

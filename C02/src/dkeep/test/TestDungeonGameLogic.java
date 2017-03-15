@@ -42,9 +42,8 @@ public class TestDungeonGameLogic {
 	public void TestAdjacentPositionGuard()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);	
-		currentLevel.updateGame('d');
-		assertEquals(state.LOSE, currentLevel.getgameRunning()); 
+		Level currentLevel = new DungeonLevel(testmap);			
+		assertEquals(state.LOSE, currentLevel.updateGame('d')); 
 	 
 		
 	}
@@ -55,10 +54,9 @@ public class TestDungeonGameLogic {
 	{
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);
-		currentLevel.NotMoveElements();
-		GameState gs = new GameState(currentLevel);			 
-		gs.UpdateGame('s'); 
-		gs.UpdateGame('a');
+		currentLevel.NotMoveElements();			 
+		currentLevel.updateGame('s'); 
+		currentLevel.updateGame('a');
 		assertEquals(2, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 	}
@@ -68,13 +66,14 @@ public class TestDungeonGameLogic {
 	{
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);
-		currentLevel.NotMoveElements();
-		GameState gs = new GameState(currentLevel);			
-		gs.UpdateGame('s');
-		gs.UpdateGame('s');
+		currentLevel.NotMoveElements();			
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('s');
+		currentLevel.getMap();
 		assertEquals(true, currentLevel.DoorsAreOpened());
 		
 	}
+	
 	
 	@Test
 	public void TestNextLevel()
@@ -82,11 +81,10 @@ public class TestDungeonGameLogic {
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap);
 		currentLevel.NotMoveElements();
-		GameState gs = new GameState(currentLevel);			
-		gs.UpdateGame('s');
-		gs.UpdateGame('s');
-		gs.UpdateGame('a');
-		assertEquals(state.WIN, gs.getgameRunning());
+		currentLevel.updateGame('s');
+		currentLevel.updateGame('s');
+		assertEquals(state.NEXTLEVEL, currentLevel.updateGame('a'));
+		
 		
 		
 	}

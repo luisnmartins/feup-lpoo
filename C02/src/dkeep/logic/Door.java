@@ -10,9 +10,9 @@ public class Door {
 	
 	public Door(int x, int y)
 	{
-		this.setX(x);
-		this.setY(y);
-		this.setSymbol('I');
+		this.x = x;
+		this.y = y;
+		this.symbol = 'I';
 		 
 	}
 	

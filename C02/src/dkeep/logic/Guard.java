@@ -77,14 +77,14 @@ public class Guard extends Character {
 		return this.guardType;
 	}
 	
-	public void setIterator(int newIt)
+	/*public void setIterator(int newIt)
 	{
 		this.iterator = newIt;
-	}
-	public int getIterator()
+	}*/
+	/*public int getIterator()
 	{
 		return this.iterator;
-	}
+	}*/
 
 	
 	

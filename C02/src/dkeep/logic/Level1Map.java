@@ -27,9 +27,7 @@ public class Level1Map extends Map {
 	{
 		super(mapStatic);
 	}
-	
-	
-	
+		
 	
 	public  char[][] getMap(){return map;};
 
