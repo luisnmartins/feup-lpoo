@@ -16,7 +16,7 @@ public class Level2Map extends Map {
 	public Level2Map()
 	{
 		super(mapStatic);
-	}
+	} 
 
 
 	
