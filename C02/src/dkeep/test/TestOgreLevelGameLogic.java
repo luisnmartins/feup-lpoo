@@ -10,6 +10,7 @@ import dkeep.logic.OgreLevel;
 
 import dkeep.logic.Level;
 import dkeep.logic.Map;
+import dkeep.logic.Ogre;
 
 
 
@@ -19,7 +20,7 @@ public class TestOgreLevelGameLogic {
 			{'I', ' ', ' ', ' ', 'X'},
 			{'X', 'k', ' ', ' ', 'X'},
 			{'X', 'X', 'X', 'X', 'X'}};
-	
+	 
 	@Test
 	public void testHeroNextToOgre()
 	{
@@ -84,5 +85,18 @@ public class TestOgreLevelGameLogic {
 		assertNull(currentLevel.nextLevel());
 		
 				
+	}
+	
+	@Test
+	public void testHeroLoss()
+	{
+		Map testmap = new Map(map);
+		OgreLevel currentLevel = new OgreLevel(testmap);
+		currentLevel.NotMoveElements();
+		Ogre myOgre = currentLevel.getFirstOgre();
+		
+		myOgre.setClub(2, 3);
+		currentLevel.updateGame('s');
+		assertEquals(state.LOSE,currentLevel.updateGame('d')); 
 	}
 }
