@@ -13,9 +13,9 @@ public class OgreLevel extends Level{
 	private List<Ogre> Ogres = new ArrayList<Ogre>();
 	private boolean moveOgres = true;
 	
-	public OgreLevel(Map mymap)
+	public OgreLevel(Map mymap, int howmanyOgres)
 	{
-		//Map dungeonmap = new Map(2);
+		
 		this.setMap(mymap);
 		
 		//analyze map to get elements and clear elements initial position in the map
@@ -40,8 +40,8 @@ public class OgreLevel extends Level{
 							}
 							case 'O':
 							{
-								int rand = ThreadLocalRandom.current().nextInt(1, 6);
-								for(int startRand=0; startRand < rand ; startRand++)
+								
+								for(int startRand=0; startRand < howmanyOgres ; startRand++)
 								{
 									Ogres.add(new Ogre(i,j,'O','*'));
 								}
@@ -197,7 +197,7 @@ public class OgreLevel extends Level{
 	
 	
 	//TODO update map to send
-		public  char[][] getMap()
+		public  String getMap()
 		{
 			
 			char[][] maptocopy = currentmap.getMap();
@@ -229,11 +229,17 @@ public class OgreLevel extends Level{
 			{
 				maptosend[doors.get(i).getX()][doors.get(i).getY()] = doors.get(i).getSymbol();
 			}
-
+			
+			String toprint="";
+			
+			for(int i=0; i<maptosend.length; i++)
+			{
+				toprint += maptosend[i].toString();
+				toprint += "\n";
+			}
 			
 			
-			
-			return maptosend; 
+			return toprint;
 			
 		}
 		

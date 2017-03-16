@@ -26,7 +26,7 @@ public class TestOgreRandomBehaviour {
 		
 		
 		Map testmap = new Map(map);
-		OgreLevel currentLevel = new OgreLevel(testmap);
+		OgreLevel currentLevel = new OgreLevel(testmap,1);
 		
 		Ogre myOgre = currentLevel.getFirstOgre();
 		

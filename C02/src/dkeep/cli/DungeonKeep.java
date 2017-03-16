@@ -11,12 +11,11 @@ import dkeep.logic.OgreLevel;
 
 
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class DungeonKeep {
 
-	
-	
 	
 	public enum state{ RUNNING, WIN, LOSE, END, NEXTLEVEL}
 	
@@ -34,13 +33,15 @@ public class DungeonKeep {
 		if(level == 1)
 		{
 			maptouse = new Level1Map();
-			currentLevel= new DungeonLevel(maptouse);
+			int randGuard= ThreadLocalRandom.current().nextInt(1,4);
+			currentLevel= new DungeonLevel(maptouse, randGuard);
 			
 		}
 		else
 		{
 			maptouse = new Level2Map();
-			currentLevel = new OgreLevel(maptouse);
+			int randOgre = ThreadLocalRandom.current().nextInt(1, 6);
+			currentLevel = new OgreLevel(maptouse, randOgre);
 		}
 			
 		
@@ -108,20 +109,9 @@ public class DungeonKeep {
 	public void printMap() {
 		
 		
-		char[][] currentmap = currentLevel.getMap();
+		String currentmap = currentLevel.getMap();
 		
-
-		for (int i = 0; i < currentmap.length; i++) {
-			
-			for (int j = 0; j < currentmap[i].length; j++) {
-				System.out.print(currentmap[i][j]);
-				System.out.print(" ");
-
-			}
-			System.out.print("\n");
-		}
-		System.out.print('\n');
-
+		System.out.print(currentmap);
 	}
 	
 	

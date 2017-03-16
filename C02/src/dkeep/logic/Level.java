@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 import dkeep.cli.DungeonKeep.state;
+//import dkeep.gui.DungeonDesign.state;
 import java.util.ArrayList;
 
 public abstract class Level {
@@ -11,10 +12,7 @@ public abstract class Level {
 	protected ArrayList<Door> doors = new ArrayList<Door>();
 	
 	
-	public  char[][] getMap(){
-		
-		return currentmap.getMap();
-	}
+	public abstract String getMap();
 	
 
 	public void setMap(Map currentmap)

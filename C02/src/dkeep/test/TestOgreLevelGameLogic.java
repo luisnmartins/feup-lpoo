@@ -26,7 +26,7 @@ public class TestOgreLevelGameLogic {
 	{
 		
 		Map testmap = new Map(map);
-		OgreLevel currentLevel = new OgreLevel(testmap);
+		OgreLevel currentLevel = new OgreLevel(testmap,1);
 		currentLevel.NotMoveElements();	
 		assertEquals(state.LOSE, currentLevel.updateGame('d'));
 	}
@@ -35,7 +35,7 @@ public class TestOgreLevelGameLogic {
 	public void testHeroCatchKey()
 	{
 		Map testmap = new Map(map);
-		Level currentLevel = new OgreLevel(testmap);
+		Level currentLevel = new OgreLevel(testmap,1);
 		currentLevel.NotMoveElements();	
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
@@ -48,7 +48,7 @@ public class TestOgreLevelGameLogic {
 	public void testHeroFailOpenDoor()
 	{
 		Map testmap = new Map(map);
-		Level currentLevel = new OgreLevel(testmap);
+		Level currentLevel = new OgreLevel(testmap,1);
 		currentLevel.NotMoveElements();	
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('d');
@@ -59,7 +59,7 @@ public class TestOgreLevelGameLogic {
 	public void testHeroOpensKey()
 	{
 		Map testmap = new Map(map);
-		Level currentLevel = new OgreLevel(testmap);
+		Level currentLevel = new OgreLevel(testmap,1);
 		currentLevel.NotMoveElements();
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
@@ -75,7 +75,7 @@ public class TestOgreLevelGameLogic {
 	public void testHeroWins()
 	{
 		Map testmap = new Map(map);
-		Level currentLevel = new OgreLevel(testmap);
+		Level currentLevel = new OgreLevel(testmap,1);
 		currentLevel.NotMoveElements();
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
@@ -91,7 +91,7 @@ public class TestOgreLevelGameLogic {
 	public void testHeroLoss()
 	{
 		Map testmap = new Map(map);
-		OgreLevel currentLevel = new OgreLevel(testmap);
+		OgreLevel currentLevel = new OgreLevel(testmap,1);
 		currentLevel.NotMoveElements();
 		Ogre myOgre = currentLevel.getFirstOgre();
 		

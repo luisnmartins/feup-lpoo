@@ -12,7 +12,7 @@ public class DungeonLevel extends Level{
 	private Guard myGuard;
 	private boolean moveGuard= true;
 	
-	public DungeonLevel(Map mymap)
+	public DungeonLevel(Map mymap, int randGuard)
 	{
 		//Map dungeonmap = new Map(1);
 		this.setMap(mymap);
@@ -40,7 +40,8 @@ public class DungeonLevel extends Level{
 					}
 					case 'G':
 					{
-						myGuard = new Guard(i, j, 'G');
+						
+						myGuard = new Guard(i, j, 'G', randGuard);
 						mymap.ClearPosition(i, j);
 						break;
 					}
@@ -138,13 +139,14 @@ public class DungeonLevel extends Level{
 	{
 		
 		Map nextmap = new Level2Map();
-		return new OgreLevel(nextmap);
+		int rand = ThreadLocalRandom.current().nextInt(1, 6);
+		return new OgreLevel(nextmap, rand);
 	}
 	
 	
 	
 	//TODO update map to send
-	public  char[][] getMap()
+	public String getMap()
 	{
 		
 		char[][] maptocopy = currentmap.getMap();
@@ -154,7 +156,6 @@ public class DungeonLevel extends Level{
 			maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
 		}
 		
-		
 		maptosend[myKey.getX()][myKey.getY()] = 'k';
 		maptosend[myHero.getX()][myHero.getY()] = myHero.getElement();
 		maptosend[myGuard.getX()][myGuard.getY()] = myGuard.getElement();
@@ -163,8 +164,16 @@ public class DungeonLevel extends Level{
 			maptosend[doors.get(i).getX()][doors.get(i).getY()] = doors.get(i).getSymbol();
 		}
 		
+		String toprint="";
 		
-		return maptosend;
+		for(int i=0; i<maptosend.length; i++)
+		{
+			toprint += String.valueOf(maptosend[i]);
+			toprint += "\n";
+		}
+		
+		
+		return toprint;
 		
 	}
 

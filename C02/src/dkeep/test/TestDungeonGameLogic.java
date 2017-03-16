@@ -23,7 +23,7 @@ public class TestDungeonGameLogic {
 	{
 		
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);
+		Level currentLevel = new DungeonLevel(testmap,3);
 		assertEquals(1, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 	}
@@ -32,7 +32,7 @@ public class TestDungeonGameLogic {
 	public void TestMoveToWall()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);
+		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.updateGame('w');
 		assertEquals(1, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
@@ -42,7 +42,7 @@ public class TestDungeonGameLogic {
 	public void TestAdjacentPositionGuard()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);			
+		Level currentLevel = new DungeonLevel(testmap,3);			
 		assertEquals(state.LOSE, currentLevel.updateGame('d')); 
 	 
 		
@@ -53,7 +53,7 @@ public class TestDungeonGameLogic {
 	public void TestCanNotLeave()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);
+		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.NotMoveElements();			 
 		currentLevel.updateGame('s'); 
 		currentLevel.updateGame('a');
@@ -65,7 +65,7 @@ public class TestDungeonGameLogic {
 	public void TestOpenDoors()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);
+		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.NotMoveElements();			
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
@@ -79,7 +79,7 @@ public class TestDungeonGameLogic {
 	public void TestNextLevel()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap);
+		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.NotMoveElements();
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');

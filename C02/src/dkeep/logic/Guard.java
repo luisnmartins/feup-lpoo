@@ -9,15 +9,15 @@ public class Guard extends Character {
 	
 	private int iterator;
 	
-	private int guardType; // Type 1 - drunkGuard , Type 2 - CautiousGuard, Type 3 - NormalGuard
+	private int guardType; // Type 1 - drunkGuard , Type 2 - SuspiciousGuard, Type 3 - NormalGuard
 	private Boolean typeCharateristic;
 	
-	public Guard(int xP, int yP, char Elm)
+	public Guard(int xP, int yP, char Elm, int type)
 	{
 		super(xP, yP, Elm);
 		iterator = 0;
 		typeCharateristic = false;
-		guardType = 3; //ThreadLocalRandom.current().nextInt(1,4);
+		guardType = type;
 		
 	}
 	
@@ -72,6 +72,7 @@ public class Guard extends Character {
 	{
 		return this.typeCharateristic;
 	}
+
 	public int getType()
 	{
 		return this.guardType;
