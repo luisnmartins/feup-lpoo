@@ -24,50 +24,46 @@ public class OgreLevel extends Level{
 				{
 					for(int j=0; j<maptoanalyze.length; j++)
 					{
-						if(maptoanalyze[i][j] == ' ' || maptoanalyze[i][j] == 'X')
-						{}
-						
-						//create hero
-						else if(maptoanalyze[i][j] == 'H')
+						switch(maptoanalyze[i][j])
 						{
+							case 'H':
+							{
 								myHero = new Hero(i, j, 'A');
 								mymap.ClearPosition(i, j);
-								
-						}
-						
-						//create key
-						else if(maptoanalyze[i][j] == 'k')
-						{
-							myKey = new Key(i, j, 'k');
-							mymap.ClearPosition(i, j);
-						}
-						
-						else if(maptoanalyze[i][j] == 'O')
-						{
-							int rand = ThreadLocalRandom.current().nextInt(1, 6);
-							for(int startRand=0; startRand < rand ; startRand++)
-							{
-								Ogres.add(new Ogre(i,j,'O','*'));
+								break;
 							}
+							case 'k':
+							{
+								myKey = new Key(i, j, 'k');
+								mymap.ClearPosition(i, j);
+								break;
+							}
+							case 'O':
+							{
+								int rand = ThreadLocalRandom.current().nextInt(1, 6);
+								for(int startRand=0; startRand < rand ; startRand++)
+								{
+									Ogres.add(new Ogre(i,j,'O','*'));
+								}
+								break;
+							}
+							case 'I':
+							{
+								if(i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length)
+								{
+									Door mydoor = new Door(i, j);
+									doors.add(mydoor);
+									mymap.ClearPosition(i, j);
+								}
+								else{}
+								break;
+							}
+							default: break;
 						}
-						
-						//create Doors
-						else if(maptoanalyze[i][j] == 'I' && (i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length))
-						{
-							Door mydoor = new Door(i, j);
-							doors.add(mydoor);
-							mymap.ClearPosition(i, j);
-						}
-						
 					}
 				}
-		
-		
-
-		
 	}
-	
-	
+
 	
 	
 	@Override

@@ -24,51 +24,44 @@ public class DungeonLevel extends Level{
 		{
 			for(int j=0; j<maptoanalyze.length; j++)
 			{
-				if(maptoanalyze[i][j] == ' ' || maptoanalyze[i][j] == 'X')
-				{}
-				
-				//create hero
-				else if(maptoanalyze[i][j] == 'H')
+				switch(maptoanalyze[i][j])
 				{
+					case 'H':
+					{
 						myHero = new Hero(i, j, 'H');
 						mymap.ClearPosition(i, j);
+						break;
+					}
+					case 'k':
+					{
+						myKey = new Key(i, j, 'k');
+						mymap.ClearPosition(i, j);
+						break;
+					}
+					case 'G':
+					{
+						myGuard = new Guard(i, j, 'G');
+						mymap.ClearPosition(i, j);
+						break;
+					}
+					case 'I':
+					{
+						if(i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length)
+						{
+							Door mydoor = new Door(i, j);
+							doors.add(mydoor);
+							mymap.ClearPosition(i, j);
+						}
+						else{}
+						break;
+					}
+					default: break;
 						
-				}
-				
-				//create key
-				else if(maptoanalyze[i][j] == 'k')
-				{
-					myKey = new Key(i, j, 'k');
-					mymap.ClearPosition(i, j);
-				}
-				
-				//create Guard
-				else if(maptoanalyze[i][j] == 'G')
-				{
-					myGuard = new Guard(i, j, 'G');
-					mymap.ClearPosition(i, j);
-				}
-				
-				//create Doors
-				else if(maptoanalyze[i][j] == 'I' && (i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length))
-				{
-					Door mydoor = new Door(i, j);
-					doors.add(mydoor);
-					mymap.ClearPosition(i, j);
 				}
 				
 			}
 		}
-		
-		
-		
-		
-		
-		/*Door newdoor = new Door(5, 0);
-		doors.add(newdoor);
-		Door newdoor2 = new Door(6, 0);
-		doors.add(newdoor2);*/
-		
+				
 	}
 	
 	public void NotMoveElements()
