@@ -1,22 +1,18 @@
 package dkeep.logic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import dkeep.cli.DungeonKeep.state;
 
 public class OgreLevel extends Level{
-	
-	
-	private List<Ogre> Ogres = new ArrayList<Ogre>();
-	private boolean moveOgres = true;
+		
+	//private List<Ogre> Ogres = new ArrayList<Ogre>();
+	//private boolean moveOgres = true;
 	
 	public OgreLevel(Map mymap, int howmanyOgres)
 	{
 		
-		this.setMap(mymap);
+		super(mymap, howmanyOgres, 0);
+		mymap.getKey().setIsaKey(true);
+		
+		/*this.setMap(mymap);
 		
 		//analyze map to get elements and clear elements initial position in the map
 				char[][] maptoanalyze = mymap.getMap();
@@ -61,12 +57,12 @@ public class OgreLevel extends Level{
 							default: break;
 						}
 					}
-				}
+				}*/
 	}
 
 	
 	
-	@Override
+	/*@Override
 	//TODO criar o update game para os varios niveis
 	public state updateGame(char move)
 	{
@@ -115,7 +111,8 @@ public class OgreLevel extends Level{
 			if(myKey.isOnTop(myOgre))
 			{
 				myOgre.setElm('$');
-			}else  myOgre.setElm('O');
+			}else 
+				myOgre.setElm('O');
 			
 			for(int i = 0; i < doors.size();i++)
 			{
@@ -193,10 +190,10 @@ public class OgreLevel extends Level{
 				return true;
 			}
 			return false;
-	}
+	}*/
 	
 	
-	//TODO update map to send
+	/*//TODO update map to send
 		public  String getMap()
 		{
 			
@@ -241,11 +238,11 @@ public class OgreLevel extends Level{
 			
 			return toprint;
 			
-		}
+		}*/
 		
 		
 		
-		public void NotMoveElements()
+		/*public void NotMoveElements()
 		{
 			moveOgres = false;
 		}
@@ -253,7 +250,12 @@ public class OgreLevel extends Level{
 		public Ogre getFirstOgre()
 		{
 			return this.Ogres.get(0);
-		}
+		}*/
+	
+	public Level nextLevel()
+	{
+		return null;
+	}
 	
 
 }

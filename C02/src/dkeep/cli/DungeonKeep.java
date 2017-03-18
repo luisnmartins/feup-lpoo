@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DungeonKeep {
 
 	
-	public enum state{ RUNNING, WIN, LOSE, END, NEXTLEVEL}
+	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL}
 	
 	private state gameState;
 	
@@ -99,6 +99,8 @@ public class DungeonKeep {
 				}
 				break;
 			}
+		default:
+			break;
 		}
 					
 	}

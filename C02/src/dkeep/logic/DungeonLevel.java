@@ -9,69 +9,19 @@ import dkeep.cli.DungeonKeep.state;
 
 public class DungeonLevel extends Level{
 	
-	private Guard myGuard;
-	private boolean moveGuard= true;
+	//private Guard myGuard;
+	//private boolean moveGuard= true;
 	
-	public DungeonLevel(Map mymap, int randGuard)
+	public DungeonLevel(Map mymap, int Guardtype)
 	{
-		//Map dungeonmap = new Map(1);
-		this.setMap(mymap);
-		
-		
-		//analyze map to get elements and clear elements initial position in the map
-		char[][] maptoanalyze = mymap.getMap();
-		for(int i=0; i<maptoanalyze.length; i++)
-		{
-			for(int j=0; j<maptoanalyze.length; j++)
-			{
-				switch(maptoanalyze[i][j])
-				{
-					case 'H':
-					{
-						myHero = new Hero(i, j, 'H');
-						mymap.ClearPosition(i, j);
-						break;
-					}
-					case 'k':
-					{
-						myKey = new Key(i, j, 'k');
-						mymap.ClearPosition(i, j);
-						break;
-					}
-					case 'G':
-					{
-						
-						myGuard = new Guard(i, j, 'G', randGuard);
-						mymap.ClearPosition(i, j);
-						break;
-					}
-					case 'I':
-					{
-						if(i== 0 || i == maptoanalyze.length || j==0 || j == maptoanalyze[i].length)
-						{
-							Door mydoor = new Door(i, j);
-							doors.add(mydoor);
-							mymap.ClearPosition(i, j);
-						}
-						else{}
-						break;
-					}
-					default: break;
-						
-				}
-				
-			}
-		}
-				
+		super(mymap, 0, Guardtype);
+		mymap.getKey().setIsaKey(false);		
 	}
 	
-	public void NotMoveElements()
-	{
-		moveGuard = false;
-	}
+
 	
 	
-	@Override
+	/*@Override
 	public state updateGame(char move)
 	{	
 		
@@ -87,39 +37,13 @@ public class DungeonLevel extends Level{
 		}
 		else return state.RUNNING;
 		
-	}
+	}*/
 
 	//TODO update guard movement
-	public void updateGuard()
-	{
-		if(myGuard.getType()!= 3) 
-		{
-			int randomInd = ThreadLocalRandom.current().nextInt(1,101);
-			if(randomInd >= 70)
-			{
-				myGuard.setCharateristic();
-			}
-		}
-			
-		if(myGuard.getType() == 1 && myGuard.getCharateristic())
-		{
-				myGuard.setElm('g');
-
-		}
-		else
-		{
-			myGuard.setElm('G');
-			myGuard.changePosition(myGuard.getMoveGuard(), myGuard.getCharateristic());
-			myGuard.setPosition(myGuard.getXTemp(), myGuard.getYTemp());
-		}
-			
-
 	
-		
-	}
 	
-	//TODO Verify
-	public Boolean VerifyColisionGuard()
+
+	/*public Boolean VerifyColisionGuard()
 	{
 
 			if(myGuard.getElement() != 'g')
@@ -131,7 +55,7 @@ public class DungeonLevel extends Level{
 			}
 			return false;
 
-	}
+	}*/
 	
 
 	
@@ -145,7 +69,7 @@ public class DungeonLevel extends Level{
 	
 	
 	
-	//TODO update map to send
+	/*//TODO update map to send
 	public String getMap()
 	{
 		
@@ -175,7 +99,7 @@ public class DungeonLevel extends Level{
 		
 		return toprint;
 		
-	}
+	}*/
 
 
 	

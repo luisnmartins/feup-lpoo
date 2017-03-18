@@ -28,7 +28,7 @@ public class TestOgreRandomBehaviour {
 		Map testmap = new Map(map);
 		OgreLevel currentLevel = new OgreLevel(testmap,1);
 		
-		Ogre myOgre = currentLevel.getFirstOgre();
+		Ogre myOgre = (Ogre)currentLevel.getFirstEnemie();
 		
 		
 		boolean as = false, ad = false, aw = false, aa = false;
@@ -41,7 +41,7 @@ public class TestOgreRandomBehaviour {
 			int xOld = myOgre.getX();
 			int yOld = myOgre.getY();
 			
-			currentLevel.updateOgre(myOgre);
+			myOgre.update(testmap, ' ');
 			
 			int x= myOgre.getX();
 			int y = myOgre.getY();

@@ -20,14 +20,4 @@ public class Level2Map extends Map {
 
 
 	
-
-	public char[][] getMap() {
-		// TODO Auto-generated method stub
-		return this.map;
-	}
-	
-	
-	
-	
-	
 }

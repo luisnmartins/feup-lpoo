@@ -29,7 +29,6 @@ public class Level1Map extends Map {
 	}
 		
 	
-	public  char[][] getMap(){return map;};
 
 	
 }

@@ -7,6 +7,7 @@ public class Key {
 	private int  y;
 	private char symbol;
 	private boolean found;	
+	private boolean isKey=false; //1 - Level, 2 - key
 	
 	public Key(int x, int y, char symbol)
 	{
@@ -18,6 +19,16 @@ public class Key {
 	}
 	
 
+	public boolean getIsaKey()
+	{
+		return this.isKey;
+	}
+	
+	public void setIsaKey(boolean value)
+	{
+		this.isKey = value;
+	}
+	
 	public boolean getFound()
 	{
 		return found;
@@ -27,6 +38,7 @@ public class Key {
 	public void setFound()
 	{
 		found = true;
+		this.symbol = ' ';
 	}
 
 
@@ -50,15 +62,27 @@ public class Key {
 	}
 
 	
-	public boolean isOnTop(Character c1)
+	public boolean isOnTop(int xPos, int yPos)
 	
 	{
 		if(!this.getFound())
-		if(this.x == c1.getXTemp() && this.y == c1.getYTemp())
+		if(this.x == xPos && this.y == yPos)
 		{
 			return true;
-		}else return false;
-		else return false;
+		}else 
+			return false;
+		else 
+			return false;
+	}
+
+
+	public char getSymbol() {
+		return symbol;
+	}
+
+
+	public void setSymbol(char symbol) {
+		this.symbol = symbol;
 	}
 	
 	

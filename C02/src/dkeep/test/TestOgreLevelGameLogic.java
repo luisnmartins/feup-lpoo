@@ -27,7 +27,7 @@ public class TestOgreLevelGameLogic {
 		
 		Map testmap = new Map(map);
 		OgreLevel currentLevel = new OgreLevel(testmap,1);
-		currentLevel.NotMoveElements();	
+		currentLevel.IstoMoveElements(false);	
 		assertEquals(state.LOSE, currentLevel.updateGame('d'));
 	}
 	
@@ -36,10 +36,10 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap,1);
-		currentLevel.NotMoveElements();	
+		currentLevel.IstoMoveElements(false);	
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
-		assertTrue(currentLevel.getKey().getFound());
+		assertTrue(testmap.getKey().getFound());
 		assertEquals('K',currentLevel.getHero().getElement());
 		
 	}
@@ -49,10 +49,10 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap,1);
-		currentLevel.NotMoveElements();	
+		currentLevel.IstoMoveElements(false);
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('d');
-		assertFalse(currentLevel.DoorsAreOpened());
+		assertFalse(testmap.DoorsAreOpened());
 	}
 	
 	@Test
@@ -60,14 +60,14 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap,1);
-		currentLevel.NotMoveElements();
+		currentLevel.IstoMoveElements(false);	
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
-		assertTrue(currentLevel.getKey().getFound());
+		assertTrue(testmap.getKey().getFound());
 		currentLevel.updateGame('w');
 		currentLevel.updateGame('a');
 		currentLevel.getMap();
-		assertTrue(currentLevel.DoorsAreOpened()); 
+		assertTrue(testmap.DoorsAreOpened()); 
 		
 	}
 	
@@ -76,7 +76,7 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		Level currentLevel = new OgreLevel(testmap,1);
-		currentLevel.NotMoveElements();
+		currentLevel.IstoMoveElements(false);	
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('w');
@@ -92,9 +92,8 @@ public class TestOgreLevelGameLogic {
 	{
 		Map testmap = new Map(map);
 		OgreLevel currentLevel = new OgreLevel(testmap,1);
-		currentLevel.NotMoveElements();
-		Ogre myOgre = currentLevel.getFirstOgre();
-		
+		currentLevel.IstoMoveElements(false);
+		Ogre myOgre = (Ogre)currentLevel.getFirstEnemie();
 		myOgre.setClub(2, 3);
 		currentLevel.updateGame('s');
 		assertEquals(state.LOSE,currentLevel.updateGame('d')); 

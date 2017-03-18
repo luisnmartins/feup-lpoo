@@ -13,6 +13,7 @@ public class Door {
 		this.x = x;
 		this.y = y;
 		this.symbol = 'I';
+		this.canOpen = false;
 		 
 	}
 	
@@ -32,7 +33,7 @@ public class Door {
 	
 	//Level2
 	
-	public void setcanOpen()
+	public void setcanOpen(boolean value)
 	{
 		canOpen = true;
 	}
@@ -46,15 +47,15 @@ public class Door {
 	
 	
 	
-	public boolean doorAchieved(Character car)
+	public boolean doorAchieved(int xPos, int yPos)
 	{
-		if(car.getXTemp() == this.getX() && car.getYTemp() == this.getY())	
+		if(xPos == this.getX() && yPos == this.getY())	
 			return true;
 		else
 			return false;
 	}
 	
-	public boolean IsAdjacent(Character car)
+	/*public boolean IsAdjacent(Character car)
 	{
 		if((car.getX() == this.getX() && Math.abs(car.getY()-this.getY()) == 1) || (car.getY() == this.getY() && Math.abs(car.getX()-this.getX()) == 1))
 		{
@@ -63,7 +64,7 @@ public class Door {
 		else
 			return false;
 			
-	}
+	}*/
 
 	public int getX() {
 		return x;

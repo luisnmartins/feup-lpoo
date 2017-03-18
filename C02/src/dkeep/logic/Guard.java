@@ -4,34 +4,28 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Guard extends Character {
 
-	private char moveLevel1[] = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd',
+	protected char moveLevel1[] = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd',
 			'd', 'w', 'w', 'w', 'w', 'w' };
 	
-	private int iterator;
+	protected int iterator;
 	
-	private int guardType; // Type 1 - drunkGuard , Type 2 - SuspiciousGuard, Type 3 - NormalGuard
-	private Boolean typeCharateristic;
+	protected boolean characteristic;
 	
-	public Guard(int xP, int yP, char Elm, int type)
+	
+	//private int guardType; // Type 1 - drunkGuard , Type 2 - SuspiciousGuard, Type 3 - NormalGuard
+	//private Boolean typeCharateristic;
+	
+
+	public Guard(int xP, int yP, char Elm)
 	{
 		super(xP, yP, Elm);
 		iterator = 0;
-		typeCharateristic = false;
-		guardType = type;
 		
 	}
 	
 	public char getMoveGuard()
 	{
 		char move = moveLevel1[iterator];
-		if (guardType == 2 && typeCharateristic == true)
-		{
-			if(iterator == 0)
-			{
-				iterator = moveLevel1.length-1;
-			}else iterator--;
-			return move;
-		}
 		
 		
 		if(iterator == moveLevel1.length-1)
@@ -43,50 +37,76 @@ public class Guard extends Character {
 		return move;
 		
 	}
-	public void setCharateristic()
+	
+	public void updateCharacteristic()
 	{
-		if(this.typeCharateristic == false)
+		int randomInd = ThreadLocalRandom.current().nextInt(1,101);
+		if(randomInd >= 70)
 		{
-					typeCharateristic  = true;
-					if(iterator == 0){
-						
-						iterator = moveLevel1.length-1;
-					}
-					else
-						iterator--;
-		}
-		else {
-			
-			typeCharateristic = false;
-			if(iterator == moveLevel1.length-1)
+		
+			if(this.characteristic == false)
 			{
-				iterator = 0;
+				characteristic  = true;
+				if(iterator == 0){
+					
+					iterator = moveLevel1.length-1;
+				}
+				else
+				iterator--;
 			}
-			else iterator++;
+			else
+			{
+			
+				characteristic = false;
+				if(iterator == moveLevel1.length-1)
+				{
+					iterator = 0;
+				}
+				else iterator++;
+			}
+			
+		}
+
+	}
+	
+
+	
+	public boolean update(Map currentmap, char heromove)
+	{
+
+
+			this.setElm('G');
+			this.changePosition(this.getMoveGuard());
+			this.setPosition(this.getXTemp(), this.getYTemp());
+		
+		return true;
+	
+		
+	}
+	
+	public Guard getGuardType(int type, int xP, int yP, char Elm)
+	{
+		switch(type)
+		{
+			case 1:
+			{
+				return new DrunkenGuard(xP, yP, Elm);
+			
+			}
+			case 2:
+			{
+				return new SuspiciousGuard(xP, yP, Elm);
+			}
+			case 3:
+			{
+				return new RookieGuard(xP, yP, Elm);
+			}
+			default:
+				return null;
 		}
 		
-
 	}
 	
-	public Boolean getCharateristic()
-	{
-		return this.typeCharateristic;
-	}
-
-	public int getType()
-	{
-		return this.guardType;
-	}
-	
-	/*public void setIterator(int newIt)
-	{
-		this.iterator = newIt;
-	}*/
-	/*public int getIterator()
-	{
-		return this.iterator;
-	}*/
-
 	
 	
 }

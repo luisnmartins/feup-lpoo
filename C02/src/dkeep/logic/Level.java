@@ -1,34 +1,110 @@
 package dkeep.logic;
 
 import dkeep.cli.DungeonKeep.state;
-//import dkeep.gui.DungeonDesign.state;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public abstract class Level {
+public class Level {
 	
 	protected Map currentmap;
-	protected Hero myHero;
-	protected Key myKey;
-	protected ArrayList<Door> doors = new ArrayList<Door>();
+	protected Hero myHero;	
+	protected ArrayList<Character> enemies = new ArrayList<Character>();
 	
 	
-	public abstract String getMap();
 	
-
-	public void setMap(Map currentmap)
+	public Level(Map currentmap, int Ogrenmb, int Guardtype)
 	{
 		this.currentmap = currentmap;
+		InitalizeElements(Ogrenmb, Guardtype);
+			
 	}
-
+	
+	public void InitalizeElements(int Ogrenmb, int Guardtype)
+	{
+		
+		char[][] analyzemap = currentmap.getMap();
+		
+		
+		for(int i=0; i<analyzemap.length; i++)
+		{
+			for(int j=0; j<analyzemap.length; j++)
+			{
+				switch(analyzemap[i][j])
+				{
+					case 'H':
+					{
+						myHero = new Hero(i, j, 'H');
+						//characters.add(myHero);
+						currentmap.ClearPosition(i,j);
+						break;
+					}
+					case 'O':
+					{
+						for(int startRand=0; startRand < Ogrenmb; startRand++)
+						{
+							enemies.add(new Ogre(i,j,'O','*'));
+						}
+						currentmap.ClearPosition(i, j);
+						break;
+					}
+					case 'k':
+					{
+						currentmap.setKey(i, j);
+						currentmap.ClearPosition(i, j);
+						break;
+					}
+					case 'G':
+					{
+						
+						Guard myGuard = new Guard(i, j, 'G');
+						myGuard = myGuard.getGuardType(Guardtype, i, j, 'G');
+						enemies.add(myGuard);
+						currentmap.ClearPosition(i, j);
+						break;
+					}
+					case 'I':
+					{
+						if(i== 0 || i == analyzemap.length || j==0 || j == analyzemap[i].length)
+						{
+							currentmap.setDoor(i, j);
+							currentmap.ClearPosition(i, j);
+						}
+						else{}
+						break;
+					}
+					default: break;
+				}
+			}
+		}
+	}
+	
 	
 
 	
-	//return 0 - if is to continue
-	//return 1 - if hero loses
-	//return 2 - if is to change level
-	public abstract state updateGame(char move);
+
+	public state updateGame(char move)
+	{
+		myHero.update(currentmap, move);
+		for(int i=0; i<enemies.size(); i++)
+		{
+			enemies.get(i).update(currentmap, ' ');
+			if(enemies.get(i).verifyColision(myHero))
+				return state.LOSE;
+		}
+		if(this.changeLevel())
+			return state.NEXTLEVEL;
+		else
+			return state.RUNNING;
+		
+		
+	}
 	
-	//TODO make hero's update move here
+	public Hero getHero()
+	{
+		return myHero;
+	}
+	
+	/*//TODO make hero's update move here
 	public void updateHero(char move)
 	{		
 		myHero.changePosition(move, false);
@@ -78,22 +154,15 @@ public abstract class Level {
 			
 		
 		
-	}
+	}*/
 	
-	
-	public Hero getHero()
-	{
-		return myHero;
-	}
 	
 	public boolean changeLevel()
 	{
-		for(int i=0; i<doors.size(); i++)
-		{
-			if(doors.get(i).doorAchieved(myHero))
+		if(currentmap.IsOveraDoor(myHero.getX(), myHero.getY()) != -1)
 				return true;
-		}
-		return false;
+		else
+			return false;
 	}
 	
 	
@@ -102,26 +171,58 @@ public abstract class Level {
 		return null;
 	}
 	
-	public Map nextMap()
-	{
-		return null;
-	}
-	
-	public abstract void NotMoveElements();
-	
-	public boolean DoorsAreOpened()
-	{
-		return doors.get(0).IsOpened();
-	}
-	
-	
-	public Key getKey()
-	{
-		return this.myKey;
-	}
-	
 
+	public void IstoMoveElements(boolean movement)
+	{
+		for(Character c: enemies)
+		{
+			c.setMoveCharacter(movement);
+		}
+	}
+
+
+	public String getMap(){
+		
+		char[][] maptocopy = currentmap.getMap();
+		char[][] maptosend = new char[maptocopy.length][];
+		for(int i=0; i< maptocopy.length; i++)
+		{
+			maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
+		}
+		currentmap.addElementsMatrix(maptosend);
+		
+		myHero.addElementsMatrix(maptosend);
+		for(int i=0; i<enemies.size(); i++)
+		{
+			enemies.get(i).addElementsMatrix(maptosend);
+			//maptosend[enemies.get(i).getX()][enemies.get(i).getY()] = enemies.get(i).getElement();
+			
+		}	
+		
+		String toprint="";
+		
+		for(int i=0; i<maptosend.length; i++)
+		{
+			for(int j=0; j<maptosend[i].length; j++)
+			{
+				toprint += String.valueOf(maptosend[i][j]);
+				toprint += ' ';
+			}
+			
+			toprint += "\n";
+		}
+		
+		
+		return toprint;
+	};
 	
+	public Character getFirstEnemie()
+	{
+		if(enemies!=null)
+			return enemies.get(0);
+		else
+			return null;
+	}
 	
 	
 	
