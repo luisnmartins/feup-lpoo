@@ -86,7 +86,7 @@ public abstract class Character {
 	//Update character position
 	public boolean update(Map currentmap, char move){
 		
-		this.changePosition(move);
+		this.changePosition(move,false);
 		return true;
 	}
 	
@@ -100,48 +100,65 @@ public abstract class Character {
 	
 	
 	//Change x and y position
-	public void changePosition(char move)
+	public void changePosition(char move,boolean invertFlag)
 	{
 
 		if (move == 'w') {
 
 			
-					if (xTemp != 0)
-					{
-						xTemp -= 1;
-					}				
+			if(invertFlag == false)
+			{
+				if (xTemp != 0)
+				{
+					xTemp -= 1;
+				}
+			}
 			
-			
-		}
-
-		else if (move == 'a') {
-
-			
-					if(yTemp != 0)
-					{
-						yTemp -= 1;
-					}
-
-			
-				
-		}
-
-		else if (move == 's') {
-
-			
-			xTemp += 1;
-
-		}
-
-		else if (move == 'd') {
-
-			
-			yTemp += 1;
-
-		}
+			else xTemp += 1;
 		
 		
 	}
+
+	else if (move == 'a') {
+
+		if(invertFlag == false)
+			{
+				if(yTemp != 0)
+				{
+					yTemp -= 1;
+				}
+			}
+			
+			else yTemp += 1;
+		
+			
+	}
+
+	else if (move == 's') {
+
+		if(invertFlag == false)
+		xTemp += 1;
+		else {
+			if(xTemp != 0)
+			xTemp -= 1;
+		}
+	}
+
+	else if (move == 'd') {
+
+		if(invertFlag == false)
+		yTemp += 1;
+		else {
+			if(yTemp !=0)
+			yTemp -= 1;
+		}
+	}
+	
+	
+}
+		
+		
+	
 	
 	
 	public void addElementsMatrix(char[][] map)

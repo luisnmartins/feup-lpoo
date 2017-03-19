@@ -8,10 +8,12 @@ public class SuspiciousGuard extends Guard{
 		super(xP,  yP,  Elm);
 	}
 	
+	
+	@Override
 	public char getMoveGuard()
 	{
-		this.updateCharacteristic();
-		if(characteristic)
+		//this.updateCharacteristic();
+		if(characteristic == true)
 		{
 			char move = moveLevel1[iterator];
 			if(iterator == 0)
@@ -22,6 +24,14 @@ public class SuspiciousGuard extends Guard{
 		}
 		else
 			return super.getMoveGuard();
+	}
+	
+	public boolean update(Map currentmap, char heromove)
+	{
+		
+		this.updateCharacteristic();
+		super.update(currentmap, heromove);
+		return true;
 	}
 
 }
