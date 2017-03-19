@@ -90,7 +90,7 @@ public class Map {
 	public boolean verifyMoveDoors(Character c)
 	{
 		int i;
-		System.out.println("door is not opened");
+		
 		if((i=IsOveraDoor(c.getXTemp(), c.getYTemp())) != -1)
 		{
 			
@@ -123,7 +123,7 @@ public class Map {
 			//verify if character is over the door
 			if(doors.get(i).doorAchieved(x, y))
 			{
-				System.out.println(i);
+				
 				return i;
 			
 			}

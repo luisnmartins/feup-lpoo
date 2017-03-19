@@ -170,6 +170,9 @@ public class Ogre extends Character {
 		
 		public boolean update(Map currentmap, char guardmove)
 		{
+			if(this.getMoveCharacter())
+			{
+			
 			if(updateSleep())
 				return true;
 			
@@ -200,6 +203,8 @@ public class Ogre extends Character {
 			this.setPosition(this.getXTemp(), this.getYTemp());
 		
 			updateClub(currentmap);
+			
+			}
 			return true;
 		}
 		
@@ -213,7 +218,7 @@ public class Ogre extends Character {
 				
 				if(currentmap.moveTo(club[0], club[1]))
 				{
-					System.out.println("update club");  
+					
 					if(currentmap.getKey().isOnTop(club[0], club[1]) && !currentmap.getKey().getFound())
 					{
 						

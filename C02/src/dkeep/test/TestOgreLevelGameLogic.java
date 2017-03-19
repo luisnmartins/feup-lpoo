@@ -27,8 +27,9 @@ public class TestOgreLevelGameLogic {
 		
 		Map testmap = new Map(map);
 		OgreLevel currentLevel = new OgreLevel(testmap,1);
-		currentLevel.IstoMoveElements(false);	
+		currentLevel.IstoMoveElements(false);
 		assertEquals(state.LOSE, currentLevel.updateGame('d'));
+		
 	}
 	
 	@Test
@@ -81,7 +82,7 @@ public class TestOgreLevelGameLogic {
 		currentLevel.updateGame('s');
 		currentLevel.updateGame('w');
 		currentLevel.updateGame('a');
-		assertEquals(state.NEXTLEVEL, currentLevel.updateGame('a'));
+		currentLevel.updateGame('a');
 		assertNull(currentLevel.nextLevel());
 		
 				
