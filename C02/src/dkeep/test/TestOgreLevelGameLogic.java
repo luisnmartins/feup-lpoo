@@ -89,7 +89,7 @@ public class TestOgreLevelGameLogic {
 	}
 	
 	@Test
-	public void testHeroLoss()
+	public void testHeroLost()
 	{
 		Map testmap = new Map(map);
 		OgreLevel currentLevel = new OgreLevel(testmap,1);

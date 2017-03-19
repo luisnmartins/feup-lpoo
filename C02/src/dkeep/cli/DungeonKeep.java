@@ -40,7 +40,7 @@ public class DungeonKeep {
 		else
 		{
 			maptouse = new Level2Map();
-			int randOgre = ThreadLocalRandom.current().nextInt(1, 4);
+			int randOgre = ThreadLocalRandom.current().nextInt(1,4);
 			currentLevel = new OgreLevel(maptouse, randOgre);
 		}
 			

@@ -28,4 +28,14 @@ public class DrunkenGuard extends Guard{
 		return true;
 	}
 	
+	public boolean verifyColision(Character c)
+	{
+		if(this.getElement() == 'g')
+		{
+			return false;
+		}
+		else
+			return super.verifyColision(c);
+	}
+	
 }
