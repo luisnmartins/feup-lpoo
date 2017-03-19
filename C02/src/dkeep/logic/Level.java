@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-import dkeep.cli.DungeonKeep.state;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,7 +9,7 @@ public class Level {
 	protected Map currentmap;
 	protected Hero myHero;	
 	protected ArrayList<Character> enemies = new ArrayList<Character>();
-	
+	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL};
 	
 	
 	public Level(Map currentmap, int Ogrenmb, int Guardtype)
@@ -166,7 +166,7 @@ public class Level {
 	}
 	
 	
-	public Level nextLevel()
+	public Level nextLevel(int enemienmb)
 	{
 		return null;
 	}

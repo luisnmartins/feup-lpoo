@@ -4,6 +4,7 @@ package dkeep.cli;
 
 import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
+import dkeep.logic.Level.state;
 import dkeep.logic.Level1Map;
 import dkeep.logic.Level2Map;
 import dkeep.logic.Map;
@@ -17,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DungeonKeep {
 
 	
-	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL}
+	
 	
 	private state gameState;
 	
@@ -83,7 +84,7 @@ public class DungeonKeep {
 			}
 			case NEXTLEVEL:
 			{
-				Level nextlevel = currentLevel.nextLevel();
+				Level nextlevel = currentLevel.nextLevel(-1);
 				if(nextlevel == null)
 				{
 					gameState = state.WIN;

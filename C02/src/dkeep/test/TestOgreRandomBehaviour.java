@@ -3,11 +3,9 @@ package dkeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import dkeep.cli.DungeonKeep;
-import dkeep.cli.DungeonKeep.state;
+
 import dkeep.logic.OgreLevel;
 
-import dkeep.logic.Level;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
 

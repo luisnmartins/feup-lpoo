@@ -4,8 +4,7 @@ package dkeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import dkeep.cli.DungeonKeep;
-import dkeep.cli.DungeonKeep.state;
+import dkeep.logic.Level.state;
 import dkeep.logic.OgreLevel;
 
 import dkeep.logic.Level;
@@ -83,7 +82,7 @@ public class TestOgreLevelGameLogic {
 		currentLevel.updateGame('w');
 		currentLevel.updateGame('a');
 		currentLevel.updateGame('a');
-		assertNull(currentLevel.nextLevel());
+		assertNull(currentLevel.nextLevel(-1));
 		
 				
 	}

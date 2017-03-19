@@ -1,9 +1,7 @@
 package dkeep.logic;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
-import dkeep.cli.DungeonKeep.state;
 
 
 
@@ -59,12 +57,14 @@ public class DungeonLevel extends Level{
 	
 
 	
-	public Level nextLevel()
+	public Level nextLevel(int enemienmb)
 	{
 		
 		Map nextmap = new Level2Map();
-		int rand = ThreadLocalRandom.current().nextInt(1, 6);
-		return new OgreLevel(nextmap, rand);
+		if(enemienmb == -1)
+			enemienmb = ThreadLocalRandom.current().nextInt(1, 6);
+		
+		return new OgreLevel(nextmap, enemienmb);
 	}
 	
 	

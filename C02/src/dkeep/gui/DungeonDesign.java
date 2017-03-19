@@ -6,20 +6,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import dkeep.cli.DungeonKeep.state;
 import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
+import dkeep.logic.Level.state;
 import dkeep.logic.Level1Map;
 import dkeep.logic.Map;
 
 import javax.swing.JTextField;
 import java.awt.Font;
-import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -29,11 +27,16 @@ import javax.swing.DefaultComboBoxModel;
 
 public class DungeonDesign {
 
-	private JFrame frame;
-	private JTextField textField;
+	private JFrame frmDungeonkeep;
+	private JTextField ogresField;
 	private JLabel lbStatus;
+	private JButton gameStart;
+	private JButton btnLeft ;
+	private JButton btnRight ;
+	private JButton btnUp ;
+	private JButton btnDown ;
 	
-	public enum state{ RUNNING, WIN, LOSE, END, NEXTLEVEL};
+	
 	private Level currentLevel;
 	private state gameState;
 	
@@ -44,8 +47,9 @@ public class DungeonDesign {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					DungeonDesign window = new DungeonDesign();
-					window.frame.setVisible(true);
+					window.frmDungeonkeep.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +61,9 @@ public class DungeonDesign {
 	 * Create the application.
 	 */
 	public DungeonDesign() {
+		
 		initialize();
+		
 	}
 
 	
@@ -68,74 +74,89 @@ public class DungeonDesign {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 669, 499);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frmDungeonkeep = new JFrame();
+		frmDungeonkeep.setTitle("DungeonKeep");
+		frmDungeonkeep.setBounds(100, 100, 669, 499);
+		frmDungeonkeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frmDungeonkeep.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		ogresField = new JTextField();
+		ogresField.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
+		JTextArea GameScreen = new JTextArea();
+		GameScreen.setFont(new Font("Prestige Elite Std", Font.BOLD, 30));
+		GameScreen.setEditable(false);
 		
 		lbStatus = new JLabel("You can start a new Game");
 		
 		JComboBox comboBoxGuard = new JComboBox();
 		comboBoxGuard.setModel(new DefaultComboBoxModel(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
-		comboBoxGuard.setToolTipText("");
+		comboBoxGuard.setToolTipText(""); 
 		
 		
 		
-		JButton btnUp = new JButton("Up");
+		btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-					currentLevel.updateGame('w');
+					updateGame('w');
+				  
+					GameScreen.setText(currentLevel.getMap());
 			}
 		});
 		
-		JButton btnDown = new JButton("Down");
+		btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				currentLevel.updateGame('s');
+				updateGame('s');
+				
+				GameScreen.setText(currentLevel.getMap());
 			}
 		});
 		btnDown.setEnabled(false);
 		
-		JButton btnRight = new JButton("Right");
+		 btnRight = new JButton("Right");
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				currentLevel.updateGame('d');
+				updateGame('d');
+				
+				GameScreen.setText(currentLevel.getMap());
 			}
 		});
 		btnRight.setEnabled(false);
 		
-		JButton btnLeft = new JButton("Left");
+		btnLeft = new JButton("Left");
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				currentLevel.updateGame('a');
+				updateGame('a');
+				
+				
+				GameScreen.setText(currentLevel.getMap());
 			}
 		});
 		btnLeft.setEnabled(false);
 		
 		
-		JButton btnNewButton = new JButton("Start Game");
-		btnNewButton.addActionListener(new ActionListener() {
+		 gameStart = new JButton("Start Game");
+		gameStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				
+				if(ogresField.getText().equals("") || Integer.parseInt(ogresField.getText()) < 1 ||  Integer.parseInt(ogresField.getText()) > 5 )
+				{
+					return;
+				}
 								
 				Map maptouse = new Level1Map();
 				int guardType = comboBoxGuard.getSelectedIndex()+1;
@@ -145,6 +166,8 @@ public class DungeonDesign {
 				btnDown.setEnabled(true);
 				btnRight.setEnabled(true);
 				btnLeft.setEnabled(true);
+				GameScreen.setText(currentLevel.getMap());
+				gameStart.setEnabled(false);
 				
 				
 				
@@ -160,6 +183,7 @@ public class DungeonDesign {
 		});
 		
 		
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -173,35 +197,35 @@ public class DungeonDesign {
 							.addGroup(gl_panel.createSequentialGroup()
 								.addComponent(lblNumberOfOgres)
 								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(484, Short.MAX_VALUE))
+								.addComponent(ogresField, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(496, Short.MAX_VALUE))
 							.addGroup(gl_panel.createSequentialGroup()
 								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 									.addGroup(gl_panel.createSequentialGroup()
 										.addComponent(lblGuardPersonality)
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addComponent(comboBoxGuard, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 197, Short.MAX_VALUE))
+										.addPreferredGap(ComponentPlacement.RELATED, 225, Short.MAX_VALUE))
 									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
+										.addComponent(GameScreen, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
 										.addGap(41)))
 								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_panel.createSequentialGroup()
 										.addComponent(btnLeft)
 										.addGap(18)
-										.addComponent(btnRight)
-										.addGap(16))
-									.addGroup(gl_panel.createSequentialGroup()
-										.addGap(56)
-										.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-											.addComponent(btnDown)
-											.addComponent(btnExit)))
+										.addComponent(btnRight))
 									.addGroup(gl_panel.createSequentialGroup()
 										.addGap(22)
-										.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-											.addComponent(btnNewButton)
-											.addComponent(btnUp))))
-								.addGap(64)))))
+										.addComponent(gameStart))
+									.addGroup(gl_panel.createSequentialGroup()
+										.addGap(43)
+										.addComponent(btnUp))
+									.addGroup(gl_panel.createSequentialGroup()
+										.addGap(38)
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+											.addComponent(btnExit)
+											.addComponent(btnDown))))
+								.addGap(80)))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -209,7 +233,7 @@ public class DungeonDesign {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(90)
-							.addComponent(btnNewButton)
+							.addComponent(gameStart)
 							.addGap(52)
 							.addComponent(btnUp)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -224,18 +248,19 @@ public class DungeonDesign {
 							.addGap(26)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNumberOfOgres)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(ogresField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblGuardPersonality)
 								.addComponent(comboBoxGuard, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(GameScreen, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lbStatus)
 					.addGap(10))
 		);
 		panel.setLayout(gl_panel);
+		
 	}
 	
 	/*
@@ -244,33 +269,48 @@ public class DungeonDesign {
 	public void updateGame(char move)
 	{
 		
-		//gameState = currentLevel.updateGame(move);
+		gameState = currentLevel.updateGame(move);
 		
 		switch(gameState)
 		{
 			case LOSE:
 			{
 				lbStatus.setText("You Lose!! Try Again");
+				this.gameStart.setEnabled(true);
+				btnLeft.setEnabled(false);
+				btnRight.setEnabled(false);
+				btnUp.setEnabled(false);
+				btnDown.setEnabled(false);
 				break;
 			}
 			case NEXTLEVEL:
 			{
-				Level nextlevel = currentLevel.nextLevel();
+				Level nextlevel;
+				nextlevel = currentLevel.nextLevel(Integer.parseInt(ogresField.getText()));
+				
 				if(nextlevel == null)
 				{
 					gameState = state.WIN;
 					lbStatus.setText("Congratzz!! You're a Hero!!");
+					this.gameStart.setEnabled(true);
+					btnLeft.setEnabled(false);
+					btnRight.setEnabled(false);
+					btnUp.setEnabled(false);
+					btnDown.setEnabled(false);
 				}
 				else
 				{
 					
 					currentLevel = nextlevel;
 					lbStatus.setText("Go, go, go!! You're in the next level");
+					
 					gameState = state.RUNNING;			
 					
 				}
 				break;
 			}
+			default:
+				break;
 		}
 					
 	}

@@ -252,7 +252,7 @@ public class OgreLevel extends Level{
 			return this.Ogres.get(0);
 		}*/
 	
-	public Level nextLevel()
+	public Level nextLevel(int enemienmb)
 	{
 		return null;
 	}
