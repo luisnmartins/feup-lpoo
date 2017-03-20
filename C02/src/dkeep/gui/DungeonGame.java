@@ -47,6 +47,8 @@ public class DungeonGame {
 		DungeonGraphics game = new DungeonGraphics();
 		
 		frame.getContentPane().add(game);
+		game.setFocusable(true);
+		game.requestFocusInWindow();
 		
 		
 		//BufferedImage myPicture = ImageIO.read(new File("path-to-file"));

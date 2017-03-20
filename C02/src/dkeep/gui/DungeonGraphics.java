@@ -1,6 +1,8 @@
 package dkeep.gui;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +14,12 @@ import javax.swing.JPanel;
 import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
 import dkeep.logic.Level1Map;
+import dkeep.logic.Level2Map;
 import dkeep.logic.Map;
+import dkeep.logic.OgreLevel;
+import dkeep.logic.Level.state;
 
-public class DungeonGraphics extends JPanel {
+public class DungeonGraphics extends JPanel implements KeyListener {
 
 	//all used images
 	private BufferedImage hero_s;
@@ -41,6 +46,7 @@ public class DungeonGraphics extends JPanel {
 	private BufferedImage ogre_d;
 	
 	private Level currentLevel;
+	private state gameState= state.RUNNING;
 	
 	
 	
@@ -49,6 +55,7 @@ public class DungeonGraphics extends JPanel {
 	 */
 	public DungeonGraphics() throws IOException {
 
+		addKeyListener(this);
 		Map newMap = new Level1Map();
 		int randGuard= ThreadLocalRandom.current().nextInt(1,4);
 		currentLevel = new DungeonLevel(newMap,randGuard);
@@ -77,6 +84,7 @@ public class DungeonGraphics extends JPanel {
 		for(int i = 0; i < maptoprint.length; i++)
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
+				
 				if(maptoprint[i][a] == 'X')
 				{
 					g.drawImage(wall_hor, a*70, i*70, this);
@@ -106,6 +114,56 @@ public class DungeonGraphics extends JPanel {
 		
 		
 		
+	}
+	
+	public void updateMove(char move)
+	{
+		if(gameState == state.RUNNING)
+		{
+			gameState = currentLevel.updateGameStatus(move);
+			if(gameState == state.CHANGELEVEL)
+			{
+				currentLevel = currentLevel.nextLevel(-1);
+				gameState = state.RUNNING;
+			}
+			repaint();
+		}
+		
+	}
+	
+	
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+			
+		
+		switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_LEFT:
+				updateMove('a');
+				break;
+			case KeyEvent.VK_RIGHT:
+				updateMove('d');
+				break;
+			case KeyEvent.VK_UP:
+				updateMove('w');
+				break;
+			case KeyEvent.VK_DOWN:
+				updateMove('s');
+				break;
+				
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 	}
 
 }
