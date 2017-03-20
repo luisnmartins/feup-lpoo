@@ -26,10 +26,13 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	private BufferedImage hero_d;
 	private BufferedImage hero_w;
 	private BufferedImage hero_a;
+	private BufferedImage hero_key;
+	private BufferedImage hero_weapon;
 	private BufferedImage guard_a;
 	private BufferedImage guard_d;
 	private BufferedImage guard_s;
 	private BufferedImage guard_w;
+	private BufferedImage guard_sleep;
 	private BufferedImage wall_vert;
 	private BufferedImage wall_hor;
 	private BufferedImage wall_corner1;
@@ -44,7 +47,8 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	private BufferedImage ogre_s;
 	private BufferedImage ogre_a;
 	private BufferedImage ogre_d;
-	
+	private BufferedImage ogre_attack;
+	private BufferedImage ogre_stunned;
 	private Level currentLevel;
 	private state gameState= state.RUNNING;
 	
@@ -72,6 +76,11 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			this.door_closed = ImageIO.read(new File("images/door.png"));
 			this.ogre_s = ImageIO.read(new File("images/ogres.png"));
 			this.wall_hor = ImageIO.read(new File("images/wall.png"));
+			this.guard_sleep = ImageIO.read(new File("images/guard_sleep.png"));
+			this.ogre_attack = ImageIO.read(new File("images/ogre_attack.png"));
+			this.hero_key = ImageIO.read(new File("images/hero_key.png"));
+			this.hero_weapon = ImageIO.read(new File("images/hero_weapon.png"));
+			this.ogre_stunned = ImageIO.read(new File("images/ogre_stunned.png"));
 
 	}
 	
@@ -98,12 +107,27 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 				}else if (maptoprint[i][a] == 'G')
 				{
 					g.drawImage(guard_s,a*70,i*70,this);
-				}else if (maptoprint[i][a] == 'O')
+				}else if (maptoprint[i][a] == 'O' || maptoprint[i][a] == '$')
 				{
 					g.drawImage(ogre_s, a*70,i*70, this);
 				}else if (maptoprint[i][a] == 'k')
 				{
 					g.drawImage(key, a*70, i*70,this);
+				}else if (maptoprint[i][a] == 'g')
+				{
+					g.drawImage(guard_sleep, a*70, i*70,this);
+				}else if (maptoprint[i][a] == '*')
+				{
+					g.drawImage(ogre_attack, a*70, i*70,this);
+				}else if (maptoprint[i][a] == 'K')
+				{
+					g.drawImage(hero_key, a*70, i*70,this);
+				}else if (maptoprint[i][a] == 'A')
+				{
+					g.drawImage(hero_weapon, a*70, i*70,this);
+				}else if (maptoprint[i][a] == '8')
+				{
+					g.drawImage(ogre_stunned, a*70, i*70,this);
 				}
 			}
 		
