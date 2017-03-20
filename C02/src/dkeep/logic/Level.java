@@ -4,12 +4,14 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dkeep.logic.Level.state;
+
 public class Level {
 	
 	protected Map currentmap;
 	protected Hero myHero;	
 	protected ArrayList<Character> enemies = new ArrayList<Character>();
-	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL};
+	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL, CHANGELEVEL};
 	
 	
 	public Level(Map currentmap, int Ogrenmb, int Guardtype)
@@ -216,6 +218,17 @@ public class Level {
 		return toprint;
 	};
 	
+	
+public void printMap() {
+		
+		
+		String currentmap = this.getMap();
+		
+		System.out.print(currentmap);
+	}
+	
+	
+	
 	public Character getFirstEnemie()
 	{
 		if(enemies!=null)
@@ -223,6 +236,44 @@ public class Level {
 		else
 			return null;
 	}
+	
+	public state updateGameStatus(char move)
+	{
+		
+		state gameState = this.updateGame(move);
+		
+		switch(gameState)
+		{
+			case LOSE:
+			{
+				System.out.println("You Lose!! Try Again");
+				break;
+			}
+			case NEXTLEVEL:
+			{
+				Level nextlevel = this.nextLevel(-1);
+				if(nextlevel == null)
+				{
+					gameState = state.WIN;
+					System.out.println("Congratzz!! You're a Hero!!");
+				}
+				else
+				{
+					
+					System.out.println("Go, go, go!! You're in the next level");
+					gameState = state.CHANGELEVEL;			
+					
+				}
+				break;
+			}
+		default:
+			break;
+		}
+		return gameState;
+					
+	}
+
+	
 	
 	
 	
