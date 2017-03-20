@@ -39,6 +39,7 @@ public class DungeonDesign {
 	
 	private Level currentLevel;
 	private state gameState;
+	private Map gamemap;
 	
 	/**
 	 * Launch the application.
@@ -158,9 +159,9 @@ public class DungeonDesign {
 					return;
 				}
 								
-				Map maptouse = new Level1Map();
-				int guardType = comboBoxGuard.getSelectedIndex()+1;
-				currentLevel= new DungeonLevel(maptouse, guardType);
+				gamemap = new Level1Map();
+				int guardType = comboBoxGuard.getSelectedIndex()+1; //1 - drunken , 2- suspicious, 3 - Rookie				
+				currentLevel = new DungeonLevel(gamemap, guardType);
 				lbStatus.setText("You can play now!");
 				btnUp.setEnabled(true);
 				btnDown.setEnabled(true);

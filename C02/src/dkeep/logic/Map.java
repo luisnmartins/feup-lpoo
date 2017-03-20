@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Map {
 	
@@ -30,14 +31,13 @@ public class Map {
 	public Map(char[][] map)
 	{
 		
-		this.map = map;
-		/*if(level == 1)
+		this.map = new char[map.length][];
+		
+		for(int i=0; i< map.length; i++)
 		{
-			this.map = levelOneMap;
-		}else if (level == 2)
-		{
-			this.map = levelTwoMap;
-		}*/
+			this.map[i] = Arrays.copyOf(map[i], map[i].length);
+		}
+		
 	}
 	
 

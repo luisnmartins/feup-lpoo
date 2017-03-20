@@ -49,6 +49,7 @@ public class Level {
 					}
 					case 'k':
 					{
+						
 						currentmap.setKey(i, j);
 						currentmap.ClearPosition(i, j);
 						break;
@@ -191,14 +192,13 @@ public class Level {
 		}
 		currentmap.addElementsMatrix(maptosend);
 		
-		myHero.addElementsMatrix(maptosend);
+		
 		for(int i=0; i<enemies.size(); i++)
 		{
 			enemies.get(i).addElementsMatrix(maptosend);
-			//maptosend[enemies.get(i).getX()][enemies.get(i).getY()] = enemies.get(i).getElement();
 			
 		}	
-		
+		myHero.addElementsMatrix(maptosend);
 		String toprint="";
 		
 		for(int i=0; i<maptosend.length; i++)
