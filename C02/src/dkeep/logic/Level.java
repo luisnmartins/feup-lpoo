@@ -184,7 +184,7 @@ public class Level {
 	}
 
 
-	public String getMap(){
+	public char[][] getMap(){
 		
 		char[][] maptocopy = currentmap.getMap();
 		char[][] maptosend = new char[maptocopy.length][];
@@ -201,13 +201,24 @@ public class Level {
 			
 		}	
 		myHero.addElementsMatrix(maptosend);
+		
+		return maptosend;
+		
+	};
+	
+	
+public void printMap() {
+		
+		
+		char[][] currentmap = this.getMap();
+		
 		String toprint="";
 		
-		for(int i=0; i<maptosend.length; i++)
+		for(int i=0; i<currentmap.length; i++)
 		{
-			for(int j=0; j<maptosend[i].length; j++)
+			for(int j=0; j<currentmap[i].length; j++)
 			{
-				toprint += String.valueOf(maptosend[i][j]);
+				toprint += String.valueOf(currentmap[i][j]);
 				toprint += ' ';
 			}
 			
@@ -215,16 +226,9 @@ public class Level {
 		}
 		
 		
-		return toprint;
-	};
-	
-	
-public void printMap() {
 		
 		
-		String currentmap = this.getMap();
-		
-		System.out.print(currentmap);
+		System.out.print(toprint);
 	}
 	
 	

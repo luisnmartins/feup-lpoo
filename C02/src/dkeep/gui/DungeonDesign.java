@@ -1,4 +1,4 @@
-package dkeep.gui;
+/*package dkeep.gui;
 
 import java.awt.EventQueue;
 
@@ -47,7 +47,7 @@ public class DungeonDesign {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -64,7 +64,7 @@ public class DungeonDesign {
 	/**
 	 * Create the application.
 	 */
-	public DungeonDesign() {
+/*	public DungeonDesign() {
 		
 		
 		initialize();
@@ -78,7 +78,7 @@ public class DungeonDesign {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+/*	private void initialize() {
 		
 		frmDungeonkeep = new JFrame();
 		frmDungeonkeep.setTitle("DungeonKeep");
@@ -267,12 +267,12 @@ public class DungeonDesign {
 		);
 		panel.setLayout(gl_panel);
 		
-	}
+	}*/
 	
 	/*
 	 * Update Game Status
 	 */
-	public void updateGame(char move)
+/*	public void updateGame(char move)
 	{
 		
 		gameState = currentLevel.updateGame(move);
@@ -324,4 +324,4 @@ public class DungeonDesign {
 	
 
 	
-}
+}*/
