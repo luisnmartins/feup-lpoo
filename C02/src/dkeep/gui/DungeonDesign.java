@@ -18,6 +18,8 @@ import dkeep.logic.Map;
 
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -35,6 +37,7 @@ public class DungeonDesign {
 	private JButton btnRight ;
 	private JButton btnUp ;
 	private JButton btnDown ;
+	
 	
 	
 	private Level currentLevel;
@@ -63,6 +66,7 @@ public class DungeonDesign {
 	 */
 	public DungeonDesign() {
 		
+		
 		initialize();
 		
 	}
@@ -80,6 +84,7 @@ public class DungeonDesign {
 		frmDungeonkeep.setTitle("DungeonKeep");
 		frmDungeonkeep.setBounds(100, 100, 669, 499);
 		frmDungeonkeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		JPanel panel = new JPanel();
 		frmDungeonkeep.getContentPane().add(panel, BorderLayout.CENTER);
