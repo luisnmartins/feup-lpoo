@@ -181,6 +181,7 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			case KeyEvent.VK_DOWN:
 				updateMove('s');
 				break;
+			
 				
 		}
 		

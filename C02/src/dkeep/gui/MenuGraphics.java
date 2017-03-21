@@ -23,7 +23,11 @@ public class MenuGraphics extends JPanel {
 		
 		
 		settings = new SettingsDialog();
+		
+		
 		JButton btnNewgame = new JButton("New Game");
+		btnNewgame.setBounds(300, 300, 95, 23);
+		
 		btnNewgame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -34,26 +38,16 @@ public class MenuGraphics extends JPanel {
 		
 		
 		JButton btnExit = new JButton("Exit");
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(158)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnExit, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnNewgame, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(182, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(86)
-					.addComponent(btnNewgame)
-					.addGap(91)
-					.addComponent(btnExit)
-					.addContainerGap(65, Short.MAX_VALUE))
-		);
-		setLayout(groupLayout);
+		btnExit.setBounds(315, 340, 65, 23);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				System.exit(0);
+			}
+		});
+		setLayout(null);
+		add(btnExit);
+		add(btnNewgame);
 		
 		
 
