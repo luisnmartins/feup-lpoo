@@ -14,6 +14,7 @@ public class DungeonGame {
 	private static SettingsDialog settings;
 	private static StateViewer viewState;
 	private static GraphicsVariables variables;
+	private static MapEditor editor;
 	public enum StateViewer{ MENU, GAME, CUSTOM, SETTINGS};
 	
 
@@ -51,6 +52,7 @@ public class DungeonGame {
 		frmSuperMarioDungeon.setTitle("Super Mario Dungeon");
 		menu = new MenuGraphics(variables);
 		settings = new SettingsDialog(variables);
+		editor = new MapEditor();
 		
 		frmSuperMarioDungeon.setBounds(0, 0, 700, 700);
 		frmSuperMarioDungeon.setFocusable(true);
@@ -105,6 +107,10 @@ public class DungeonGame {
 			}
 			case CUSTOM:
 			{
+				contentpane.removeAll();
+				contentpane.add(editor);
+				contentpane.revalidate();
+				contentpane.repaint();
 				break;
 			}
 			default:

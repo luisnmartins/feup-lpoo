@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Cursor;
 
 public class SettingsDialog extends JDialog{
 
@@ -59,9 +60,11 @@ public class SettingsDialog extends JDialog{
 		JLabel lblNumberOfOgres_1 = new JLabel("Number of Ogres");
 		
 		JComboBox GuardcomboBox = new JComboBox();
+		GuardcomboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		GuardcomboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
 		
 		JSlider Ogreslider = new JSlider();
+		Ogreslider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		Ogreslider.setMajorTickSpacing(1);
 		Ogreslider.setMinorTickSpacing(1);
 		Ogreslider.setPaintLabels(true);
@@ -106,6 +109,7 @@ public class SettingsDialog extends JDialog{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
@@ -129,6 +133,7 @@ public class SettingsDialog extends JDialog{
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
