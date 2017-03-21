@@ -95,7 +95,7 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 				}else if (maptoprint[i][a] == 'G')
 				{
 					g.drawImage(guard,a*70,i*70,this);
-				}else if (maptoprint[i][a] == 'O' || maptoprint[i][a] == '$')
+				}else if (maptoprint[i][a] == 'O')
 				{
 					g.drawImage(bowser, a*70,i*70, this);
 				}else if (maptoprint[i][a] == 'k')
@@ -116,7 +116,11 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 				}else if (maptoprint[i][a] == '8')
 				{
 					g.drawImage(bowser_stunned, a*70, i*70,this);
-				}else 
+				}else if(maptoprint[i][a] == '$')
+				{
+					g.drawImage(key, a*70, i*70, this);
+				}
+				else 
 					g.drawImage(floor, a*70, i*70, this);
 			}
 		
