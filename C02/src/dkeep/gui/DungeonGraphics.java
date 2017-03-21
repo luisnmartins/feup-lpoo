@@ -82,6 +82,8 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
 				
+				g.drawImage(floor, a*70, i*70, this);
+				
 				if(maptoprint[i][a] == 'X')
 				{
 					g.drawImage(wall, a*70, i*70, this);
@@ -120,8 +122,8 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 				{
 					g.drawImage(key, a*70, i*70, this);
 				}
-				else 
-					g.drawImage(floor, a*70, i*70, this);
+			
+					
 			}
 		
 		
