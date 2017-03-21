@@ -123,10 +123,14 @@ public class Ogre extends Character {
 				{	
 					if(this.getMoveCharacter())
 					{
+						
 						stopmove = 2;
 						this.setElm('8');
+						this.setIsParalyzed(true);
 						this.attackElement = ' ';
-						return false;
+						this.attackX = this.getX();
+						this.attackY = this.getY();
+							return false;
 					}
 					else
 						return true;
@@ -135,6 +139,7 @@ public class Ogre extends Character {
 				{
 					return true;
 				}
+				
 				else
 					return false;
 				
@@ -153,6 +158,7 @@ public class Ogre extends Character {
 				if(this.stopmove == 0)
 				{				
 					this.setElm('O');
+					this.setIsParalyzed(false);
 					this.attackElement = '*';
 					return false;
 				}

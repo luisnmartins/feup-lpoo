@@ -87,13 +87,14 @@ public class Level {
 
 	public state updateGame(char move)
 	{
-		myHero.update(currentmap, move);
+		
 		for(int i=0; i<enemies.size(); i++)
 		{
 			enemies.get(i).update(currentmap, ' ');
 			if(enemies.get(i).verifyColision(myHero))
 				return state.LOSE;
 		}
+		myHero.update(currentmap, move, enemies);
 		if(this.changeLevel())
 			return state.NEXTLEVEL;
 		else
