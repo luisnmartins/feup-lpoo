@@ -49,6 +49,8 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	private BufferedImage ogre_d;
 	private BufferedImage ogre_attack;
 	private BufferedImage ogre_stunned;
+	private BufferedImage floor;
+	
 	private Level currentLevel;
 	private state gameState= state.RUNNING;
 	
@@ -70,17 +72,18 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	public void loadImages() throws IOException
 	{
 	
-			this.guard_s = ImageIO.read(new File("images/guard.png"));
-			this.hero_s = ImageIO.read(new File("images/heroi.png"));
+			this.guard_s = ImageIO.read(new File("images/goomba_guard.png"));
+			this.hero_s = ImageIO.read(new File("images/mario_d.png"));
 			this.key = ImageIO.read(new File("images/key.png"));
-			this.door_closed = ImageIO.read(new File("images/door.png"));
-			this.ogre_s = ImageIO.read(new File("images/ogres.png"));
+			this.door_closed = ImageIO.read(new File("images/plant.png"));
+			this.ogre_s = ImageIO.read(new File("images/bowser_s.png"));
 			this.wall_hor = ImageIO.read(new File("images/wall.png"));
-			this.guard_sleep = ImageIO.read(new File("images/guard_sleep.png"));
-			this.ogre_attack = ImageIO.read(new File("images/ogre_attack.png"));
-			this.hero_key = ImageIO.read(new File("images/hero_key.png"));
-			this.hero_weapon = ImageIO.read(new File("images/hero_weapon.png"));
-			this.ogre_stunned = ImageIO.read(new File("images/ogre_stunned.png"));
+			this.guard_sleep = ImageIO.read(new File("images/goomba_sleeping.png"));
+			this.ogre_attack = ImageIO.read(new File("images/bowser_fire.png"));
+			this.hero_key = ImageIO.read(new File("images/mario_s.png"));
+			this.hero_weapon = ImageIO.read(new File("images/mario_d.png"));
+			this.ogre_stunned = ImageIO.read(new File("images/bowser_stunned.png"));
+			this.floor =  ImageIO.read(new File("images/floor.png"));
 
 	}
 	
@@ -128,7 +131,8 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 				}else if (maptoprint[i][a] == '8')
 				{
 					g.drawImage(ogre_stunned, a*70, i*70,this);
-				}
+				}else 
+					g.drawImage(floor, a*70, i*70, this);
 			}
 		
 		
