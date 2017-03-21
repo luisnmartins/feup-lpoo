@@ -49,20 +49,21 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	private BufferedImage ogre_d;
 	private BufferedImage ogre_attack;
 	private BufferedImage ogre_stunned;
-	private Level currentLevel;
 	private state gameState= state.RUNNING;
-	
+	private GraphicsVariables variables;
 	
 	
 	
 	/**
 	 * Create the panel.
 	 */
-	public DungeonGraphics() throws IOException {
+	public DungeonGraphics(GraphicsVariables variables) throws IOException {
 
+		this.variables = variables;
+		
 		addKeyListener(this);
 		Map newMap = new Level1Map();	
-		currentLevel = new DungeonLevel(newMap,DungeonGame.GuardTypenmb);
+		variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
 		loadImages();
 		
 	}
@@ -88,7 +89,7 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		char[][] maptoprint = currentLevel.getMap();
+		char[][] maptoprint = variables.getMap();
 		
 		for(int i = 0; i < maptoprint.length; i++)
 			for(int a= 0; a < maptoprint[i].length;a++)
@@ -144,10 +145,11 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	{
 		if(gameState == state.RUNNING)
 		{
+			Level currentLevel = variables.getLevel();
 			gameState = currentLevel.updateGameStatus(move);
 			if(gameState == state.CHANGELEVEL)
 			{
-				currentLevel = currentLevel.nextLevel(DungeonGame.Ogrenmb);
+				variables.setLevel(currentLevel.nextLevel(variables.getOgrenmb()));
 				gameState = state.RUNNING;
 			}
 			repaint();

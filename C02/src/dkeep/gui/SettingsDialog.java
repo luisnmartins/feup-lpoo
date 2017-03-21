@@ -18,20 +18,19 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class SettingsDialog extends JDialog implements MouseListener{
+public class SettingsDialog extends JDialog{
 
 	private final JPanel contentPanel = new JPanel();
+	private static GraphicsVariables variables;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			SettingsDialog dialog = new SettingsDialog();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -39,12 +38,16 @@ public class SettingsDialog extends JDialog implements MouseListener{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public SettingsDialog() {
+	public SettingsDialog(GraphicsVariables variables) {
+		
+		this.variables = variables;
+		
+		
 		setBounds(100, 100, 450, 375);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -105,10 +108,13 @@ public class SettingsDialog extends JDialog implements MouseListener{
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						DungeonGame.Ogrenmb = Ogreslider.getValue();
-						DungeonGame.GuardTypenmb = GuardcomboBox.getSelectedIndex()+1;
+						
+						variables.setOgrenmb(Ogreslider.getValue());
+						variables.setGuardTypenmb(GuardcomboBox.getSelectedIndex()+1);
 						try {
+							
 							DungeonGame.changeState(StateViewer.GAME);
+						
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -133,33 +139,4 @@ public class SettingsDialog extends JDialog implements MouseListener{
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }

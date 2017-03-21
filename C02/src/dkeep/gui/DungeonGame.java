@@ -2,13 +2,9 @@ package dkeep.gui;
 
 import java.awt.Container;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class DungeonGame {
 
@@ -17,7 +13,7 @@ public class DungeonGame {
 	private static MenuGraphics menu;
 	private static SettingsDialog settings;
 	private static StateViewer viewState;
-	static int Ogrenmb=2, GuardTypenmb=1;
+	private static GraphicsVariables variables;
 	public enum StateViewer{ MENU, GAME, CUSTOM, SETTINGS};
 	
 
@@ -50,9 +46,10 @@ public class DungeonGame {
 	private void initialize() throws IOException{
 		
 		//set elements
+		variables = new GraphicsVariables();
 		frame = new JFrame();
-		menu = new MenuGraphics();
-		settings = new SettingsDialog();
+		menu = new MenuGraphics(variables);
+		settings = new SettingsDialog(variables);
 		
 		frame.setBounds(0, 0, 700, 700);
 		frame.setFocusable(true);
@@ -95,7 +92,7 @@ public class DungeonGame {
 			}
 			case GAME:
 			{
-				game = new DungeonGraphics();
+				game = new DungeonGraphics(variables);
 				contentpane.removeAll();
 				contentpane.add(game);
 				contentpane.revalidate();
@@ -116,6 +113,7 @@ public class DungeonGame {
 		
 	}
 	
+
 
 	
 	

@@ -14,19 +14,19 @@ import java.awt.event.ActionEvent;
 public class MenuGraphics extends JPanel {
 
 	private SettingsDialog settings;
+	private GraphicsVariables variables;
 	
 	/**
 	 * Create the panel.
 	 */
-	public MenuGraphics() {
+	public MenuGraphics(GraphicsVariables variables) {
 		
+		this.variables = variables;
 		
-		
-		settings = new SettingsDialog();
+		settings = new SettingsDialog(this.variables);
 		
 		
 		JButton btnNewgame = new JButton("New Game");
-		btnNewgame.setBounds(300, 300, 95, 23);
 		
 		btnNewgame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -38,16 +38,31 @@ public class MenuGraphics extends JPanel {
 		
 		
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(315, 340, 65, 23);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				System.exit(0);
 			}
 		});
-		setLayout(null);
-		add(btnExit);
-		add(btnNewgame);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(300)
+					.addComponent(btnNewgame, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(315)
+					.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(300)
+					.addComponent(btnNewgame, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addGap(17)
+					.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+		);
+		setLayout(groupLayout);
 		
 		
 
