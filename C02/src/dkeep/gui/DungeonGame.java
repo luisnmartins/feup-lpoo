@@ -1,5 +1,6 @@
 package dkeep.gui;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -7,10 +8,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class DungeonGame {
 
-	private JFrame frame;
+	private static JFrame frame;
+	private static DungeonGraphics game;
+	private static MenuGraphics menu;
+	private static SettingsDialog settings;
+	private static StateViewer viewState;
+	static int Ogrenmb=2, GuardTypenmb=1;
+	public enum StateViewer{ MENU, GAME, CUSTOM, SETTINGS};
 	
 
 	/**
@@ -40,20 +48,78 @@ public class DungeonGame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() throws IOException{
+		
+		//set elements
 		frame = new JFrame();
-		frame.setBounds(100, 100, 700, 700);
+		menu = new MenuGraphics();
+		settings = new SettingsDialog();
+		
+		frame.setBounds(0, 0, 700, 700);
+		frame.setFocusable(true);
+		frame.requestFocusInWindow();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.getContentPane().add(menu);
 		
-		DungeonGraphics game = new DungeonGraphics();
+		changeState(StateViewer.MENU);
 		
-		frame.getContentPane().add(game);
+		//frame.setVisible(true);
+		
+		
+		
+		/*DungeonGraphics game = new DungeonGraphics();
+		
+		
 		game.setFocusable(true);
-		game.requestFocusInWindow();
+		game.requestFocusInWindow();*/
 		
 		
 		//BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
 		//JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 		//add(picLabel);
 	}
+	
+	
+	public static void changeState(StateViewer state) throws IOException
+	{
+		viewState = state;
+		Container contentpane = frame.getContentPane();
+		switch(viewState)
+		{
+			case MENU:
+			{
+				contentpane.removeAll();
+				contentpane.add(menu);
+				contentpane.revalidate();
+				contentpane.repaint();
+				break;
+			}
+			case GAME:
+			{
+				game = new DungeonGraphics();
+				contentpane.removeAll();
+				contentpane.add(game);
+				contentpane.revalidate();
+				contentpane.repaint();
+				game.setBounds(0, 0, 700, 700);
+				game.setFocusable(true);
+				game.requestFocusInWindow();
+				break;
+			}
+			case CUSTOM:
+			{
+				break;
+			}
+			default:
+				break;
+				
+		}
+		
+	}
+	
+
+	
+	
+	
+
 
 }

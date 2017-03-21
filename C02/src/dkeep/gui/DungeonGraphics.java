@@ -54,15 +54,15 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	
 	
 	
+	
 	/**
 	 * Create the panel.
 	 */
 	public DungeonGraphics() throws IOException {
 
 		addKeyListener(this);
-		Map newMap = new Level1Map();
-		int randGuard= ThreadLocalRandom.current().nextInt(1,4);
-		currentLevel = new DungeonLevel(newMap,randGuard);
+		Map newMap = new Level1Map();	
+		currentLevel = new DungeonLevel(newMap,DungeonGame.GuardTypenmb);
 		loadImages();
 		
 	}
@@ -147,7 +147,7 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			gameState = currentLevel.updateGameStatus(move);
 			if(gameState == state.CHANGELEVEL)
 			{
-				currentLevel = currentLevel.nextLevel(-1);
+				currentLevel = currentLevel.nextLevel(DungeonGame.Ogrenmb);
 				gameState = state.RUNNING;
 			}
 			repaint();
