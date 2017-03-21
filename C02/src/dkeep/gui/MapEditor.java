@@ -3,6 +3,8 @@ package dkeep.gui;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
@@ -10,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import dkeep.gui.DungeonGame.StateViewer;
@@ -32,7 +35,11 @@ public class MapEditor extends JPanel {
 		
 		JPanel panel = new JPanel();
 		
-		JToggleButton tglbtnMario = new JToggleButton("Mario");
+		Icon heroi = new ImageIcon("images/heroi.png");
+		
+		
+		JToggleButton tglbtnMario = new JToggleButton(heroi);
+		tglbtnMario.setBorder(BorderFactory.createEmptyBorder());
 		panel.add(tglbtnMario);
 		tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		

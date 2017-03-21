@@ -12,7 +12,6 @@ public class DungeonGame {
 	private static DungeonGraphics game;
 	private static MenuGraphics menu;
 	private static SettingsDialog settings;
-	private static StateViewer viewState;
 	private static GraphicsVariables variables;
 	private static MapEditor editor;
 	public enum StateViewer{ MENU, GAME, CUSTOM, SETTINGS};
@@ -81,9 +80,9 @@ public class DungeonGame {
 	
 	public static void changeState(StateViewer state) throws IOException
 	{
-		viewState = state;
+		
 		Container contentpane = frmSuperMarioDungeon.getContentPane();
-		switch(viewState)
+		switch(state)
 		{
 			case MENU:
 			{

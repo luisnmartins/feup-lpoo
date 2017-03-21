@@ -52,7 +52,7 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	private state gameState= state.RUNNING;
 	private GraphicsVariables variables;
 	
-	
+
 	
 	/**
 	 * Create the panel.
