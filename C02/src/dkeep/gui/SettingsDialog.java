@@ -44,6 +44,7 @@ public class SettingsDialog extends JDialog{
 	 * Create the dialog.
 	 */
 	public SettingsDialog(GraphicsVariables variables) {
+		setTitle("Settings");
 		
 		this.variables = variables;
 		

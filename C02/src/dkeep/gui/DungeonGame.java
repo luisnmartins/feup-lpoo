@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 public class DungeonGame {
 
-	private static JFrame frame;
+	private static JFrame frmSuperMarioDungeon;
 	private static DungeonGraphics game;
 	private static MenuGraphics menu;
 	private static SettingsDialog settings;
@@ -25,7 +25,7 @@ public class DungeonGame {
 			public void run() {
 				try {
 					DungeonGame window = new DungeonGame();
-					window.frame.setVisible(true);
+					window.frmSuperMarioDungeon.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,14 +47,15 @@ public class DungeonGame {
 		
 		//set elements
 		variables = new GraphicsVariables();
-		frame = new JFrame();
+		frmSuperMarioDungeon = new JFrame();
+		frmSuperMarioDungeon.setTitle("Super Mario Dungeon");
 		menu = new MenuGraphics(variables);
 		settings = new SettingsDialog(variables);
 		
-		frame.setBounds(0, 0, 700, 700);
-		frame.setFocusable(true);
-		frame.requestFocusInWindow();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSuperMarioDungeon.setBounds(0, 0, 700, 700);
+		frmSuperMarioDungeon.setFocusable(true);
+		frmSuperMarioDungeon.requestFocusInWindow();
+		frmSuperMarioDungeon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.getContentPane().add(menu);
 		
 		changeState(StateViewer.MENU);
@@ -79,7 +80,7 @@ public class DungeonGame {
 	public static void changeState(StateViewer state) throws IOException
 	{
 		viewState = state;
-		Container contentpane = frame.getContentPane();
+		Container contentpane = frmSuperMarioDungeon.getContentPane();
 		switch(viewState)
 		{
 			case MENU:
