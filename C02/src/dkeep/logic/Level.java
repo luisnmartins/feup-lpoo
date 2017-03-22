@@ -72,7 +72,7 @@ public class Level {
 					}
 					case 'I':
 					{
-						if(i== 0 || i == analyzemap.length || j==0 || j == analyzemap[i].length)
+						if(i== 0 || i == analyzemap.length-1 || j==0 || j == analyzemap[i].length-1)
 						{
 							currentmap.setDoor(i, j);
 							currentmap.ClearPosition(i, j);

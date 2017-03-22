@@ -58,6 +58,7 @@ public class Map {
 	{
 		Door myDoor = new Door(xPos, yPos);
 		doors.add(myDoor);
+		System.out.println("Doors size: " + this.doors.size());
 	}
 	
 	
@@ -85,6 +86,8 @@ public class Map {
 		return doors.get(0).IsOpened();
 	}
 	
+	public void setSaticMap(char[][] newmap)
+	{};
 	
 	//verify if character c is near a door and can move 
 	public boolean verifyMoveDoors(Character c)
@@ -94,6 +97,7 @@ public class Map {
 		if((i=IsOveraDoor(c.getXTemp(), c.getYTemp())) != -1)
 		{
 			
+			System.out.println("i value: " + i);
 			//verify if the door is open
 				if(!doors.get(i).IsOpened())
 				{

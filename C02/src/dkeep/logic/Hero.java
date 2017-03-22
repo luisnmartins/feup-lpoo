@@ -40,6 +40,7 @@ public class Hero extends Character {
 			}
 			if(currentmap.verifyMoveDoors(this))
 			{
+				System.out.println("verifydoors");
 				canmove=true;
 				
 			}

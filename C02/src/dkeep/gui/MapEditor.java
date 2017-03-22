@@ -21,6 +21,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import dkeep.gui.GraphicsState.StateViewer;
 import dkeep.logic.Level;
+import dkeep.logic.Level2Map;
 import dkeep.logic.Map;
 import dkeep.logic.OgreLevel;
 
@@ -45,9 +46,9 @@ public class MapEditor extends JPanel implements MouseListener {
 
 	private char[][] new_map;
 	private GraphicsVariables variables;
+	private DungeonGraphics panel_1; 
 	private Level currentLevel;
 	private Map newMap;
-	private DungeonGraphics panel_1;
 	char activatedElement;
 	
 	private GraphicsState graphicsst;
@@ -57,10 +58,6 @@ public class MapEditor extends JPanel implements MouseListener {
 	 * Create the panel.
 	 */
 	public MapEditor(GraphicsVariables variables,GraphicsState graphicsst) {
-		
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.menu);
 		this.graphicsst = graphicsst;
 		
 		
@@ -82,89 +79,23 @@ public class MapEditor extends JPanel implements MouseListener {
 		ButtonGroup choices = new ButtonGroup();
 		
 		
-		JToggleButton tglbtnMario = new JToggleButton();
-		tglbtnMario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activatedElement = 'H';
-			}
-		});
-		//tglbtnMario.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(tglbtnMario);
-		
-		tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		tglbtnMario.setIcon(new ImageIcon("images/mario_d.png"));
-
-		
-		JToggleButton tglbtnDoor = new JToggleButton();
-		tglbtnDoor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activatedElement = 'I';
-			}
-		});
-		panel.add(tglbtnDoor);
-		tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		tglbtnDoor.setIcon(new ImageIcon("images/plant.png"));
-		
-		
-		
-		JToggleButton tglbtnKey = new JToggleButton();
-		tglbtnKey.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activatedElement = 'k';
-			}
-		});
-		panel.add(tglbtnKey);
-		tglbtnKey.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		tglbtnKey.setIcon(new ImageIcon("images/key.png"));
-		
-		
-		JToggleButton tglbtnWall = new JToggleButton();
-		tglbtnWall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activatedElement = 'X';
-			}
-		});
-		panel.add(tglbtnWall);
-		tglbtnWall.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		tglbtnWall.setIcon(new ImageIcon("images/wall.png"));
-		
-
-		JToggleButton tglbtnFloor = new JToggleButton();
-		tglbtnFloor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activatedElement = ' ';
-			}
-		});
-		panel.add(tglbtnFloor);
-		tglbtnFloor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		tglbtnFloor.setIcon(new ImageIcon("images/floor.png"));
-
-		JToggleButton tglbtnBowser = new JToggleButton();
-		tglbtnBowser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//activatedElement = 'O';
-				variables.setSelectedElement('0');
-			}
-		});
-		panel.add(tglbtnBowser);
-		tglbtnBowser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		tglbtnBowser.setIcon(new ImageIcon("images/bowser_s.png"));
-
-		
-		choices.add(tglbtnBowser);
-		choices.add(tglbtnFloor);
-		choices.add(tglbtnWall);
-		choices.add(tglbtnKey);
-		choices.add(tglbtnDoor);
-		choices.add(tglbtnMario);
-		
-		
 		JButton btnPlay = new JButton("Play");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Map setmap = new Level2Map();
+				setmap.setSaticMap(variables.getMap());
+				try {
+					graphicsst.changeState(StateViewer.GAME);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnPlay.setBounds(10, 545, 78, 23);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(115, 545, 100, 23);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -181,54 +112,125 @@ public class MapEditor extends JPanel implements MouseListener {
 		
 
 		try {
+			
+			panel_1 = new DungeonGraphics(this.variables, this.graphicsst);
+			panel_1.setSize(new Dimension(400, 400));
+			panel_1.setMaximumSize(new Dimension(400, 400));
+			panel_1.setLocation(191,127);
+			add(panel_1);
+			
 			System.out.println("variables: "+this.variables.getHorMapSize());
 			System.out.println("variables: "+this.variables.getVerMapSize());
 			this.variables.getLevel().printMap();
-			panel_1 = new DungeonGraphics(this.variables,graphicsst);
-			panel_1.setSize(new Dimension(300, 300));
-			panel_1.setPreferredSize(new Dimension(300, 300));
-			panel_1.setMinimumSize(new Dimension(100, 100));
-			panel_1.setMaximumSize(new Dimension(400, 400));
 			
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		panel_1.setBackground(Color.WHITE);
+		setLayout(null);
+		add(btnPlay);
+		add(btnCancel);
 		
+				
+				
+				JToggleButton tglbtnMario = new JToggleButton();
+				tglbtnMario.setSize(new Dimension(70, 70));
+				tglbtnMario.setBounds(115, 11, 70, 70);
+				add(tglbtnMario);
+				tglbtnMario.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//activatedElement = 'H';
+						variables.setSelectedElement('H');
+					}
+				});
+				
+				tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				
+						tglbtnMario.setIcon(new ImageIcon("images/mario_d.png"));
+						choices.add(tglbtnMario);
+						
+								
+								JToggleButton tglbtnDoor = new JToggleButton();
+								tglbtnDoor.setSize(new Dimension(70, 70));
+								tglbtnDoor.setBounds(215, 11, 70, 70);
+								add(tglbtnDoor);
+								tglbtnDoor.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										//activatedElement = 'I';
+										variables.setSelectedElement('I');
+									}
+								});
+								tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+								
+										tglbtnDoor.setIcon(new ImageIcon("images/plant.png"));
+										choices.add(tglbtnDoor);
+										
+										
+										
+										JToggleButton tglbtnKey = new JToggleButton();
+										tglbtnKey.setSize(new Dimension(70, 70));
+										tglbtnKey.setBounds(312, 11, 70, 70);
+										add(tglbtnKey);
+										tglbtnKey.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												//activatedElement = 'k';
+												variables.setSelectedElement('k');
+											}
+										});
+										tglbtnKey.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+										tglbtnKey.setIcon(new ImageIcon("images/key.png"));
+										choices.add(tglbtnKey);
+										
+										
+										JToggleButton tglbtnWall = new JToggleButton();
+										tglbtnWall.setSize(new Dimension(70, 70));
+										tglbtnWall.setBounds(417, 11, 70, 70);
+										add(tglbtnWall);
+										tglbtnWall.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												//activatedElement = 'X';
+												variables.setSelectedElement('X');
+											}
+										});
+										tglbtnWall.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+										tglbtnWall.setIcon(new ImageIcon("images/wall.png"));
+										choices.add(tglbtnWall);
+										
 
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(137)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-					.addGap(146))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnPlay)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCancel)))
-					.addContainerGap(193, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnPlay)
-						.addComponent(btnCancel)))
-		);
-		setLayout(groupLayout);
+										JToggleButton tglbtnFloor = new JToggleButton();
+										tglbtnFloor.setSize(new Dimension(70, 70));
+										tglbtnFloor.setBounds(515, 11, 70, 70);
+										add(tglbtnFloor);
+										tglbtnFloor.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												//activatedElement = ' ';
+												variables.setSelectedElement(' ');
+											}
+										});
+										tglbtnFloor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+										tglbtnFloor.setIcon(new ImageIcon("images/floor.png"));
+										choices.add(tglbtnFloor);
+										
+												JToggleButton tglbtnBowser = new JToggleButton();
+												tglbtnBowser.setSize(new Dimension(70, 70));
+												tglbtnBowser.setBounds(623, 11, 78, 72);
+												add(tglbtnBowser);
+												tglbtnBowser.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+														//activatedElement = 'O';
+														variables.setSelectedElement('O');
+														
+													}
+												});
+												tglbtnBowser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+												
+														tglbtnBowser.setIcon(new ImageIcon("images/bowser_s.png"));
+														
+																
+																choices.add(tglbtnBowser);
+		
+		
 
 	}
 	

@@ -27,6 +27,11 @@ public class Level1Map extends Map {
 	{
 		super(mapStatic);
 	}
+	
+	public void setSaticMap(char[][] newmap)
+	{
+		mapStatic = newmap;
+	}
 		
 	
 

@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
 
-public class DungeonGraphics extends JPanel implements KeyListener,MouseListener {
+public class DungeonGraphics extends JPanel implements KeyListener,MouseListener,MouseMotionListener {
 
 	//all used images
 	private BufferedImage mario;
@@ -104,6 +105,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		variables.getLevel().printMap();
 		char[][] maptoprint = variables.getMap();
 		int sizeWidth = getWidth()/maptoprint.length;
 		//int sizeHeight = getHeight()/maptoprint.length;
@@ -118,7 +120,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 				{
 					g.drawImage(wall, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 					//TODO
-					System.out.println("print");
+					
 				}else if (maptoprint[i][a] == 'H')
 				{
 					g.drawImage(mario, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
@@ -131,6 +133,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 					g.drawImage(guard,a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'O')
 				{
+					
 					g.drawImage(bowser, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'k')
 				{
@@ -265,19 +268,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		mouseX=e.getX();
-		 mouseY = e.getY();
-		System.out.println(mouseX+","+mouseY);
-		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
-		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
-		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
-		System.out.println("x"+x + " y " + y);
-		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
-		{
-			variables.editMap(x, y, this.variables.getSelectedElement());
-			variables.getLevel().printMap();
-			repaint();
-		}
+	
 		
 	}
 
@@ -295,13 +286,47 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		mouseX=e.getX();
+		 mouseY = e.getY();
+		System.out.println(mouseX+","+mouseY);
+		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
+		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
+		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
+		System.out.println("x"+x + " y " + y);
+		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
+		{
+			System.out.println(this.variables.getSelectedElement()+ "");
+			variables.editMap(y, x, this.variables.getSelectedElement());
+			variables.getLevel().printMap();
+			repaint();
+		}
+		
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{
+		mouseX=e.getX();
+		 mouseY = e.getY();
+		System.out.println(mouseX+","+mouseY);
+		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
+		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
+		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
+		System.out.println("x"+x + " y " + y);
+		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
+		{
+			System.out.println(this.variables.getSelectedElement()+ "");
+			variables.editMap(y, x, this.variables.getSelectedElement());
+			variables.getLevel().printMap();
+			repaint();
+		}
 		
 	}
 	
@@ -313,6 +338,12 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	public int getYPos()
 	{
 		return this.mouseY;
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
