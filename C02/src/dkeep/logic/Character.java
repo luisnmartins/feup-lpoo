@@ -9,6 +9,7 @@ public abstract class Character {
 	private int xTemp;
 	private int yTemp;
 	private boolean moveCharacter=true;
+	private boolean IsParalyzed=false;
 	
 	
 	//constructor
@@ -164,6 +165,18 @@ public abstract class Character {
 	public void addElementsMatrix(char[][] map)
 	{
 		map[this.getX()][this.getY()] = this.getElement();
+	}
+
+
+
+	public boolean getIsParalyzed() {
+		return IsParalyzed;
+	}
+
+
+
+	public void setIsParalyzed(boolean isParalyzed) {
+		IsParalyzed = isParalyzed;
 	}
 	
 	

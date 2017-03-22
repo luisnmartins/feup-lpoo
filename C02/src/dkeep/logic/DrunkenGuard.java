@@ -20,6 +20,7 @@ public class DrunkenGuard extends Guard{
 		if(this.characteristic)
 		{
 			this.setElm('g');
+			this.setIsParalyzed(true);
 
 		}
 		else

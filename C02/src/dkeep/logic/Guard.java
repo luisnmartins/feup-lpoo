@@ -76,6 +76,7 @@ public class Guard extends Character {
 
 
 			this.setElm('G');
+			this.setIsParalyzed(false);
 			if(this instanceof SuspiciousGuard && this.characteristic)
 			{
 				this.changePosition(this.getMoveGuard(),true);
