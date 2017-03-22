@@ -17,7 +17,7 @@ public class DungeonGame {
 
 
 	private static JFrame frmSuperMarioDungeon;
-	private static DungeonGraphics game;
+	private static DungeonDesign game;
 	private static MenuGraphics menu;
 	private static SettingsDialog settings;
 	private static GraphicsVariables variables;
@@ -104,7 +104,7 @@ public class DungeonGame {
 			}
 			case GAME:
 			{
-				game = new DungeonGraphics(variables);
+				game = new DungeonDesign(variables);
 				contentpane.removeAll();
 				contentpane.add(game);
 				contentpane.revalidate();

@@ -57,7 +57,7 @@ public class MapEditor extends JPanel {
 		tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		tglbtnDoor.setIcon(new ImageIcon("images/plant.png"));
-
+		
 		
 		
 		JToggleButton tglbtnKey = new JToggleButton();
@@ -108,24 +108,31 @@ public class MapEditor extends JPanel {
 				}
 			}
 		});
+		
+		JPanel panel_1 = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(137)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+					.addGap(146))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(36)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(312, Short.MAX_VALUE)
-					.addComponent(btnPlay)
+					.addContainerGap(78, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnPlay))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnCancel))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(5)
+					.addContainerGap()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+					.addGap(20)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnPlay)
 						.addComponent(btnCancel)))
