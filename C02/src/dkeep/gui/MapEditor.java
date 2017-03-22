@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
@@ -35,33 +37,51 @@ public class MapEditor extends JPanel {
 		
 		JPanel panel = new JPanel();
 		
-		Icon heroi = new ImageIcon("images/heroi.png");
+		
+		ButtonGroup choices = new ButtonGroup();
 		
 		
-		JToggleButton tglbtnMario = new JToggleButton(heroi);
-		tglbtnMario.setBorder(BorderFactory.createEmptyBorder());
+		JToggleButton tglbtnMario = new JToggleButton();
+		//tglbtnMario.setBorder(BorderFactory.createEmptyBorder());
 		panel.add(tglbtnMario);
-		tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
-		JToggleButton tglbtnDoor = new JToggleButton("Door");
+		tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tglbtnMario.setIcon(new ImageIcon("images/heroi.png"));
+		
+		JToggleButton tglbtnDoor = new JToggleButton();
 		panel.add(tglbtnDoor);
 		tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tglbtnDoor.setIcon(new ImageIcon("images/door.png"));
 		
-		JToggleButton tglbtnKey = new JToggleButton("Key");
+		
+		JToggleButton tglbtnKey = new JToggleButton();
 		panel.add(tglbtnKey);
 		tglbtnKey.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tglbtnKey.setIcon(new ImageIcon("images/key.png"));
 		
-		JToggleButton tglbtnWall = new JToggleButton("Wall");
+		
+		JToggleButton tglbtnWall = new JToggleButton();
 		panel.add(tglbtnWall);
 		tglbtnWall.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tglbtnWall.setIcon(new ImageIcon("images/wall.png"));
 		
-		JToggleButton tglbtnFloor = new JToggleButton("Floor");
+		JToggleButton tglbtnFloor = new JToggleButton("floor");
 		panel.add(tglbtnFloor);
 		tglbtnFloor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		//tglbtnFloor.setIcon(new ImageIcon("images/floor.png"));
 		
-		JToggleButton tglbtnBowser = new JToggleButton("Bowser");
+		JToggleButton tglbtnBowser = new JToggleButton();
 		panel.add(tglbtnBowser);
 		tglbtnBowser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tglbtnBowser.setIcon(new ImageIcon("images/ogres.png"));
+		
+		choices.add(tglbtnBowser);
+		choices.add(tglbtnFloor);
+		choices.add(tglbtnWall);
+		choices.add(tglbtnKey);
+		choices.add(tglbtnDoor);
+		choices.add(tglbtnMario);
+		
 		
 		JButton btnPlay = new JButton("Play");
 		
