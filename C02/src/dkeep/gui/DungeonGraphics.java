@@ -3,6 +3,8 @@ package dkeep.gui;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import dkeep.gui.DungeonGame.StateViewer;
+import dkeep.gui.GraphicsState.StateViewer;
 import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
 import dkeep.logic.Level1Map;
@@ -20,7 +22,7 @@ import dkeep.logic.Map;
 import dkeep.logic.OgreLevel;
 import dkeep.logic.Level.state;
 
-public class DungeonGraphics extends JPanel implements KeyListener {
+public class DungeonGraphics extends JPanel implements KeyListener,MouseListener {
 
 	//all used images
 	private BufferedImage mario;
@@ -41,10 +43,11 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	
 	private Level currentLevel;
 
-	
+	private int mouseX,mouseY;
 
 	private state gameState= state.RUNNING;
 	private GraphicsVariables variables;
+	private GraphicsState graphicsst;
 	
 
 
@@ -52,16 +55,20 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	/**
 	 * Create the panel.
 	 */
-	public DungeonGraphics(GraphicsVariables variables) throws IOException {
+	public DungeonGraphics(GraphicsVariables variables, GraphicsState graphicsst) throws IOException {
 
 		this.variables = variables;
 		
-
-		
+		this.graphicsst = graphicsst;
+		addMouseListener(this);
 		addKeyListener(this);
-		Map newMap = new Level1Map();	
-		variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
-		this.currentLevel = this.variables.getLevel();
+		
+		if(graphicsst.getState() == StateViewer.GAME)
+		{	
+			Map newMap = new Level1Map();	
+			variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
+		}
+			this.currentLevel = this.variables.getLevel();
 		loadImages();
 		
 	}
@@ -165,7 +172,7 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			if(move == 'e')
 			{
 				try {
-				DungeonGame.changeState(StateViewer.MENU);
+				graphicsst.changeState(StateViewer.MENU);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -241,6 +248,58 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		mouseX=e.getX();
+		 mouseY = e.getY();
+		System.out.println(mouseX+","+mouseY);
+		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
+		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
+		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
+		System.out.println("x"+x + " y " + y);
+		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
+		{
+			variables.editMap(x, y, this.variables.getSelectedElement());
+			variables.getLevel().printMap();
+			repaint();
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public int getXPos()
+	{
+		return this.mouseX;
+	}
+	
+	public int getYPos()
+	{
+		return this.mouseY;
 	}
 
 }

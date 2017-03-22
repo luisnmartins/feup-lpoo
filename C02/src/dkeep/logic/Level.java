@@ -21,6 +21,11 @@ public class Level {
 			
 	}
 	
+	public Level(Map currentmap)
+	{
+		this.currentmap = currentmap;
+	}
+	
 	public void InitalizeElements(int Ogrenmb, int Guardtype)
 	{
 		
@@ -194,15 +199,20 @@ public class Level {
 		{
 			maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
 		}
-		currentmap.addElementsMatrix(maptosend);
+		if(currentmap.getKey() != null)
+			currentmap.addElementsMatrix(maptosend);
 		
 		
+	if(enemies != null)
+			
 		for(int i=0; i<enemies.size(); i++)
 		{
 			enemies.get(i).addElementsMatrix(maptosend);
 			
-		}	
-		myHero.addElementsMatrix(maptosend);
+		}
+	
+		if(myHero != null)
+			myHero.addElementsMatrix(maptosend);
 		
 		return maptosend;
 		

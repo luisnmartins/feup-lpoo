@@ -6,7 +6,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import dkeep.gui.DungeonGame.StateViewer;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -18,16 +17,17 @@ public class MenuGraphics extends JPanel {
 	private SettingsDialog settings;
 	private GraphicsVariables variables;
 	private MapSize mapSettings;
+	private GraphicsState graphicsst;
 	
 	/**
 	 * Create the panel.
 	 */
-	public MenuGraphics(GraphicsVariables variables) {
+	public MenuGraphics(GraphicsVariables variables,GraphicsState graphicsst) {
 		
 		this.variables = variables;
-		
-		settings = new SettingsDialog(this.variables);
-		mapSettings = new MapSize(variables);
+		this.graphicsst = graphicsst;
+		settings = new SettingsDialog(this.variables,this.graphicsst);
+		mapSettings = new MapSize(variables,this.graphicsst);
 		
 		
 		JButton btnNewgame = new JButton("New Game");

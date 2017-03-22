@@ -8,7 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dkeep.gui.DungeonGame.StateViewer;
+import dkeep.gui.GraphicsState.StateViewer;
+import dkeep.logic.Level;
+import dkeep.logic.Map;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -28,6 +30,10 @@ public class MapSize extends JDialog {
 	private JLabel lblHorizontalSize;
 	private JTextField horSize;
 	private JTextField verSize;
+	private GraphicsState graphicsst;
+	private Map newMap ;
+	private Level currentLevel;
+	private char[][] map;
 
 	/**
 	 * Launch the application.
@@ -45,9 +51,10 @@ public class MapSize extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MapSize(GraphicsVariables variables) {
+	public MapSize(GraphicsVariables variables,GraphicsState graphicsst) {
 		
 		this.map_variables = variables;
+		this.graphicsst = graphicsst;
 		setTitle("Map Editor Settings");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -102,16 +109,23 @@ public class MapSize extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+					if(!horSize.getText().equals("") && !verSize.getText().equals(""))
+						if(Integer.parseInt(horSize.getText()) >= 5 && Integer.parseInt(verSize.getText()) >= 5)
+						{
+					
 						try {
 							
 							map_variables.setMapSizes(Integer.parseInt(horSize.getText()),Integer.parseInt(verSize.getText()));
-							DungeonGame.changeState(StateViewer.CUSTOM);
+							
+							
+							graphicsst.changeState(StateViewer.CUSTOM);
 						
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						dispose();
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -124,7 +138,7 @@ public class MapSize extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 							try {
 							
-							DungeonGame.changeState(StateViewer.MENU);
+							graphicsst.changeState(StateViewer.MENU);
 						
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block

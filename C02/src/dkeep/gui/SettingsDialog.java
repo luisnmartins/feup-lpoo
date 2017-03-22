@@ -11,7 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dkeep.gui.DungeonGame.StateViewer;
+import dkeep.gui.GraphicsState.StateViewer;
 
 import javax.swing.JSlider;
 import javax.swing.DefaultComboBoxModel;
@@ -26,7 +26,8 @@ import java.awt.Cursor;
 public class SettingsDialog extends JDialog{
 
 	private final JPanel contentPanel = new JPanel();
-	private static GraphicsVariables variables;
+	private GraphicsVariables variables;
+	private GraphicsState graphicsst;
 
 	/**
 	 * Launch the application.
@@ -44,11 +45,11 @@ public class SettingsDialog extends JDialog{
 	/**
 	 * Create the dialog.
 	 */
-	public SettingsDialog(GraphicsVariables variables) {
+	public SettingsDialog(GraphicsVariables variablest,GraphicsState graphicsstt) {
 		setTitle("Settings");
 		
-		this.variables = variables;
-		
+		this.variables = variablest;
+		this.graphicsst = graphicsstt;
 		
 		setBounds(100, 100, 450, 375);
 		getContentPane().setLayout(new BorderLayout());
@@ -116,9 +117,10 @@ public class SettingsDialog extends JDialog{
 						
 						variables.setOgrenmb(Ogreslider.getValue());
 						variables.setGuardTypenmb(GuardcomboBox.getSelectedIndex()+1);
+						System.out.println("value: "+variables.getOgrenmb());
 						try {
 							
-							DungeonGame.changeState(StateViewer.GAME);
+							graphicsst.changeState(StateViewer.GAME);
 						
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
