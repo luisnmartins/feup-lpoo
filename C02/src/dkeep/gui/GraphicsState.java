@@ -10,7 +10,7 @@ public class GraphicsState {
 
 	
 	private Container framecontentpane;
-	private DungeonGraphics game;
+	private DungeonDesign game;
 	private MenuGraphics menu;
 	private SettingsDialog settings;
 	private	GraphicsVariables variables;
@@ -56,7 +56,7 @@ public class GraphicsState {
 			}
 			case GAME:
 			{
-				game = new DungeonGraphics(variables, this);
+				game = new DungeonDesign(variables, this);
 				framecontentpane.removeAll();
 				framecontentpane.add(game);
 				framecontentpane.revalidate();

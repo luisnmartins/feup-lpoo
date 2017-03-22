@@ -106,7 +106,7 @@ public class MapEditor extends JPanel implements MouseListener {
 		tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		tglbtnDoor.setIcon(new ImageIcon("images/plant.png"));
-
+		
 		
 		
 		JToggleButton tglbtnKey = new JToggleButton();
@@ -179,6 +179,7 @@ public class MapEditor extends JPanel implements MouseListener {
 			}
 		});
 		
+
 		try {
 			System.out.println("variables: "+this.variables.getHorMapSize());
 			System.out.println("variables: "+this.variables.getVerMapSize());
@@ -196,9 +197,14 @@ public class MapEditor extends JPanel implements MouseListener {
 		}
 		panel_1.setBackground(Color.WHITE);
 		
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(137)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+					.addGap(146))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -213,7 +219,7 @@ public class MapEditor extends JPanel implements MouseListener {
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(5)
+					.addContainerGap()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)

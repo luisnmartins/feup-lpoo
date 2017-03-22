@@ -57,14 +57,18 @@ public class SettingsDialog extends JDialog{
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
 		JLabel lblNumberOfOgres = new JLabel("Guard Type");
+		lblNumberOfOgres.setBounds(24, 60, 71, 16);
 		
 		JLabel lblNumberOfOgres_1 = new JLabel("Number of Ogres");
+		lblNumberOfOgres_1.setBounds(24, 117, 108, 16);
 		
 		JComboBox GuardcomboBox = new JComboBox();
+		GuardcomboBox.setBounds(171, 60, 161, 27);
 		GuardcomboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		GuardcomboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
 		
 		JSlider Ogreslider = new JSlider();
+		Ogreslider.setBounds(171, 108, 190, 52);
 		Ogreslider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		Ogreslider.setMajorTickSpacing(1);
 		Ogreslider.setMinorTickSpacing(1);
@@ -73,37 +77,11 @@ public class SettingsDialog extends JDialog{
 		Ogreslider.setMaximum(5);
 		Ogreslider.setMinimum(1);
 		Ogreslider.setValue(2);
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(19)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNumberOfOgres)
-						.addComponent(lblNumberOfOgres_1))
-					.addGap(39)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(GuardcomboBox, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
-						.addComponent(Ogreslider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(84, Short.MAX_VALUE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(55)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNumberOfOgres)
-						.addComponent(GuardcomboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(21)
-							.addComponent(Ogreslider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(30)
-							.addComponent(lblNumberOfOgres_1)))
-					.addContainerGap(149, Short.MAX_VALUE))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		contentPanel.setLayout(null);
+		contentPanel.add(lblNumberOfOgres);
+		contentPanel.add(lblNumberOfOgres_1);
+		contentPanel.add(GuardcomboBox);
+		contentPanel.add(Ogreslider);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

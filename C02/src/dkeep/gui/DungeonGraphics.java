@@ -21,6 +21,10 @@ import dkeep.logic.Level2Map;
 import dkeep.logic.Map;
 import dkeep.logic.OgreLevel;
 import dkeep.logic.Level.state;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JComboBox;
 
 public class DungeonGraphics extends JPanel implements KeyListener,MouseListener {
 
@@ -61,7 +65,11 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		
 		this.graphicsst = graphicsst;
 		addMouseListener(this);
+		this.requestFocusInWindow();
+		this.setFocusable(true);
+
 		addKeyListener(this);
+
 		
 		if(graphicsst.getState() == StateViewer.GAME)
 		{	
@@ -69,6 +77,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
 		}
 			this.currentLevel = this.variables.getLevel();
+
 		loadImages();
 		
 	}
@@ -96,58 +105,61 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	{
 		super.paintComponent(g);
 		char[][] maptoprint = variables.getMap();
+		int sizeWidth = getWidth()/maptoprint.length;
+		//int sizeHeight = getHeight()/maptoprint.length;
 		
 		for(int i = 0; i < maptoprint.length; i++)
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
 				
-				g.drawImage(floor, a*70, i*70, this);
+				g.drawImage(floor, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				
 				if(maptoprint[i][a] == 'X')
 				{
-					g.drawImage(wall, a*70, i*70, this);
+					g.drawImage(wall, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					//TODO
+					System.out.println("print");
 				}else if (maptoprint[i][a] == 'H')
 				{
-					g.drawImage(mario, a*70,i*70, this);
+					g.drawImage(mario, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}
 				else if(maptoprint[i][a] == 'I')
 				{
-					g.drawImage(door,a* 70,i*70, this);
+					g.drawImage(door,a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'G')
 				{
-					g.drawImage(guard,a*70,i*70,this);
+					g.drawImage(guard,a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'O')
 				{
-					g.drawImage(bowser, a*70,i*70, this);
+					g.drawImage(bowser, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'k')
 				{
-					g.drawImage(key, a*70, i*70,this);
+					g.drawImage(key, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'g')
 				{
-					g.drawImage(guard_sleep, a*70, i*70,this);
+					g.drawImage(guard_sleep, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == '*')
 				{
-					g.drawImage(bowser_fire, a*70, i*70,this);
+					g.drawImage(bowser_fire, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'K')
 				{
-					g.drawImage(mario, a*70, i*70,this);
+					g.drawImage(mario, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'A')
 				{
-					g.drawImage(hero_weapon, a*70, i*70,this);
+					g.drawImage(hero_weapon, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == '8')
 				{
-					g.drawImage(bowser_stunned, a*70, i*70,this);
+					g.drawImage(bowser_stunned, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if(maptoprint[i][a] == '$')
 				{
-					g.drawImage(key, a*70, i*70, this);
+					g.drawImage(key, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}
 			
 					
 			}
 		
 		
-		
-		
+			
 		
 		
 		
@@ -250,6 +262,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	public void keyReleased(KeyEvent e) {
 	}
 
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		mouseX=e.getX();
@@ -301,5 +314,6 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	{
 		return this.mouseY;
 	}
+
 
 }
