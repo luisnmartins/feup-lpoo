@@ -54,8 +54,7 @@ public class Hero extends Character {
 					{	
 						canmove=false;
 						break;
-					}
-					
+					}	
 					
 				}
 				

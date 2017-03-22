@@ -160,7 +160,6 @@ public class Ogre extends Character {
 					this.setElm('O');
 					this.setIsParalyzed(false);
 					this.attackElement = '*';
-					return false;
 				}
 				else
 				{
@@ -168,8 +167,7 @@ public class Ogre extends Character {
 					return true;
 				}
 			}
-			else
-				return false;
+			return false;
 		}
 		
 		

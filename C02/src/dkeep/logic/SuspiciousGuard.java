@@ -19,7 +19,9 @@ public class SuspiciousGuard extends Guard{
 			if(iterator == 0)
 			{
 				iterator = moveLevel1.length-1;
-			}else iterator--;
+			}else 
+				iterator--;
+			
 			return move;
 		}
 		else

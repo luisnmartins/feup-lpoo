@@ -28,11 +28,12 @@ public class Guard extends Character {
 		char move = moveLevel1[iterator];
 		
 		
-		if(iterator == moveLevel1.length-1)
+		if(iterator != moveLevel1.length-1)
 		{
-			iterator = 0;
+			iterator++;
+			
 		}else
-		iterator++;
+			iterator = 0;
 		
 		return move;
 		
@@ -74,7 +75,8 @@ public class Guard extends Character {
 	public boolean update(Map currentmap, char heromove)
 	{
 
-
+		if(this.getMoveCharacter())
+		{
 			this.setElm('G');
 			this.setIsParalyzed(false);
 			if(this instanceof SuspiciousGuard && this.characteristic)
@@ -85,7 +87,10 @@ public class Guard extends Character {
 			
 			this.setPosition(this.getXTemp(), this.getYTemp());
 		
-		return true;
+			return true;
+		}
+		else
+			return false;
 	
 		
 	}

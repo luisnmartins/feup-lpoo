@@ -69,10 +69,8 @@ public class Key {
 		if(this.x == xPos && this.y == yPos)
 		{
 			return true;
-		}else 
-			return false;
-		else 
-			return false;
+		}
+		return false;
 	}
 
 

@@ -147,13 +147,12 @@ public class Map {
 	public void addElementsMatrix(char[][] finalmap)
 	{
 		finalmap[myKey.getX()][myKey.getY()] = myKey.getSymbol();
-		for(Door d1: doors)
+		for(int i=0; i<doors.size(); i++)
 		{
-			finalmap[d1.getX()][d1.getY()] = d1.getSymbol();
+			finalmap[doors.get(i).getX()][doors.get(i).getY()] = doors.get(i).getSymbol();
 		}
 	}
 	
-
 	
 	
 }

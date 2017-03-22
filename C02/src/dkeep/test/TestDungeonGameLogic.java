@@ -33,6 +33,7 @@ public class TestDungeonGameLogic {
 	{
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap,3);
+		currentLevel.IstoMoveElements(false);
 		currentLevel.updateGame('w');
 		assertEquals(1, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
@@ -42,10 +43,26 @@ public class TestDungeonGameLogic {
 	public void TestAdjacentPositionGuard()
 	{
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap,3);			
+		Level currentLevel = new DungeonLevel(testmap,3);	
+		currentLevel.IstoMoveElements(false);
 		assertEquals(state.LOSE, currentLevel.updateGame('d')); 
 	 
 		
+	}
+	
+	@Test
+	public void TestAdjacentunderGuard()
+	{
+		Map testmap = new Map(this.map);
+		Level currentLevel = new DungeonLevel(testmap,3);
+		currentLevel.IstoMoveElements(false);
+		currentLevel.printMap();
+		currentLevel.updateGame('s');
+		currentLevel.printMap();
+		currentLevel.updateGame('d');
+		currentLevel.printMap();
+		assertEquals(state.LOSE, currentLevel.updateGame('d'));
+		currentLevel.printMap();
 	}
 	
 	

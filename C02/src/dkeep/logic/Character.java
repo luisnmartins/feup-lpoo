@@ -87,8 +87,13 @@ public abstract class Character {
 	//Update character position
 	public boolean update(Map currentmap, char move){
 		
-		this.changePosition(move,false);
-		return true;
+		if(this.getMoveCharacter())
+		{
+			this.changePosition(move,false);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public boolean verifyColision(Character c)
@@ -118,42 +123,42 @@ public abstract class Character {
 			else xTemp += 1;
 		
 		
-	}
+		}
 
-	else if (move == 'a') {
-
-		if(invertFlag == false)
-			{
-				if(yTemp != 0)
+		else if (move == 'a') {
+	
+			if(invertFlag == false)
 				{
-					yTemp -= 1;
+					if(yTemp != 0)
+					{
+						yTemp -= 1;
+					}
 				}
+				
+				else yTemp += 1;
+			
+				
+		}
+	
+		else if (move == 's') {
+	
+			if(invertFlag == false)
+			xTemp += 1;
+			else {
+				if(xTemp != 0)
+					xTemp -= 1;
 			}
-			
-			else yTemp += 1;
-		
-			
-	}
-
-	else if (move == 's') {
-
-		if(invertFlag == false)
-		xTemp += 1;
-		else {
-			if(xTemp != 0)
-			xTemp -= 1;
 		}
-	}
-
-	else if (move == 'd') {
-
-		if(invertFlag == false)
-		yTemp += 1;
-		else {
-			if(yTemp !=0)
-			yTemp -= 1;
+	
+		else if (move == 'd') {
+	
+			if(invertFlag == false)
+			yTemp += 1;
+			else {
+				if(yTemp !=0)
+				yTemp -= 1;
+			}
 		}
-	}
 	
 	
 }
