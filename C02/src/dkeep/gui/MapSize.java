@@ -102,13 +102,14 @@ public class MapSize extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							
-							variables.setMapSizes( Integer.parseInt(verSize.getText()), Integer.parseInt(horSize.getText()));
+							//variables.setMapSizes( Integer.parseInt(verSize.getText()), Integer.parseInt(horSize.getText()));
 							DungeonGame.changeState(StateViewer.CUSTOM);
 						
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+						dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -121,12 +122,13 @@ public class MapSize extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 							try {
 							
-							DungeonGame.changeState(StateViewer.CUSTOM);
+							DungeonGame.changeState(StateViewer.MENU);
 						
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+							dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

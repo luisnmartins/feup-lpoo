@@ -17,6 +17,7 @@ public class MenuGraphics extends JPanel {
 
 	private SettingsDialog settings;
 	private GraphicsVariables variables;
+	private MapSize mapSettings;
 	
 	/**
 	 * Create the panel.
@@ -26,6 +27,7 @@ public class MenuGraphics extends JPanel {
 		this.variables = variables;
 		
 		settings = new SettingsDialog(this.variables);
+		mapSettings = new MapSize();
 		
 		
 		JButton btnNewgame = new JButton("New Game");
@@ -54,14 +56,15 @@ public class MenuGraphics extends JPanel {
 		btnEditor.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-				try {
+				/*try {
 					
 					DungeonGame.changeState(StateViewer.CUSTOM);
 				
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
+				mapSettings.setVisible(true);
 				
 			}
 		});
