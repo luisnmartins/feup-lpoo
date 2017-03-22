@@ -116,6 +116,7 @@ public class DungeonGame {
 			}
 			case CUSTOM:
 			{
+				
 				contentpane.removeAll();
 				contentpane.add(editor);
 				contentpane.revalidate();

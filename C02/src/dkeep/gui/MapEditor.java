@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 
 public class MapEditor extends JPanel {
 
+	private char[][] map;
+	private GraphicsVariables variables;
 	/**
 	 * Create the panel.
 	 */

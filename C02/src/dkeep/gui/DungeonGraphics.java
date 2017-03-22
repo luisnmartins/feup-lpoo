@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import dkeep.gui.DungeonGame.StateViewer;
 import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
 import dkeep.logic.Level1Map;
@@ -159,7 +160,19 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			}
 			repaint();
 		}
-		
+		else if(gameState == state.LOSE || gameState == state.WIN)
+		{
+			if(move == 'e')
+			{
+				try {
+				DungeonGame.changeState(StateViewer.MENU);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+		}
 	}
 	
 	
@@ -217,7 +230,10 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			}
 				updateMove('s');
 				break;
-			
+			case KeyEvent.VK_ENTER:
+			{
+				updateMove('e');
+			}
 				
 		}
 		
