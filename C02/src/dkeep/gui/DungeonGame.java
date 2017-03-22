@@ -2,11 +2,19 @@ package dkeep.gui;
 
 import java.awt.Container;
 import java.awt.EventQueue;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 public class DungeonGame {
+
 
 	private static JFrame frmSuperMarioDungeon;
 	private static DungeonGraphics game;
@@ -16,6 +24,7 @@ public class DungeonGame {
 	private static MapEditor editor;
 	public enum StateViewer{ MENU, GAME, CUSTOM, SETTINGS};
 	
+
 
 	/**
 	 * Launch the application.
@@ -37,6 +46,7 @@ public class DungeonGame {
 	 * Create the application.
 	 */
 	public DungeonGame() throws IOException {
+		
 		initialize();
 	}
 

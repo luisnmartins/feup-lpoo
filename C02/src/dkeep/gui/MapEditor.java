@@ -46,12 +46,16 @@ public class MapEditor extends JPanel {
 		panel.add(tglbtnMario);
 		
 		tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		tglbtnMario.setIcon(new ImageIcon("images/heroi.png"));
+
+		tglbtnMario.setIcon(new ImageIcon("images/mario_d.png"));
+
 		
 		JToggleButton tglbtnDoor = new JToggleButton();
 		panel.add(tglbtnDoor);
 		tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		tglbtnDoor.setIcon(new ImageIcon("images/door.png"));
+
+		tglbtnDoor.setIcon(new ImageIcon("images/plant.png"));
+
 		
 		
 		JToggleButton tglbtnKey = new JToggleButton();
@@ -65,15 +69,18 @@ public class MapEditor extends JPanel {
 		tglbtnWall.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		tglbtnWall.setIcon(new ImageIcon("images/wall.png"));
 		
-		JToggleButton tglbtnFloor = new JToggleButton("floor");
+
+		JToggleButton tglbtnFloor = new JToggleButton();
 		panel.add(tglbtnFloor);
 		tglbtnFloor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		//tglbtnFloor.setIcon(new ImageIcon("images/floor.png"));
-		
+		tglbtnFloor.setIcon(new ImageIcon("images/floor.png"));
+
 		JToggleButton tglbtnBowser = new JToggleButton();
 		panel.add(tglbtnBowser);
 		tglbtnBowser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		tglbtnBowser.setIcon(new ImageIcon("images/ogres.png"));
+
+		tglbtnBowser.setIcon(new ImageIcon("images/bowser_s.png"));
+
 		
 		choices.add(tglbtnBowser);
 		choices.add(tglbtnFloor);

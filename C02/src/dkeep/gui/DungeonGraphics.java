@@ -22,36 +22,30 @@ import dkeep.logic.Level.state;
 public class DungeonGraphics extends JPanel implements KeyListener {
 
 	//all used images
-	private BufferedImage hero_s;
-	private BufferedImage hero_d;
-	private BufferedImage hero_w;
-	private BufferedImage hero_a;
-	private BufferedImage hero_key;
+	private BufferedImage mario;
+	private BufferedImage mario_key;
 	private BufferedImage hero_weapon;
-	private BufferedImage guard_a;
-	private BufferedImage guard_d;
-	private BufferedImage guard_s;
-	private BufferedImage guard_w;
+	private BufferedImage guard;
 	private BufferedImage guard_sleep;
-	private BufferedImage wall_vert;
-	private BufferedImage wall_hor;
-	private BufferedImage wall_corner1;
-	private BufferedImage wall_corner2;
-	private BufferedImage wall_corner3;
-	private BufferedImage wall_corner4;
+	private BufferedImage wall;
 	private BufferedImage lever;
 	private BufferedImage key;
-	private BufferedImage door_closed;
-	private BufferedImage door_open;
-	private BufferedImage ogre_w;
-	private BufferedImage ogre_s;
-	private BufferedImage ogre_a;
-	private BufferedImage ogre_d;
-	private BufferedImage ogre_attack;
-	private BufferedImage ogre_stunned;
+
+
+	private BufferedImage door;
+	private BufferedImage bowser;
+	private BufferedImage bowser_fire;
+	private BufferedImage bowser_stunned;
+	private BufferedImage floor;
+	
+	private Level currentLevel;
+
+	
+
 	private state gameState= state.RUNNING;
 	private GraphicsVariables variables;
 	
+
 
 	
 	/**
@@ -61,9 +55,12 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 
 		this.variables = variables;
 		
+
+		
 		addKeyListener(this);
 		Map newMap = new Level1Map();	
 		variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
+		this.currentLevel = this.variables.getLevel();
 		loadImages();
 		
 	}
@@ -71,17 +68,18 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 	public void loadImages() throws IOException
 	{
 	
-			this.guard_s = ImageIO.read(new File("images/guard.png"));
-			this.hero_s = ImageIO.read(new File("images/heroi.png"));
+			this.guard = ImageIO.read(new File("images/goomba_guard.png"));
+			this.mario = ImageIO.read(new File("images/mario_d.png"));
 			this.key = ImageIO.read(new File("images/key.png"));
-			this.door_closed = ImageIO.read(new File("images/door.png"));
-			this.ogre_s = ImageIO.read(new File("images/ogres.png"));
-			this.wall_hor = ImageIO.read(new File("images/wall.png"));
-			this.guard_sleep = ImageIO.read(new File("images/guard_sleep.png"));
-			this.ogre_attack = ImageIO.read(new File("images/ogre_attack.png"));
-			this.hero_key = ImageIO.read(new File("images/hero_key.png"));
-			this.hero_weapon = ImageIO.read(new File("images/hero_weapon.png"));
-			this.ogre_stunned = ImageIO.read(new File("images/ogre_stunned.png"));
+			this.door = ImageIO.read(new File("images/plant.png"));
+			this.bowser = ImageIO.read(new File("images/bowser_s.png"));
+			this.wall = ImageIO.read(new File("images/wall.png"));
+			this.guard_sleep = ImageIO.read(new File("images/goomba_sleeping.png"));
+			this.bowser_fire = ImageIO.read(new File("images/bowser_fire.png"));
+			//this.mario_key = ImageIO.read(new File("images/mario_key_s.png"));
+			this.hero_weapon = ImageIO.read(new File("images/mario_d.png"));
+			this.bowser_stunned = ImageIO.read(new File("images/bowser_stunned.png"));
+			this.floor =  ImageIO.read(new File("images/floor.png"));
 
 	}
 	
@@ -95,22 +93,24 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
 				
+				g.drawImage(floor, a*70, i*70, this);
+				
 				if(maptoprint[i][a] == 'X')
 				{
-					g.drawImage(wall_hor, a*70, i*70, this);
+					g.drawImage(wall, a*70, i*70, this);
 				}else if (maptoprint[i][a] == 'H')
 				{
-					g.drawImage(hero_s, a*70,i*70, this);
+					g.drawImage(mario, a*70,i*70, this);
 				}
 				else if(maptoprint[i][a] == 'I')
 				{
-					g.drawImage(door_closed,a* 70,i*70, this);
+					g.drawImage(door,a* 70,i*70, this);
 				}else if (maptoprint[i][a] == 'G')
 				{
-					g.drawImage(guard_s,a*70,i*70,this);
-				}else if (maptoprint[i][a] == 'O' || maptoprint[i][a] == '$')
+					g.drawImage(guard,a*70,i*70,this);
+				}else if (maptoprint[i][a] == 'O')
 				{
-					g.drawImage(ogre_s, a*70,i*70, this);
+					g.drawImage(bowser, a*70,i*70, this);
 				}else if (maptoprint[i][a] == 'k')
 				{
 					g.drawImage(key, a*70, i*70,this);
@@ -119,17 +119,22 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 					g.drawImage(guard_sleep, a*70, i*70,this);
 				}else if (maptoprint[i][a] == '*')
 				{
-					g.drawImage(ogre_attack, a*70, i*70,this);
+					g.drawImage(bowser_fire, a*70, i*70,this);
 				}else if (maptoprint[i][a] == 'K')
 				{
-					g.drawImage(hero_key, a*70, i*70,this);
+					g.drawImage(mario, a*70, i*70,this);
 				}else if (maptoprint[i][a] == 'A')
 				{
 					g.drawImage(hero_weapon, a*70, i*70,this);
 				}else if (maptoprint[i][a] == '8')
 				{
-					g.drawImage(ogre_stunned, a*70, i*70,this);
+					g.drawImage(bowser_stunned, a*70, i*70,this);
+				}else if(maptoprint[i][a] == '$')
+				{
+					g.drawImage(key, a*70, i*70, this);
 				}
+			
+					
 			}
 		
 		
@@ -172,15 +177,44 @@ public class DungeonGraphics extends JPanel implements KeyListener {
 		switch(e.getKeyCode())
 		{
 			case KeyEvent.VK_LEFT:
+			try {
+				mario = ImageIO.read(new File("images/mario_a.png"));
+			} catch (IOException e1) {
+		
+				e1.printStackTrace();
+			}
 				updateMove('a');
 				break;
 			case KeyEvent.VK_RIGHT:
+			try {
+				
+				if(currentLevel.getCurrentMap().getKey().getFound())
+				mario = ImageIO.read(new File("images/mario_key_d.png"));
+				else mario = ImageIO.read(new File("images/mario_d.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				updateMove('d');
 				break;
 			case KeyEvent.VK_UP:
+			try {
+				mario = ImageIO.read(new File("images/mario_w.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				updateMove('w');
 				break;
 			case KeyEvent.VK_DOWN:
+			try {
+				if(currentLevel.getCurrentMap().getKey().getFound())
+					mario = ImageIO.read(new File("images/mario_key_s.png"));
+					else mario = ImageIO.read(new File("images/mario_s.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				updateMove('s');
 				break;
 			

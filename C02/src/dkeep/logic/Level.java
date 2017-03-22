@@ -278,6 +278,11 @@ public void printMap() {
 		return gameState;
 					
 	}
+	
+	public  Map getCurrentMap()
+	{
+		return this.currentmap;
+	}
 
 	
 	
