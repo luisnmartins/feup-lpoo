@@ -27,7 +27,7 @@ public class MenuGraphics extends JPanel {
 		this.variables = variables;
 		
 		settings = new SettingsDialog(this.variables);
-		mapSettings = new MapSize();
+		mapSettings = new MapSize(variables);
 		
 		
 		JButton btnNewgame = new JButton("New Game");

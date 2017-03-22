@@ -7,7 +7,7 @@ public class GraphicsVariables {
 	
 	private Level currentLevel;
 	private int Ogrenmb=2, GuardTypenmb=1;
-	private int horMapSize,verMapSize;
+	private int horMapSize = 1,verMapSize = 1;
 	
 	
 	public int getOgrenmb() {

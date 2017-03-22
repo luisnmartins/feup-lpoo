@@ -24,7 +24,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class MapSize extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private static GraphicsVariables variables;
+	private  GraphicsVariables map_variables;
 	private JLabel lblHorizontalSize;
 	private JTextField horSize;
 	private JTextField verSize;
@@ -32,7 +32,7 @@ public class MapSize extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			MapSize dialog = new MapSize();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -40,12 +40,14 @@ public class MapSize extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public MapSize() {
+	public MapSize(GraphicsVariables variables) {
+		
+		this.map_variables = variables;
 		setTitle("Map Editor Settings");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -102,7 +104,7 @@ public class MapSize extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							
-							//variables.setMapSizes( Integer.parseInt(verSize.getText()), Integer.parseInt(horSize.getText()));
+							map_variables.setMapSizes(Integer.parseInt(horSize.getText()),Integer.parseInt(verSize.getText()));
 							DungeonGame.changeState(StateViewer.CUSTOM);
 						
 						} catch (IOException e1) {
