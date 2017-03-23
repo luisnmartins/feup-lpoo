@@ -41,7 +41,7 @@ public class MenuGraphics extends JPanel {
 				try {
 					graphicsst.changeState(StateViewer.GAME);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}
@@ -62,14 +62,7 @@ public class MenuGraphics extends JPanel {
 		btnEditor.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-				/*try {
-					
-					DungeonGame.changeState(StateViewer.CUSTOM);
 				
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
 				mapSettings.setVisible(true);
 				
 			}

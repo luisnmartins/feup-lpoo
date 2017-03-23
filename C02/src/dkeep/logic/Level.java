@@ -45,7 +45,7 @@ public class Level implements java.io.Serializable{
 					case 'H':
 					{
 						myHero = new Hero(i, j, 'H');
-						//characters.add(myHero);
+						
 						currentmap.ClearPosition(i,j);
 						break;
 					}
@@ -117,57 +117,7 @@ public class Level implements java.io.Serializable{
 		return myHero;
 	}
 	
-	/*//TODO make hero's update move here
-	public void updateHero(char move)
-	{		
-		myHero.changePosition(move, false);
-		int x_temp = myHero.getXTemp();
-		int y_temp = myHero.getYTemp();
-		boolean canotleave=false;
-		if(currentmap.moveTo(x_temp, y_temp))
-		{
-			for(int i=0; i<doors.size(); i++)
-			{
-				if(doors.get(i).doorAchieved(myHero) && doors.get(i).IsOpened()==false)
-				{
-					if(myKey.getFound())
-					{
-						doors.get(i).OpenDoor();
-							
-					} 
-					myHero.setTempPosition(myHero.getX(), myHero.getY());
-					canotleave = true;
-					break;
-				}
-			}
-			
-			
-			if(myKey.isOnTop(myHero))
-			{
-				if(this instanceof DungeonLevel)
-				{
-					for(int i=0; i<doors.size(); i++)
-					{
-						doors.get(i).OpenDoor();
-					}
-				}
-				else if(this instanceof OgreLevel)
-				{
-					
-					myKey.setFound();
-					myHero.setElm('K');
-				}
-					
-			}
-			if(!canotleave)
-				myHero.setPosition(x_temp, y_temp);
-		}
-		else
-			myHero.setTempPosition(myHero.getX(), myHero.getY());
-			
-		
-		
-	}*/
+
 	
 	
 	public boolean changeLevel()

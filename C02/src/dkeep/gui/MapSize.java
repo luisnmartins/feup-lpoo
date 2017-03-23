@@ -35,18 +35,7 @@ public class MapSize extends JDialog {
 	private Level currentLevel;
 	private char[][] map;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			MapSize dialog = new MapSize();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
+
 
 	/**
 	 * Create the dialog.
@@ -121,7 +110,7 @@ public class MapSize extends JDialog {
 							graphicsst.changeState(StateViewer.CUSTOM);
 						
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
+							
 							e1.printStackTrace();
 						}
 						dispose();
@@ -141,7 +130,7 @@ public class MapSize extends JDialog {
 							graphicsst.changeState(StateViewer.MENU);
 						
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
+							
 							e1.printStackTrace();
 						}
 							dispose();
