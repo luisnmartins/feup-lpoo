@@ -2,6 +2,11 @@ package dkeep.logic;
 
 public class RookieGuard extends Guard implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public RookieGuard(int xP, int yP, char Elm)
 	{
 		super(xP, yP, Elm);

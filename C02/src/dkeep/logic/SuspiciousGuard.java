@@ -3,6 +3,11 @@ package dkeep.logic;
 public class SuspiciousGuard extends Guard implements java.io.Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public SuspiciousGuard(int xP, int yP, char Elm)
 	{
 		super(xP,  yP,  Elm);

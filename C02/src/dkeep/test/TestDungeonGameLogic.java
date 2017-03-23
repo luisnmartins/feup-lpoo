@@ -24,7 +24,7 @@ public class TestDungeonGameLogic {
 	{
 		
 		Map testmap = new Map(this.map);
-		Level currentLevel = new DungeonLevel(testmap,3);
+		Level currentLevel = new DungeonLevel(testmap,2);
 		assertEquals(1, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 	}
@@ -48,6 +48,17 @@ public class TestDungeonGameLogic {
 		currentLevel.IstoMoveElements(false);
 		assertEquals(state.LOSE, currentLevel.updateGame('d')); 
 	 
+		
+	}
+	
+	@Test
+	public void TestMoveGuard()
+	{
+		Map testmap = new Map(this.map);
+		Level currentLevel = new DungeonLevel(testmap,1);
+		currentLevel.updateGame('w');
+		assertEquals(1, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		
 	}
 	

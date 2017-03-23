@@ -2,6 +2,10 @@ package dkeep.logic;
 
 public class Door implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
 	private char symbol;
@@ -55,16 +59,7 @@ public class Door implements java.io.Serializable{
 			return false;
 	}
 	
-	/*public boolean IsAdjacent(Character car)
-	{
-		if((car.getX() == this.getX() && Math.abs(car.getY()-this.getY()) == 1) || (car.getY() == this.getY() && Math.abs(car.getX()-this.getX()) == 1))
-		{
-			return true;
-		}
-		else
-			return false;
-			
-	}*/
+
 
 	public int getX() {
 		return x;

@@ -4,6 +4,10 @@ package dkeep.logic;
 public class Level2Map extends Map implements java.io.Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static char[][] mapStatic = {  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 											{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', 'k', 'X' }, 
 											{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
