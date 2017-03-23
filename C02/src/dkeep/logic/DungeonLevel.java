@@ -5,8 +5,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 
-public class DungeonLevel extends Level{
+public class DungeonLevel extends Level implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+
 	//private Guard myGuard;
 	//private boolean moveGuard= true;
 	

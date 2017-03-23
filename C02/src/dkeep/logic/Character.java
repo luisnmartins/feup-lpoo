@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 
-public abstract class Character {
+public abstract class Character{
 
 	private int x;
 	private int y;

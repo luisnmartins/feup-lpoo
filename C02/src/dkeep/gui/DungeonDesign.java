@@ -45,36 +45,13 @@ public class DungeonDesign extends JPanel{
 	private JButton btnUp;
 	private JButton btnRight;
 	private JButton btnDown;
-	
-	/*private JLabel lbStatus;
-	private JButton gameStart;
-	private JButton btnLeft ;
-	private JButton btnRight ;
-	private JButton btnUp ;
-	private JButton btnDown ;*/
+	private JButton btnExit;
+
 	
 	
-	
-	private state gameState;
 	private GraphicsVariables variables;
 	private GraphicsState graphicsst;
 	
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					DungeonDesign window = new DungeonDesign();
-					window.frmDungeonkeep.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the application.
@@ -122,7 +99,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnLeft.setBounds(410, 249, 117, 29);
+		btnLeft.setBounds(430, 294, 117, 29);
 		add(btnLeft);
 		btnLeft.setEnabled(false);
 		
@@ -134,7 +111,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnUp.setBounds(464, 208, 117, 29);
+		btnUp.setBounds(500, 253, 117, 29);
 		add(btnUp);
 		btnUp.setEnabled(false);
 		
@@ -146,7 +123,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnRight.setBounds(531, 249, 117, 29);
+		btnRight.setBounds(559, 294, 117, 29);
 		add(btnRight);
 		btnRight.setEnabled(false);
 		
@@ -157,7 +134,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnDown.setBounds(464, 290, 117, 29);
+		btnDown.setBounds(500, 335, 117, 29);
 		add(btnDown);
 		btnDown.setEnabled(false);
 		
@@ -189,8 +166,9 @@ public class DungeonDesign extends JPanel{
 				variables.setOgrenmb(slider.getValue());
 				try {
 					panel = new DungeonGraphics(variables, graphicsst);
-					panel.setSize(400, 400);
-					panel.setLocation(25, 120);
+					panel.setBounds(25,140, 400, 400);
+					//panel.setSize(400, 400);
+					//panel.setLocation(25, 120);
 					add(panel);
 					panel.setEnabled(true);
 					panel.repaint();
@@ -209,18 +187,20 @@ public class DungeonDesign extends JPanel{
 				
 			}
 		});
-		btnNewGame.setBounds(464, 95, 117, 29);
+		btnNewGame.setBounds(500, 129, 117, 29);
 		add(btnNewGame);
 		
-		
-		
-		JButton btnExit = new JButton("Exit");
+		btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				System.exit(0);
 			}
-		});
+		});	
+		btnExit.setBounds(502, 480, 117, 29);
+		add(btnExit);
+		
+		
 		
 		
 		

@@ -18,7 +18,6 @@ public class DungeonGame {
 
 
 	private JFrame frmSuperMarioDungeon;
-	private GraphicsState graphicsst;
 
 	
 
@@ -63,22 +62,10 @@ public class DungeonGame {
 		//frame.getContentPane().add(menu);
 		
 		
-		graphicsst = new GraphicsState(frmSuperMarioDungeon.getContentPane());
+		GraphicsState temp_graphics = new GraphicsState(frmSuperMarioDungeon.getContentPane());
 		
-		//frame.setVisible(true);
-		
-		
-		
-		/*DungeonGraphics game = new DungeonGraphics();
-		
-		
-		game.setFocusable(true);
-		game.requestFocusInWindow();*/
-		
-		
-		//BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
-		//JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-		//add(picLabel);
+
+
 	}
 	
 	

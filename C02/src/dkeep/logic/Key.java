@@ -1,8 +1,12 @@
 package dkeep.logic;
 
-public class Key {
+public class Key implements java.io.Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int  y;
 	private char symbol;

@@ -12,7 +12,7 @@ public class SuspiciousGuard extends Guard{
 	@Override
 	public char getMoveGuard()
 	{
-		//this.updateCharacteristic();
+		
 		if(characteristic == true)
 		{
 			char move = moveLevel1[iterator];

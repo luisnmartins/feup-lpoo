@@ -2,48 +2,38 @@ package dkeep.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import java.awt.BorderLayout;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+
+
 import javax.swing.ButtonGroup;
 
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
 
 import dkeep.gui.GraphicsState.StateViewer;
 import dkeep.logic.Level;
 import dkeep.logic.Level2Map;
 import dkeep.logic.Map;
-import dkeep.logic.OgreLevel;
+
 
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
+
 import javax.swing.JButton;
-import java.awt.Component;
+
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.JSplitPane;
-import java.awt.Color;
-import java.awt.SystemColor;
 
 public class MapEditor extends JPanel implements MouseListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private char[][] new_map;
 	private GraphicsVariables variables;
 	private DungeonGraphics panel_1; 

@@ -3,7 +3,6 @@ package dkeep.gui;
 import java.awt.Container;
 import java.io.IOException;
 
-import javax.swing.JFrame;
 
 
 public class GraphicsState {

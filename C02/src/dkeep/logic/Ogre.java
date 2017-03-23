@@ -1,8 +1,12 @@
 package dkeep.logic;
 import java.util.Random;
 
-public class Ogre extends Character {
+public class Ogre extends Character implements java.io.Serializable{
 
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private char attackElement;
 		private int attackX;
 		private int attackY;
@@ -127,25 +131,21 @@ public class Ogre extends Character {
 						stopmove = 2;
 						this.setElm('8');
 						this.setIsParalyzed(true);
-						this.attackElement = ' ';
-						this.attackX = this.getX();
-						this.attackY = this.getY();
 							return false;
 					}
 					else
 						return true;
 				}
-				else if((c.getX() == this.attackX && Math.abs(c.getY() - this.attackY) <= 1) || (c.getY() == this.attackY && Math.abs(c.getX() - this.attackX) <= 1))
-				{
-					return true;
-				}
 				
-				else
-					return false;
 				
 			}
+			if((c.getX() == this.attackX && Math.abs(c.getY() - this.attackY) <= 1) || (c.getY() == this.attackY && Math.abs(c.getX() - this.attackX) <= 1))
+			{
+				return true;
+			}	
 			else
 				return false;
+
 			
 			
 		}
@@ -174,11 +174,13 @@ public class Ogre extends Character {
 		
 		public boolean update(Map currentmap, char guardmove)
 		{
+			
 			if(this.getMoveCharacter())
 			{
 			
-			if(updateSleep())
-				return true;
+			if(!updateSleep())
+			{
+				
 			
 			do
 			{
@@ -206,15 +208,18 @@ public class Ogre extends Character {
 			
 			this.setPosition(this.getXTemp(), this.getYTemp());
 		
-			updateClub(currentmap);
+			
 			
 			}
+			}
+			updateClub(currentmap);
 			return true;
 		}
 		
 		
 		public void updateClub(Map currentmap)
 		{
+			System.out.println("Update Ogre");
 			int[] club;
 			
 			do{

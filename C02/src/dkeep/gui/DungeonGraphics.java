@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -18,16 +18,13 @@ import dkeep.gui.GraphicsState.StateViewer;
 import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
 import dkeep.logic.Level1Map;
-import dkeep.logic.Level2Map;
-import dkeep.logic.Map;
-import dkeep.logic.OgreLevel;
-import dkeep.logic.Level.state;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.JComboBox;
 
-public class DungeonGraphics extends JPanel implements KeyListener,MouseListener,MouseMotionListener {
+import dkeep.logic.Map;
+
+import dkeep.logic.Level.state;
+
+
+public class DungeonGraphics extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
 
 	//all used images
 	private BufferedImage mario;
@@ -193,8 +190,17 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 				e.printStackTrace();
 			}
 			}
+			else if(move == 'n')
+			{
+				try{
+					graphicsst.changeState(StateViewer.GAME);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			}
 			
-		}
 	}
 	
 	
@@ -255,6 +261,12 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			case KeyEvent.VK_ENTER:
 			{
 				updateMove('e');
+				break;
+			}
+			case KeyEvent.VK_N:
+			{
+				updateMove('n');
+				break;
 			}
 				
 		}
@@ -306,7 +318,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -342,7 +354,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

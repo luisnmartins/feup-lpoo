@@ -3,9 +3,13 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Map {
+public class Map implements java.io.Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*private static char[][] levelOneMap= {  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 											{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
 											{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
