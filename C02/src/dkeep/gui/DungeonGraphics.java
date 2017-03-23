@@ -5,13 +5,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
 
 
-import javax.imageio.ImageIO;
+
 import javax.swing.JPanel;
 
 import dkeep.gui.GraphicsState.StateViewer;
@@ -26,7 +24,6 @@ import dkeep.logic.Level.state;
 
 public class DungeonGraphics extends JPanel implements KeyListener,MouseListener{
 
-	//all used images
 	
 	
 	private Level currentLevel;
@@ -73,7 +70,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		variables.getLevel().printMap();
 		char[][] maptoprint = variables.getMap();
 		int sizeWidth = getWidth()/maptoprint.length;
-		//int sizeHeight = getHeight()/maptoprint.length;
+		
 		
 		for(int i = 0; i < maptoprint.length; i++)
 			for(int a= 0; a < maptoprint[i].length;a++)
@@ -164,7 +161,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 				try{
 					graphicsst.changeState(StateViewer.GAME);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}

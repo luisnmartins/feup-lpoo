@@ -47,7 +47,8 @@ public class TestDungeonGameLogic {
 		Level currentLevel = new DungeonLevel(testmap,3);	
 		currentLevel.IstoMoveElements(false);
 		assertEquals(state.LOSE, currentLevel.updateGame('d')); 
-	 
+		assertEquals(2, currentLevel.getHero().getY());
+		assertEquals(1, currentLevel.getHero().getX());
 		
 	}
 	
@@ -68,10 +69,12 @@ public class TestDungeonGameLogic {
 		Map testmap = new Map(this.map);
 		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.IstoMoveElements(false);
-		currentLevel.printMap();
 		currentLevel.updateGame('s');
-		currentLevel.printMap();
+		assertEquals(2, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		currentLevel.updateGame('d');
+		assertEquals(2, currentLevel.getHero().getX());
+		assertEquals(2, currentLevel.getHero().getY());
 		currentLevel.printMap();
 		assertEquals(state.LOSE, currentLevel.updateGame('d'));
 		currentLevel.printMap();
@@ -85,6 +88,8 @@ public class TestDungeonGameLogic {
 		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.IstoMoveElements(false);			 
 		currentLevel.updateGame('s'); 
+		assertEquals(2, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		currentLevel.updateGame('a');
 		assertEquals(2, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
@@ -97,7 +102,11 @@ public class TestDungeonGameLogic {
 		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.IstoMoveElements(false);		
 		currentLevel.updateGame('s');
+		assertEquals(2, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		currentLevel.updateGame('s');
+		assertEquals(3, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		currentLevel.getMap();
 		assertEquals(true, testmap.DoorsAreOpened());
 		
@@ -111,7 +120,11 @@ public class TestDungeonGameLogic {
 		Level currentLevel = new DungeonLevel(testmap,3);
 		currentLevel.IstoMoveElements(false);
 		currentLevel.updateGame('s');
+		assertEquals(2, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		currentLevel.updateGame('s');
+		assertEquals(3, currentLevel.getHero().getX());
+		assertEquals(1, currentLevel.getHero().getY());
 		assertEquals(state.NEXTLEVEL, currentLevel.updateGame('a'));
 		
 		

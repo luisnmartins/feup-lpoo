@@ -22,8 +22,7 @@ import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 import java.io.IOException;
 import java.awt.event.ActionEvent;
@@ -86,7 +85,7 @@ public class MapEditor extends JPanel {
 				try {
 					graphicsst.changeState(StateViewer.GAME);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
@@ -103,7 +102,7 @@ public class MapEditor extends JPanel {
 					graphicsst.changeState(StateViewer.MENU);
 				
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}
@@ -124,7 +123,7 @@ public class MapEditor extends JPanel {
 			
 			
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+		
 			e1.printStackTrace();
 		}
 		setLayout(null);
@@ -139,7 +138,7 @@ public class MapEditor extends JPanel {
 				add(tglbtnMario);
 				tglbtnMario.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//activatedElement = 'H';
+						
 						variables.setSelectedElement('H');
 					}
 				});
@@ -156,7 +155,6 @@ public class MapEditor extends JPanel {
 								add(tglbtnDoor);
 								tglbtnDoor.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										//activatedElement = 'I';
 										variables.setSelectedElement('I');
 									}
 								});
@@ -173,7 +171,7 @@ public class MapEditor extends JPanel {
 										add(tglbtnKey);
 										tglbtnKey.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
-												//activatedElement = 'k';
+												
 												variables.setSelectedElement('k');
 											}
 										});
@@ -188,7 +186,7 @@ public class MapEditor extends JPanel {
 										add(tglbtnWall);
 										tglbtnWall.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
-												//activatedElement = 'X';
+												
 												variables.setSelectedElement('X');
 											}
 										});
@@ -203,7 +201,7 @@ public class MapEditor extends JPanel {
 										add(tglbtnFloor);
 										tglbtnFloor.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
-												//activatedElement = ' ';
+												
 												variables.setSelectedElement(' ');
 											}
 										});
@@ -217,7 +215,7 @@ public class MapEditor extends JPanel {
 												add(tglbtnBowser);
 												tglbtnBowser.addActionListener(new ActionListener() {
 													public void actionPerformed(ActionEvent e) {
-														//activatedElement = 'O';
+														
 														variables.setSelectedElement('O');
 														
 													}
@@ -294,7 +292,7 @@ public class MapEditor extends JPanel {
 			return true;
 		if(!visited[y][x+1])
 		{
-			//variables.getLevel().getHero().changePosition('d', false);
+			
 			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(x+1, y))
 			{
 				foundExit = true;
@@ -312,7 +310,7 @@ public class MapEditor extends JPanel {
 		
 		if(!visited[y][x-1])
 		{
-			//variables.getLevel().getHero().changePosition('a',false);
+			
 			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(x-1, y))			{
 				foundExit = true;
 				return true;
@@ -331,7 +329,7 @@ public class MapEditor extends JPanel {
 		
 		if(!visited[y+1][x])
 		{
-			//variables.getLevel().getHero().changePosition('s', false);
+			
 			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(x, y+1))
 			{
 				foundExit = true;
@@ -349,7 +347,7 @@ public class MapEditor extends JPanel {
 		
 		if(!visited[y-1][x])
 		{
-			//variables.getLevel().getHero().changePosition('w', false);
+			
 			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(y-1, x)){
 				foundExit = true;
 				return true;	

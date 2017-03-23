@@ -1,26 +1,13 @@
 package dkeep.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
+
 import java.awt.Cursor;
 
 import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
-import dkeep.logic.DungeonLevel;
 import dkeep.logic.Level;
-import dkeep.logic.Level.state;
-import dkeep.logic.Level1Map;
-import dkeep.logic.Map;
 
-import javax.swing.JTextField;
-import java.awt.Font;
-import java.awt.Graphics;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -31,18 +18,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSlider;
-import java.awt.Color;
+
 
 public class DungeonDesign extends JPanel{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel lblNumberOfOgres;
 	private JLabel lblGuardPersonality;
 	private JSlider slider;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private DungeonGraphics panel; 
 	private JButton btnNewGame;
 	private JButton btnLeft;
@@ -89,8 +80,8 @@ public class DungeonDesign extends JPanel{
 		slider.setMinimum(1);
 		slider.setValue(1);
 		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
 		comboBox.setBounds(164, 79, 173, 27);
 		add(comboBox);
 		
@@ -172,17 +163,16 @@ public class DungeonDesign extends JPanel{
 				try {
 					panel = new DungeonGraphics(variables, graphicsst);
 					panel.setBounds(25,140, 400, 400);
-					//panel.setSize(400, 400);
-					//panel.setLocation(25, 120);
+				
 					add(panel);
 					panel.setEnabled(true);
 					panel.repaint();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 				
-				//lbStatus.setText("You can play now!");
+				
 				btnUp.setEnabled(true);
 				btnDown.setEnabled(true);
 				btnRight.setEnabled(true);
@@ -236,12 +226,11 @@ public class DungeonDesign extends JPanel{
 				try {
 					panel = new DungeonGraphics(variables, graphicsst);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 				panel.setBounds(25,140, 400, 400);
-				//panel.setSize(400, 400);
-				//panel.setLocation(25, 120);
+
 				add(panel);
 				panel.setEnabled(true);
 				
