@@ -58,17 +58,13 @@ public class Ogre extends Character implements java.io.Serializable{
 			
 			if(r%2 == 0)
 			{
-				if(r == 2)
-					position[0] -= 1;
-				else
-					position[0] += 1;
+				if(r == 2) position[0] -= 1;
+				else position[0] += 1;
 			}
 			else
 			{
-				if(r == 1)
-					position[1] += 1;
-				else
-					position[1] -= 1;
+				if(r == 1) position[1] += 1;
+				else position[1] -= 1;
 			}
 			
 			return position;

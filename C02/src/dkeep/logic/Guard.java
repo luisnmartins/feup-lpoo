@@ -97,8 +97,7 @@ public class Guard extends Character implements java.io.Serializable{
 		
 			return true;
 		}
-		else
-			return false;
+		else return false;
 	
 		
 	}
@@ -108,18 +107,11 @@ public class Guard extends Character implements java.io.Serializable{
 		switch(type)
 		{
 			case 1:
-			{
 				return new DrunkenGuard(xP, yP, Elm);
-			
-			}
 			case 2:
-			{
 				return new SuspiciousGuard(xP, yP, Elm);
-			}
 			case 3:
-			{
 				return new RookieGuard(xP, yP, Elm);
-			}
 			default:
 				return null;
 		}

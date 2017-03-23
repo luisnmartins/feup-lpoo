@@ -97,7 +97,7 @@ public class DungeonDesign extends JPanel{
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
 		comboBox.setBounds(164, 79, 173, 27);
 		add(comboBox);
-	}
+		}
 	
 	private void commandButtonsInitialize()
 	{

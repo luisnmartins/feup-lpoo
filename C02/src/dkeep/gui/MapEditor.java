@@ -239,19 +239,10 @@ ButtonGroup choices = new ButtonGroup();
 		{
 			for(int a = 0; a < new_map[i].length; a++)
 			{
-				if(i == 0 || a == 0)
+				if(i == 0 || a == 0 || i  == new_map.length-1 || a == new_map[i].length-1)
 				{
 					new_map[i][a] = 'X';
-				}else if(i  == new_map.length-1 || a == new_map[i].length-1)
-				{
-					new_map[i][a] = 'X';
-				}
-				else new_map[i][a] = ' ';
-				if(i == new_map.length-1 || a == new_map[i].length-1)
-				{
-					System.out.println(new_map[i][a]);
-				}else System.out.print(new_map[i][a]);
-				
+				}else new_map[i][a] = ' ';	
 			}
 		}
 	}

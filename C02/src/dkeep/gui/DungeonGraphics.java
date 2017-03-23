@@ -225,17 +225,15 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	
+		
+		if(graphicsst.getState() != StateViewer.CUSTOM)
+			return;
 		int mouseX=e.getX();
 		 int mouseY = e.getY();
-		System.out.println(mouseX+","+mouseY);
-		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
 		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
 		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
-		System.out.println("x"+x + " y " + y);
 		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
 		{
-			System.out.println(this.variables.getSelectedElement()+ "");
 			variables.editMap(y, x, this.variables.getSelectedElement());
 			variables.getLevel().printMap();
 			repaint();

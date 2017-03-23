@@ -78,7 +78,7 @@ public class Map implements java.io.Serializable{
 	public void setSaticMap(char[][] newmap)
 	{};
 	
-	//verify if character c is near a door and can move 
+	
 	public boolean verifyMoveDoors(Character c)
 	{
 		int i;
@@ -86,8 +86,6 @@ public class Map implements java.io.Serializable{
 		if((i=IsOveraDoor(c.getXTemp(), c.getYTemp())) != -1)
 		{
 			
-			System.out.println("i value: " + i);
-			//verify if the door is open
 				if(!doors.get(i).IsOpened())
 				{
 					
@@ -98,12 +96,10 @@ public class Map implements java.io.Serializable{
 					}
 					return false;
 				}		
-				else
-					return true;
+				else return true;
 		
 		}
-		else
-			return true;
+		else return true;
 		
 	}
 	

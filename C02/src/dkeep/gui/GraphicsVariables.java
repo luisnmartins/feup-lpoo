@@ -114,7 +114,6 @@ public class GraphicsVariables {
 	
 	public void loadImages() throws IOException
 	{
-	
 			this.guard = ImageIO.read(new File("images/goomba_guard.png"));
 			this.mario_d= ImageIO.read(new File("images/mario_d.png"));
 			this.mario_a= ImageIO.read(new File("images/mario_a.png"));
@@ -133,7 +132,6 @@ public class GraphicsVariables {
 			this.coin = ImageIO.read(new File("images/coin.png"));
 			this.menu_screen = ImageIO.read(new File("images/superMarioBackground.png"));
 			this.mario = mario_d;
-
 	}
 	
 	public void updateMario(char move,boolean gotKey)
