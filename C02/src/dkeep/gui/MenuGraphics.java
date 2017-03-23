@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
+import java.awt.Graphics;
 
 public class MenuGraphics extends JPanel {
 
@@ -99,5 +100,12 @@ public class MenuGraphics extends JPanel {
 		
 		
 
+	}
+	
+	@Override
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		g.drawImage(variables.getMenuScreen(), 0, 0, this);
 	}
 }

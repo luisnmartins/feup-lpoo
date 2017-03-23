@@ -34,6 +34,7 @@ public class GraphicsVariables {
 	private BufferedImage bowser_stunned;
 	private BufferedImage floor;
 	private BufferedImage coin;
+	private BufferedImage menu_screen;
 	
 	
 	public GraphicsVariables()
@@ -130,6 +131,7 @@ public class GraphicsVariables {
 			this.bowser_stunned = ImageIO.read(new File("images/bowser_stunned.png"));
 			this.floor =  ImageIO.read(new File("images/floor.png"));
 			this.coin = ImageIO.read(new File("images/coin.png"));
+			this.menu_screen = ImageIO.read(new File("images/superMarioBackground.png"));
 			this.mario = mario_d;
 
 	}
@@ -211,6 +213,11 @@ public class GraphicsVariables {
 	public BufferedImage getCoin()
 	{
 		return this.coin;
+	}
+	
+	public BufferedImage getMenuScreen()
+	{
+		return this.menu_screen;
 	}
 
 }
