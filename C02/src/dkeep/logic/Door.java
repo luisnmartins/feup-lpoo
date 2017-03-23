@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Door {
+public class Door implements java.io.Serializable{
 
 	private int x;
 	private int y;

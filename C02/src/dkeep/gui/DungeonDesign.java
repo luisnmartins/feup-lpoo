@@ -25,7 +25,11 @@ import java.awt.Graphics;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
@@ -51,6 +55,8 @@ public class DungeonDesign extends JPanel{
 	
 	private GraphicsVariables variables;
 	private GraphicsState graphicsst;
+	private JButton btnSaveGame;
+	private JButton btnLoadGame;
 	
 
 	/**
@@ -99,7 +105,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnLeft.setBounds(430, 294, 117, 29);
+		btnLeft.setBounds(430, 245, 117, 29);
 		add(btnLeft);
 		btnLeft.setEnabled(false);
 		
@@ -111,7 +117,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnUp.setBounds(500, 253, 117, 29);
+		btnUp.setBounds(500, 204, 117, 29);
 		add(btnUp);
 		btnUp.setEnabled(false);
 		
@@ -123,7 +129,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnRight.setBounds(559, 294, 117, 29);
+		btnRight.setBounds(559, 245, 117, 29);
 		add(btnRight);
 		btnRight.setEnabled(false);
 		
@@ -134,7 +140,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnDown.setBounds(500, 335, 117, 29);
+		btnDown.setBounds(500, 286, 117, 29);
 		add(btnDown);
 		btnDown.setEnabled(false);
 		
@@ -199,6 +205,50 @@ public class DungeonDesign extends JPanel{
 		});	
 		btnExit.setBounds(502, 480, 117, 29);
 		add(btnExit);
+		
+		btnSaveGame = new JButton("Save Game");
+		btnSaveGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				 try {
+			         FileOutputStream fileOut =
+			         new FileOutputStream("images/SavedGame.txt");
+			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			         out.writeObject(variables.getLevel());
+			         out.close();
+			         fileOut.close();
+			         System.out.printf("Serialized data is saved in /tmp/employee.ser");
+			      }catch(IOException i) {
+			         i.printStackTrace();
+			      }
+				
+			}
+		});
+		btnSaveGame.setBounds(500, 378, 117, 29);
+		add(btnSaveGame);
+		
+		btnLoadGame = new JButton("Load Game");
+		btnLoadGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+			         FileInputStream fileIn = new FileInputStream("images/SavedGame.txt");
+			         ObjectInputStream in = new ObjectInputStream(fileIn);
+			         variables.setLevel( (Level) in.readObject());
+			         in.close();
+			         fileIn.close();
+			      }catch(IOException i) {
+			         i.printStackTrace();
+			         return;
+			      }catch(ClassNotFoundException c) {
+			         System.out.println("Level class not Found");
+			         c.printStackTrace();
+			         return;
+			      }
+			}
+		});
+		btnLoadGame.setBounds(500, 423, 117, 29);
+		add(btnLoadGame);
 		
 		
 		

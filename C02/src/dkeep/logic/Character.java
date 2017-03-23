@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 
-public abstract class Character{
+public abstract class Character implements java.io.Serializable{
 
 	private int x;
 	private int y;
