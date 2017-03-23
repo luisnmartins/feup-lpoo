@@ -118,55 +118,39 @@ public abstract class Character implements java.io.Serializable{
 
 			
 			if(invertFlag == false)
-			{
 				if (xTemp != 0)
-				{
 					xTemp -= 1;
-				}
-			}
-			
 			else xTemp += 1;
-		
-		
 		}
 
 		else if (move == 'a') {
 	
 			if(invertFlag == false)
-				{
 					if(yTemp != 0)
-					{
 						yTemp -= 1;
-					}
-				}
-				
-				else yTemp += 1;
 			
-				
+			else yTemp += 1;		
 		}
 	
 		else if (move == 's') {
 	
 			if(invertFlag == false)
 			xTemp += 1;
-			else {
+			else
 				if(xTemp != 0)
 					xTemp -= 1;
-			}
 		}
 	
 		else if (move == 'd') {
 	
 			if(invertFlag == false)
-			yTemp += 1;
-			else {
+				yTemp += 1;
+			else 
 				if(yTemp !=0)
-				yTemp -= 1;
-			}
+					yTemp -= 1; 
+			
 		}
-	
-	
-}
+	}
 		
 		
 	

@@ -1,5 +1,5 @@
 exclude:
 - /C01/src/Dungeonkeep.java
-component_depth: 1
+component_depth: 4
 languages:
 - java

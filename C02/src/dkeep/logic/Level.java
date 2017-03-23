@@ -149,27 +149,22 @@ public class Level implements java.io.Serializable{
 		char[][] maptocopy = currentmap.getMap();
 		char[][] maptosend = new char[maptocopy.length][];
 		for(int i=0; i< maptocopy.length; i++)
-		{
 			maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
-		}
+		
 		if(currentmap.getKey() != null)
 			currentmap.addElementsMatrix(maptosend);
 		
 		
-	if(enemies != null)
-			
+	if(enemies != null)		
 		for(int i=0; i<enemies.size(); i++)
-		{
 			enemies.get(i).addElementsMatrix(maptosend);
-			
-		}
 	
 		if(myHero != null)
 			myHero.addElementsMatrix(maptosend);
 		
 		return maptosend;
 		
-	};
+	}
 	
 	
 public void printMap() {
