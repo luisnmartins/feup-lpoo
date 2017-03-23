@@ -1,3 +1,4 @@
+
 package dkeep.logic;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -128,3 +129,4 @@ public class Guard extends Character implements java.io.Serializable{
 	
 	
 }
+

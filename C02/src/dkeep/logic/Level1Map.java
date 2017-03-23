@@ -1,3 +1,4 @@
+
 package dkeep.logic;
 
 
@@ -38,3 +39,4 @@ public class Level1Map extends Map {
 
 	
 }
+

@@ -1,3 +1,4 @@
+
 package dkeep.logic;
 
 
@@ -188,3 +189,4 @@ public abstract class Character implements java.io.Serializable{
 	
 	
 }
+

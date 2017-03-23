@@ -1,3 +1,4 @@
+
 package dkeep.logic;
 
 import java.util.ArrayList;
@@ -82,3 +83,4 @@ public class Hero extends Character {
 	
 	
 }
+
