@@ -24,28 +24,12 @@ import dkeep.logic.Map;
 import dkeep.logic.Level.state;
 
 
-public class DungeonGraphics extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
+public class DungeonGraphics extends JPanel implements KeyListener,MouseListener{
 
 	//all used images
-	private BufferedImage mario;
-	private BufferedImage mario_key;
-	private BufferedImage hero_weapon;
-	private BufferedImage guard;
-	private BufferedImage guard_sleep;
-	private BufferedImage wall;
-	private BufferedImage lever;
-	private BufferedImage key;
-
-
-	private BufferedImage door;
-	private BufferedImage bowser;
-	private BufferedImage bowser_fire;
-	private BufferedImage bowser_stunned;
-	private BufferedImage floor;
+	
 	
 	private Level currentLevel;
-
-	private int mouseX,mouseY;
 
 	private state gameState= state.RUNNING;
 	private GraphicsVariables variables;
@@ -76,27 +60,11 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		}
 			this.currentLevel = this.variables.getLevel();
 
-		loadImages();
+		
 		
 	}
 	
-	public void loadImages() throws IOException
-	{
 	
-			this.guard = ImageIO.read(new File("images/goomba_guard.png"));
-			this.mario = ImageIO.read(new File("images/mario_d.png"));
-			this.key = ImageIO.read(new File("images/key.png"));
-			this.door = ImageIO.read(new File("images/plant.png"));
-			this.bowser = ImageIO.read(new File("images/bowser_s.png"));
-			this.wall = ImageIO.read(new File("images/wall.png"));
-			this.guard_sleep = ImageIO.read(new File("images/goomba_sleeping.png"));
-			this.bowser_fire = ImageIO.read(new File("images/bowser_fire.png"));
-			//this.mario_key = ImageIO.read(new File("images/mario_key_s.png"));
-			this.hero_weapon = ImageIO.read(new File("images/mario_d.png"));
-			this.bowser_stunned = ImageIO.read(new File("images/bowser_stunned.png"));
-			this.floor =  ImageIO.read(new File("images/floor.png"));
-
-	}
 	
 	@Override
 	public void paintComponent(Graphics g)
@@ -111,48 +79,49 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
 				
-				g.drawImage(floor, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+				g.drawImage(variables.getFloor(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				
 				if(maptoprint[i][a] == 'X')
 				{
-					g.drawImage(wall, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-					//TODO
+					g.drawImage(variables.getWall(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					
 					
 				}else if (maptoprint[i][a] == 'H')
 				{
-					g.drawImage(mario, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getMario(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}
 				else if(maptoprint[i][a] == 'I')
 				{
-					g.drawImage(door,a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getDoor(),a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'G')
 				{
-					g.drawImage(guard,a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					
+					g.drawImage(variables.getGuard(),a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'O')
 				{
 					
-					g.drawImage(bowser, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getBowser(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'k')
 				{
-					g.drawImage(key, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getKey(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'g')
 				{
-					g.drawImage(guard_sleep, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getGuardSleep(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == '*')
 				{
-					g.drawImage(bowser_fire, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getBowserFire(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'K')
 				{
-					g.drawImage(mario, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getMario(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == 'A')
 				{
-					g.drawImage(hero_weapon, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getMario(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if (maptoprint[i][a] == '8')
 				{
-					g.drawImage(bowser_stunned, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getBowserStunned(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}else if(maptoprint[i][a] == '$')
 				{
-					g.drawImage(key, a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+					g.drawImage(variables.getCoin(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				}
 			
 					
@@ -218,44 +187,23 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		switch(e.getKeyCode())
 		{
 			case KeyEvent.VK_LEFT:
-			try {
-				mario = ImageIO.read(new File("images/mario_a.png"));
-			} catch (IOException e1) {
-		
-				e1.printStackTrace();
-			}
+			variables.updateMario('a', false);
 				updateMove('a');
 				break;
 			case KeyEvent.VK_RIGHT:
-			try {
-				
-				if(currentLevel.getCurrentMap().getKey().getFound())
-				mario = ImageIO.read(new File("images/mario_key_d.png"));
-				else mario = ImageIO.read(new File("images/mario_d.png"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			if(currentLevel.getCurrentMap().getKey().getFound())
+			variables.updateMario('d', true);
+			else variables.updateMario('d', false);
 				updateMove('d');
 				break;
 			case KeyEvent.VK_UP:
-			try {
-				mario = ImageIO.read(new File("images/mario_w.png"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			variables.updateMario('w', false);
 				updateMove('w');
 				break;
 			case KeyEvent.VK_DOWN:
-			try {
-				if(currentLevel.getCurrentMap().getKey().getFound())
-					mario = ImageIO.read(new File("images/mario_key_s.png"));
-					else mario = ImageIO.read(new File("images/mario_s.png"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			if(currentLevel.getCurrentMap().getKey().getFound())
+				variables.updateMario('s', true);
+				else variables.updateMario('s', false);
 				updateMove('s');
 				break;
 			case KeyEvent.VK_ENTER:
@@ -281,25 +229,8 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		mouseX=e.getX();
-		 mouseY = e.getY();
+		int mouseX=e.getX();
+		 int mouseY = e.getY();
 		System.out.println(mouseX+","+mouseY);
 		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
 		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
@@ -312,8 +243,22 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			variables.getLevel().printMap();
 			repaint();
 		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 		
 		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+			
 	}
 
 	@Override
@@ -322,41 +267,6 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		
 	}
 	
-	@Override
-	public void mouseDragged(MouseEvent e)
-	{
-		mouseX=e.getX();
-		 mouseY = e.getY();
-		System.out.println(mouseX+","+mouseY);
-		System.out.println((this.getWidth()/variables.getHorMapSize())+ "");
-		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
-		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
-		System.out.println("x"+x + " y " + y);
-		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
-		{
-			System.out.println(this.variables.getSelectedElement()+ "");
-			variables.editMap(y, x, this.variables.getSelectedElement());
-			variables.getLevel().printMap();
-			repaint();
-		}
-		
-	}
-	
-	public int getXPos()
-	{
-		return this.mouseX;
-	}
-	
-	public int getYPos()
-	{
-		return this.mouseY;
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		
-		
-	}
 
 
 }

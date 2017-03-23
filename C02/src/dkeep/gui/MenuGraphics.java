@@ -6,6 +6,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import dkeep.gui.GraphicsState.StateViewer;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.awt.Cursor;
 
 public class MenuGraphics extends JPanel {
 
-	private SettingsDialog settings;
+	
 	private GraphicsVariables variables;
 	private MapSize mapSettings;
 	private GraphicsState graphicsst;
@@ -26,7 +27,7 @@ public class MenuGraphics extends JPanel {
 		
 		this.variables = variables;
 		this.graphicsst = graphicsst;
-		settings = new SettingsDialog(this.variables,this.graphicsst);
+		
 		mapSettings = new MapSize(variables,this.graphicsst);
 		
 		
@@ -36,8 +37,13 @@ public class MenuGraphics extends JPanel {
 		btnNewgame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				 settings.setVisible(true);
-				//DungeonGame.changeState(StateViewer.SETTINGS);
+				 
+				try {
+					graphicsst.changeState(StateViewer.GAME);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

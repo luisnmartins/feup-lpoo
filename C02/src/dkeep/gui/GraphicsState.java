@@ -11,7 +11,7 @@ public class GraphicsState {
 	private Container framecontentpane;
 	private DungeonDesign game;
 	private MenuGraphics menu;
-	private SettingsDialog settings;
+	
 	private	GraphicsVariables variables;
 	private MapEditor editor;
 	
@@ -25,7 +25,7 @@ public class GraphicsState {
 		this.framecontentpane = framecontentpane;
 		variables = new GraphicsVariables();
 		menu = new MenuGraphics(variables,this);
-		settings = new SettingsDialog(variables, this);
+		
 		
 		
 		changeState(StateViewer.MENU);

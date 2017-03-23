@@ -28,13 +28,15 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
-public class MapEditor extends JPanel implements MouseListener {
+public class MapEditor extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private char[][] new_map;
+	private boolean[][] visited;
+	private boolean foundExit;
 	private GraphicsVariables variables;
 	private DungeonGraphics panel_1; 
 	private Level currentLevel;
@@ -56,6 +58,7 @@ public class MapEditor extends JPanel implements MouseListener {
 		
 		
 		new_map = new char[variables.getHorMapSize()][variables.getVerMapSize()];
+		visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
 		initializeMap();
 		newMap = new Map(new_map);
 		currentLevel = new Level(newMap);
@@ -72,6 +75,12 @@ public class MapEditor extends JPanel implements MouseListener {
 		JButton btnPlay = new JButton("Play");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				if(!basicMapVerification())
+				{
+					return;
+				}
+				
 				Map setmap = new Level2Map();
 				setmap.setSaticMap(variables.getMap());
 				try {
@@ -227,75 +236,8 @@ public class MapEditor extends JPanel implements MouseListener {
 	
 	
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		panel_1.mouseClicked(e);
-		
-		
-	}
 
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	/*@Override
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		for(int i = 0; i < map.length; i++)
-		{
-			for(int a = 0; a < map[i].length; a++)
-			{
-				if(map[i][a] == ' ')
-				{
-					g.drawImage(floor, a*70, i*70, this);
-				}
-				if(map[i][a] == 'O')
-				{
-					g.drawImage(bowser, a*70, i*70, this);
-				}if(map[i][a] == 'H')
-				{
-					g.drawImage(mario, a*70, i*70, this);
-				}if(map[i][a] == 'X')
-				{
-					g.drawImage(wall, a*70, i*70, this);
-				}
-				if(map[i][a] == 'I')
-				{
-					g.drawImage(plant, a*70, i*70, this);
-				}if(map[i][a] == 'k')
-				{
-					g.drawImage(key, a*70, i*70, this);
-				}
-			}
-		}
-		
-	}*/
 	
 	public void initializeMap()
 	{
@@ -321,4 +263,164 @@ public class MapEditor extends JPanel implements MouseListener {
 			}
 		}
 	}
+	
+	public void initializeVisited(int x,int y)
+	{
+		for(int i = 0; i < variables.getHorMapSize(); i++)
+			for (int a = 0; a < variables.getVerMapSize(); a++)
+			{
+				visited[i][a] = false;
+			}
+		visited[y][x] = true;
+	}
+	
+	public boolean findGoal(int x,int y)
+	{
+		initializeVisited(x,y);
+		foundExit = false;
+		if(!findGoal2(x,y))
+			return false;
+		else
+			{
+			initializeVisited(x,y);
+			foundExit =false;
+			return true;
+			}
+	}
+	
+	public boolean findGoal2(int x,int y)
+	{
+		if(foundExit)
+			return true;
+		if(!visited[y][x+1])
+		{
+			//variables.getLevel().getHero().changePosition('d', false);
+			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(x+1, y))
+			{
+				foundExit = true;
+				return true;
+			}else 
+			{
+				visited[y][x+1] = true;
+				findGoal2(x+1,y);
+			}
+		}
+		
+		if(foundExit)
+			return true;
+		
+		
+		if(!visited[y][x-1])
+		{
+			//variables.getLevel().getHero().changePosition('a',false);
+			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(x-1, y))			{
+				foundExit = true;
+				return true;
+			}else
+			{
+				visited[y][x-1] = true;
+				findGoal2(x-1,y);
+			}
+			
+		}
+		
+		if(foundExit)
+		{
+			return true;
+		}
+		
+		if(!visited[y+1][x])
+		{
+			//variables.getLevel().getHero().changePosition('s', false);
+			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(x, y+1))
+			{
+				foundExit = true;
+				return true;
+			}else{
+				visited[y+1][x] = true;
+				findGoal2(x,y+1);
+			}
+		}
+		
+		if(foundExit)
+		{
+			return true;
+		}
+		
+		if(!visited[y-1][x])
+		{
+			//variables.getLevel().getHero().changePosition('w', false);
+			if(!variables.getLevel().getCurrentMap().getKey().isOnTop(y-1, x)){
+				foundExit = true;
+				return true;	
+			}
+			else {
+				visited[y-1][x] = true;
+				findGoal2(x,y-1);
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	public boolean basicMapVerification()
+	{
+		boolean hero_exist = false;
+		boolean key_exist = false;
+		boolean plant_exist = false;
+		char[][] aux = variables.getMap();
+		for(int i = 0; i < aux.length ; i ++)
+			for(int a = 0; a < aux[i].length; a++)
+			{
+				if(i == 0 || a == 0 || i  == aux.length-1 || a == aux[i].length-1)
+				{
+					if(aux[i][a] != 'X' && aux[i][a] != 'I')
+					{
+						System.out.println("falha nas paredes e plantas");
+						return false;
+					}
+					if(aux[i][a] == 'I')
+					{
+						plant_exist = true;
+					}
+				}else if(aux[i][a] == 'H')
+				{
+					if(!hero_exist)
+					{
+						hero_exist = true;
+					}
+					else						
+					{
+						System.out.println("falha no heroi");
+						return false;
+					}
+						
+				}else if(aux[i][a] == 'k')
+				{
+					if(!key_exist)
+					{
+						key_exist = true;
+					}else if(key_exist)
+					{
+						System.out.println("falha  na chave");
+						return false;
+					}
+					
+				}
+			}
+		
+		if(plant_exist && key_exist && hero_exist)
+			return true;
+		else 
+			{
+				System.out.println("nao aceita todos");
+				return false;
+			}
+		
+	}
+	
 }
+	
