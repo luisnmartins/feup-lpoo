@@ -50,11 +50,7 @@ public class MapEditor extends JPanel {
 	 */
 	public MapEditor(GraphicsVariables variables,GraphicsState graphicsst) {
 		this.graphicsst = graphicsst;
-		
-		
 		this.variables = variables;
-		
-		
 		
 		new_map = new char[variables.getHorMapSize()][variables.getVerMapSize()];
 		visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
@@ -62,13 +58,13 @@ public class MapEditor extends JPanel {
 		newMap = new Map(new_map);
 		currentLevel = new Level(newMap);
 		variables.setLevel(currentLevel);
+		initialize();
 		
-		
-		
-		
-		
-
-		ButtonGroup choices = new ButtonGroup();
+	}
+	
+	public void initialize()
+	{
+ButtonGroup choices = new ButtonGroup();
 		
 		
 		JButton btnPlay = new JButton("Play");
@@ -231,8 +227,6 @@ public class MapEditor extends JPanel {
 
 	}
 	
-	
-	
 
 
 	
@@ -276,47 +270,26 @@ public class MapEditor extends JPanel {
 				if(i == 0 || a == 0 || i  == aux.length-1 || a == aux[i].length-1)
 				{
 					if(aux[i][a] != 'X' && aux[i][a] != 'I')
-					{
-						System.out.println("falha nas paredes e plantas");
 						return false;
-					}
 					if(aux[i][a] == 'I')
-					{
 						plant_exist = true;
-					}
 				}else if(aux[i][a] == 'H')
 				{
 					if(!hero_exist)
-					{
 						hero_exist = true;
-					}
-					else						
-					{
-						System.out.println("falha no heroi");
-						return false;
-					}
+					else return false;
 						
 				}else if(aux[i][a] == 'k')
 				{
 					if(!key_exist)
-					{
 						key_exist = true;
-					}else if(key_exist)
-					{
-						System.out.println("falha  na chave");
-						return false;
-					}
-					
+					else if(key_exist) return false;	
 				}
 			}
 		
 		if(plant_exist && key_exist && hero_exist)
 			return true;
-		else 
-			{
-				System.out.println("nao aceita todos");
-				return false;
-			}
+		else return false;
 		
 	}
 	

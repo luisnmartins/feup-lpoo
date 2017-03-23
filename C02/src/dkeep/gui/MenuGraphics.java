@@ -28,7 +28,6 @@ public class MenuGraphics extends JPanel {
 		
 		this.variables = variables;
 		this.graphicsst = graphicsst;
-		
 		mapSettings = new MapSize(variables,this.graphicsst);
 		
 		

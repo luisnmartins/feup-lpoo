@@ -60,6 +60,19 @@ public class DungeonDesign extends JPanel{
 		this.graphicsst = graphicsst;
 		setLayout(null);
 		
+		
+		this.settingInitialize();
+		this.commandButtonsInitialize();
+		this.mainButtonsInitialize();
+		initialize();
+		
+		
+		
+		
+	}
+
+	private void settingInitialize()
+	{
 		lblNumberOfOgres = new JLabel("Number of Ogres");
 		lblNumberOfOgres.setBounds(32, 30, 121, 16);
 		add(lblNumberOfOgres);
@@ -84,10 +97,10 @@ public class DungeonDesign extends JPanel{
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
 		comboBox.setBounds(164, 79, 173, 27);
 		add(comboBox);
-		
-		
-		
-		
+	}
+	
+	private void commandButtonsInitialize()
+	{
 		btnLeft = new JButton("Left");
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,17 +147,7 @@ public class DungeonDesign extends JPanel{
 		btnDown.setBounds(500, 286, 117, 29);
 		add(btnDown);
 		btnDown.setEnabled(false);
-		
-		
-		initialize();
-		
-		
-		
-		
 	}
-
-	
-	
 	
 	
 	/**
@@ -152,55 +155,9 @@ public class DungeonDesign extends JPanel{
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
-		
-		
-
-		btnNewGame = new JButton("New Game");
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);
-				variables.setOgrenmb(slider.getValue());
-				try {
-					panel = new DungeonGraphics(variables, graphicsst);
-					panel.setBounds(25,140, 400, 400);
-				
-					add(panel);
-					panel.setEnabled(true);
-					panel.repaint();
-				} catch (IOException e1) {
-					
-					e1.printStackTrace();
-				}
-				
-				
-				btnUp.setEnabled(true);
-				btnDown.setEnabled(true);
-				btnRight.setEnabled(true);
-				btnLeft.setEnabled(true);
-				btnNewGame.setEnabled(false);
-				
-				
-			}
-		});
-		btnNewGame.setBounds(500, 129, 117, 29);
-		add(btnNewGame);
-		
-		btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				System.exit(0);
-			}
-		});	
-		btnExit.setBounds(502, 480, 117, 29);
-		add(btnExit);
-		
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
 				try {
 			         FileOutputStream fileOut =
 			         new FileOutputStream("images/SavedGame.txt");
@@ -261,5 +218,44 @@ public class DungeonDesign extends JPanel{
 		
 		
 		
+	}
+	
+	private void mainButtonsInitialize()
+	{
+		btnNewGame = new JButton("New Game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);
+				variables.setOgrenmb(slider.getValue());
+				try {
+					panel = new DungeonGraphics(variables, graphicsst);
+					panel.setBounds(25,140, 400, 400);
+				
+					add(panel);
+					panel.setEnabled(true);
+					panel.repaint();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
+				btnUp.setEnabled(true);
+				btnDown.setEnabled(true);
+				btnRight.setEnabled(true);
+				btnLeft.setEnabled(true);
+				btnNewGame.setEnabled(false);
+				}
+		});
+		btnNewGame.setBounds(500, 129, 117, 29);
+		add(btnNewGame);
+		
+		btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.exit(0);
+			}
+		});	
+		btnExit.setBounds(502, 480, 117, 29);
+		add(btnExit);
 	}
 }

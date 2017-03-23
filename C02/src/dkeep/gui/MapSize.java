@@ -44,7 +44,13 @@ public class MapSize extends JDialog {
 		
 		this.map_variables = variables;
 		this.graphicsst = graphicsst;
-		setTitle("Map Editor Settings");
+		initialize();
+		
+	}
+	
+	public void initialize()
+	{
+		setTitle("Map Editor Settings"); 
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
