@@ -75,63 +75,14 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		for(int i = 0; i < maptoprint.length; i++)
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
+				g.drawImage(variables.getImage(' '), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+				g.drawImage(variables.getImage(maptoprint[i][a]), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
 				
-				g.drawImage(variables.getFloor(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				
-				if(maptoprint[i][a] == 'X')
-				{
-					g.drawImage(variables.getWall(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-					
-					
-				}else if (maptoprint[i][a] == 'H')
-				{
-					g.drawImage(variables.getMario(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}
-				else if(maptoprint[i][a] == 'I')
-				{
-					g.drawImage(variables.getDoor(),a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == 'G')
-				{
-					
-					g.drawImage(variables.getGuard(),a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == 'O')
-				{
-					
-					g.drawImage(variables.getBowser(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == 'k')
-				{
-					g.drawImage(variables.getKey(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == 'g')
-				{
-					g.drawImage(variables.getGuardSleep(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == '*')
-				{
-					g.drawImage(variables.getBowserFire(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == 'K')
-				{
-					g.drawImage(variables.getMario(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == 'A')
-				{
-					g.drawImage(variables.getMario(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if (maptoprint[i][a] == '8')
-				{
-					g.drawImage(variables.getBowserStunned(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}else if(maptoprint[i][a] == '$')
-				{
-					g.drawImage(variables.getCoin(), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				}
-			
-					
 			}
-		
-		
-			
-		
-		
-		
 		
 	}
 	
+
 	public void updateMove(char move)
 	{
 		if(gameState == state.RUNNING)

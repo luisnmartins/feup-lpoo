@@ -3,6 +3,7 @@ package dkeep.gui;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
@@ -15,7 +16,7 @@ public class GraphicsVariables {
 	private int Ogrenmb=2, GuardTypenmb=1;
 	private int horMapSize,verMapSize;
 	private char selectedElement;
-	
+	private HashMap<Character, BufferedImage> imagesMap = new HashMap<Character, BufferedImage>();
 	
 	private BufferedImage mario;
 	private BufferedImage mario_d;
@@ -41,6 +42,7 @@ public class GraphicsVariables {
 	{
 		try {
 			loadImages();
+			setHashMap();
 		} catch (IOException e) {
 			
 			e.printStackTrace();
@@ -114,6 +116,7 @@ public class GraphicsVariables {
 	
 	public void loadImages() throws IOException
 	{
+			
 			this.guard = ImageIO.read(new File("images/goomba_guard.png"));
 			this.mario_d= ImageIO.read(new File("images/mario_d.png"));
 			this.mario_a= ImageIO.read(new File("images/mario_a.png"));
@@ -132,6 +135,26 @@ public class GraphicsVariables {
 			this.coin = ImageIO.read(new File("images/coin.png"));
 			this.menu_screen = ImageIO.read(new File("images/superMarioBackground.png"));
 			this.mario = mario_d;
+	}
+	
+	public void setHashMap()
+	{
+		imagesMap.put('G', guard);
+		imagesMap.put('H', mario);
+		imagesMap.put('k', key);
+		imagesMap.put('I', door);
+		imagesMap.put('O', bowser);
+		imagesMap.put('X', wall);
+		imagesMap.put('g', guard_sleep);
+		imagesMap.put('*', bowser_fire);
+		imagesMap.put('8', bowser_stunned);
+		imagesMap.put(' ', floor);
+		imagesMap.put('$', coin);
+	}
+	
+	public BufferedImage getImage(char Element)
+	{
+		return imagesMap.get(Element);
 	}
 	
 	public void updateMario(char move,boolean gotKey)
