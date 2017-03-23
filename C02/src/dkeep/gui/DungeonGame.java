@@ -1,17 +1,13 @@
 package dkeep.gui;
 
-import java.awt.Container;
+
 import java.awt.EventQueue;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class DungeonGame {
 

@@ -3,7 +3,7 @@ package dkeep.logic;
 
 
 
-public class Level1Map extends Map {
+public class Level1Map extends Map implements java.io.Serializable{
 
 	
 	private static char[][] mapStatic= {   { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },

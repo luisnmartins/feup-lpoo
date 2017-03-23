@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class SuspiciousGuard extends Guard{
+public class SuspiciousGuard extends Guard implements java.io.Serializable{
 	
 	
 	public SuspiciousGuard(int xP, int yP, char Elm)

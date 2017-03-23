@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 
-public class DrunkenGuard extends Guard{
+public class DrunkenGuard extends Guard implements java.io.Serializable{
 
 	public DrunkenGuard(int xP, int yP, char Elm)
 	{

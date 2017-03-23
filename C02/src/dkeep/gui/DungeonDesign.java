@@ -210,7 +210,9 @@ public class DungeonDesign extends JPanel{
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				 try {
+				
+				
+				try {
 			         FileOutputStream fileOut =
 			         new FileOutputStream("images/SavedGame.txt");
 			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -221,6 +223,7 @@ public class DungeonDesign extends JPanel{
 			      }catch(IOException i) {
 			         i.printStackTrace();
 			      }
+				 panel.requestFocusInWindow();
 				
 			}
 		});
@@ -232,9 +235,22 @@ public class DungeonDesign extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
+					panel = new DungeonGraphics(variables, graphicsst);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				panel.setBounds(25,140, 400, 400);
+				//panel.setSize(400, 400);
+				//panel.setLocation(25, 120);
+				add(panel);
+				panel.setEnabled(true);
+				
+				try {
 			         FileInputStream fileIn = new FileInputStream("images/SavedGame.txt");
 			         ObjectInputStream in = new ObjectInputStream(fileIn);
 			         variables.setLevel( (Level) in.readObject());
+			         System.out.println("load game");
 			         in.close();
 			         fileIn.close();
 			      }catch(IOException i) {
@@ -245,6 +261,8 @@ public class DungeonDesign extends JPanel{
 			         c.printStackTrace();
 			         return;
 			      }
+				 panel.requestFocusInWindow();
+				 panel.repaint();
 			}
 		});
 		btnLoadGame.setBounds(500, 423, 117, 29);

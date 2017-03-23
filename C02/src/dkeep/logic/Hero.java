@@ -3,7 +3,7 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
-public class Hero extends Character {
+public class Hero extends Character implements java.io.Serializable{
 
 	//private boolean club;
 	
