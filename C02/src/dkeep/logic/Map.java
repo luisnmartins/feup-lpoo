@@ -157,8 +157,9 @@ public class Map implements java.io.Serializable{
 			finalmap[doors.get(i).getX()][doors.get(i).getY()] = doors.get(i).getSymbol();
 		}
 	}
-	
-	
+
+
+
 	
 }
 

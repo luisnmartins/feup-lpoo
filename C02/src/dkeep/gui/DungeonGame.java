@@ -49,7 +49,7 @@ public class DungeonGame {
 		
 		frmSuperMarioDungeon = new JFrame();
 		frmSuperMarioDungeon.setTitle("Super Mario Dungeon");
-		
+		 
 		
 		frmSuperMarioDungeon.setBounds(0, 0, 700, 700);
 		frmSuperMarioDungeon.setFocusable(true);

@@ -87,7 +87,7 @@ public class DungeonDesign extends JPanel{
 		slider.setPaintTicks(true);
 		slider.setMaximum(5);
 		slider.setMinimum(1);
-		slider.setValue(2);
+		slider.setValue(1);
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
@@ -167,8 +167,7 @@ public class DungeonDesign extends JPanel{
 		btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);	
+				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);
 				variables.setOgrenmb(slider.getValue());
 				try {
 					panel = new DungeonGraphics(variables, graphicsst);
