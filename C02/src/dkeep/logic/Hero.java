@@ -3,10 +3,16 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
-public class Hero extends Character {
+public class Hero extends Character implements java.io.Serializable{
 
-	//private boolean club;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	public Hero(int xP, int yP, char Elm)
 	{
 		super(xP, yP, Elm);

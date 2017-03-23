@@ -4,11 +4,14 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import dkeep.logic.Level.state;
 
 public class Level implements java.io.Serializable{
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Map currentmap;
 	protected Hero myHero;	
 	protected ArrayList<Character> enemies = new ArrayList<Character>();
@@ -78,8 +81,7 @@ public class Level implements java.io.Serializable{
 							currentmap.setDoor(i, j);
 							currentmap.ClearPosition(i, j);
 						}
-						else{}
-						break;
+						
 					}
 					default: break;
 				}

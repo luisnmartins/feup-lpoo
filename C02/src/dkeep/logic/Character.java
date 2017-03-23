@@ -4,6 +4,10 @@ package dkeep.logic;
 
 public abstract class Character implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
 	private char element;

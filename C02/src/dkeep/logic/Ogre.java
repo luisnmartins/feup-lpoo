@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Ogre extends Character implements java.io.Serializable{
 
+
 		/**
 	 * 
 	 */

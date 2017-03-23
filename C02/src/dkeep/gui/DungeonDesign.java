@@ -87,7 +87,7 @@ public class DungeonDesign extends JPanel{
 		slider.setPaintTicks(true);
 		slider.setMaximum(5);
 		slider.setMinimum(1);
-		slider.setValue(2);
+		slider.setValue(1);
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
@@ -167,8 +167,7 @@ public class DungeonDesign extends JPanel{
 		btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);	
+				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);
 				variables.setOgrenmb(slider.getValue());
 				try {
 					panel = new DungeonGraphics(variables, graphicsst);
@@ -210,7 +209,9 @@ public class DungeonDesign extends JPanel{
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				 try {
+				
+				
+				try {
 			         FileOutputStream fileOut =
 			         new FileOutputStream("images/SavedGame.txt");
 			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -221,6 +222,7 @@ public class DungeonDesign extends JPanel{
 			      }catch(IOException i) {
 			         i.printStackTrace();
 			      }
+				 panel.requestFocusInWindow();
 				
 			}
 		});
@@ -232,9 +234,22 @@ public class DungeonDesign extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
+					panel = new DungeonGraphics(variables, graphicsst);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				panel.setBounds(25,140, 400, 400);
+				//panel.setSize(400, 400);
+				//panel.setLocation(25, 120);
+				add(panel);
+				panel.setEnabled(true);
+				
+				try {
 			         FileInputStream fileIn = new FileInputStream("images/SavedGame.txt");
 			         ObjectInputStream in = new ObjectInputStream(fileIn);
 			         variables.setLevel( (Level) in.readObject());
+			         System.out.println("load game");
 			         in.close();
 			         fileIn.close();
 			      }catch(IOException i) {
@@ -245,6 +260,8 @@ public class DungeonDesign extends JPanel{
 			         c.printStackTrace();
 			         return;
 			      }
+				 panel.requestFocusInWindow();
+				 panel.repaint();
 			}
 		});
 		btnLoadGame.setBounds(500, 423, 117, 29);
