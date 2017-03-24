@@ -81,6 +81,7 @@ public class MapEditor extends JPanel {
 		setLayout(null);
 		setPlayButton();
 		setCancelButton();
+		setButtons();	
 		
 	}
 	

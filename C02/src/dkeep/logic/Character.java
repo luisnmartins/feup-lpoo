@@ -134,6 +134,12 @@ public abstract class Character implements java.io.Serializable{
 	}
 	
 
+	/**
+	 * Verifies if the character is supposed to move,if such, the position of the character is changed
+	 * @param map where the character position is set
+	 * @param char that represents the move that the character is supossed to do 
+	 * @return true if the character has been moved, else returns false
+	 * */
 	
 	public boolean update(Map currentmap, char move){
 		
@@ -146,6 +152,12 @@ public abstract class Character implements java.io.Serializable{
 			return false;
 	}
 	
+	/**
+	 * Verifies if a character is next to another (in an adjacent position, diagonal is not verified) or in the same position
+	 * @param character to compare to
+	 * @return true if the two character are next to eachother (or in same pos) else return false
+	 * */
+	
 	public boolean verifyColision(Character c)
 	{
 		if((c.getX() == this.getX() && Math.abs(c.getY() - this.getY()) <= 1) || (c.getY() == this.getY() && Math.abs(c.getX() - this.getX()) <= 1))
@@ -155,7 +167,11 @@ public abstract class Character implements java.io.Serializable{
 	}
 	
 	
-	//Change x and y position
+	/**
+	 * Function that precisely changes the temporary position of the character 
+	 * @param char to represent the move the character is going to do (if 'w' it goes up one position, 'd' it goes right,..)
+	 * @param flag to know if the move set is reverse,if is set true, for example case move = 'w' instead of going up it goes down one position
+	 * */
 	public void changePosition(char move,boolean invertFlag)
 	{
 
@@ -200,20 +216,31 @@ public abstract class Character implements java.io.Serializable{
 		
 	
 	
-	
+	/**
+	 * Puts the character symbol on a char[][] in is exact position
+	 * @param matrix where the character symbol is set,represents the game map
+	 * */
 	public void addElementsMatrix(char[][] map)
 	{
 		map[this.getX()][this.getY()] = this.getElement();
 	}
 
 
-
+	/**
+	 * 
+	 * Gets the flag that shows if the character is supossed to be unable to move
+	 * @return isParalyzed variable, true if the character is not supossed to move
+	 */
 	public boolean getIsParalyzed() {
 		return IsParalyzed;
 	}
 
 
-
+	/*
+	 *Changes the isParalyzed variable to the function argument
+	 *@param the new value of IsParalyzed
+	 **/
+	
 	public void setIsParalyzed(boolean isParalyzed) {
 		IsParalyzed = isParalyzed;
 	}

@@ -9,23 +9,34 @@ public class Door implements java.io.Serializable{
 	private int x;
 	private int y;
 	private char symbol;
-	private boolean canOpen;
 	
 	
+	/*
+	 * Constructor of the door, initializes its core variables, by the default the symbol of the 
+	 * door is set to 'I' in order to represent the door closed.
+	 * @param x value of the door position in the x axis
+	 * @param y value of the door position in the y axis
+	 */
 	public Door(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
 		this.symbol = 'I';
-		this.canOpen = false;
+		
 		 
 	}
 	
+	/*
+	 * "Opens" the door by changing its representaion to an 'S'
+	 */
 	public void OpenDoor()
 	{
 		this.setSymbol('S');
 	}
-	
+	/*
+	 * Sees by analyzing the door symbol if the door is open
+	 * @return true if the door is open (symbol = 'S') otherwise it returns false
+	 */
 	public boolean IsOpened()
 	{
 		if(this.getSymbol() == 'S')
@@ -34,23 +45,12 @@ public class Door implements java.io.Serializable{
 			return false;
 	}
 	
-	
-	//Level2
-	
-	/*public void setcanOpen(boolean value)
-	{
-		canOpen = true;
-	}*/
-	
-	
-	
-	/*public boolean getcanOpen()
-	{
-		return canOpen;
-	}*/
-	
-	
-	
+	/*
+	 * Checks if the door is at a given position by comparing its variables
+	 * @param xPos to check with x variable of the door
+	 * @param yPos to check with y variable of the door
+	 * @return true if the parameter represents the door position, false othewise
+	 */
 	public boolean doorAchieved(int xPos, int yPos)
 	{
 		if(xPos == this.getX() && yPos == this.getY())	
@@ -60,27 +60,35 @@ public class Door implements java.io.Serializable{
 	}
 	
 
-
+	/*
+	 * Gets the x position of the door
+	 * @return the x value of the door
+	 */
 	public int getX() {
 		return x;
 	}
 
-	/*public void setX(int x) {
-		this.x = x;
-	}*/
-
+ /**
+ * Gets the y position of the door
+ * @return the y value of the door
+ */
 	public int getY() {
 		return y;
 	}
 
-	/*public void setY(int y) {
-		this.y = y;
-	}*/
 
+	/**
+	 * Gets the representation of the door in the game
+	 * @return the symbol value of the door
+	 */
 	public char getSymbol() {
 		return symbol; 
 	}
-
+	
+	/**
+	 * Changes the representation of the door to the given parameter
+	 * @param symbol that represent the new door symbol
+	 */
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;
 	}
