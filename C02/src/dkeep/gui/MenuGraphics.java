@@ -67,7 +67,6 @@ public class MenuGraphics extends JPanel {
 				
 			}
 		});
-		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

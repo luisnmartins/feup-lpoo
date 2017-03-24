@@ -35,7 +35,6 @@ public class Level implements java.io.Serializable{
 		
 		char[][] analyzemap = currentmap.getMap();
 		
-		
 		for(int i=0; i<analyzemap.length; i++)
 		{
 			for(int j=0; j<analyzemap.length; j++)
@@ -43,48 +42,38 @@ public class Level implements java.io.Serializable{
 				switch(analyzemap[i][j])
 				{
 					case 'H':
-					{
 						myHero = new Hero(i, j, 'H');
-						
 						currentmap.ClearPosition(i,j);
 						break;
-					}
-					case 'O':
-					{
-						for(int startRand=0; startRand < Ogrenmb; startRand++)
-						{
-							enemies.add(new Ogre(i,j,'O','*'));
-						}
-						currentmap.ClearPosition(i, j);
-						break;
-					}
-					case 'k':
-					{
 						
-						currentmap.setKey(i, j);
-						currentmap.ClearPosition(i, j);
+					case 'O':
+						for(int startRand=0; startRand < Ogrenmb; startRand++)
+							enemies.add(new Ogre(i,j,'O','*'));
+						currentmap.ClearPosition(i,j);
 						break;
-					}
+						
+					case 'k':
+						currentmap.setKey(i, j);
+						currentmap.ClearPosition(i,j);
+						break;
+						
 					case 'G':
-					{
 						
 						Guard myGuard = new Guard(i, j, 'G');
 						myGuard = myGuard.getGuardType(Guardtype, i, j, 'G');
 						enemies.add(myGuard);
-						currentmap.ClearPosition(i, j);
+						currentmap.ClearPosition(i,j);
 						break;
-					}
-					case 'I':
-					{
-						if(i== 0 || i == analyzemap.length-1 || j==0 || j == analyzemap[i].length-1)
-						{
-							currentmap.setDoor(i, j);
-							currentmap.ClearPosition(i, j);
-						}
 						
-					}
+					case 'I':
+						if(i== 0 || i == analyzemap.length-1 || j==0 || j == analyzemap[i].length-1)
+							currentmap.setDoor(i, j);
+						currentmap.ClearPosition(i,j);
+						break;
+						
 					default: break;
 				}
+				
 			}
 		}
 	}

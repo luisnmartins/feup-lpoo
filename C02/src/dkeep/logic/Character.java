@@ -17,7 +17,7 @@ public abstract class Character implements java.io.Serializable{
 	private boolean IsParalyzed=false;
 	
 	
-	/*
+	/**
 	 * Construct a Character
 	 * @param xPos Character's matrix position - Line
 	 * @param yPos Character's matrix position - Column
@@ -35,7 +35,7 @@ public abstract class Character implements java.io.Serializable{
 	
 	
 	
-	/*
+	/**
 	 * Set the new Character's Position
 	 * @param xPos Character's matrix Line
 	 * @param yPos Character's matrix Column
@@ -47,7 +47,7 @@ public abstract class Character implements java.io.Serializable{
 		
 	}
 	
-	/*
+	/**
 	 * Set the new Character's element
 	 * @param Elm New Char to use  
 	 */	

@@ -57,45 +57,26 @@ public class MapSize extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			lblHorizontalSize = new JLabel("Horizontal size");
+			lblHorizontalSize.setBounds(39, 56, 122, 50);
 			lblHorizontalSize.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
 		
 		horSize = new JTextField();
+		horSize.setBounds(167, 69, 130, 26);
 		horSize.setColumns(10);
 		
 		JLabel lblVerticalSize = new JLabel("Vertical size");
+		lblVerticalSize.setBounds(39, 137, 100, 20);
 		lblVerticalSize.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		verSize = new JTextField();
+		verSize.setBounds(167, 135, 130, 26);
 		verSize.setColumns(10);
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(34)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHorizontalSize, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblVerticalSize, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(verSize)
-						.addComponent(horSize))
-					.addContainerGap(178, Short.MAX_VALUE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(51)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHorizontalSize, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-						.addComponent(horSize, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(29)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblVerticalSize)
-						.addComponent(verSize, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(68, Short.MAX_VALUE))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		contentPanel.setLayout(null);
+		contentPanel.add(lblHorizontalSize);
+		contentPanel.add(lblVerticalSize);
+		contentPanel.add(verSize);
+		contentPanel.add(horSize);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
