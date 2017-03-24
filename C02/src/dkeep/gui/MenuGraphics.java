@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Color;
 
 public class MenuGraphics extends JPanel {
 
@@ -32,6 +33,8 @@ public class MenuGraphics extends JPanel {
 		
 		
 		JButton btnNewgame = new JButton("New Game");
+		btnNewgame.setBackground(Color.GRAY);
+		btnNewgame.setBounds(94, 98, 116, 37);
 		btnNewgame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		btnNewgame.addActionListener(new ActionListener() {
@@ -46,9 +49,20 @@ public class MenuGraphics extends JPanel {
 				}
 			}
 		});
+		setLayout(null);
+		add(btnNewgame);
+		setExitButton();
+		setEditorButton();
 		
 		
+		
+
+	}
+	
+	public void setExitButton()
+	{
 		JButton btnExit = new JButton("Exit");
+		btnExit.setBounds(94, 214, 116, 37);
 		btnExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -56,8 +70,13 @@ public class MenuGraphics extends JPanel {
 				System.exit(0);
 			}
 		});
-		
+		add(btnExit);
+	}
+	
+	public void setEditorButton()
+	{
 		JButton btnEditor = new JButton("Editor");
+		btnEditor.setBounds(94, 156, 116, 37);
 		btnEditor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditor.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
@@ -67,31 +86,9 @@ public class MenuGraphics extends JPanel {
 				
 			}
 		});
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(300)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewgame, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnEditor, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(300)
-					.addComponent(btnNewgame)
-					.addGap(17)
-					.addComponent(btnEditor)
-					.addGap(17)
-					.addComponent(btnExit))
-		);
-		setLayout(groupLayout);
-		
-		
-
+		add(btnEditor);
 	}
+	
 	
 	@Override
 	public void paintComponent(Graphics g)

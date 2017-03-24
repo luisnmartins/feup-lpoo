@@ -65,41 +65,9 @@ public class MapEditor extends JPanel {
 	public void initialize()
 	{	
 		
-		JButton btnPlay = new JButton("Play");
-		btnPlay.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				if(!basicMapVerification())
-				{
-					return;
-				}
-				
-				Map setmap = new Level2Map();
-				setmap.setSaticMap(variables.getMap());
-				try {
-					graphicsst.changeState(StateViewer.GAME);
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
-			}
-		});
-		btnPlay.setBounds(10, 545, 78, 23);
 		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(115, 545, 100, 23);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-					try{
-					
-					graphicsst.changeState(StateViewer.MENU);
-				
-					}catch (IOException e1){
-					
-					e1.printStackTrace();}
-			}
-		});
+		
+		
 		
 
 		try {
@@ -117,21 +85,64 @@ public class MapEditor extends JPanel {
 			e1.printStackTrace();
 		}
 		setLayout(null);
-		add(btnPlay);
-		add(btnCancel);
+		setPlayButton();
+		setCancelButton();
 		ButtonGroup choices = new ButtonGroup();
-		MarioChoiceButton(choices);
-		DoorChoiceButton(choices);
-		KeyChoiceButton(choices);
-		WallChoiceButton(choices);
-		FloorChoiceButton(choices);
-		BowserChoiceButton(choices);
+		setMarioChoiceButton(choices);
+		setDoorChoiceButton(choices);
+		setKeyChoiceButton(choices);
+		setWallChoiceButton(choices);
+		setFloorChoiceButton(choices);
+		setBowserChoiceButton(choices);
 	}
 		
+	public void setCancelButton()
+	{
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(115, 545, 100, 23);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				
+					try{
+					
+					graphicsst.changeState(StateViewer.MENU);
+				
+					}catch (IOException e1){
+					
+					e1.printStackTrace();}
+			}
+		});
+		add(btnCancel);
+	}
+	
+	
+		public void setPlayButton()
+		{
+			JButton btnPlay = new JButton("Play");
+			btnPlay.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					if(!basicMapVerification())
+					{
+						return;
+					}
+					
+					Map setmap = new Level2Map();
+					setmap.setSaticMap(variables.getMap());
+					try {
+						graphicsst.changeState(StateViewer.GAME);
+					} catch (IOException e) {
+						
+						e.printStackTrace();
+					}
+				}
+			});
+			btnPlay.setBounds(10, 545, 78, 23);
+			add(btnPlay);
+		}
 		
 		
-		public void MarioChoiceButton(ButtonGroup choices)
+		public void setMarioChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnMario = new JToggleButton();
 			tglbtnMario.setSize(new Dimension(70, 70));
@@ -151,7 +162,7 @@ public class MapEditor extends JPanel {
 		}
 		
 		
-		public void DoorChoiceButton(ButtonGroup choices)
+		public void setDoorChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnDoor = new JToggleButton();
 			tglbtnDoor.setSize(new Dimension(70, 70));
@@ -168,7 +179,7 @@ public class MapEditor extends JPanel {
 			choices.add(tglbtnDoor);
 		}
 		
-		public void KeyChoiceButton(ButtonGroup choices)
+		public void setKeyChoiceButton(ButtonGroup choices)
 		{
 			
 			JToggleButton tglbtnKey = new JToggleButton();
@@ -186,7 +197,7 @@ public class MapEditor extends JPanel {
 			choices.add(tglbtnKey);
 		}
 		
-		public void WallChoiceButton(ButtonGroup choices)
+		public void setWallChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnWall = new JToggleButton();
 			tglbtnWall.setSize(new Dimension(70, 70));
@@ -203,7 +214,7 @@ public class MapEditor extends JPanel {
 			choices.add(tglbtnWall);
 		}
 		
-		public void FloorChoiceButton(ButtonGroup choices)
+		public void setFloorChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnFloor = new JToggleButton();
 			tglbtnFloor.setSize(new Dimension(70, 70));
@@ -220,7 +231,7 @@ public class MapEditor extends JPanel {
 			choices.add(tglbtnFloor);
 		}
 									
-		public void BowserChoiceButton(ButtonGroup choices)
+		public void setBowserChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnBowser = new JToggleButton();
 			tglbtnBowser.setSize(new Dimension(70, 70));

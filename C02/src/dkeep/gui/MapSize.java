@@ -81,51 +81,58 @@ public class MapSize extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					if(!horSize.getText().equals("") && !verSize.getText().equals(""))
-						if(Integer.parseInt(horSize.getText()) >= 5 && Integer.parseInt(verSize.getText()) >= 5)
-						{
-					
-						try {
-							
-							map_variables.setMapSizes(Integer.parseInt(horSize.getText()),Integer.parseInt(verSize.getText()));
-							
-							
-							graphicsst.changeState(StateViewer.CUSTOM);
-						
-						} catch (IOException e1) {
-							
-							e1.printStackTrace();
-						}
-						dispose();
-						}
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-							try {
-							
-							graphicsst.changeState(StateViewer.MENU);
-						
-						} catch (IOException e1) {
-							
-							e1.printStackTrace();
-						}
-							dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			
+			setOKButton(buttonPane);
+			setCancelButton(buttonPane);
 		}
+	}
+	
+	public void setOKButton(JPanel buttonPane)
+	{
+		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if(!horSize.getText().equals("") && !verSize.getText().equals(""))
+				if(Integer.parseInt(horSize.getText()) >= 5 && Integer.parseInt(verSize.getText()) >= 5)
+				{
+			
+				try {
+					
+					map_variables.setMapSizes(Integer.parseInt(horSize.getText()),Integer.parseInt(verSize.getText()));
+					
+					
+					graphicsst.changeState(StateViewer.CUSTOM);
+				
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
+				dispose();
+				}
+			}
+		});
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+	}
+	
+	public void setCancelButton(JPanel buttonPane)
+	{
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					try {
+					
+					graphicsst.changeState(StateViewer.MENU);
+				
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
+					dispose();
+			}
+		});
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
 	}
 }

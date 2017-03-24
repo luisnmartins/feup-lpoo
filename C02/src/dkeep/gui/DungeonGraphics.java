@@ -8,8 +8,7 @@ import java.awt.event.MouseListener;
 
 import java.io.IOException;
 
-
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dkeep.gui.GraphicsState.StateViewer;
@@ -89,15 +88,23 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		{
 			Level currentLevel = variables.getLevel();
 			gameState = currentLevel.updateGameStatus(move);
+			
 			if(gameState == state.CHANGELEVEL)
 			{
 				variables.setLevel(currentLevel.nextLevel(variables.getOgrenmb()));
+				JOptionPane.showMessageDialog(getRootPane(), "Go, go, go!! You're in the next level");
 				gameState = state.RUNNING;
 			}
 			repaint();
 		}
 		else if(gameState == state.LOSE || gameState == state.WIN)
 		{
+			
+			if(gameState == state.LOSE)
+				JOptionPane.showMessageDialog(getRootPane(), "You Lose!! Try Again");
+			else
+				JOptionPane.showMessageDialog(getRootPane(), "Congratzz!! You're a Hero!!");
+			
 			if(move == 'e')
 			{
 				try {
@@ -117,6 +124,8 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 				}
 			}
 			}
+		repaint();
+		
 			
 	}
 	

@@ -101,18 +101,17 @@ public class DungeonDesign extends JPanel{
 	
 	private void commandButtonsInitialize()
 	{
-		btnLeft = new JButton("Left");
-		btnLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				panel.updateMove('a');
-				panel.requestFocusInWindow();
-			}
-		});
-		btnLeft.setBounds(430, 245, 117, 29);
-		add(btnLeft);
-		btnLeft.setEnabled(false);
 		
+		setUpButton();
+		setLeftButton();
+		setDownButton();
+		setRightButton();	
+		
+		
+	}
+	
+	public void setUpButton()
+	{
 		btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,7 +123,25 @@ public class DungeonDesign extends JPanel{
 		btnUp.setBounds(500, 204, 117, 29);
 		add(btnUp);
 		btnUp.setEnabled(false);
-		
+	}
+	
+	public void setLeftButton()
+	{
+		btnLeft = new JButton("Left");
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				panel.updateMove('a');
+				panel.requestFocusInWindow();
+			}
+		});
+		btnLeft.setBounds(430, 245, 117, 29);
+		add(btnLeft);
+		btnLeft.setEnabled(false);
+	}
+	
+	public void setRightButton()
+	{
 		btnRight = new JButton("Right");
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,7 +153,10 @@ public class DungeonDesign extends JPanel{
 		btnRight.setBounds(559, 245, 117, 29);
 		add(btnRight);
 		btnRight.setEnabled(false);
-		
+	}
+	
+	public void setDownButton()
+	{
 		btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,6 +168,7 @@ public class DungeonDesign extends JPanel{
 		add(btnDown);
 		btnDown.setEnabled(false);
 	}
+	
 	
 	
 	/**

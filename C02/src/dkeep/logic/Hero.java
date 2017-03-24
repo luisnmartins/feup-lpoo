@@ -32,7 +32,6 @@ public class Hero extends Character implements java.io.Serializable{
 		if(currentmap.moveTo(x_temp, y_temp))
 		{
 			if(tempKey.isOnTop(x_temp, y_temp))
-			{
 				if(tempKey.getIsaKey())
 				{
 					
@@ -40,11 +39,8 @@ public class Hero extends Character implements java.io.Serializable{
 					this.setElm('K');
 				}
 				else
-				{
 					currentmap.openDoors();
-				}
 				
-			}
 			if(currentmap.verifyMoveDoors(this))
 			{
 				System.out.println("verifydoors");
@@ -66,11 +62,7 @@ public class Hero extends Character implements java.io.Serializable{
 					
 				}
 				
-			}
-			
-			
-			
-					
+			}				
 			
 		}
 		if(canmove == false)	
