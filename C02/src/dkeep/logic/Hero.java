@@ -29,55 +29,37 @@ public class Hero extends Character implements java.io.Serializable{
 		int y_temp = this.getYTemp();
 		Key tempKey = currentmap.getKey();
 		boolean canmove = false;
-		if(currentmap.moveTo(x_temp, y_temp))
-		{
+		if(currentmap.moveTo(x_temp, y_temp)){
 			if(tempKey.isOnTop(x_temp, y_temp))
-				if(tempKey.getIsaKey())
-				{
+				if(tempKey.getIsaKey()){
 					
 					tempKey.setFound();
 					this.setElm('K');
-				}
-				else
+				}else
 					currentmap.openDoors();
 				
-			if(currentmap.verifyMoveDoors(this))
-			{
+			if(currentmap.verifyMoveDoors(this)){
 				System.out.println("verifydoors");
-				canmove=true;
-				
-			}
+				canmove=true;}
 			
 			
-			for(Character enemie: enemies)
-			{
-				if(enemie.getIsParalyzed())
-				{
+			for(Character enemie: enemies){
+				if(enemie.getIsParalyzed()){
 					
-					if(enemie.getX() == x_temp && enemie.getY() == y_temp)
-					{	
+					if(enemie.getX() == x_temp && enemie.getY() == y_temp){	
 						canmove=false;
-						break;
-					}	
+						break;}	
 					
-				}
-				
-			}				
+				}}				
 			
 		}
-		if(canmove == false)	
-		{
+		if(canmove == false)	{
 			this.setTempPosition(this.getX(), this.getY());
 			return false;
-		}
-		else
-		{	
+		}else{	
 			this.setPosition(this.getXTemp(), this.getYTemp());
 			return true;
-		}
-				
-		
-	}
+		}}
 	
 	
 }
