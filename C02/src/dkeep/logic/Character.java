@@ -56,7 +56,7 @@ public abstract class Character implements java.io.Serializable{
 		element = Elm;
 	}
 	
-	/*	
+	/**
 	 * Set the new Character's temporary position
 	 * @param xPos Character's temporary matrix Line
 	 * @param yPos Character's temporary matrix Column
@@ -68,7 +68,7 @@ public abstract class Character implements java.io.Serializable{
 		
 	}
 	
-	/*
+	/**
 	 * Set If it's to move this Character during the Game
 	 * @param value True if it's to move the Character and false if it's not 
 	 */
@@ -78,7 +78,7 @@ public abstract class Character implements java.io.Serializable{
 	}
 
 	
-	/*
+	/**
 	 * Get the matrix's Line of the current Character position
 	 * @return Returns the Character matrix's Line
 	 */
@@ -87,7 +87,7 @@ public abstract class Character implements java.io.Serializable{
 		return x;
 	}
 	
-	/*
+	/**
 	 * Get the matrix's Column of the current Character position
 	 * @return Returns the Character matrix's Column
 	 */
@@ -96,7 +96,7 @@ public abstract class Character implements java.io.Serializable{
 		return y;
 	}
 	
-	/*
+	/**
 	 * Get the Character's current Symbol
 	 * @return Returns the Character's current Symbol
 	 */
@@ -106,7 +106,7 @@ public abstract class Character implements java.io.Serializable{
 	}
 	
 	
-	/*
+	/**
 	 * Get the Character's temporary matrix line
 	 * @return Returns the Character's temporary matrix line
 	 */
@@ -115,7 +115,7 @@ public abstract class Character implements java.io.Serializable{
 		return xTemp;
 	}
 	
-	/*
+	/**
 	 * Get the Character's temporary matrix column
 	 * @return Returns the Character's temporary matrix column
 	 */
@@ -124,7 +124,7 @@ public abstract class Character implements java.io.Serializable{
 		return yTemp;
 	}
 	
-	/*
+	/**
 	 * Get the boolean value of if it's to move this Character during the Game
 	 * @return True if it's to move the Character and false if it's not 
 	 */
@@ -133,9 +133,8 @@ public abstract class Character implements java.io.Serializable{
 		return this.moveCharacter;
 	}
 	
-	/*
-	 * 
-	 */
+
+	
 	public boolean update(Map currentmap, char move){
 		
 		if(this.getMoveCharacter())

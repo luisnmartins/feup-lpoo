@@ -40,7 +40,7 @@ public class MenuGraphics extends JPanel {
 		btnNewgame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				 
+			 
 				try {
 					graphicsst.changeState(StateViewer.GAME);
 				} catch (IOException e1) {

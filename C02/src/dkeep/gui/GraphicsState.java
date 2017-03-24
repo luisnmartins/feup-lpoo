@@ -25,7 +25,7 @@ public class GraphicsState {
 		this.framecontentpane = framecontentpane;
 		variables = new GraphicsVariables();
 		menu = new MenuGraphics(variables,this);
-		game = new DungeonDesign(variables, this);
+		
 		
 		
 		changeState(StateViewer.MENU);
@@ -51,7 +51,7 @@ public class GraphicsState {
 				
 			case GAME:
 			
-				
+				game = new DungeonDesign(variables, this);
 				framecontentpane.add(game);
 				game.setBounds(0, 0, 700, 700);
 				game.setFocusable(true);
@@ -64,8 +64,7 @@ public class GraphicsState {
 				framecontentpane.add(editor);
 				editor.setBounds(0,0,700,700);
 				break;
-			
-			default:
+						default:
 				break;
 				
 		}

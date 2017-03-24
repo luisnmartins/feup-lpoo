@@ -18,6 +18,11 @@ public class OgreLevel extends Level implements java.io.Serializable{
 		super(mymap, howmanyOgres, 0);
 		mymap.getKey().setIsaKey(true);
 	}
+	
+	public OgreLevel(Map mymap)
+	{
+		super(mymap, 0, 0);
+	}
 		
 
 	

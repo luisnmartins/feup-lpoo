@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Level implements java.io.Serializable{
+public abstract class Level implements java.io.Serializable{
 	
 
 	/**
@@ -25,10 +25,7 @@ public class Level implements java.io.Serializable{
 			
 	}
 	
-	public Level(Map currentmap)
-	{
-		this.currentmap = currentmap;
-	}
+
 	
 	public void InitalizeElements(int Ogrenmb, int Guardtype)
 	{
@@ -118,10 +115,7 @@ public class Level implements java.io.Serializable{
 	}
 	
 	
-	public Level nextLevel(int enemienmb)
-	{
-		return null;
-	}
+	public abstract Level nextLevel(int enemienmb);
 	
 
 	public void IstoMoveElements(boolean movement)
@@ -140,16 +134,15 @@ public class Level implements java.io.Serializable{
 		for(int i=0; i< maptocopy.length; i++)
 			maptosend[i] = Arrays.copyOf(maptocopy[i], maptocopy[i].length);
 		
-		if(currentmap.getKey() != null)
+		if(currentmap.getKey() != null && enemies != null && myHero != null)
+		{
 			currentmap.addElementsMatrix(maptosend);
-		
-		
-	if(enemies != null)		
-		for(int i=0; i<enemies.size(); i++)
-			enemies.get(i).addElementsMatrix(maptosend);
+			
+			for(int i=0; i<enemies.size(); i++)
+				enemies.get(i).addElementsMatrix(maptosend);
 	
-		if(myHero != null)
 			myHero.addElementsMatrix(maptosend);
+		}
 		
 		return maptosend;
 		
@@ -226,7 +219,7 @@ public void printMap() {
 					
 	}
 	
-	public  Map getCurrentMap()
+	public Map getCurrentMap()
 	{
 		return this.currentmap;
 	}

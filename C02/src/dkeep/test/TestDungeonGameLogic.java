@@ -2,9 +2,13 @@
 package dkeep.test;
 
 import static org.junit.Assert.*;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.Test;
 
 import dkeep.logic.Level.state;
+import dkeep.logic.Level1Map;
 import dkeep.logic.DungeonLevel;
 
 import dkeep.logic.Level;
@@ -126,10 +130,39 @@ public class TestDungeonGameLogic {
 		assertEquals(3, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 		assertEquals(state.NEXTLEVEL, currentLevel.updateGame('a'));
-		
-		
-		
+	
+			
 	}
+	
+	@Test
+	public void TestMoveGuardIterator()
+	{
+		Map map2 = new Level1Map();
+		Level currentLevel = new DungeonLevel(map2, 2);
+		currentLevel.IstoMoveElements(true);
+		for(int i=0; i<100; i++)
+		{
+			if(i%2 == 0)
+				currentLevel.getFirstEnemie().setIsParalyzed(true);
+		}
+			currentLevel.updateGame('a');
+		assertEquals(1, currentLevel.getHero().getY());
+		assertEquals(1, currentLevel.getHero().getX());
+	}
+	
+	@Test
+	public void TestDrunkenGuard()
+	{
+		Map map2 = new Level1Map();
+		Level currentLevel = new DungeonLevel(map2, 1);
+		currentLevel.IstoMoveElements(true);
+		for(int i=0; i<100; i++)
+			currentLevel.updateGame('a');
+		assertEquals(1, currentLevel.getHero().getY());
+		assertEquals(1, currentLevel.getHero().getX());
+	}
+	
+
 	
 	
 }

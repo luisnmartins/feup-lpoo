@@ -14,8 +14,7 @@ public class DungeonLevel extends Level implements java.io.Serializable{
 	
 	public DungeonLevel(Map mymap, int Guardtype)
 	{
-		super(mymap, 0, Guardtype);
-		mymap.getKey().setIsaKey(false);		
+		super(mymap, 0, Guardtype);		
 	}
 	
 	

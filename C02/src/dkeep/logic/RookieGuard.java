@@ -12,10 +12,10 @@ public class RookieGuard extends Guard implements java.io.Serializable{
 		super(xP, yP, Elm);
 	}
 	
-	public char getMoveGuard()
+	/*public char getMoveGuard()
 	{
 		return super.getMoveGuard();
-	}
+	}*/
 	
 	public boolean update(Map currentmap, char heromove)
 	{

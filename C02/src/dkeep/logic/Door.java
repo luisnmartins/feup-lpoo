@@ -37,17 +37,17 @@ public class Door implements java.io.Serializable{
 	
 	//Level2
 	
-	public void setcanOpen(boolean value)
+	/*public void setcanOpen(boolean value)
 	{
 		canOpen = true;
-	}
+	}*/
 	
 	
 	
-	public boolean getcanOpen()
+	/*public boolean getcanOpen()
 	{
 		return canOpen;
-	}
+	}*/
 	
 	
 	
@@ -65,17 +65,17 @@ public class Door implements java.io.Serializable{
 		return x;
 	}
 
-	public void setX(int x) {
+	/*public void setX(int x) {
 		this.x = x;
-	}
+	}*/
 
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	/*public void setY(int y) {
 		this.y = y;
-	}
+	}*/
 
 	public char getSymbol() {
 		return symbol; 

@@ -13,7 +13,7 @@ import dkeep.gui.GraphicsState.StateViewer;
 import dkeep.logic.Level;
 import dkeep.logic.Level2Map;
 import dkeep.logic.Map;
-
+import dkeep.logic.OgreLevel;
 
 import javax.swing.ImageIcon;
 
@@ -56,7 +56,7 @@ public class MapEditor extends JPanel {
 		visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
 		initializeMap();
 		newMap = new Map(new_map);
-		currentLevel = new Level(newMap);
+		currentLevel = new OgreLevel(newMap);
 		variables.setLevel(currentLevel);
 		initialize();
 		
