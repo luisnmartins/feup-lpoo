@@ -25,7 +25,7 @@ public class GraphicsState {
 		this.framecontentpane = framecontentpane;
 		variables = new GraphicsVariables();
 		menu = new MenuGraphics(variables,this);
-		
+		game = new DungeonDesign(variables, this);
 		
 		
 		changeState(StateViewer.MENU);
@@ -38,48 +38,39 @@ public class GraphicsState {
 	}
 	
 	
-	public void changeState(StateViewer state) throws IOException
-	{
+	public void changeState(StateViewer state) throws IOException{
 		
 		currentState = state;
-		switch(state)
-		{
+		framecontentpane.removeAll();
+		switch(state){
+		
 			case MENU:
-			{
-				framecontentpane.removeAll();
-				framecontentpane.add(menu);
-				framecontentpane.revalidate();
-				framecontentpane.repaint();
 				
+				framecontentpane.add(menu);
 				break;
-			}
+				
 			case GAME:
-			{
-				game = new DungeonDesign(variables, this);
-				framecontentpane.removeAll();
+			
+				
 				framecontentpane.add(game);
-				framecontentpane.revalidate();
-				framecontentpane.repaint();
 				game.setBounds(0, 0, 700, 700);
 				game.setFocusable(true);
 				game.requestFocusInWindow();
 				break;
-			}
+			
 			case CUSTOM:
-			{
+			
 				editor = new MapEditor(variables, this);
-				framecontentpane.removeAll();
-				editor.setBounds(0,0,700,700);
 				framecontentpane.add(editor);
-				framecontentpane.revalidate();
-				framecontentpane.repaint();
+				editor.setBounds(0,0,700,700);
 				break;
-			}
+			
 			default:
 				break;
 				
 		}
-		
+		framecontentpane.revalidate();
+		framecontentpane.repaint();	
 	}
 	
 }
