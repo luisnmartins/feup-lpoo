@@ -50,28 +50,25 @@ public class Guard extends Character implements java.io.Serializable{
 	public void updateCharacteristic()
 	{
 		int randomInd = ThreadLocalRandom.current().nextInt(1,101);
-		if(randomInd >= 70)
-		{
+		if(randomInd >= 70){
 		
-			if(this.characteristic == false)
-			{
+			if(this.characteristic == false){
 				characteristic  = true;
+				
 				if(iterator == 0){
 					
 					iterator = moveLevel1.length-1;
-				}
-				else
+				}else
 				iterator--;
-			}
-			else
-			{
+			
+			}else{
 			
 				characteristic = false;
-				if(iterator == moveLevel1.length-1)
-				{
+				if(iterator == moveLevel1.length-1){
+					
 					iterator = 0;
-				}
-				else iterator++;
+					
+				}else iterator++;
 			}
 			
 		}

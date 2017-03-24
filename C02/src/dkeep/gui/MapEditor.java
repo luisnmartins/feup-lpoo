@@ -62,14 +62,8 @@ public class MapEditor extends JPanel {
 		
 	}
 	
-	public void initialize()
-	{	
+	public void initialize() {	
 		
-		
-		
-		
-		
-
 		try {
 			
 			panel_1 = new DungeonGraphics(this.variables, this.graphicsst);
@@ -87,6 +81,10 @@ public class MapEditor extends JPanel {
 		setLayout(null);
 		setPlayButton();
 		setCancelButton();
+		
+	}
+	
+	public void setButtons(){
 		ButtonGroup choices = new ButtonGroup();
 		setMarioChoiceButton(choices);
 		setDoorChoiceButton(choices);
@@ -94,7 +92,9 @@ public class MapEditor extends JPanel {
 		setWallChoiceButton(choices);
 		setFloorChoiceButton(choices);
 		setBowserChoiceButton(choices);
+		
 	}
+	
 		
 	public void setCancelButton()
 	{
