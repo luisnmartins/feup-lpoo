@@ -176,6 +176,15 @@ public class DungeonDesign extends JPanel{
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
+		
+		setSaveButton();
+		setLoadButton();
+		
+		
+	}
+	
+	private void setSaveButton()
+	{
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,7 +205,10 @@ public class DungeonDesign extends JPanel{
 		});
 		btnSaveGame.setBounds(500, 378, 117, 29);
 		add(btnSaveGame);
-		
+	}
+	
+	private void setLoadButton()
+	{
 		btnLoadGame = new JButton("Load Game");
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,13 +245,10 @@ public class DungeonDesign extends JPanel{
 		});
 		btnLoadGame.setBounds(500, 423, 117, 29);
 		add(btnLoadGame);
-		
-		
-		
-		
-		
-		
 	}
+	
+	
+	
 	
 	private void mainButtonsInitialize()
 	{
