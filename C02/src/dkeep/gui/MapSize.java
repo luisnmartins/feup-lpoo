@@ -9,19 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dkeep.gui.GraphicsState.StateViewer;
-import dkeep.logic.Level;
-import dkeep.logic.Map;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class MapSize extends JDialog {
 
@@ -31,10 +25,6 @@ public class MapSize extends JDialog {
 	private JTextField horSize;
 	private JTextField verSize;
 	private GraphicsState graphicsst;
-	private Map newMap ;
-	private Level currentLevel;
-	private char[][] map;
-
 
 
 	/**

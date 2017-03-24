@@ -33,7 +33,7 @@ public class MenuGraphics extends JPanel {
 		
 		
 		JButton btnNewgame = new JButton("New Game");
-		btnNewgame.setBackground(Color.GRAY);
+		//btnNewgame.setBackground(Color.GRAY);
 		btnNewgame.setBounds(94, 98, 116, 37);
 		btnNewgame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		

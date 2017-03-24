@@ -8,7 +8,6 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import dkeep.logic.Level;
-import dkeep.logic.Level.state;
 
 public class GraphicsVariables {
 	

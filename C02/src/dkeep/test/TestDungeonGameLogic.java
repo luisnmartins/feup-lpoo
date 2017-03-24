@@ -3,8 +3,6 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.junit.Test;
 
 import dkeep.logic.Level.state;

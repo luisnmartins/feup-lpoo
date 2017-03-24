@@ -53,7 +53,7 @@ public class DungeonGame {
 		frmSuperMarioDungeon.setFocusable(true);
 		frmSuperMarioDungeon.requestFocusInWindow();
 		frmSuperMarioDungeon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GraphicsState temp_graphics = new GraphicsState(frmSuperMarioDungeon.getContentPane());
+		new GraphicsState(frmSuperMarioDungeon.getContentPane());
 		
 		
 
