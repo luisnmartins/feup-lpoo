@@ -20,6 +20,7 @@ public class SuspiciousGuard extends Guard implements java.io.Serializable{
 		
 		if(characteristic == true)
 		{
+			System.out.println("susp:"+iterator+"\n");
 			char move = moveLevel1[iterator];
 			if(iterator == 0)
 			{

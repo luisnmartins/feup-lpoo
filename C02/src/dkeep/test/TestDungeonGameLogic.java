@@ -134,17 +134,13 @@ public class TestDungeonGameLogic {
 			
 	}
 	
-	@Test
+/*	@Test
 	public void TestMoveGuardIterator()
 	{
 		Map map2 = new Level1Map();
 		Level currentLevel = new DungeonLevel(map2, 2);
 		currentLevel.IstoMoveElements(true);
 		for(int i=0; i<100; i++)
-		{
-			if(i%2 == 0)
-				currentLevel.getFirstEnemie().setIsParalyzed(true);
-		}
 			currentLevel.updateGame('a');
 		assertEquals(1, currentLevel.getHero().getY());
 		assertEquals(1, currentLevel.getHero().getX());
@@ -157,11 +153,12 @@ public class TestDungeonGameLogic {
 		Level currentLevel = new DungeonLevel(map2, 1);
 		currentLevel.IstoMoveElements(true);
 		for(int i=0; i<100; i++)
+		{
 			currentLevel.updateGame('a');
 		assertEquals(1, currentLevel.getHero().getY());
 		assertEquals(1, currentLevel.getHero().getX());
 	}
-	
+	*/
 
 	
 	

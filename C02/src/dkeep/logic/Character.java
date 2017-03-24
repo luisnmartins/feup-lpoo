@@ -165,9 +165,9 @@ public abstract class Character implements java.io.Serializable{
 			if(invertFlag == false)
 				if (xTemp != 0)
 					xTemp -= 1;
-			else xTemp += 1;
+			else 
+				xTemp += 1;
 		}
-
 		else if (move == 'a') {
 	
 			if(invertFlag == false)
@@ -180,7 +180,7 @@ public abstract class Character implements java.io.Serializable{
 		else if (move == 's') {
 	
 			if(invertFlag == false)
-			xTemp += 1;
+				xTemp += 1;
 			else
 				if(xTemp != 0)
 					xTemp -= 1;

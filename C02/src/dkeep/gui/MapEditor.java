@@ -79,6 +79,7 @@ public class MapEditor extends JPanel {
 			e1.printStackTrace();
 		}
 		setLayout(null);
+		setButtons();
 		setPlayButton();
 		setCancelButton();
 		
