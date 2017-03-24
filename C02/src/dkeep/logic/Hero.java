@@ -50,7 +50,8 @@ public class Hero extends Character implements java.io.Serializable{
 						canmove=false;
 						break;}	
 					
-				}}				
+				}
+				}				
 			
 		}
 		if(canmove == false)	{
