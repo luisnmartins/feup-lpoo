@@ -7,3 +7,8 @@ Java Project - object oriented programming
 ## EclEmma
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/master/C02/ScreenShots/EclEmmaTest.png)
+
+
+## Pit Mutation
+
+![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/master/C02/ScreenShots/PITMutationTest.png)
