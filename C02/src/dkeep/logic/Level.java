@@ -17,7 +17,12 @@ public abstract class Level implements java.io.Serializable{
 	protected ArrayList<Character> enemies = new ArrayList<Character>();
 	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL, CHANGELEVEL};
 	
-	
+	/**
+	 * Construct a Level setting the map and the other elements
+	 * @param currentmap Map to use during the level
+	 * @param Ogrenmb Number of Ogres that will exists during the 2nd Level
+	 * @param Guardtype Guard's Type to be used in the 1st Level ( 1 - Drunken , 2 - Suspicious, 3 - Rookie)
+	 */
 	public Level(Map currentmap, int Ogrenmb, int Guardtype)
 	{
 		this.currentmap = currentmap;
@@ -26,7 +31,11 @@ public abstract class Level implements java.io.Serializable{
 	}
 	
 
-	
+	/**
+	 * Runs the map matrix and sets the elements (Hero, enemies - Ogres/Guard, Doors and key)
+	 * @param Ogrenmb That of Ogres to be generated
+	 * @param Guardtype Guard's Type to be used in the 1st Level ( 1 - Drunken , 2 - Suspicious, 3 - Rookie)
+	 */
 	public void InitalizeElements(int Ogrenmb, int Guardtype)
 	{
 		
@@ -78,7 +87,11 @@ public abstract class Level implements java.io.Serializable{
 	
 
 	
-
+	/**
+	 * Updates all the Game elements verifying even colisions
+	 * @param Move char WASD that will represent the hero's movemnet
+	 * @return Returns the state enum of the game State (Running, NextLevel or Lose) 
+	 */
 	public state updateGame(char move)
 	{
 		
@@ -98,14 +111,21 @@ public abstract class Level implements java.io.Serializable{
 		
 	}
 	
+	
+	/**
+	 * Get the 
+	 * @return
+	 */
 	public Hero getHero()
 	{
 		return myHero;
 	}
 	
 
-	
-	
+	/**
+	 * Verifies if it's time to change to the next Level
+	 * @return Returns true if it's supposed to move to the next Level, and false if it's not
+	 */
 	public boolean changeLevel()
 	{
 		if(currentmap.IsOveraDoor(myHero.getX(), myHero.getY()) != -1)
@@ -115,9 +135,18 @@ public abstract class Level implements java.io.Serializable{
 	}
 	
 	
+	/**
+	 * Function that give an instance of the next level with enemiemb number of enemies (Ogres)
+	 * @param enemienmb Number of enemies that should exist in the next level
+	 * @return Returns an instance of the new Level
+	 */
 	public abstract Level nextLevel(int enemienmb);
 	
-
+	
+	/**
+	 * 
+	 * @param movement
+	 */
 	public void IstoMoveElements(boolean movement)
 	{
 		for(Character c: enemies)
@@ -127,6 +156,10 @@ public abstract class Level implements java.io.Serializable{
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public char[][] getMap(){
 		
 		char[][] maptocopy = currentmap.getMap();
@@ -148,8 +181,12 @@ public abstract class Level implements java.io.Serializable{
 		
 	}
 	
+
 	
-public void printMap() {
+	/**
+	 * 
+	 */
+	public void printMap() {
 		
 		
 		char[][] currentmap = this.getMap();
@@ -174,7 +211,10 @@ public void printMap() {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public Character getFirstEnemie()
 	{
 		if(enemies!=null)
@@ -183,6 +223,12 @@ public void printMap() {
 			return null;
 	}
 	
+	
+	/**
+	 * 
+	 * @param move
+	 * @return
+	 */
 	public state updateGameStatus(char move)
 	{
 		
@@ -219,6 +265,11 @@ public void printMap() {
 					
 	}
 	
+	
+	/**
+	 * Get the Map that represents the current Level
+	 * @return
+	 */
 	public Map getCurrentMap()
 	{
 		return this.currentmap;

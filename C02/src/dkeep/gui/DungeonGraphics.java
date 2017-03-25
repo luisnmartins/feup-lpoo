@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
@@ -21,7 +21,7 @@ import dkeep.logic.Map;
 import dkeep.logic.Level.state;
 
 
-public class DungeonGraphics extends JPanel implements KeyListener,MouseListener{
+public class DungeonGraphics extends JPanel implements KeyListener,MouseListener, MouseMotionListener{
 
 	
 	
@@ -179,7 +179,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		if(graphicsst.getState() != StateViewer.CUSTOM)
 			return;
 		int mouseX=e.getX();
-		 int mouseY = e.getY();
+		int mouseY = e.getY();
 		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
 		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
 		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
@@ -208,6 +208,31 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
+		
+	}
+
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		int mouseX=e.getX();
+		int mouseY = e.getY();
+		int x = mouseX/(this.getWidth()/variables.getHorMapSize());
+		int y = mouseY/(this.getHeight()/variables.getVerMapSize());
+		if(x < variables.getHorMapSize() &&  y < variables.getVerMapSize())
+		{
+			variables.editMap(y, x, this.variables.getSelectedElement());
+			variables.getLevel().printMap();
+			repaint();
+		}
+		
+	}
+
+
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		
 		
 	}
