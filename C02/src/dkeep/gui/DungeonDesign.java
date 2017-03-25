@@ -93,8 +93,7 @@ public class DungeonDesign extends JPanel{
 		slider.setMaximum(5);
 		slider.setMinimum(1);
 		slider.setValue(1);
-		if(variables.isLevel2changed())
-			slider.setEnabled(false);
+		
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
@@ -209,7 +208,7 @@ public class DungeonDesign extends JPanel{
 				
 			}
 		});
-		btnSaveGame.setBounds(500, 463, 117, 44);
+		btnSaveGame.setBounds(499, 524, 117, 44);
 		add(btnSaveGame);
 	}
 	
@@ -249,7 +248,7 @@ public class DungeonDesign extends JPanel{
 				 panel.repaint();
 			}
 		});
-		btnLoadGame.setBounds(499, 403, 117, 29);
+		btnLoadGame.setBounds(495, 437, 121, 44);
 		add(btnLoadGame);
 		
 		
@@ -270,7 +269,10 @@ public class DungeonDesign extends JPanel{
 					panel.setBounds(25,140, 400, 400);
 				
 					add(panel);
+					comboBox.setEnabled(false);
+					slider.setEnabled(false);
 					panel.setEnabled(true);
+					panel.requestFocusInWindow();
 					panel.repaint();
 				} catch (IOException e1) {
 					
@@ -283,7 +285,7 @@ public class DungeonDesign extends JPanel{
 				btnNewGame.setEnabled(false);
 				}
 		});
-		btnNewGame.setBounds(499, 129, 121, 37);
+		btnNewGame.setBounds(495, 145, 121, 44);
 		add(btnNewGame);
 		
 		btnReturn = new JButton("Return");
@@ -298,7 +300,7 @@ public class DungeonDesign extends JPanel{
 				}
 			}
 		});	
-		btnReturn.setBounds(499, 569, 121, 37);
+		btnReturn.setBounds(499, 607, 117, 44);
 		add(btnReturn);
 	}
 }

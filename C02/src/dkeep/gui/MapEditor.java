@@ -34,8 +34,8 @@ public class MapEditor extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private char[][] new_map;
-	private boolean[][] visited;
-	private boolean foundExit;
+	//private boolean[][] visited;
+	//private boolean foundExit;
 	private GraphicsVariables variables;
 	private DungeonGraphics panel_1; 
 	private Level currentLevel;
@@ -52,8 +52,8 @@ public class MapEditor extends JPanel {
 		this.graphicsst = graphicsst;
 		this.variables = variables;
 		
-		new_map = new char[variables.getHorMapSize()][variables.getVerMapSize()];
-		visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
+		new_map = new char[variables.getVerMapSize()][variables.getHorMapSize()];
+		//visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
 		initializeMap();
 		newMap = new Map(new_map);
 		currentLevel = new OgreLevel(newMap);
@@ -132,7 +132,7 @@ public class MapEditor extends JPanel {
 					Map setmap = new Level2Map();
 					setmap.setSaticMap(variables.getMap());
 					try {
-						variables.setLevel2changed(true);
+						
 						graphicsst.changeState(StateViewer.GAME);
 					} catch (IOException e) {
 						
@@ -280,7 +280,8 @@ public class MapEditor extends JPanel {
 	{
 		boolean hero_exist = false;
 		boolean key_exist = false;
-		boolean plant_exist = false;
+		boolean door_exist = false;
+		boolean ogre_exist = false;
 		char[][] aux = variables.getMap();
 		for(int i = 0; i < aux.length ; i ++)
 			for(int a = 0; a < aux[i].length; a++)
@@ -290,22 +291,27 @@ public class MapEditor extends JPanel {
 					if(aux[i][a] != 'X' && aux[i][a] != 'I')
 						return false;
 					if(aux[i][a] == 'I')
-						plant_exist = true;
+						door_exist = true;
 				}else if(aux[i][a] == 'H')
 				{
 					if(!hero_exist)
 						hero_exist = true;
 					else return false;
 						
-				}else if(aux[i][a] == 'k')
-				{
+				}else if(aux[i][a] == 'k'){
+					
 					if(!key_exist)
 						key_exist = true;
-					else if(key_exist) return false;	
+					else  return false;	
 				}
+				else if(aux[i][a] == 'O'){
+					if(!ogre_exist)
+						ogre_exist = true;
+					else return false;
+				}					
 			}
 		
-		if(plant_exist && key_exist && hero_exist)
+		if(door_exist && key_exist && hero_exist && ogre_exist)
 			return true;
 		else return false;
 		

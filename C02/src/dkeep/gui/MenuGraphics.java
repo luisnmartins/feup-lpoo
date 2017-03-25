@@ -2,9 +2,7 @@ package dkeep.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
 
 import dkeep.gui.GraphicsState.StateViewer;
 
@@ -13,11 +11,15 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import java.awt.Graphics;
-import java.awt.Color;
+
 
 public class MenuGraphics extends JPanel {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GraphicsVariables variables;
 	private MapSize mapSettings;
 	private GraphicsState graphicsst;
@@ -62,7 +64,7 @@ public class MenuGraphics extends JPanel {
 	public void setExitButton()
 	{
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(94, 214, 116, 37);
+		btnExit.setBounds(94, 220, 116, 37);
 		btnExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

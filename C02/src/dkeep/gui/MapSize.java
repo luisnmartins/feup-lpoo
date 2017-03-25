@@ -19,6 +19,10 @@ import java.awt.Font;
 
 public class MapSize extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private  GraphicsVariables map_variables;
 	private JLabel lblHorizontalSize;

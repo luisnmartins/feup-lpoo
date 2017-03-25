@@ -15,7 +15,6 @@ public class GraphicsVariables {
 	private int Ogrenmb=2, GuardTypenmb=1;
 	private int horMapSize,verMapSize;
 	private char selectedElement;
-	private boolean Level2changed = false;
 	private String GameStatusMessage;
 	private HashMap<Character, BufferedImage> imagesMap = new HashMap<Character, BufferedImage>();
 
@@ -250,12 +249,8 @@ public class GraphicsVariables {
 	{
 		return this.menu_screen;
 	}
-	public boolean isLevel2changed() {
-		return Level2changed;
-	}
-	public void setLevel2changed(boolean level2changed) {
-		Level2changed = level2changed;
-	}
+	
+	
 	public String getGameStatusMessage() {
 		return GameStatusMessage;
 	}

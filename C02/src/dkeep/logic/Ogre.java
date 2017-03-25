@@ -172,7 +172,7 @@ public class Ogre extends Character implements java.io.Serializable{
 		
 		public boolean update(Map currentmap, char guardmove)
 		{
-			
+			int tries = 0;
 			if(this.getMoveCharacter())
 			{
 			
@@ -201,8 +201,9 @@ public class Ogre extends Character implements java.io.Serializable{
 					
 				}
 				this.setTempPosition(this.getX(), this.getY());
+				tries++;
 				
-			}while(true);
+			}while(tries<=50);
 			
 			this.setPosition(this.getXTemp(), this.getYTemp());
 		
@@ -219,6 +220,7 @@ public class Ogre extends Character implements java.io.Serializable{
 		{
 			System.out.println("Update Ogre");
 			int[] club;
+			int tries =0;
 			
 			do{
 				club = this.ChangeClub();
@@ -238,7 +240,11 @@ public class Ogre extends Character implements java.io.Serializable{
 					if(currentmap.IsOveraDoor(club[0], club[1]) == -1) // is not a door
 						break;
 				}
-			}while(true);
+				
+				tries++;
+				club[0] = getX();
+				club[1] = getY();
+			}while(tries <= 50);
 		
 			this.setClub(club[0], club[1]);
 			

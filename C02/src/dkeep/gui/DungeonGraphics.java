@@ -25,7 +25,12 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 
 	
 	
-	private Level currentLevel;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	//private Level currentLevel;
 
 	private state gameState= state.RUNNING;
 	private GraphicsVariables variables;
@@ -54,7 +59,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			Map newMap = new Level1Map();	
 			variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
 		}
-			this.currentLevel = this.variables.getLevel();
+			//this.currentLevel = this.variables.getLevel();
 
 		
 		
@@ -68,14 +73,14 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		super.paintComponent(g);
 		variables.getLevel().printMap();
 		char[][] maptoprint = variables.getMap();
-		int sizeWidth = getWidth()/maptoprint.length;
-		
+		int sizeWidth = getWidth()/maptoprint[0].length;
+		int sizeHeight = getHeight()/maptoprint.length;
 		
 		for(int i = 0; i < maptoprint.length; i++)
 			for(int a= 0; a < maptoprint[i].length;a++)
 			{
-				g.drawImage(variables.getImage(' '), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
-				g.drawImage(variables.getImage(maptoprint[i][a]), a*sizeWidth, i*sizeWidth, sizeWidth, sizeWidth, this);
+				g.drawImage(variables.getImage(' '), a*sizeWidth, i*sizeHeight, sizeWidth, sizeHeight, this);
+				g.drawImage(variables.getImage(maptoprint[i][a]), a*sizeWidth, i*sizeHeight, sizeWidth, sizeHeight, this);
 				
 			}
 		
@@ -92,7 +97,8 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			if(gameState == state.CHANGELEVEL)
 			{
 				variables.setLevel(currentLevel.nextLevel(variables.getOgrenmb()));
-				variables.setGameStatusMessage("Go, go, go!! You're in the next level");
+				JOptionPane.showMessageDialog(getRootPane(), "Go, go, go!! You're in the next level", "Next Level", JOptionPane.INFORMATION_MESSAGE);
+				//variables.setGameStatusMessage("Go, go, go!! You're in the next level");
 				gameState = state.RUNNING;
 			}
 			repaint();
@@ -100,41 +106,17 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		switch(gameState)
 		{
 			case LOSE:
-				variables.setGameStatusMessage("You Lose!! Try Again");
+				JOptionPane.showMessageDialog(getRootPane(), "You Lose!! Try Again", "Loser!!", JOptionPane.ERROR_MESSAGE);
+				
 				break;
 			case WIN:
-				variables.setGameStatusMessage("Congratzz!! You're a Hero!!");
+				JOptionPane.showMessageDialog(getRootPane(), "Congratzz!! You're a Hero!!", "Good Job!!", JOptionPane.INFORMATION_MESSAGE);
+				
 				break;
 		default:
 			break;
 		}
-		/*else if(gameState == state.LOSE || gameState == state.WIN)
-		{
-			
-			if(gameState == state.LOSE)
-				variables.setGameStatusMessage("You Lose!! Try Again");
-			else
-				variables.setGameStatusMessage("Congratzz!! You're a Hero!!");
-			
-			if(move == 'e')
-			{
-				try {
-				graphicsst.changeState(StateViewer.MENU);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			else if(move == 'n')
-			{
-				try{
-					graphicsst.changeState(StateViewer.GAME);
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
-			}
-			}*/
+		
 		repaint();
 		
 			
@@ -151,7 +133,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 			
-		
+		if(gameState != state.LOSE && gameState != state.WIN)
 		switch(e.getKeyCode())
 		{
 			case KeyEvent.VK_LEFT:
