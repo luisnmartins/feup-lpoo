@@ -30,7 +30,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//private Level currentLevel;
+	
 
 	private state gameState= state.RUNNING;
 	private GraphicsVariables variables;
@@ -59,7 +59,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			Map newMap = new Level1Map();	
 			variables.setLevel(new DungeonLevel(newMap,this.variables.getGuardTypenmb()));
 		}
-			//this.currentLevel = this.variables.getLevel();
+			
 
 		
 		
@@ -94,8 +94,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			Level currentLevel = variables.getLevel();
 			gameState = currentLevel.updateGameStatus(move);
 			
-			if(gameState == state.CHANGELEVEL)
-			{
+			if(gameState == state.CHANGELEVEL){
 				variables.setLevel(currentLevel.nextLevel(variables.getOgrenmb()));
 				JOptionPane.showMessageDialog(getRootPane(), "Go, go, go!! You're in the next level", "Next Level", JOptionPane.INFORMATION_MESSAGE);
 				

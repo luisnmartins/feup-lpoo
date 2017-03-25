@@ -35,8 +35,7 @@ public class MapEditor extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private char[][] new_map;
-	//private boolean[][] visited;
-	//private boolean foundExit;
+	
 	private GraphicsVariables variables;
 	private DungeonGraphics panel_1; 
 	private Level currentLevel;
@@ -54,7 +53,6 @@ public class MapEditor extends JPanel {
 		this.variables = variables;
 		
 		new_map = new char[variables.getHorMapSize()][variables.getVerMapSize()];
-		//visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
 		initializeMap();
 		newMap = new Map(new_map);
 		currentLevel = new OgreLevel(newMap);
