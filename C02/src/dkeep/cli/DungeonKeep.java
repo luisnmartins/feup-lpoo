@@ -32,15 +32,14 @@ public class DungeonKeep {
 		
 		gameState = state.RUNNING;
 		
-		if(level == 1)
-		{
+		if(level == 1){
+			
 			maptouse = new Level1Map();
 			int randGuard= ThreadLocalRandom.current().nextInt(1,4);
 			currentLevel= new DungeonLevel(maptouse, randGuard);
 			
-		}
-		else
-		{
+		}else{
+			
 			maptouse = new Level2Map();
 			int randOgre = ThreadLocalRandom.current().nextInt(1,4);
 			currentLevel = new OgreLevel(maptouse, randOgre);
@@ -55,22 +54,20 @@ public class DungeonKeep {
 		currentLevel.printMap();
 		
 		
-		while(gameState == state.RUNNING)
-		{
+		while(gameState == state.RUNNING){
 			
 			System.out.print("Move: ");
 			
 			move = s.next().charAt(0);
 			gameState = currentLevel.updateGameStatus(move);
-			if(gameState == state.CHANGELEVEL)
-			{
+			if(gameState == state.CHANGELEVEL){
+				
 				currentLevel = currentLevel.nextLevel(-1);
 				gameState = state.RUNNING;
 			}
 			currentLevel.printMap();
 			
-		}
-		s.close();
+		}s.close();
 		
 		
 	}

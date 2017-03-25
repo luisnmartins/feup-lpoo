@@ -44,14 +44,14 @@ public class MapSize extends JDialog {
 		
 	}
 	
-	public void initialize()
-	{
+	public void initialize(){
+		
 		setTitle("Map Editor Settings"); 
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
+		getContentPane().add(contentPanel, BorderLayout.CENTER);{
+			
 			lblHorizontalSize = new JLabel("Horizontal size");
 			lblHorizontalSize.setBounds(39, 56, 122, 50);
 			lblHorizontalSize.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -72,8 +72,8 @@ public class MapSize extends JDialog {
 		contentPanel.add(lblHorizontalSize);
 		contentPanel.add(lblVerticalSize);
 		contentPanel.add(verSize);
-		contentPanel.add(horSize);
-		{
+		contentPanel.add(horSize);{
+			
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

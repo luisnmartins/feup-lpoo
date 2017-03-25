@@ -234,30 +234,28 @@ public abstract class Level implements java.io.Serializable{
 		
 		state gameState = this.updateGame(move);
 		
-		switch(gameState)
-		{
+		switch(gameState){
+		
 			case LOSE:
-			{
+
 				System.out.println("You Lose!! Try Again");
 				break;
-			}
+			
 			case NEXTLEVEL:
-			{
+			
 				Level nextlevel = this.nextLevel(-1);
-				if(nextlevel == null)
-				{
+				if(nextlevel == null){
+					
 					gameState = state.WIN;
 					System.out.println("Congratzz!! You're a Hero!!");
-				}
-				else
-				{
+				
+				}else{
 					
 					System.out.println("Go, go, go!! You're in the next level");
 					gameState = state.CHANGELEVEL;			
 					
-				}
-				break;
-			}
+				}break;
+			
 		default:
 			break;
 		}
