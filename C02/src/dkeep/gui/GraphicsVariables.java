@@ -15,9 +15,10 @@ public class GraphicsVariables {
 	private int Ogrenmb=2, GuardTypenmb=1;
 	private int horMapSize,verMapSize;
 	private char selectedElement;
+	private boolean Level2changed = false;
+	private String GameStatusMessage;
 	private HashMap<Character, BufferedImage> imagesMap = new HashMap<Character, BufferedImage>();
-	
-	private BufferedImage mario;
+
 	private BufferedImage mario_d;
 	private BufferedImage mario_a;
 	private BufferedImage mario_w;
@@ -28,7 +29,8 @@ public class GraphicsVariables {
 	private BufferedImage guard_sleep;
 	private BufferedImage wall;
 	private BufferedImage key;
-	private BufferedImage door;
+	private BufferedImage closedDoor;
+	private BufferedImage openedDoor;
 	private BufferedImage bowser;
 	private BufferedImage bowser_fire;
 	private BufferedImage bowser_stunned;
@@ -124,7 +126,8 @@ public class GraphicsVariables {
 			this.mario_key_d= ImageIO.read(new File("images/mario_key_d.png"));
 			this.mario_key_s= ImageIO.read(new File("images/mario_key_s.png"));
 			this.key = ImageIO.read(new File("images/key.png"));
-			this.door = ImageIO.read(new File("images/plant.png"));
+			this.closedDoor = ImageIO.read(new File("images/closedDoor.png"));
+			this.openedDoor = ImageIO.read(new File("images/openedDoor.png"));
 			this.bowser = ImageIO.read(new File("images/bowser_s.png"));
 			this.wall = ImageIO.read(new File("images/wall.png"));
 			this.guard_sleep = ImageIO.read(new File("images/goomba_sleeping.png"));
@@ -133,15 +136,17 @@ public class GraphicsVariables {
 			this.floor =  ImageIO.read(new File("images/floor.png"));
 			this.coin = ImageIO.read(new File("images/coin.png"));
 			this.menu_screen = ImageIO.read(new File("images/superMarioBackground.png"));
-			this.mario = mario_d;
+			
 	}
 	
 	public void setHashMap()
 	{
 		imagesMap.put('G', guard);
-		imagesMap.put('H', mario);
+		imagesMap.put('H', mario_d);
 		imagesMap.put('k', key);
-		imagesMap.put('I', door);
+		imagesMap.put('I', closedDoor);
+		imagesMap.put('S', openedDoor);
+		imagesMap.put('K', mario_key_d);
 		imagesMap.put('O', bowser);
 		imagesMap.put('X', wall);
 		imagesMap.put('g', guard_sleep);
@@ -156,35 +161,41 @@ public class GraphicsVariables {
 		return imagesMap.get(Element);
 	}
 	
-	public void updateMario(char move,boolean gotKey)
+	public void updateMario(char move)
 	{
+		boolean gotKey = currentLevel.getCurrentMap().getKey().getFound();
 		switch(move)
 		{
 			case 'w':
-				mario = mario_w;
+				if(gotKey)
+					imagesMap.put('K', mario_w);
+				else
+					imagesMap.put('H',mario_w);
 				break;
 			case 'a':
-				mario = mario_a;
+				if(gotKey)
+					imagesMap.put('K', mario_a);
+				else
+					imagesMap.put('H',mario_a);
 				break;
 			case 's':
 				if(gotKey)
 				{
-					mario = mario_key_s;
+					imagesMap.put('K',mario_key_s);
 				}else
-					mario = mario_s;
+					imagesMap.put('H',mario_s);
 				break;
 			case 'd':
 				if(gotKey)
-				{
-					mario = mario_key_d;
-				}else
-					mario = mario_d;
+					imagesMap.put('K',mario_key_d);
+				else
+					imagesMap.put('H',mario_d);
 				break;
 				default:
 					break;
 		}
 	}
-	public BufferedImage getMario()
+	/*public BufferedImage getMario()
 	{
 		return this.mario;
 	}
@@ -233,11 +244,23 @@ public class GraphicsVariables {
 	public BufferedImage getCoin()
 	{
 		return this.coin;
-	}
+	}*/
 	
 	public BufferedImage getMenuScreen()
 	{
 		return this.menu_screen;
+	}
+	public boolean isLevel2changed() {
+		return Level2changed;
+	}
+	public void setLevel2changed(boolean level2changed) {
+		Level2changed = level2changed;
+	}
+	public String getGameStatusMessage() {
+		return GameStatusMessage;
+	}
+	public void setGameStatusMessage(String gameStatusMessage) {
+		GameStatusMessage = gameStatusMessage;
 	}
 
 }

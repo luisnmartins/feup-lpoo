@@ -6,6 +6,7 @@ import java.awt.Cursor;
 
 import javax.swing.JPanel;
 
+import dkeep.gui.GraphicsState.StateViewer;
 import dkeep.logic.Level;
 
 
@@ -40,7 +41,7 @@ public class DungeonDesign extends JPanel{
 	private JButton btnUp;
 	private JButton btnRight;
 	private JButton btnDown;
-	private JButton btnExit;
+	private JButton btnReturn;
 
 	
 	
@@ -78,11 +79,11 @@ public class DungeonDesign extends JPanel{
 		add(lblNumberOfOgres);
 		
 		lblGuardPersonality = new JLabel("Guard Personality");
-		lblGuardPersonality.setBounds(32, 83, 115, 16);
+		lblGuardPersonality.setBounds(32, 98, 115, 16);
 		add(lblGuardPersonality);
 		
 		slider = new JSlider();
-		slider.setBounds(159, 30, 199, 37);
+		slider.setBounds(159, 30, 206, 37);
 		add(slider);
 		slider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		slider.setMajorTickSpacing(1);
@@ -92,10 +93,12 @@ public class DungeonDesign extends JPanel{
 		slider.setMaximum(5);
 		slider.setMinimum(1);
 		slider.setValue(1);
+		if(variables.isLevel2changed())
+			slider.setEnabled(false);
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"1 - Drunken", "2 -Suspicious", "3 - Rookie"}));
-		comboBox.setBounds(164, 79, 173, 27);
+		comboBox.setBounds(164, 94, 173, 27);
 		add(comboBox);
 		}
 	
@@ -120,7 +123,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnUp.setBounds(500, 204, 117, 29);
+		btnUp.setBounds(499, 246, 117, 29);
 		add(btnUp);
 		btnUp.setEnabled(false);
 	}
@@ -135,7 +138,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnLeft.setBounds(430, 245, 117, 29);
+		btnLeft.setBounds(429, 287, 117, 29);
 		add(btnLeft);
 		btnLeft.setEnabled(false);
 	}
@@ -150,7 +153,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnRight.setBounds(559, 245, 117, 29);
+		btnRight.setBounds(558, 287, 117, 29);
 		add(btnRight);
 		btnRight.setEnabled(false);
 	}
@@ -164,7 +167,7 @@ public class DungeonDesign extends JPanel{
 				panel.requestFocusInWindow();
 			}
 		});
-		btnDown.setBounds(500, 286, 117, 29);
+		btnDown.setBounds(499, 328, 117, 29);
 		add(btnDown);
 		btnDown.setEnabled(false);
 	}
@@ -190,20 +193,23 @@ public class DungeonDesign extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				try {
 			         FileOutputStream fileOut =
-			         new FileOutputStream("images/SavedGame.txt");
+			         new FileOutputStream("images/SavedGame");
 			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			         out.writeObject(variables.getLevel());
 			         out.close();
 			         fileOut.close();
-			         System.out.printf("Serialized data is saved in /tmp/employee.ser");
+			         System.out.printf("Serialized data is saved in /images/SavedGame");
 			      }catch(IOException i) {
 			         i.printStackTrace();
-			      }
+			      }catch(NullPointerException s)
+					{
+			    	  System.out.println("Game not found");
+					}
 				 panel.requestFocusInWindow();
 				
 			}
 		});
-		btnSaveGame.setBounds(500, 378, 117, 29);
+		btnSaveGame.setBounds(500, 463, 117, 44);
 		add(btnSaveGame);
 	}
 	
@@ -225,7 +231,7 @@ public class DungeonDesign extends JPanel{
 				panel.setEnabled(true);
 				
 				try {
-			         FileInputStream fileIn = new FileInputStream("images/SavedGame.txt");
+			         FileInputStream fileIn = new FileInputStream("images/SavedGame");
 			         ObjectInputStream in = new ObjectInputStream(fileIn);
 			         variables.setLevel( (Level) in.readObject());
 			         System.out.println("load game");
@@ -243,8 +249,10 @@ public class DungeonDesign extends JPanel{
 				 panel.repaint();
 			}
 		});
-		btnLoadGame.setBounds(500, 423, 117, 29);
+		btnLoadGame.setBounds(499, 403, 117, 29);
 		add(btnLoadGame);
+		
+		
 	}
 	
 	
@@ -275,17 +283,22 @@ public class DungeonDesign extends JPanel{
 				btnNewGame.setEnabled(false);
 				}
 		});
-		btnNewGame.setBounds(500, 129, 117, 29);
+		btnNewGame.setBounds(499, 129, 121, 37);
 		add(btnNewGame);
 		
-		btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
+		btnReturn = new JButton("Return");
+		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				System.exit(0);
+				try {
+					graphicsst.changeState(StateViewer.MENU);
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
 			}
 		});	
-		btnExit.setBounds(502, 480, 117, 29);
-		add(btnExit);
+		btnReturn.setBounds(499, 569, 121, 37);
+		add(btnReturn);
 	}
 }

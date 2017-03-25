@@ -132,6 +132,7 @@ public class MapEditor extends JPanel {
 					Map setmap = new Level2Map();
 					setmap.setSaticMap(variables.getMap());
 					try {
+						variables.setLevel2changed(true);
 						graphicsst.changeState(StateViewer.GAME);
 					} catch (IOException e) {
 						
@@ -177,7 +178,7 @@ public class MapEditor extends JPanel {
 			});
 			tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 							
-			tglbtnDoor.setIcon(new ImageIcon("images/plant.png"));
+			tglbtnDoor.setIcon(new ImageIcon("images/closedDoor.png"));
 			choices.add(tglbtnDoor);
 		}
 		

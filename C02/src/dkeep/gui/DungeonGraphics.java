@@ -92,18 +92,29 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			if(gameState == state.CHANGELEVEL)
 			{
 				variables.setLevel(currentLevel.nextLevel(variables.getOgrenmb()));
-				JOptionPane.showMessageDialog(getRootPane(), "Go, go, go!! You're in the next level");
+				variables.setGameStatusMessage("Go, go, go!! You're in the next level");
 				gameState = state.RUNNING;
 			}
 			repaint();
 		}
-		else if(gameState == state.LOSE || gameState == state.WIN)
+		switch(gameState)
+		{
+			case LOSE:
+				variables.setGameStatusMessage("You Lose!! Try Again");
+				break;
+			case WIN:
+				variables.setGameStatusMessage("Congratzz!! You're a Hero!!");
+				break;
+		default:
+			break;
+		}
+		/*else if(gameState == state.LOSE || gameState == state.WIN)
 		{
 			
 			if(gameState == state.LOSE)
-				JOptionPane.showMessageDialog(getRootPane(), "You Lose!! Try Again");
+				variables.setGameStatusMessage("You Lose!! Try Again");
 			else
-				JOptionPane.showMessageDialog(getRootPane(), "Congratzz!! You're a Hero!!");
+				variables.setGameStatusMessage("Congratzz!! You're a Hero!!");
 			
 			if(move == 'e')
 			{
@@ -123,7 +134,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 					e.printStackTrace();
 				}
 			}
-			}
+			}*/
 		repaint();
 		
 			
@@ -144,23 +155,21 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		switch(e.getKeyCode())
 		{
 			case KeyEvent.VK_LEFT:
-			variables.updateMario('a', false);
+			variables.updateMario('a');
 				updateMove('a');
 				break;
 			case KeyEvent.VK_RIGHT:
-			if(currentLevel.getCurrentMap().getKey().getFound())
-			variables.updateMario('d', true);
-			else variables.updateMario('d', false);
+			
+			variables.updateMario('d');
 				updateMove('d');
 				break;
 			case KeyEvent.VK_UP:
-			variables.updateMario('w', false);
+			variables.updateMario('w');
 				updateMove('w');
 				break;
 			case KeyEvent.VK_DOWN:
-			if(currentLevel.getCurrentMap().getKey().getFound())
-				variables.updateMario('s', true);
-				else variables.updateMario('s', false);
+			
+				variables.updateMario('s');
 				updateMove('s');
 				break;
 			case KeyEvent.VK_ENTER:
