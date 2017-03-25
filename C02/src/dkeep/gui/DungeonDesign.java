@@ -208,7 +208,7 @@ public class DungeonDesign extends JPanel{
 				
 			}
 		});
-		btnSaveGame.setBounds(499, 524, 117, 44);
+		btnSaveGame.setBounds(503, 497, 117, 44);
 		add(btnSaveGame);
 	}
 	
@@ -224,7 +224,7 @@ public class DungeonDesign extends JPanel{
 					
 					e1.printStackTrace();
 				}
-				panel.setBounds(25,140, 400, 400);
+				panel.setBounds(25,160, 400, 400);
 
 				add(panel);
 				panel.setEnabled(true);
@@ -248,7 +248,7 @@ public class DungeonDesign extends JPanel{
 				 panel.repaint();
 			}
 		});
-		btnLoadGame.setBounds(495, 437, 121, 44);
+		btnLoadGame.setBounds(499, 410, 121, 44);
 		add(btnLoadGame);
 		
 		
@@ -266,11 +266,10 @@ public class DungeonDesign extends JPanel{
 				variables.setOgrenmb(slider.getValue());
 				try {
 					panel = new DungeonGraphics(variables, graphicsst);
-					panel.setBounds(25,140, 400, 400);
-				
 					add(panel);
 					comboBox.setEnabled(false);
 					slider.setEnabled(false);
+					panel.setBounds(25,160, 400, 400);
 					panel.setEnabled(true);
 					panel.requestFocusInWindow();
 					panel.repaint();
@@ -300,7 +299,7 @@ public class DungeonDesign extends JPanel{
 				}
 			}
 		});	
-		btnReturn.setBounds(499, 607, 117, 44);
+		btnReturn.setBounds(503, 580, 117, 44);
 		add(btnReturn);
 	}
 }

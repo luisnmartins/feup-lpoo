@@ -69,7 +69,7 @@ public class MapEditor extends JPanel {
 			panel_1 = new DungeonGraphics(this.variables, this.graphicsst);
 			panel_1.setSize(new Dimension(400, 400));
 			panel_1.setMaximumSize(new Dimension(400, 400));
-			panel_1.setLocation(191,127);
+			panel_1.setLocation(155,163);
 			add(panel_1);
 			this.variables.getLevel().printMap();
 			
@@ -101,7 +101,7 @@ public class MapEditor extends JPanel {
 	public void setCancelButton()
 	{
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(115, 545, 100, 23);
+		btnCancel.setBounds(111, 631, 100, 23);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -140,7 +140,7 @@ public class MapEditor extends JPanel {
 					}
 				}
 			});
-			btnPlay.setBounds(10, 545, 78, 23);
+			btnPlay.setBounds(6, 631, 78, 23);
 			add(btnPlay);
 		}
 		
@@ -149,7 +149,7 @@ public class MapEditor extends JPanel {
 		{
 			JToggleButton tglbtnMario = new JToggleButton();
 			tglbtnMario.setSize(new Dimension(70, 70));
-			tglbtnMario.setBounds(115, 11, 70, 70);
+			tglbtnMario.setBounds(54, 18, 70, 70);
 			add(tglbtnMario);
 			tglbtnMario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -169,7 +169,7 @@ public class MapEditor extends JPanel {
 		{
 			JToggleButton tglbtnDoor = new JToggleButton();
 			tglbtnDoor.setSize(new Dimension(70, 70));
-			tglbtnDoor.setBounds(215, 11, 70, 70);
+			tglbtnDoor.setBounds(154, 18, 70, 70);
 			add(tglbtnDoor);
 			tglbtnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,7 +187,7 @@ public class MapEditor extends JPanel {
 			
 			JToggleButton tglbtnKey = new JToggleButton();
 			tglbtnKey.setSize(new Dimension(70, 70));
-			tglbtnKey.setBounds(312, 11, 70, 70);
+			tglbtnKey.setBounds(251, 18, 70, 70);
 			add(tglbtnKey);
 			tglbtnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,7 +204,7 @@ public class MapEditor extends JPanel {
 		{
 			JToggleButton tglbtnWall = new JToggleButton();
 			tglbtnWall.setSize(new Dimension(70, 70));
-			tglbtnWall.setBounds(417, 11, 70, 70);
+			tglbtnWall.setBounds(356, 18, 70, 70);
 			add(tglbtnWall);
 			tglbtnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -221,7 +221,7 @@ public class MapEditor extends JPanel {
 		{
 			JToggleButton tglbtnFloor = new JToggleButton();
 			tglbtnFloor.setSize(new Dimension(70, 70));
-			tglbtnFloor.setBounds(515, 11, 70, 70);
+			tglbtnFloor.setBounds(462, 18, 70, 70);
 			add(tglbtnFloor);
 			tglbtnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -238,7 +238,7 @@ public class MapEditor extends JPanel {
 		{
 			JToggleButton tglbtnBowser = new JToggleButton();
 			tglbtnBowser.setSize(new Dimension(70, 70));
-			tglbtnBowser.setBounds(623, 11, 78, 72);
+			tglbtnBowser.setBounds(562, 18, 78, 72);
 			add(tglbtnBowser);
 			tglbtnBowser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
