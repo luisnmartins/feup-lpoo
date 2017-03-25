@@ -136,8 +136,8 @@ public abstract class Character implements java.io.Serializable{
 
 	/**
 	 * Verifies if the character is supposed to move,if such, the position of the character is changed
-	 * @param map where the character position is set
-	 * @param char that represents the move that the character is supossed to do 
+	 * @param currentmap map where the character position is set
+	 * @param move char that represents the move that the character is supossed to do 
 	 * @return true if the character has been moved, else returns false
 	 * */
 	
@@ -154,7 +154,7 @@ public abstract class Character implements java.io.Serializable{
 	
 	/**
 	 * Verifies if a character is next to another (in an adjacent position, diagonal is not verified) or in the same position
-	 * @param character to compare to
+	 * @param c character to compare to
 	 * @return true if the two character are next to eachother (or in same pos) else return false
 	 * */
 	
@@ -223,7 +223,7 @@ public abstract class Character implements java.io.Serializable{
 	
 	/**
 	 * Puts the character symbol on a char[][] in is exact position
-	 * @param matrix where the character symbol is set,represents the game map
+	 * @param  map matrix where the character symbol is set,represents the game map
 	 * */
 	public void addElementsMatrix(char[][] map)
 	{
@@ -241,7 +241,7 @@ public abstract class Character implements java.io.Serializable{
 	}
 
 
-	/*
+	/**
 	 *Changes the isParalyzed variable to the function argument
 	 *@param the new value of IsParalyzed
 	 **/

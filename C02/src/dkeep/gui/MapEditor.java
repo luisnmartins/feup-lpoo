@@ -52,7 +52,7 @@ public class MapEditor extends JPanel {
 		this.graphicsst = graphicsst;
 		this.variables = variables;
 		
-		new_map = new char[variables.getVerMapSize()][variables.getHorMapSize()];
+		new_map = new char[variables.getHorMapSize()][variables.getVerMapSize()];
 		//visited = new boolean[variables.getHorMapSize()][variables.getVerMapSize()];
 		initializeMap();
 		newMap = new Map(new_map);

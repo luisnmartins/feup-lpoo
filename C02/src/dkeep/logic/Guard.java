@@ -93,7 +93,8 @@ public class Guard extends Character implements java.io.Serializable{
 	
 
 	/**
-	 * 
+	 * Updates the guard position by using his stored move set and checking if his characteristic is activated,in case that characteristic 
+	 * is important to the guard move turn
 	 */
 	public boolean update(Map currentmap, char heromove)
 	{

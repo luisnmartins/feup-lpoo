@@ -28,6 +28,11 @@ public class DrunkenGuard extends Guard implements java.io.Serializable{
 		return super.getMoveGuard();
 	}
 	
+	/**
+	 * Updates the guard characteristic and updates the Drunken symbol ('g') in case the characteristic is activated accordingly
+	 * In case the characteristic is not activated the function updates the guard position by using his stored move set 
+	 * 
+	 */
 	public boolean update(Map currentmap, char heromove)
 	{
 		
@@ -44,6 +49,10 @@ public class DrunkenGuard extends Guard implements java.io.Serializable{
 		return true;
 	}
 	
+	
+	/**
+	 * @return true if the two character are next to eachother (or in same pos) else if the Drunken characteristic is activated return false
+	 */
 	public boolean verifyColision(Character c)
 	{
 		if(this.characteristic)

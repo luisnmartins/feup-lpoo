@@ -87,7 +87,7 @@ public class MapSize extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			if(!horSize.getText().equals("") && !verSize.getText().equals(""))
-				if(Integer.parseInt(horSize.getText()) >= 5 && Integer.parseInt(verSize.getText()) >= 5)
+				if(Integer.parseInt(horSize.getText()) >= 5 && Integer.parseInt(verSize.getText()) >= 5 && Integer.parseInt(horSize.getText()) <= 20 && Integer.parseInt(verSize.getText()) <= 20)
 				{
 			
 				try {

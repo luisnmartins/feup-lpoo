@@ -20,20 +20,18 @@ public class Level1Map extends Map implements java.io.Serializable{
 											{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
 											{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 											{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	
-	/*private static char[][] mapStatic = {{'X', 'X', 'X', 'X', 'X'},
-			{'X', 'H', ' ', 'G', 'X'},
-			{'I', ' ', ' ', ' ', 'X'},
-			{'I', 'k', ' ', ' ', 'X'},
-			{'X', 'X', 'X', 'X', 'X'}};*/
-
-	
-	
+	/**
+	 * Creates a Map that represents the default DungeonLevel
+	 */
 	public Level1Map()
 	{
 		super(mapStatic);
 	}
 	
+	/**
+	 * Updates the matrix map of the DungeonLevel map to the given parameter
+	 * @param newmap the new map that represents the DungeonLevel map
+	 */
 	public void setSaticMap(char[][] newmap)
 	{
 		mapStatic = newmap;

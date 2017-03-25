@@ -12,7 +12,12 @@ public class Hero extends Character implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 
 
-
+	/**
+	 * Creates a Character of type Hero with the given positions as parameters,and a char to represent it in the map 
+	  * @param xPos Hero matrix position - Line
+	 * @param yPos Hero matrix position - Column
+	 * @param Elm  Char that represents the Hero in the matrix
+	 */
 	public Hero(int xP, int yP, char Elm)
 	{
 		super(xP, yP, Elm);
@@ -20,7 +25,13 @@ public class Hero extends Character implements java.io.Serializable{
 	}
 
 	
-	
+	/**
+	 * Updates the Hero in the game and checks 
+	 * @param currentmap
+	 * @param move
+	 * @param enemies
+	 * @return
+	 */
 	public boolean update(Map currentmap, char move, ArrayList<Character> enemies)
 	{
 		
