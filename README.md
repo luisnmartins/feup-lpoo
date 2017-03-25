@@ -6,4 +6,4 @@ Java Project - object oriented programming
 
 # EclEmma
 
-![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/C02/master/ScreenShots/EclEmmaTest.png)
+![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/master/C02/ScreenShots/EclEmmaTest.png)
