@@ -46,7 +46,7 @@ public class DrunkenGuard extends Guard implements java.io.Serializable{
 	
 	public boolean verifyColision(Character c)
 	{
-		if(this.getElement() == 'g')
+		if(this.characteristic)
 		{
 			return false;
 		}

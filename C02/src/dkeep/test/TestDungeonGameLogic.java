@@ -11,6 +11,7 @@ import dkeep.logic.DungeonLevel;
 
 import dkeep.logic.Level;
 import dkeep.logic.Map;
+import dkeep.logic.OgreLevel;
 
 
 public class TestDungeonGameLogic {
@@ -128,18 +129,19 @@ public class TestDungeonGameLogic {
 		assertEquals(3, currentLevel.getHero().getX());
 		assertEquals(1, currentLevel.getHero().getY());
 		assertEquals(state.NEXTLEVEL, currentLevel.updateGame('a'));
-	
+		currentLevel = currentLevel.nextLevel(-1);
+		assertTrue(currentLevel instanceof OgreLevel);	
 			
 	}
 	
-/*	@Test
+	@Test
 	public void TestMoveGuardIterator()
 	{
 		Map map2 = new Level1Map();
 		Level currentLevel = new DungeonLevel(map2, 2);
 		currentLevel.IstoMoveElements(true);
 		for(int i=0; i<100; i++)
-			currentLevel.updateGame('a');
+			assertTrue(currentLevel.getFirstEnemie().update(map2, ' '));
 		assertEquals(1, currentLevel.getHero().getY());
 		assertEquals(1, currentLevel.getHero().getX());
 	}
@@ -149,16 +151,18 @@ public class TestDungeonGameLogic {
 	{
 		Map map2 = new Level1Map();
 		Level currentLevel = new DungeonLevel(map2, 1);
+		boolean ogresleeping = false; 
 		currentLevel.IstoMoveElements(true);
-		for(int i=0; i<100; i++)
+		while(!ogresleeping)
 		{
 			currentLevel.updateGame('a');
-		assertEquals(1, currentLevel.getHero().getY());
-		assertEquals(1, currentLevel.getHero().getX());
+			if(currentLevel.getFirstEnemie().getElement() == 'g')
+				ogresleeping = true;
+		}
+		assertEquals('g', currentLevel.getFirstEnemie().getElement());
+		assertTrue(currentLevel.getFirstEnemie().getIsParalyzed());
 	}
-	*/
 
-	
 	
 }
 

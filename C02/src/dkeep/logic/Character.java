@@ -164,6 +164,7 @@ public abstract class Character implements java.io.Serializable{
 			return true;
 		else
 			return false;
+		
 	}
 	
 	
