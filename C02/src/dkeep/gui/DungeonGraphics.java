@@ -98,7 +98,7 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 			{
 				variables.setLevel(currentLevel.nextLevel(variables.getOgrenmb()));
 				JOptionPane.showMessageDialog(getRootPane(), "Go, go, go!! You're in the next level", "Next Level", JOptionPane.INFORMATION_MESSAGE);
-				//variables.setGameStatusMessage("Go, go, go!! You're in the next level");
+				
 				gameState = state.RUNNING;
 			}
 			repaint();
@@ -107,11 +107,21 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		{
 			case LOSE:
 				JOptionPane.showMessageDialog(getRootPane(), "You Lose!! Try Again", "Loser!!", JOptionPane.ERROR_MESSAGE);
+			try {
+				graphicsst.changeState(StateViewer.MENU);
+			} catch (IOException e) {
 				
+				e.printStackTrace();
+			}
 				break;
 			case WIN:
 				JOptionPane.showMessageDialog(getRootPane(), "Congratzz!! You're a Hero!!", "Good Job!!", JOptionPane.INFORMATION_MESSAGE);
-				
+				try {
+					graphicsst.changeState(StateViewer.MENU);
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				break;
 		default:
 			break;

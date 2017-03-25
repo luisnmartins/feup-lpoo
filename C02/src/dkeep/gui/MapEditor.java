@@ -18,6 +18,7 @@ import dkeep.logic.OgreLevel;
 import javax.swing.ImageIcon;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -126,6 +127,7 @@ public class MapEditor extends JPanel {
 					
 					if(!basicMapVerification())
 					{
+						JOptionPane.showMessageDialog(getRootPane(), "You need to have an hero, a key, a door, and an Ogre!!", "Map Error!!", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					

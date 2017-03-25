@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 public class MapSize extends JDialog {
@@ -103,6 +105,8 @@ public class MapSize extends JDialog {
 				}
 				dispose();
 				}
+				else
+					JOptionPane.showMessageDialog(getRootPane(), "Size not valid!!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		okButton.setActionCommand("OK");
