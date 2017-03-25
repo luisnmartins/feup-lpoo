@@ -2,4 +2,4 @@
 
 Java Project - object oriented programming
 
-https://bettercodehub.com/edge/badge/luisnmartins/LPOO1617_T3G03?token=862f0ba8b48bee0b02c4e77b6627c0334f4f5e1e
+![BCH compliance](https://bettercodehub.com/edge/badge/luisnmartins/LPOO1617_T3G03?token=862f0ba8b48bee0b02c4e77b6627c0334f4f5e1e)
