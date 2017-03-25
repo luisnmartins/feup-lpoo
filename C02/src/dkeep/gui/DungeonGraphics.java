@@ -155,33 +155,32 @@ public class DungeonGraphics extends JPanel implements KeyListener,MouseListener
 		switch(e.getKeyCode())
 		{
 			case KeyEvent.VK_LEFT:
-			variables.updateMario('a');
+				variables.updateMario('a');
 				updateMove('a');
 				break;
+				
 			case KeyEvent.VK_RIGHT:
-			
-			variables.updateMario('d');
+				variables.updateMario('d');
 				updateMove('d');
 				break;
+				
 			case KeyEvent.VK_UP:
 			variables.updateMario('w');
 				updateMove('w');
 				break;
+				
 			case KeyEvent.VK_DOWN:
-			
 				variables.updateMario('s');
 				updateMove('s');
 				break;
+				
 			case KeyEvent.VK_ENTER:
-			{
 				updateMove('e');
 				break;
-			}
+				
 			case KeyEvent.VK_N:
-			{
 				updateMove('n');
 				break;
-			}
 				
 		}
 		
