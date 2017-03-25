@@ -64,7 +64,6 @@ public class DungeonDesign extends JPanel{
 		
 		this.settingInitialize();
 		this.commandButtonsInitialize();
-		this.mainButtonsInitialize();
 		initialize();
 		
 		
@@ -108,6 +107,8 @@ public class DungeonDesign extends JPanel{
 		setLeftButton();
 		setDownButton();
 		setRightButton();	
+		setNewGameButton();
+		setReturnButton();
 		
 		
 	}
@@ -254,38 +255,41 @@ public class DungeonDesign extends JPanel{
 		
 	}
 	
-	
-	
-	
-	private void mainButtonsInitialize()
-	{
+	public void setNewGameButton(){
 		btnNewGame = new JButton("New Game");
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);
-				variables.setOgrenmb(slider.getValue());
-				try {
-					panel = new DungeonGraphics(variables, graphicsst);
-					add(panel);
-					comboBox.setEnabled(false);
-					slider.setEnabled(false);
-					panel.setBounds(25,160, 400, 400);
-					panel.setEnabled(true);
-					panel.requestFocusInWindow();
-					panel.repaint();
-				} catch (IOException e1) {
-					
-					e1.printStackTrace();
-				}
-				btnUp.setEnabled(true);
-				btnDown.setEnabled(true);
-				btnRight.setEnabled(true);
-				btnLeft.setEnabled(true);
-				btnNewGame.setEnabled(false);
-				}
-		});
-		btnNewGame.setBounds(495, 145, 121, 44);
-		add(btnNewGame);
+	btnNewGame.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			variables.setGuardTypenmb(comboBox.getSelectedIndex()+1);
+			variables.setOgrenmb(slider.getValue());
+			try {
+				panel = new DungeonGraphics(variables, graphicsst);
+				add(panel);
+				comboBox.setEnabled(false);
+				slider.setEnabled(false);
+				panel.setBounds(25,160, 400, 400);
+				panel.setEnabled(true);
+				panel.requestFocusInWindow();
+				panel.repaint();
+			} catch (IOException e1) {
+				
+				e1.printStackTrace();
+			}
+			btnUp.setEnabled(true);
+			btnDown.setEnabled(true);
+			btnRight.setEnabled(true);
+			btnLeft.setEnabled(true);
+			btnNewGame.setEnabled(false);
+			}
+	});
+	btnNewGame.setBounds(495, 145, 121, 44);
+	add(btnNewGame);
+	}
+	
+	
+	
+	private void setReturnButton()
+	{
+		
 		
 		btnReturn = new JButton("Return");
 		btnReturn.addActionListener(new ActionListener() {
