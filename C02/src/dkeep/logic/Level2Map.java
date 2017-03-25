@@ -18,13 +18,18 @@ public class Level2Map extends Map implements java.io.Serializable{
 											{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
 											{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
-
+	/**
+	 * Creates a Map that represents the default OgreLevel
+	 */
 	public Level2Map()
 	{
 		super(mapStatic);
 	} 
 
-	
+	/**
+	 *  Updates the matrix map of the OgreLevel map to the given parameter
+	 *  @param newmap the new map that represents the OgreLevel map
+	 */
 	public void setSaticMap(char[][] newmap)
 	{
 		mapStatic = newmap;

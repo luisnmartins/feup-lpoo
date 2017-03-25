@@ -19,8 +19,8 @@ public class Map implements java.io.Serializable{
 	
 	
 	/**
-	 * 
-	 * @param map
+	 * Constructor of a map that stores the given parameter to the char[][] map variable that represents the game map
+	 * @param map matrix that represents the map itself
 	 */
 	public Map(char[][] map)
 	{

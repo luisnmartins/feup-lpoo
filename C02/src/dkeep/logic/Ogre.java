@@ -5,9 +5,6 @@ import java.util.Random;
 public class Ogre extends Character implements java.io.Serializable{
 
 
-		/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 		private char attackElement;
 		private int attackX;
@@ -87,50 +84,86 @@ public class Ogre extends Character implements java.io.Serializable{
 		}
 			
 			
-		
+		/**
+		 * Sets the x and y club position with the given parameters
+		 * @param x  the new x position of the club
+		 * @param y  the new y position of the club
+		 */
 		public void setClub(int x, int y)
 		{
 			attackX = x;
 			attackY = y;
 		}
 		
+		/**
+		 * Sets a new symbol to represent the club
+		 * @param element the new char that represents a club in the map
+		 */
 		public void setClubElm(char element)
 		{
 			attackElement = element;
 		}
 		
+		/**
+		 * Sets the counter time of when the ogre gets stuned by the hero to its given parameter
+		 * @param times the new value of stopmove of ogre(ogre is going to be times time turns without moving if its stunned)
+		 */
 		public void setStopOgre(int times)
 		{
 			stopmove = times;
 		}
 		
-		
+		/**
+		 * Decrements by one de counter stopmove that defines that the ogre is stunned
+		 */
 		public void decStopOgre()
 		{
 			stopmove--;
 		}
-		
+		/**
+		 * Gets the current value of the counter that defines the number of turns that the ogre is left to be stunned
+		 * @return the  stopmove variable
+		 */
 		public int getStopOgre()
 		{
 			return stopmove;
 		}
 		
-		
+		/**
+		 * Gets the current symbol that represents the club in the game map
+		 * @return the attackElement variable of the ogre
+		 */
 		public char getClubElm()
 		{
 			return attackElement;
 		}
 		
+		
+		/**
+		 * Gets the current x position of the ogre club attack
+		 * @return the attackX variable 
+		 */
 		public int getAttackX()
 		{
 			return attackX;
 		}
+		
+		/**
+		 * Gets the current y position of the ogre club attack
+		 * @return the attackY variable
+		 */
 		public int getAttackY()
 		{
 			return attackY;
 		}
 		
-		
+		/**
+		 * Compares if an ogre and the club attack is next to another Character and updates the ogre accordingly
+		 * Checks if the Ogre is not stunned and then compares if the Character c is next to it , if so the the ogre is set to stunned accordingly 
+		 * Also checks if the character is next to the ogre attack club
+		 * @param c character to compare to 
+		 * @return true the character c is next to the ogre club and false if the character is next to the ogre itself(ogre is stunned) or if the character is not near the ogre
+		 */
 		public boolean verifyColision(Character c)
 		{
 			if(this.getElement() == 'O')
@@ -163,6 +196,10 @@ public class Ogre extends Character implements java.io.Serializable{
 			
 		}
 		
+		/**
+		 * Updates the sleeping(stun) status of the ogre by updating the sleeping count timer, the ogre and club elements
+		 * @return true if the ogre is still sleeping, false if the ogre is awake
+		 */
 		public boolean updateSleep()
 		{
 
@@ -184,7 +221,13 @@ public class Ogre extends Character implements java.io.Serializable{
 		}
 		
 		
-		
+		/**
+		 * Updates the ogre and club positions by randomly simulating new movements until the new positions are valid (a max of 50 tries in case something goes wrong)
+		 * Only updates the ogre ( or tries to) if the ogre is not stunned
+		 * @param currentmap map to check if the new positions of the ogre are valid
+		 * @param guardmove char to represent the move set (irrelevent to the ogre)
+		 * @return true if the ogre has been updated successfully
+		 */
 		public boolean update(Map currentmap, char guardmove)
 		{
 			int tries = 0;
@@ -230,7 +273,11 @@ public class Ogre extends Character implements java.io.Serializable{
 			return true;
 		}
 		
-		
+		/**
+		 * Updates the ogres club positions by randomly getting new adjacent positions to the ogre (after he moved) until the position is valid ( 50 tries atmost if something goes wrong)
+		 * also updates the club symbol accordingly (in case it goes over a key, for example)
+		 * @param currentmap map to check if the new club positions of the club are valid positions
+		 */
 		public void updateClub(Map currentmap)
 		{
 			System.out.println("Update Ogre");
@@ -265,6 +312,9 @@ public class Ogre extends Character implements java.io.Serializable{
 			
 		}
 		
+		/**
+		 * Adds the ogre club position into a map and the ogre itself
+		 */
 		public void addElementsMatrix(char[][] map)
 		{
 			map[this.getAttackX()][this.getAttackY()] = this.getClubElm();

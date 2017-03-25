@@ -12,6 +12,8 @@ public class DungeonLevel extends Level implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
+
 	public DungeonLevel(Map mymap, int Guardtype)
 	{
 		super(mymap, 0, Guardtype);		
