@@ -240,7 +240,7 @@ public abstract class Character implements java.io.Serializable{
 	}
 
 
-	/*
+	/**
 	 *Changes the isParalyzed variable to the function argument
 	 *@param the new value of IsParalyzed
 	 **/

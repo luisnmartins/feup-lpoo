@@ -92,9 +92,7 @@ public class Guard extends Character implements java.io.Serializable{
 	}
 	
 
-	/**
-	 * 
-	 */
+	
 	public boolean update(Map currentmap, char heromove)
 	{
 

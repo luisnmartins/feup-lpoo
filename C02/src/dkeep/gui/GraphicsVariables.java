@@ -194,56 +194,6 @@ public class GraphicsVariables {
 					break;
 		}
 	}
-	/*public BufferedImage getMario()
-	{
-		return this.mario;
-	}
-	public BufferedImage getFloor()
-	{
-		return this.floor;
-	}
-	public BufferedImage getWall()
-	{
-		return this.wall;
-	}
-	
-	public BufferedImage getDoor()
-	{
-		return this.door;
-	}
-	
-	public BufferedImage getGuard()
-	{
-		return this.guard;
-	}
-	
-	public BufferedImage getBowser()
-	{
-		return this.bowser;
-	}
-	public BufferedImage getKey()
-	{
-		return this.key;
-	}
-	
-	public BufferedImage getGuardSleep()
-	{
-		return this.guard_sleep;
-	}
-	
-	public BufferedImage getBowserFire()
-	{
-		return this.bowser_fire;
-	}
-	
-	public BufferedImage getBowserStunned()
-	{
-		return this.bowser_stunned;
-	}
-	public BufferedImage getCoin()
-	{
-		return this.coin;
-	}*/
 	
 	public BufferedImage getMenuScreen()
 	{

@@ -21,14 +21,6 @@ public class Level1Map extends Map implements java.io.Serializable{
 											{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 											{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
-	/*private static char[][] mapStatic = {{'X', 'X', 'X', 'X', 'X'},
-			{'X', 'H', ' ', 'G', 'X'},
-			{'I', ' ', ' ', ' ', 'X'},
-			{'I', 'k', ' ', ' ', 'X'},
-			{'X', 'X', 'X', 'X', 'X'}};*/
-
-	
-	
 	public Level1Map()
 	{
 		super(mapStatic);

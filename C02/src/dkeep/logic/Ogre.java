@@ -14,7 +14,13 @@ public class Ogre extends Character implements java.io.Serializable{
 		private int attackY;
 		private int stopmove;
 		
-		
+		/**
+		 * Constructor of an Ogre, an Ogre is a Character so the  it uses the Character constructor and and set the Club in the Ogre position
+		 * @param x Ogre/Club start matrix line
+		 * @param y Ogre/Club start matrix column
+		 * @param Elm char that represents Ogre in the matrix
+		 * @param attackElm char that represents Ogre's Club in the matrix
+		 */
 		public Ogre(int x, int y, char Elm, char attackElm)
 		{
 			super(x, y, Elm);
@@ -24,6 +30,10 @@ public class Ogre extends Character implements java.io.Serializable{
 			
 		}
 		
+		/**
+		 * Generate a Random move to the Ogre
+		 * @return Returns the char that represents the generated move considering the WASD keys ( W - up, A - left, S - Down, D - right) 
+		 */
 		public char GenerateOgrePosition()
 		{
 			Random rand = new Random();
@@ -46,6 +56,11 @@ public class Ogre extends Character implements java.io.Serializable{
 			
 		}
 		
+		
+		/**
+		 * Randomly generates the new Club's position considering as start point the actual Ogre's position
+		 * @return Returns an int array with the new Club's matrix line at the 1st position (int[0]) and the new Club's matrix column at the 2nd position(int[1))
+		 */
 		public int[] ChangeClub()
 		{
 			

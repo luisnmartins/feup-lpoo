@@ -11,7 +11,7 @@ public class Door implements java.io.Serializable{
 	private char symbol;
 	
 	
-	/*
+	/**
 	 * Constructor of the door, initializes its core variables, by the default the symbol of the 
 	 * door is set to 'I' in order to represent the door closed.
 	 * @param x value of the door position in the x axis
@@ -26,14 +26,14 @@ public class Door implements java.io.Serializable{
 		 
 	}
 	
-	/*
+	/**
 	 * "Opens" the door by changing its representaion to an 'S'
 	 */
 	public void OpenDoor()
 	{
 		this.setSymbol('S');
 	}
-	/*
+	/**
 	 * Sees by analyzing the door symbol if the door is open
 	 * @return true if the door is open (symbol = 'S') otherwise it returns false
 	 */
@@ -45,7 +45,7 @@ public class Door implements java.io.Serializable{
 			return false;
 	}
 	
-	/*
+	/**
 	 * Checks if the door is at a given position by comparing its variables
 	 * @param xPos to check with x variable of the door
 	 * @param yPos to check with y variable of the door
@@ -60,7 +60,7 @@ public class Door implements java.io.Serializable{
 	}
 	
 
-	/*
+	/**
 	 * Gets the x position of the door
 	 * @return the x value of the door
 	 */
