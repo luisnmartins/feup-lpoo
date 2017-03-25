@@ -7,4 +7,4 @@ Java Project - object oriented programming
 
 ![alt text][EclEmma]
 
-[EclEmma]: LPOO1617_T3G03/C02/ScreenShots/EclEmma\ Test.png
+[EclEmma]: LPOO1617_T3G03/C02/ScreenShots/EclEmmaTest.png
