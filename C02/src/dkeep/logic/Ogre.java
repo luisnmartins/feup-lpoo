@@ -280,7 +280,6 @@ public class Ogre extends Character implements java.io.Serializable{
 		 */
 		public void updateClub(Map currentmap)
 		{
-			System.out.println("Update Ogre");
 			int[] club;
 			int tries =0;
 			

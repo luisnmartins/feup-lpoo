@@ -50,7 +50,6 @@ public class Hero extends Character implements java.io.Serializable{
 					currentmap.openDoors();
 				
 			if(currentmap.verifyMoveDoors(this)){
-				System.out.println("verifydoors");
 				canmove=true;}
 			
 			

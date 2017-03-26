@@ -41,7 +41,6 @@ public class Guard extends Character implements java.io.Serializable{
 	 */
 	public char getMoveGuard()
 	{
-		System.out.println("normal:"+iterator+"\n");
 		char move = moveLevel1[iterator];
 		
 		if(iterator == moveLevel1.length-1)
