@@ -6,9 +6,8 @@ Java Project - object oriented programming
 
 ## Members Group
 
-Carlos Miguel da Silva de Freitas - up201504749
-
-Luís Noites Martins - up201503344
+    Carlos Miguel da Silva de Freitas - up201504749
+    Luís Noites Martins - up201503344
 
 
 ## EclEmma Test
