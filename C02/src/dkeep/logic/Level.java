@@ -18,9 +18,9 @@ public abstract class Level implements java.io.Serializable{
 	public enum state{ RUNNING, WIN, LOSE, NEXTLEVEL, CHANGELEVEL};
 	
 	/**
-	 * Construct a Level setting the map and the other elements
+	 * Constructs a Level, setting the current map and the other elements (Hero, Enemies - Ogres/Guard, Doors and key)
 	 * @param currentmap Map to use during the level
-	 * @param Ogrenmb Number of Ogres that will exists during the 2nd Level
+	 * @param Ogrenmb Number of Ogres that will exist during the 2nd Level
 	 * @param Guardtype Guard's Type to be used in the 1st Level ( 1 - Drunken , 2 - Suspicious, 3 - Rookie)
 	 */
 	public Level(Map currentmap, int Ogrenmb, int Guardtype)
@@ -32,8 +32,8 @@ public abstract class Level implements java.io.Serializable{
 	
 
 	/**
-	 * Runs the map matrix and sets the elements (Hero, enemies - Ogres/Guard, Doors and key)
-	 * @param Ogrenmb That of Ogres to be generated
+	 * Runs the map matrix and set the elements (Hero, Enemies - Ogres/Guard, Doors and key)
+	 * @param Ogrenmb Number of Ogres to be generated
 	 * @param Guardtype Guard's Type to be used in the 1st Level ( 1 - Drunken , 2 - Suspicious, 3 - Rookie)
 	 */
 	public void InitalizeElements(int Ogrenmb, int Guardtype)
@@ -88,8 +88,8 @@ public abstract class Level implements java.io.Serializable{
 
 	
 	/**
-	 * Updates all the Game elements verifying even colisions
-	 * @param Move char WASD that will represent the hero's movemnet
+	 * Updates all the Game elements verifying collisions
+	 * @param Move WASD key representing the hero's movement
 	 * @return Returns the state enum of the game State (Running, NextLevel or Lose) 
 	 */
 	public state updateGame(char move)
@@ -113,8 +113,8 @@ public abstract class Level implements java.io.Serializable{
 	
 	
 	/**
-	 * Get the 
-	 * @return
+	 * Gets the actual hero
+	 * @return Returns the hero
 	 */
 	public Hero getHero()
 	{
@@ -124,7 +124,7 @@ public abstract class Level implements java.io.Serializable{
 
 	/**
 	 * Verifies if it's time to change to the next Level
-	 * @return Returns true if it's supposed to move to the next Level, and false if it's not
+	 * @return Returns true if it's supposed to move to the next Level, and false if not
 	 */
 	public boolean changeLevel()
 	{
@@ -136,7 +136,7 @@ public abstract class Level implements java.io.Serializable{
 	
 	
 	/**
-	 * Function that give an instance of the next level with enemiemb number of enemies (Ogres)
+	 * Gives an instance of the next level with the number of enemies (Ogres)
 	 * @param enemienmb Number of enemies that should exist in the next level
 	 * @return Returns an instance of the new Level
 	 */
@@ -144,8 +144,8 @@ public abstract class Level implements java.io.Serializable{
 	
 	
 	/**
-	 * 
-	 * @param movement
+	 * Sets if it's supposed to move enemies during the game or not
+	 * @param movement True if it supposed to move enemies and false if not
 	 */
 	public void IstoMoveElements(boolean movement)
 	{
@@ -157,8 +157,8 @@ public abstract class Level implements java.io.Serializable{
 
 
 	/**
-	 * 
-	 * @return
+	 * Gets a copy of the actual game's matrix without the game's elements and set them on it
+	 * @return Returns a char matrix with all the game's elements 
 	 */
 	public char[][] getMap(){
 		
@@ -184,7 +184,7 @@ public abstract class Level implements java.io.Serializable{
 
 	
 	/**
-	 * 
+	 * Gets a copy of the actual matrix game with all the elements (hero, enemies, doors and key) and prints it as a String
 	 */
 	public void printMap() {
 		
@@ -203,17 +203,15 @@ public abstract class Level implements java.io.Serializable{
 			
 			toprint += "\n";
 		}
-		
-		
-		
+			
 		
 		System.out.print(toprint);
 	}
 	
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the 1st enemy from the enemies' ArrayList - used mainly to get the Guard in the 1st Level
+	 * @return Returns the 1st enemy from the enemies' ArrayList
 	 */
 	public Character getFirstEnemie()
 	{
@@ -225,9 +223,9 @@ public abstract class Level implements java.io.Serializable{
 	
 	
 	/**
-	 * 
-	 * @param move
-	 * @return
+	 * Updates the Game Status calling the updateGame function and verifying the return state to print a Status message
+	 * @param move WASD char that represents the hero's movement
+	 * @return Returns the state that receives from calling updateGame function
 	 */
 	public state updateGameStatus(char move)
 	{
@@ -265,8 +263,8 @@ public abstract class Level implements java.io.Serializable{
 	
 	
 	/**
-	 * Get the Map that represents the current Level
-	 * @return
+	 * Gets the Map that represents the current Level
+	 * @return Returns the currentMap
 	 */
 	public Map getCurrentMap()
 	{
