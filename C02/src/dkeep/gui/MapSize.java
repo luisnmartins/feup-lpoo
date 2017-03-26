@@ -13,11 +13,8 @@ import dkeep.gui.GraphicsState.StateViewer;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
-import java.awt.Font;
 import javax.swing.JSlider;
 
 public class MapSize extends JDialog {
