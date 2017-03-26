@@ -1,6 +1,7 @@
 package dkeep.gui;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Cursor;
 
@@ -196,14 +197,16 @@ public class DungeonDesign extends JPanel{
 			         new FileOutputStream("images/SavedGame");
 			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			         out.writeObject(variables.getLevel());
+			         panel.requestFocusInWindow();
 			         out.close();
 			         fileOut.close();
 			         System.out.printf("Serialized data is saved in /images/SavedGame");
 			      }catch(IOException i) {
 			         i.printStackTrace();
+			         JOptionPane.showMessageDialog(getRootPane(), "Error saving Game", "Loser!!", JOptionPane.ERROR_MESSAGE);
 			      }catch(NullPointerException s)
 					{
-			    	  System.out.println("Game not found");
+			    	  JOptionPane.showMessageDialog(getRootPane(), "Error saving Game", "Loser!!", JOptionPane.ERROR_MESSAGE);
 					}
 				 panel.requestFocusInWindow();
 				
@@ -234,19 +237,21 @@ public class DungeonDesign extends JPanel{
 			         FileInputStream fileIn = new FileInputStream("images/SavedGame");
 			         ObjectInputStream in = new ObjectInputStream(fileIn);
 			         variables.setLevel( (Level) in.readObject());
+			         panel.requestFocusInWindow();
+					 panel.repaint();
 			         System.out.println("Load game");
 			         in.close();
 			         fileIn.close();
 			      }catch(IOException i) {
 			         i.printStackTrace();
+			         JOptionPane.showMessageDialog(getRootPane(), "Error loading Game", "Loser!!", JOptionPane.ERROR_MESSAGE);
 			         return;
 			      }catch(ClassNotFoundException c) {
-			         System.out.println("Level class not Found");
+			    	  JOptionPane.showMessageDialog(getRootPane(), "Error loading Game", "Loser!!", JOptionPane.ERROR_MESSAGE);
 			         c.printStackTrace();
 			         return;
 			      }
-				 panel.requestFocusInWindow();
-				 panel.repaint();
+				 
 			}
 		});
 		btnLoadGame.setBounds(499, 410, 121, 44);
