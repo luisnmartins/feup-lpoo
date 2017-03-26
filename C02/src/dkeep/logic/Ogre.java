@@ -68,13 +68,13 @@ public class Ogre extends Character implements java.io.Serializable{
 			int[] position = {getX(), getY()};
 
 			
-			if(r%2 == 0)
-			{
+			if(r%2 == 0){
+				
 				if(r == 2) position[0] -= 1;
 				else position[0] += 1;
-			}
-			else
-			{
+			
+			}else{
+				
 				if(r == 1) position[1] += 1;
 				else position[1] -= 1;
 			}
@@ -203,16 +203,16 @@ public class Ogre extends Character implements java.io.Serializable{
 		public boolean updateSleep()
 		{
 
-			if(this.getElement() == '8')
-			{
-				if(this.stopmove == 0)
-				{				
+			if(this.getElement() == '8'){
+				
+				if(this.stopmove == 0){
+					
 					this.setElm('O');
 					this.setIsParalyzed(false);
 					this.attackElement = '*';
-				}
-				else
-				{
+				
+				}else{
+					
 					this.stopmove--;
 					return true;
 				}
@@ -238,15 +238,14 @@ public class Ogre extends Character implements java.io.Serializable{
 			{
 				
 			
-			do
-			{
+			do{
 				super.update(currentmap, this.GenerateOgrePosition());
 				int x_temp = this.getXTemp();
 				int y_temp = this.getYTemp();
-				if(currentmap.moveTo(x_temp, y_temp))
-				{
-					if(currentmap.getKey().isOnTop(x_temp, y_temp) && !currentmap.getKey().getFound())
-					{
+				if(currentmap.moveTo(x_temp, y_temp)){
+					
+					if(currentmap.getKey().isOnTop(x_temp, y_temp) && !currentmap.getKey().getFound()){
+						
 						this.setElm('$');
 						break;
 						
@@ -286,11 +285,9 @@ public class Ogre extends Character implements java.io.Serializable{
 			do{
 				club = this.ChangeClub();
 				
-				if(currentmap.moveTo(club[0], club[1]))
-				{
+				if(currentmap.moveTo(club[0], club[1])){
 					
-					if(currentmap.getKey().isOnTop(club[0], club[1]) && !currentmap.getKey().getFound())
-					{
+					if(currentmap.getKey().isOnTop(club[0], club[1]) && !currentmap.getKey().getFound()){
 						
 						this.setClubElm('$');
 						break;

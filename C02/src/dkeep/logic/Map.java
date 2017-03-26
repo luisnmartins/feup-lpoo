@@ -122,14 +122,12 @@ public class Map implements java.io.Serializable{
 	{
 		int i;
 		
-		if((i=IsOveraDoor(c.getXTemp(), c.getYTemp())) != -1)
-		{
+		if((i=IsOveraDoor(c.getXTemp(), c.getYTemp())) != -1){
 			
-				if(!doors.get(i).IsOpened())
-				{
+				if(!doors.get(i).IsOpened()){
 					
-					if(myKey.getFound())
-					{
+					if(myKey.getFound()){
+						
 						doors.get(i).OpenDoor();
 										
 					}
@@ -151,14 +149,10 @@ public class Map implements java.io.Serializable{
 	 */
 	public int IsOveraDoor(int x, int y)
 	{
-		for(int i=0; i<doors.size(); i++)
-		{
-			if(doors.get(i).doorAchieved(x, y))
-			{
-				
-				return i;
+		for(int i=0; i<doors.size(); i++){
 			
-			}
+			if(doors.get(i).doorAchieved(x, y))
+				return i;
 		}
 		return -1;
 	}
@@ -190,8 +184,8 @@ public class Map implements java.io.Serializable{
 	public void addElementsMatrix(char[][] finalmap)
 	{
 		finalmap[myKey.getX()][myKey.getY()] = myKey.getSymbol();
-		for(int i=0; i<doors.size(); i++)
-		{
+		for(int i=0; i<doors.size(); i++){
+			
 			finalmap[doors.get(i).getX()][doors.get(i).getY()] = doors.get(i).getSymbol();
 		}
 	}

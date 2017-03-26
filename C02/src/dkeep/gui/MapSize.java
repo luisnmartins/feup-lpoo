@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import javax.swing.JSlider;
 
 public class MapSize extends JDialog {
 
@@ -27,10 +28,8 @@ public class MapSize extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private  GraphicsVariables map_variables;
-	private JLabel lblHorizontalSize;
-	private JTextField horSize;
-	private JTextField verSize;
 	private GraphicsState graphicsst;
+	private JSlider slider;
 
 
 	/**
@@ -47,32 +46,26 @@ public class MapSize extends JDialog {
 	public void initialize(){
 		
 		setTitle("Map Editor Settings"); 
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 451, 178);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);{
-			
-			lblHorizontalSize = new JLabel("Horizontal size");
-			lblHorizontalSize.setBounds(39, 56, 122, 50);
-			lblHorizontalSize.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		}
-		
-		horSize = new JTextField();
-		horSize.setBounds(167, 69, 130, 26);
-		horSize.setColumns(10);
-		
-		JLabel lblVerticalSize = new JLabel("Vertical size");
-		lblVerticalSize.setBounds(39, 137, 100, 20);
-		lblVerticalSize.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		verSize = new JTextField();
-		verSize.setBounds(167, 135, 130, 26);
-		verSize.setColumns(10);
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		contentPanel.add(lblHorizontalSize);
-		contentPanel.add(lblVerticalSize);
-		contentPanel.add(verSize);
-		contentPanel.add(horSize);{
+		
+		slider = new JSlider();
+		slider.setMinorTickSpacing(1);
+		slider.setMinimum(5);
+		slider.setMaximum(20);
+		slider.setValue(10);
+		slider.setMajorTickSpacing(5);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setBounds(102, 32, 328, 52);
+		contentPanel.add(slider);
+		
+		JLabel lblSize = new JLabel("Matrix Size:");
+		lblSize.setBounds(22, 45, 95, 16);
+		contentPanel.add(lblSize);{
 			
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -88,15 +81,10 @@ public class MapSize extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			if(!horSize.getText().equals("") && !verSize.getText().equals(""))
-				if(Integer.parseInt(horSize.getText()) >= 5 && Integer.parseInt(verSize.getText()) >= 5 && Integer.parseInt(horSize.getText()) <= 20 && Integer.parseInt(verSize.getText()) <= 20)
-				{
-			
 				try {
 					
-					map_variables.setMapSizes(Integer.parseInt(horSize.getText()),Integer.parseInt(verSize.getText()));
-					
-					
+					map_variables.setMapSizes(slider.getValue(), slider.getValue());
+						
 					graphicsst.changeState(StateViewer.CUSTOM);
 				
 				} catch (IOException e1) {
@@ -105,13 +93,9 @@ public class MapSize extends JDialog {
 				}
 				dispose();
 				}
-				else
-					JOptionPane.showMessageDialog(getRootPane(), "Size not valid!!", "Error", JOptionPane.ERROR_MESSAGE);
-			}
 		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
 	}
 	
 	public void setCancelButton(JPanel buttonPane)

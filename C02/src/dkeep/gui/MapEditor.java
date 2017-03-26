@@ -148,8 +148,8 @@ public class MapEditor extends JPanel {
 		public void setMarioChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnMario = new JToggleButton();
-			tglbtnMario.setSize(new Dimension(70, 70));
-			tglbtnMario.setBounds(54, 18, 70, 70);
+			tglbtnMario.setSize(new Dimension(80, 80));
+			tglbtnMario.setBounds(54, 18, 80, 80);
 			add(tglbtnMario);
 			tglbtnMario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -160,7 +160,7 @@ public class MapEditor extends JPanel {
 			
 			tglbtnMario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			
-					tglbtnMario.setIcon(new ImageIcon("images/mario_d.png"));
+					tglbtnMario.setIcon(new ImageIcon(variables.getImage('H')));
 					choices.add(tglbtnMario);
 		}
 		
@@ -168,8 +168,8 @@ public class MapEditor extends JPanel {
 		public void setDoorChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnDoor = new JToggleButton();
-			tglbtnDoor.setSize(new Dimension(70, 70));
-			tglbtnDoor.setBounds(154, 18, 70, 70);
+			tglbtnDoor.setSize(new Dimension(80, 80));
+			tglbtnDoor.setBounds(154, 18, 80, 80);
 			add(tglbtnDoor);
 			tglbtnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -178,7 +178,7 @@ public class MapEditor extends JPanel {
 			});
 			tglbtnDoor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 							
-			tglbtnDoor.setIcon(new ImageIcon("images/closedDoor.png"));
+			tglbtnDoor.setIcon(new ImageIcon(variables.getImage('I')));
 			choices.add(tglbtnDoor);
 		}
 		
@@ -186,8 +186,8 @@ public class MapEditor extends JPanel {
 		{
 			
 			JToggleButton tglbtnKey = new JToggleButton();
-			tglbtnKey.setSize(new Dimension(70, 70));
-			tglbtnKey.setBounds(251, 18, 70, 70);
+			tglbtnKey.setSize(new Dimension(80, 80));
+			tglbtnKey.setBounds(251, 18, 80, 80);
 			add(tglbtnKey);
 			tglbtnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,15 +196,15 @@ public class MapEditor extends JPanel {
 			}
 			});
 			tglbtnKey.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			tglbtnKey.setIcon(new ImageIcon("images/key.png"));
+			tglbtnKey.setIcon(new ImageIcon(variables.getImage('k')));
 			choices.add(tglbtnKey);
 		}
 		
 		public void setWallChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnWall = new JToggleButton();
-			tglbtnWall.setSize(new Dimension(70, 70));
-			tglbtnWall.setBounds(356, 18, 70, 70);
+			tglbtnWall.setSize(new Dimension(75, 75));
+			tglbtnWall.setBounds(358, 18, 75, 75);
 			add(tglbtnWall);
 			tglbtnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,15 +213,15 @@ public class MapEditor extends JPanel {
 			}
 			});
 			tglbtnWall.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			tglbtnWall.setIcon(new ImageIcon("images/wall.png"));
+			tglbtnWall.setIcon(new ImageIcon(variables.getImage('X')));
 			choices.add(tglbtnWall);
 		}
 		
 		public void setFloorChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnFloor = new JToggleButton();
-			tglbtnFloor.setSize(new Dimension(70, 70));
-			tglbtnFloor.setBounds(462, 18, 70, 70);
+			tglbtnFloor.setSize(new Dimension(75, 75));
+			tglbtnFloor.setBounds(464, 18, 75, 75);
 			add(tglbtnFloor);
 			tglbtnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -230,15 +230,15 @@ public class MapEditor extends JPanel {
 			}
 			});
 			tglbtnFloor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			tglbtnFloor.setIcon(new ImageIcon("images/floor.png"));
+			tglbtnFloor.setIcon(new ImageIcon(variables.getImage(' ')));
 			choices.add(tglbtnFloor);
 		}
 									
 		public void setBowserChoiceButton(ButtonGroup choices)
 		{
 			JToggleButton tglbtnBowser = new JToggleButton();
-			tglbtnBowser.setSize(new Dimension(70, 70));
-			tglbtnBowser.setBounds(562, 18, 78, 72);
+			tglbtnBowser.setSize(new Dimension(80, 80));
+			tglbtnBowser.setBounds(562, 18, 80, 80);
 			add(tglbtnBowser);
 			tglbtnBowser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -248,7 +248,7 @@ public class MapEditor extends JPanel {
 			}
 			});
 			tglbtnBowser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));								
-			tglbtnBowser.setIcon(new ImageIcon("images/bowser_s.png"));
+			tglbtnBowser.setIcon(new ImageIcon(variables.getImage('O')));
 			choices.add(tglbtnBowser);
 			
 		}
@@ -284,16 +284,16 @@ public class MapEditor extends JPanel {
 		boolean ogre_exist = false;
 		char[][] aux = variables.getMap();
 		for(int i = 0; i < aux.length ; i ++)
-			for(int a = 0; a < aux[i].length; a++)
-			{
-				if(i == 0 || a == 0 || i  == aux.length-1 || a == aux[i].length-1)
-				{
+			for(int a = 0; a < aux[i].length; a++){
+				
+				if(i == 0 || a == 0 || i  == aux.length-1 || a == aux[i].length-1){
+					
 					if(aux[i][a] != 'X' && aux[i][a] != 'I')
 						return false;
 					if(aux[i][a] == 'I')
 						door_exist = true;
-				}else if(aux[i][a] == 'H')
-				{
+				}else if(aux[i][a] == 'H'){
+					
 					if(!hero_exist)
 						hero_exist = true;
 					else return false;
@@ -303,8 +303,8 @@ public class MapEditor extends JPanel {
 					if(!key_exist)
 						key_exist = true;
 					else  return false;	
-				}
-				else if(aux[i][a] == 'O'){
+				
+				}else if(aux[i][a] == 'O'){
 					if(!ogre_exist)
 						ogre_exist = true;
 					else return false;

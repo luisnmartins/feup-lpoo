@@ -15,7 +15,6 @@ public class GraphicsVariables {
 	private int Ogrenmb=2, GuardTypenmb=1;
 	private int horMapSize,verMapSize;
 	private char selectedElement;
-	private String GameStatusMessage;
 	private HashMap<Character, BufferedImage> imagesMap = new HashMap<Character, BufferedImage>();
 
 	private BufferedImage mario_d;
@@ -116,14 +115,8 @@ public class GraphicsVariables {
 	
 	public void loadImages() throws IOException
 	{
-			
+			loadMarioImages();
 			this.guard = ImageIO.read(new File("images/goomba_guard.png"));
-			this.mario_d= ImageIO.read(new File("images/mario_d.png"));
-			this.mario_a= ImageIO.read(new File("images/mario_a.png"));
-			this.mario_s= ImageIO.read(new File("images/mario_s.png"));
-			this.mario_w= ImageIO.read(new File("images/mario_w.png"));
-			this.mario_key_d= ImageIO.read(new File("images/mario_key_d.png"));
-			this.mario_key_s= ImageIO.read(new File("images/mario_key_s.png"));
 			this.key = ImageIO.read(new File("images/key.png"));
 			this.closedDoor = ImageIO.read(new File("images/closedDoor.png"));
 			this.openedDoor = ImageIO.read(new File("images/openedDoor.png"));
@@ -136,6 +129,16 @@ public class GraphicsVariables {
 			this.coin = ImageIO.read(new File("images/coin.png"));
 			this.menu_screen = ImageIO.read(new File("images/superMarioBackground.png"));
 			
+	}
+	
+	public void loadMarioImages() throws IOException
+	{
+		this.mario_d= ImageIO.read(new File("images/mario_d.png"));
+		this.mario_a= ImageIO.read(new File("images/mario_a.png"));
+		this.mario_s= ImageIO.read(new File("images/mario_s.png"));
+		this.mario_w= ImageIO.read(new File("images/mario_w.png"));
+		this.mario_key_d= ImageIO.read(new File("images/mario_key_d.png"));
+		this.mario_key_s= ImageIO.read(new File("images/mario_key_s.png"));
 	}
 	
 	public void setHashMap()
@@ -200,12 +203,10 @@ public class GraphicsVariables {
 		return this.menu_screen;
 	}
 	
-	
-	public String getGameStatusMessage() {
-		return GameStatusMessage;
+	public void resetMarioimage()
+	{
+		imagesMap.put('H', mario_d);
 	}
-	public void setGameStatusMessage(String gameStatusMessage) {
-		GameStatusMessage = gameStatusMessage;
-	}
+
 
 }

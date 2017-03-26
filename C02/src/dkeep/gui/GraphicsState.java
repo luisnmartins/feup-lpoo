@@ -50,7 +50,7 @@ public class GraphicsState {
 				break;
 				
 			case GAME:
-			
+				variables.resetMarioimage();
 				game = new DungeonDesign(variables, this);
 				framecontentpane.add(game);
 				game.setBounds(0, 0, 700, 700);
@@ -59,7 +59,7 @@ public class GraphicsState {
 				break;
 			
 			case CUSTOM:
-			
+				variables.resetMarioimage();
 				editor = new MapEditor(variables, this);
 				framecontentpane.add(editor);
 				editor.setBounds(0,0,700,700);
