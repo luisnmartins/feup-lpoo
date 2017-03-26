@@ -3,9 +3,7 @@ package dkeep.logic;
 
 public class DrunkenGuard extends Guard implements java.io.Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	/**

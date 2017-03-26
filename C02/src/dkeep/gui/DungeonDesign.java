@@ -234,7 +234,7 @@ public class DungeonDesign extends JPanel{
 			         FileInputStream fileIn = new FileInputStream("images/SavedGame");
 			         ObjectInputStream in = new ObjectInputStream(fileIn);
 			         variables.setLevel( (Level) in.readObject());
-			         System.out.println("load game");
+			         System.out.println("Load game");
 			         in.close();
 			         fileIn.close();
 			      }catch(IOException i) {

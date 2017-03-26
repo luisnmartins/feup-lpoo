@@ -70,7 +70,7 @@ public class MapEditor extends JPanel {
 			panel_1.setMaximumSize(new Dimension(400, 400));
 			panel_1.setLocation(155,163);
 			add(panel_1);
-			this.variables.getLevel().printMap();
+			
 			
 			
 		} catch (IOException e1) {

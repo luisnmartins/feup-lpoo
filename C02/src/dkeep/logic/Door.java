@@ -2,9 +2,7 @@ package dkeep.logic;
 
 public class Door implements java.io.Serializable{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;

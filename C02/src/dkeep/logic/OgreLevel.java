@@ -11,7 +11,11 @@ public class OgreLevel extends Level implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 
 
-	
+	/**
+	 * Creates a level of type OgreLevel, setting the map that defines the level and the number of enemies of type Ogre is in it
+	 * @param mymap the map that the level is played on
+	 * @param howmanyOgres the number of ogres that appear in the level
+	 */
 	public OgreLevel(Map mymap, int howmanyOgres)
 	{
 		
@@ -19,7 +23,10 @@ public class OgreLevel extends Level implements java.io.Serializable{
 		mymap.getKey().setIsaKey(true);
 	}
 	
-	
+	/**
+	 * Creates a level of type OgreLevel, without any Ogres
+	 * @param mymap the map that the level is played on
+	 */
 	public OgreLevel(Map mymap)
 	{
 		super(mymap, 0, 0);
@@ -28,7 +35,7 @@ public class OgreLevel extends Level implements java.io.Serializable{
 
 	/**
 	 * Returns the next level after the OgreLevel(since there is none it returns null)
-	 * @param enemienbm
+	 * @param enemienmb (unused variable) since it returns null
 	 * @return null because there is no level after the Ogre Level
 	 */
 	public Level nextLevel(int enemienmb)

@@ -8,9 +8,7 @@ import java.util.Arrays;
 public abstract class Level implements java.io.Serializable{
 	
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	protected Map currentmap;
 	protected Hero myHero;	
@@ -89,7 +87,7 @@ public abstract class Level implements java.io.Serializable{
 	
 	/**
 	 * Updates all the Game elements verifying collisions
-	 * @param Move WASD key representing the hero's movement
+	 * @param move WASD key representing the hero's movement
 	 * @return Returns the state enum of the game State (Running, NextLevel or Lose) 
 	 */
 	public state updateGame(char move)

@@ -1,12 +1,14 @@
 
 package dkeep.logic;
 
-
+/**
+ * 
+ * @author Carlos Freitas
+ *
+ */
 public abstract class Character implements java.io.Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
@@ -170,8 +172,8 @@ public abstract class Character implements java.io.Serializable{
 	
 	/**
 	 * Function that precisely changes the temporary position of the character 
-	 * @param char to represent the move the character is going to do (if 'w' it goes up one position, 'd' it goes right,..)
-	 * @param flag to know if the move set is reverse,if is set true, for example case move = 'w' instead of going up it goes down one position
+	 * @param move char to represent the move the character is going to do (if 'w' it goes up one position, 'd' it goes right,..)
+	 * @param invertFlag flag to know if the move set is reverse,if is set true, for example case move = 'w' instead of going up it goes down one position
 	 * */
 	public void changePosition(char move,boolean invertFlag)
 	{
@@ -243,7 +245,7 @@ public abstract class Character implements java.io.Serializable{
 
 	/**
 	 *Changes the isParalyzed variable to the function argument
-	 *@param the new value of IsParalyzed
+	 *@param isParalyzed the new value of IsParalyzed
 	 **/
 	
 	public void setIsParalyzed(boolean isParalyzed) {
