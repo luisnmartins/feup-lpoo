@@ -30,6 +30,13 @@ Java Project - object oriented programming
   
   **Suggestions** - responsible for making calculations to get estimated values of the user expenses so that it can,according to the                     results,give,if needed, a specific "alert" to the user <br>
   
+## Design Patterns
+-----
+
+.**Singleton**<br>
+
+ We intend to use the singleton design pattern
+  
 ## Behavioural Aspects State Machine
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/DFA.jpg)<br><br>
