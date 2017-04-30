@@ -56,15 +56,17 @@ Java Project - object oriented programming
 
 ## UNIT TESTING
 
-.Verify Sign in
-.Add/Edit transactions
-.Add/Edit/Remove category
-.Add/Edit/Remove User
-.Add/Edit/Remove Income/Fixed Expense
-.Verify total balance
-.Verify category balance
-.Verify transactions between dates
-.Verify new month
-.Verify save receipt image
-.Verify set menu category
-.Verify suggestions (for specific cases)
+-----
+
+.Verify Sign in. <br>
+.Add/Edit transactions. <br>
+.Add/Edit/Remove category.  <br>
+.Add/Edit/Remove User. <br>
+.Add/Edit/Remove Income/Fixed Expense. <br>
+.Verify total balance. <br>
+.Verify category balance. <br>
+.Verify transactions between dates. <br>
+.Verify new month. <br>
+.Verify save receipt image. <br>
+.Verify set menu category. <br>
+.Verify suggestions (for specific cases) <br>
