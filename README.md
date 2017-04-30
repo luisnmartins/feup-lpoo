@@ -33,7 +33,6 @@ Java Project - object oriented programming
 ## GUI DESIGN
 
 -----
-
 ***Intro***<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Intro.png" width="250"><br><br>
 
