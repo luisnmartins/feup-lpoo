@@ -65,7 +65,7 @@ Java Project - object oriented programming
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Overview.png" width="350"><br><br>
 
 -----
-***Statistics***
+***Statistics*** <br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Statistics.png" width="350"><br><br>
 
 
