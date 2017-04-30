@@ -30,3 +30,4 @@ Java Project - object oriented programming
   
   **Suggestions** - responsible for making calculations to get estimated values of the user expenses so that it can,according to the                     results,give,if needed, a specific "alert" to the user <br>
 
+## GUI DESIGN
