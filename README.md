@@ -16,7 +16,7 @@ Java Project - object oriented programming
 
 . ***Each Class brief description***<br>
 
-    PocketSave - main class of the application that verifies sign in/up of an user and creates an instance the DB to be used to add                             and get user's informations.<br>
+    PocketSave - main class of the application that verifies sign in/up of an user and creates an instance the DB to be used to add and get user's informations.<br>
     User - has an instance of financialsettings and statistics of the user. Set account settings ( email, password)<br>
     PremiumUser - has an instance of suggestions. responsible for verifying monthly payment validation ( date and value).<br>
     DataBase - add and get all the informations from the DB.<br>
