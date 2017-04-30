@@ -34,7 +34,7 @@ Java Project - object oriented programming
 
 -----
 
-**Singleton**<br>
+### Singleton<br>
 
  We intend to use the singleton design pattern on the DataBase and User classes because, logically speaking, it makes sense that only one user is logged in at the same time as also there 
  
