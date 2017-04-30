@@ -13,6 +13,7 @@ Java Project - object oriented programming
 ## Application Class Diagram
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/PocketSaveUML.png)
+<br>
 
 ### Each Class brief description<br>
 
@@ -29,7 +30,7 @@ Java Project - object oriented programming
   **FinancialSettings** -  set user's financial settings (incomes, fixed expenses and montly estimated values)<br>
   
   **Suggestions** - responsible for making calculations to get estimated values of the user expenses so that it can,according to the                     results,give,if needed, a specific "alert" to the user <br>
-  
+  <br><br>
 ## Design Patterns
 
 -----
@@ -40,11 +41,13 @@ Java Project - object oriented programming
  
  **More about the Singleton Design Patter in :** https://sourcemaking.com/design_patterns/singleton
 
------
+<br><br>
 ## Behavioural Aspects State Machine
+-----
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/DFA.jpg)<br><br>
 
+<br><br>
 ## GUI DESIGN
 
 -----
@@ -78,7 +81,6 @@ Java Project - object oriented programming
 ***Statistics***<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Statistics.png" width="600"><br><br>
 -----
-
 
 
 
