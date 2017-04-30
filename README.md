@@ -97,3 +97,5 @@ Java Project - object oriented programming
 +*Verify save receipt image.* <br>
 +*Verify set menu category.* <br>
 +*Verify suggestions (for specific cases)* <br>
+
+*More will be added later*<br>
