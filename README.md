@@ -31,11 +31,14 @@ Java Project - object oriented programming
   **Suggestions** - responsible for making calculations to get estimated values of the user expenses so that it can,according to the                     results,give,if needed, a specific "alert" to the user <br>
   
 ## Design Patterns
+
 -----
 
-.**Singleton**<br>
+**Singleton**<br>
 
- We intend to use the singleton design pattern
+ We intend to use the singleton design pattern on the DataBase and User classes because, logically speaking, it makes sense that only one user is logged in at the same time as also there 
+ 
+ **More about the Singleton Design Patter in : https://sourcemaking.com/design_patterns/singleton
   
 ## Behavioural Aspects State Machine
 
