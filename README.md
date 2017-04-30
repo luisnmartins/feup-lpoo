@@ -51,3 +51,20 @@ Java Project - object oriented programming
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Overview.png)
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Statistics.png)
+
+
+
+## UNIT TESTING
+
+Verify Sign in
+Add/Edit transactions
+Add/Edit/Remove category
+Add/Edit/Remove User
+Add/Edit/Remove Income/Fixed Expense
+Verify total balance
+Verify category balance
+Verify transactions between dates
+Verify new month
+Verify save receipt image
+Verify set menu category
+Verify suggestions (for specific cases)
