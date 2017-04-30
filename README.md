@@ -8,7 +8,8 @@ Java Project - object oriented programming
 
     Carlos Miguel da Silva de Freitas - up201504749
     Luís Noites Martins - up201503344
+    
 <br><br>
 ## Application Class Diagram
 
-![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/tree/final-project-delivery/Resources/PocketSaveUML.png)
+<img src= https://github.com/luisnmartins/LPOO1617_T3G03/tree/final-project-delivery/Resources/PocketSaveUML.png <br>
