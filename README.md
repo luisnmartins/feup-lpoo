@@ -58,15 +58,15 @@ Java Project - object oriented programming
 
 -----
 
-+*Verify Sign in. <br>
-+*Add/Edit transactions. <br>
-+*Add/Edit/Remove category.  <br>
-+*Add/Edit/Remove User. <br>
-+*Add/Edit/Remove Income/Fixed Expense. <br>
-+*Verify total balance. <br>
-+*Verify category balance. <br>
-+*Verify transactions between dates. <br>
-+*Verify new month. <br>
-+*Verify save receipt image. <br>
-+*Verify set menu category. <br>
-+*Verify suggestions (for specific cases) <br>
++*Verify Sign in.* <br>
++*Add/Edit transactions.* <br>
++*Add/Edit/Remove category.*  <br>
++*Add/Edit/Remove User.* <br>
++*Add/Edit/Remove Income/Fixed Expense.* <br>
++*Verify total balance.* <br>
++*Verify category balance.* <br>
++*Verify transactions between dates.* <br>
++*Verify new month.* <br>
++*Verify save receipt image.* <br>
++*Verify set menu category.* <br>
++*Verify suggestions (for specific cases)* <br>
