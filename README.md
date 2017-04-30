@@ -12,4 +12,4 @@ Java Project - object oriented programming
 <br><br>
 ## Application Class Diagram
 
-<img src= "https://github.com/luisnmartins/LPOO1617_T3G03/tree/final-project-delivery/Resources/PocketSaveUML.png"> <br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/tree/final-project-delivery/Resources/PocketSaveUML.png" width="150"> <br>
