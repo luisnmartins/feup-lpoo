@@ -14,7 +14,7 @@ Java Project - object oriented programming
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/PocketSaveUML.png)
 
-***Each Class brief description***<br>
+##***Each Class brief description***<br>
 
   **PocketSave** - main class of the application that verifies sign in/up of an user and creates an instance the DB to be used to add and get user's informations.<br>
   
