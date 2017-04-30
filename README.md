@@ -32,7 +32,6 @@ Java Project - object oriented programming
   **Suggestions** - responsible for making calculations to get estimated values of the user expenses so that it can,according to the                     results,give,if needed, a specific "alert" to the user <br>
   <br><br>
 ## Design Patterns
-
 -----
 
 ### Singleton<br>
@@ -49,7 +48,6 @@ Java Project - object oriented programming
 
 <br><br>
 ## GUI DESIGN
-
 -----
 ***Intro***<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Intro.png" width="250"><br><br>
