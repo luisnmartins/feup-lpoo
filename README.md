@@ -39,7 +39,8 @@ Java Project - object oriented programming
  *We intend to use the singleton design pattern on the DataBase and User classes because, logically speaking, it makes sense that only one user is logged in at the same time as also there is only one database that stores all data of the application.*<br>
  
  **More about the Singleton Design Patter in :** https://sourcemaking.com/design_patterns/singleton
-  
+
+-----
 ## Behavioural Aspects State Machine
 
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/DFA.jpg)<br><br>
