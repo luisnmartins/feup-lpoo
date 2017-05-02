@@ -8,4 +8,95 @@
     tools:context="lpoo.pocketsave.View.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <Button
+        android:id="@+id/Cat1btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="111dp"
+        android:text="Cat1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/Cat2btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:text="Cat2"
+        android:layout_alignBaseline="@+id/Cat1btn"
+        android:layout_alignBottom="@+id/Cat1btn"
+        android:layout_toEndOf="@+id/Cat1btn" />
+
+    <Button
+        android:id="@+id/Cat3btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Cat1btn"
+        android:layout_below="@+id/Cat1btn"
+        android:layout_marginTop="48dp"
+        android:text="Cat3" />
+
+    <Button
+        android:id="@+id/Cat4btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cat4"
+        android:layout_alignBaseline="@+id/Cat3btn"
+        android:layout_alignBottom="@+id/Cat3btn"
+        android:layout_alignStart="@+id/Cat2btn" />
+
+    <Button
+        android:id="@+id/Cat5btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:text="Cat5"
+        android:layout_below="@+id/Cat3btn"
+        android:layout_alignStart="@+id/Cat3btn" />
+
+    <Button
+        android:id="@+id/Morebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:layout_alignBaseline="@+id/Cat5btn"
+        android:layout_alignBottom="@+id/Cat5btn"
+        android:layout_alignStart="@+id/Cat4btn" />
+
+    <TextView
+        android:id="@+id/BalanceText"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:text="Balance"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/Cat5btn"
+        android:layout_alignStart="@+id/Cat5btn" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_alignTop="@+id/BalanceText"
+        android:layout_alignStart="@+id/BalanceText"
+        android:layout_marginStart="19dp"
+        android:id="@+id/textInputLayout">
+
+        <EditText
+            android:layout_width="181dp"
+            android:layout_height="wrap_content"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_marginBottom="22dp"
+        android:layout_above="@+id/Cat2btn"
+        android:layout_toStartOf="@+id/Cat4btn" />
 </RelativeLayout>
