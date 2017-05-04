@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
         android:text="Cat2"
+        android:onClick="NewTransaction"
         android:layout_alignBaseline="@+id/Cat1btn"
         android:layout_alignBottom="@+id/Cat1btn"
         android:layout_toEndOf="@+id/Cat1btn" />
@@ -90,13 +91,13 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/Addbtn"
         android:layout_width="100px"
         android:layout_height="100px"
+        android:layout_above="@+id/Cat2btn"
+        android:layout_marginBottom="22dp"
+        android:layout_toStartOf="@+id/Cat4btn"
         android:clickable="true"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_marginBottom="22dp"
-        android:layout_above="@+id/Cat2btn"
-        android:layout_toStartOf="@+id/Cat4btn" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 </RelativeLayout>
