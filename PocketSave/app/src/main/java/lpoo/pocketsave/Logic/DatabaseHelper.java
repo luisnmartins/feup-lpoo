@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.StrictMode;
+import android.util.Log;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -46,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
+        Log.d("myTag", "This is my message");
 
     }
 
@@ -77,7 +79,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_CATEGORY_TABLE);
         db.execSQL(CREATE_TRANSACTION_TABLE);
         db.execSQL(CREATE_USER_TABLE);
-        //db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, VALUE INTEGER, TYPE STRING)");
+
+
     }
 
     @Override
