@@ -1,24 +1,30 @@
 package lpoo.pocketsave.Logic;
 
 
-import java.util.Date;
-
 public class Transaction {
-    String title;
-    int value;
-    Date date;
-    String description;
+    private int value;
+    private String date;
+    private String description;
     //Image
 
-    public Transaction(String title, int value, Date date, String description){
+    public Transaction(int value, String date, String description){
 
-        this.title = title;
         this.value = value;
         this.date = date;
         this.description = description;
     }
 
+    public int getValue(){
+        return value;
+    }
 
+    public String getDate(){
+        return date;
+    }
+
+    public String getDescription(){
+        return description;
+    }
 
 
 }

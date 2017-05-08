@@ -1,6 +1,8 @@
 package lpoo.pocketsave.View;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,7 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-
+import android.widget.TextView;
 
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.PocketSave;
@@ -18,7 +20,10 @@ import lpoo.pocketsave.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button Cat1, Cat2, Cat3, Cat4, Cat5, More;
+    Button more;
+    DatabaseHelper myDB;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +32,42 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DatabaseHelper myDB = new DatabaseHelper(this);
-        //PocketSave newPocketSave = new PocketSave(myDB);
-        PocketSave.getInstance();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
-        Cat1 = (Button) findViewById(R.id.Cat1btn);
-        Cat2 = (Button) findViewById(R.id.Cat2btn);
-        Cat3 = (Button) findViewById(R.id.Cat3btn);
-        Cat4 = (Button) findViewById(R.id.Cat4btn);
-        Cat5 = (Button) findViewById(R.id.Cat5btn);
-        More = (Button) findViewById(R.id.Morebtn);
+        more = (Button) findViewById(R.id.Morebtn);
+
+        myDB = PocketSave.getInstance().createDB(this);
+        myDB.addUser("ola@ola.pt", "1234");
+        PocketSave.getInstance().addCategory("Carro", "income");
+        PocketSave.getInstance().addCategory("Propinas", "income");
+        TextView balanceView = (TextView) findViewById(R.id.BalanceView);
+        balanceView.setText("1244");
+        viewAll();
 
 
+
+    }
+
+    public void NewTransaction(View view){
+
+
+                Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
+                transactionIntent.putExtra("Category", String.valueOf(view.getTag()));
+                MainActivity.this.startActivity(transactionIntent);
+
+    }
+
+    public void getOverview(View view){
+
+        Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
+        MainActivity.this.startActivity(overviewIntent);
     }
 
     @Override
@@ -48,11 +77,46 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void NewTransaction(View view){
+    /*public void goTransaction(){
 
-        Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
-        intent.putExtra("button", view.getId());
-        startActivity(intent);
+        PocketSave.getInstance().changeState(PocketSave.State.Transaction, );
+
+    }*/
+
+    public void viewAll() {
+        more.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = myDB.getAllData();
+                        if(res.getCount() == 0) {
+                            // show message
+                            showMessage("Error","Nothing found");
+                            return;
+                        }
+
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("ID :"+ res.getString(0)+"\n");
+                            buffer.append("VALUE :"+ res.getString(1)+"\n");
+                            buffer.append("DATE :"+ res.getString(2)+"\n");
+                            buffer.append("Description :"+ res.getString(3)+"\n");
+                            /*buffer.append("Marks :"+ res.getString(3)+"\n\n");*/
+                        }
+
+                        // Show all data
+                        showMessage("Data",buffer.toString());
+                    }
+                }
+        );
+    }
+
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     @Override
@@ -69,4 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

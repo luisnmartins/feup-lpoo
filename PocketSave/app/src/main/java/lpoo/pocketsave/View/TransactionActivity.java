@@ -1,16 +1,22 @@
 package lpoo.pocketsave.View;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import java.text.SimpleDateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
+import java.util.Date;
+
+import lpoo.pocketsave.Logic.PocketSave;
+import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.R;
 
 public class TransactionActivity extends AppCompatActivity {
-
+    EditText value, description, date;
+    Button savebtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,16 +24,30 @@ public class TransactionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        value = (EditText) findViewById(R.id.ValueText);
+        date = (EditText) findViewById(R.id.DateText);
+        description = (EditText) findViewById(R.id.DescriptionText);
+        savebtn = (Button) findViewById(R.id.Savebtn);
+        AddData();
 
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
+
+    public  void AddData() {
+        savebtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            PocketSave.getInstance().addTransaction(Integer.parseInt(value.getText().toString()),
+                                    date.getText().toString(),
+                                    description.getText().toString(), getIntent().getStringExtra("Category"));
+                        /*if(isInserted == true)
+                            Toast.makeText(MainActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();*/
+                    }
+                }
+        );
+    }
+
 
 }

@@ -2,12 +2,10 @@ package lpoo.pocketsave.Logic;
 
 import java.util.ArrayList;
 
-/**
- * Created by luisnmartins on 03/05/2017.
- */
 
 public class Category {
 
+    int id;
     String title;
     String type;
     double estimatedValue;
@@ -19,6 +17,11 @@ public class Category {
         this.title = title;
         this.type = type;
         this.totalSpent=0;
+    }
+
+    public int getID(){
+
+        return id;
     }
 
     public void setEstimatedValue(double value){
