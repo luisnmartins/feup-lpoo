@@ -88,6 +88,8 @@
         android:layout_marginBottom="22dp"
         android:layout_toStartOf="@+id/Cat4btn"
         android:clickable="true"
+        android:onClick="getOverlay"
+        app:backgroundTint="@android:color/background_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -102,4 +104,17 @@
         android:layout_alignStart="@+id/BalanceText"
         android:layout_alignEnd="@+id/Morebtn"
         android:onClick="getOverview"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Addbtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="24dp"
+        android:onClick="getOverlay"
+        android:text="Button" />
+
+
 </RelativeLayout>

@@ -16,17 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:logo="@mipmap/ic_launcher"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <TextView
-        android:id="@+id/Status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="15dp"
-        android:text="PocketSave" />
 
     <include layout="@layout/content_transaction"
         android:id="@+id/include2" />

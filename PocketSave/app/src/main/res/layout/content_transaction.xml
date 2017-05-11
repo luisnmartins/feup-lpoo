@@ -79,13 +79,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="170dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
         app:srcCompat="@android:drawable/ic_delete"
-        android:layout_below="@+id/receiptText"
-        android:layout_toEndOf="@+id/valueView"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="23dp" />
+        android:layout_alignBottom="@+id/Savebtn"
+        android:layout_toEndOf="@+id/receiptText" />
 
     <Button
         android:id="@+id/Savebtn"
