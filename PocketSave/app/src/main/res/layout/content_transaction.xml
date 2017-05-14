@@ -30,15 +30,6 @@
         android:layout_below="@+id/ValueText"
         android:layout_alignStart="@+id/valueView" />
 
-    <EditText
-        android:id="@+id/DateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignStart="@+id/DescriptionText"
-        android:ems="10"
-        android:inputType="date" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -54,9 +45,8 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:layout_alignBaseline="@+id/valueView"
-        android:layout_alignBottom="@+id/valueView"
-        android:layout_alignStart="@+id/DateText" />
+        android:layout_alignTop="@+id/valueView"
+        android:layout_alignStart="@+id/DateView" />
 
     <EditText
         android:id="@+id/DescriptionText"
@@ -81,9 +71,9 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="30dp"
         app:srcCompat="@android:drawable/ic_delete"
-        android:layout_alignBottom="@+id/Savebtn"
+        android:layout_marginBottom="58dp"
+        android:layout_above="@+id/Savebtn"
         android:layout_toEndOf="@+id/receiptText" />
 
     <Button
@@ -93,6 +83,15 @@
         android:text="Save"
         android:layout_marginBottom="19dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/DescriptionText" />
+
+    <TextView
+        android:id="@+id/DateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/DescriptionText"
+        android:layout_alignTop="@+id/textView3"
+        android:text="TextView"
         android:layout_alignEnd="@+id/DescriptionText" />
 
 </RelativeLayout>

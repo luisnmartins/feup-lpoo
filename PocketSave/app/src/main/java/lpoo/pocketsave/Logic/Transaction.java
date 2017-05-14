@@ -12,6 +12,7 @@ public class Transaction {
         this.value = value;
         this.date = date;
         this.description = description;
+
     }
 
     public int getValue(){

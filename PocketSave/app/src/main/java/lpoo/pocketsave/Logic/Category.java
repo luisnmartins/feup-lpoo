@@ -28,14 +28,19 @@ public class Category {
         this.estimatedValue = value;
     }
 
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(int value, String date, String description) {
+
+        Transaction transaction = new Transaction(value, date, description);
         transactions.add(transaction);
+        DatabaseSingleton.getInstance().getDB();
     }
 
 
     public void addTotalSpent(double value){
         totalSpent += value;
     }
+
+
 
 
     @Override

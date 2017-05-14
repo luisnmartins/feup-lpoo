@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import android.provider.Settings;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -19,14 +19,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_TYPE = "type_table";
 
     //User Table Columns
-    public static final String USER_ID = "ID";
+    public static final String USER_ID = "_id";
+    public static final String USER_NAME = "Username";
     public static final String USER_EMAIL = "Email";
     public static final String USER_PASSWORD = "Password";
     public static final String USER_TOTALSAVED = "TotalSaved";
 
     //Transaction Table Columns
     public static final String TRANS_USER_ID = "User_ID";
-    public static final String TRANS_ID = "ID";
+    public static final String TRANS_ID = "_id";
     public static final String TRANS_DESCRIPTION = "Description";
     public static final String TRANS_VALUE = "Value";
     public static final String TRANS_DATE = "Date";
@@ -34,14 +35,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TRANS_CATEGORY_ID = "Category_ID";
 
     //Category Table Columns
-    public static final String CAT_ID = "ID";
+    public static final String CAT_ID = "_id";
     public static final String CAT_TITLE = "Title";
     public static final String CAT_TYPE_ID = "Type_ID";
 
     //Type Table Columns
-    public static final  String TYPE_ID = "ID";
+    public static final  String TYPE_ID = "_id";
     public static final String TYPE_NAME = "Name";
 
+
+    String [] USER_COLUMNS = {USER_ID, USER_EMAIL, USER_PASSWORD, USER_TOTALSAVED};
+
+    static private DatabaseHelper instance = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -52,15 +57,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                USER_EMAIL+" VARCHAR(30) UNIQUE, "+USER_PASSWORD+" VARCHAR(30) NOT NULL, "+
+                USER_NAME+" VARCHAR(30), "+ USER_EMAIL+" VARCHAR(30) UNIQUE, "+USER_PASSWORD+" VARCHAR(30) NOT NULL, "+
                 USER_TOTALSAVED+" INTEGER)";
         String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 CAT_TITLE+" VARCHAR(30) UNIQUE, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"))";
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TYPE_NAME+" VARCHAR(30) NOT NULL)";
+        /*String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
+                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+
+                TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";*/
+
+
         String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" DATE NOT NULL, "+
-                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+
-                TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
+                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL)";
 
     try{
         db.execSQL(create_user);
@@ -80,6 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addUser(String email, String password) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_EMAIL,email);
@@ -89,8 +100,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         else
         {
+            System.out.println("User added to db\n");
             return true;
         }
+
+    }
+
+    public Cursor openUser(String email, String password){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER,null," email = ?", new String[]{email}, null, null, null);
+        if(cursor.getCount()<1){ // UserName Not Exist
+
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+            if(cursor.getString(cursor.getColumnIndex(USER_PASSWORD)).equals(password)){
+                return cursor;
+            }
+        cursor.close();
+        return null;
 
     }
 
@@ -102,7 +133,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TRANS_VALUE, value);
         contentValues.put(TRANS_DATE, date);
         contentValues.put(TRANS_DONE, true);
-        contentValues.put(TRANS_CATEGORY_ID, categoryID);
         long result = db.insert(TABLE_TRANSACTION,null, contentValues);
         if(result == -1)
             return false;
@@ -151,6 +181,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_TRANSACTION,null);
+        if(res == null)
+            System.out.println("Error getting data\n");
         return res;
     }
 
