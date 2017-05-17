@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button more;
     DatabaseHelper myDB;
+    private DrawerLayout sDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
 
 
 
@@ -29,17 +34,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.nav_action);
+        mToolbar.setTitle("Main Menu");
+        mToolbar.setLogo(R.mipmap.ic_launcher_round);
+        setSupportActionBar(mToolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        sDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+        mToggle = new ActionBarDrawerToggle(this,sDrawerLayout,R.string.open,R.string.close);
+
+
+
+        sDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+
+
 
         more = (Button) findViewById(R.id.Morebtn);
 
@@ -52,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         viewAll();
 
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void NewTransaction(View view){
@@ -70,10 +80,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(overviewIntent);
     }
 
-    public void getOverlay(View view){
-        Intent overlayIntent = new Intent(MainActivity.this, SideDrawr.class);
-        MainActivity.this.startActivity(overlayIntent);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
 
         //noinspection SimplifiableIfStatemen
         return super.onOptionsItemSelected(item);

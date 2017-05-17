@@ -13,33 +13,31 @@
         android:tag="cat1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="83dp"
-        android:layout_marginTop="111dp"
+        android:layout_marginStart="72dp"
         android:text="Cat1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:onClick="NewTransaction"/>
+        android:onClick="NewTransaction"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/Cat3btn" />
 
     <Button
         android:id="@+id/Cat2btn"
         android:tag="cat2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
         android:text="Cat2"
         android:layout_alignBaseline="@+id/Cat1btn"
         android:layout_alignBottom="@+id/Cat1btn"
-        android:layout_toEndOf="@+id/Cat1btn" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="59dp" />
 
     <Button
         android:id="@+id/Cat3btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="NewTransaction"
-        android:layout_alignStart="@+id/Cat1btn"
-        android:layout_below="@+id/Cat1btn"
-        android:layout_marginTop="48dp"
-        android:text="Cat3" />
+        android:text="Cat3"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/Cat1btn" />
 
     <Button
         android:id="@+id/Cat4btn"
@@ -55,7 +53,7 @@
         android:id="@+id/Cat5btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="37dp"
         android:text="Cat5"
         android:onClick="NewTransaction"
         android:layout_below="@+id/Cat3btn"
@@ -66,55 +64,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="..."
-        android:layout_alignBaseline="@+id/Cat5btn"
-        android:layout_alignBottom="@+id/Cat5btn"
+        android:layout_above="@+id/BalanceText"
         android:layout_alignStart="@+id/Cat4btn" />
 
     <TextView
         android:id="@+id/BalanceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="52dp"
         android:text="Balance"
+        android:layout_marginStart="15dp"
         android:layout_below="@+id/Cat5btn"
-        android:layout_alignStart="@+id/Cat5btn"
-        android:layout_marginStart="13dp" />
+        android:layout_alignStart="@+id/Cat5btn" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/Addbtn"
         android:layout_width="100px"
         android:layout_height="100px"
-        android:layout_above="@+id/Cat2btn"
-        android:layout_marginBottom="22dp"
-        android:layout_toStartOf="@+id/Cat4btn"
+        android:layout_marginBottom="21dp"
         android:clickable="true"
-        android:onClick="getOverlay"
         app:backgroundTint="@android:color/background_light"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_above="@+id/Cat2btn"
+        android:layout_toStartOf="@+id/Cat4btn"
+        android:layout_marginEnd="12dp" />
 
     <TextView
         android:id="@+id/BalanceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="23dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:onClick="getOverview"
         android:layout_below="@+id/BalanceText"
-        android:layout_alignStart="@+id/BalanceText"
-        android:layout_alignEnd="@+id/Morebtn"
-        android:onClick="getOverview"/>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Addbtn"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="19dp"
-        android:layout_marginStart="24dp"
-        android:onClick="getOverlay"
-        android:text="Button" />
+        android:layout_alignStart="@+id/BalanceText" />
 
 
 </RelativeLayout>
