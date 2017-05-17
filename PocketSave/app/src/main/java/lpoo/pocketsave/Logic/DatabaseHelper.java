@@ -61,16 +61,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 USER_TOTALSAVED+" INTEGER)";
         String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 CAT_TITLE+" VARCHAR(30) UNIQUE, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"))";
-        String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TYPE_NAME+" VARCHAR(30) NOT NULL)";
-        /*String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+        String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TYPE_NAME+" VARCHAR(30) NOT NULL UNIQUE)";
+        String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
                 TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+
-                TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";*/
+                TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
 
-        String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+        System.out.println(create_user);
+        System.out.println(create_category);
+        System.out.println(create_type);
+        System.out.println(create_transaction);
+
+
+        /*String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" DATE NOT NULL, "+
-                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL)";
+                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL)";*/
 
     try{
         db.execSQL(create_user);
@@ -125,43 +131,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addTransaction(int value, String date, String description, int categoryID){
+    public int addTransaction(int value, String date, String description, int categoryID, boolean done){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TRANS_DESCRIPTION, description);
         contentValues.put(TRANS_VALUE, value);
         contentValues.put(TRANS_DATE, date);
-        contentValues.put(TRANS_DONE, true);
+        contentValues.put(TRANS_CATEGORY_ID, categoryID);
+        contentValues.put(TRANS_DONE, done);
         long result = db.insert(TABLE_TRANSACTION,null, contentValues);
         if(result == -1)
-            return false;
+            return -1;
         else
         {
             System.out.println("Transaction added successfully\n");
-            return true;
+            return (int)result;
         }
 
 
     }
 
-    public boolean addType(String title){
+    public int addType(String title){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TYPE_NAME, title);
         long result = db.insert(TABLE_TYPE,null, contentValues);
         if(result == -1)
-            return false;
+            return -1;
         else
         {
             System.out.println("Type added successfully\n");
-            return true;
+            return (int) result;
         }
 
     }
 
-    public boolean addCategory(String title, int typeID){
+    /*public int getTypeID(String title){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.query(TABLE_TYPE, null, " Name = ?", new String[]{title}, null, null, null);
+        if(res.moveToFirst()) {
+            return Integer.parseInt(res.getString(res.getColumnIndex(DatabaseHelper.TYPE_NAME)));
+        }
+        else{
+            res.close();
+            return -1;
+        }
+
+    }*/
+
+    public int addCategory(String title, int typeID){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -169,11 +190,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(CAT_TYPE_ID, typeID);
         long result = db.insert(TABLE_CATEGORY,null, contentValues);
         if(result == -1)
-            return false;
+            return -1;
         else
         {
             System.out.println("Category added successfully\n");
-            return true;
+            return (int)result;
         }
 
     }
@@ -184,6 +205,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(res == null)
             System.out.println("Error getting data\n");
         return res;
+    }
+
+
+    public Cursor getType(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_TYPE,null," _id = ?", new String[]{id}, null, null, null);
+        //cursor.getString(cursor.getColumnIndex(DatabaseHelper.TYPE_ID));
+        if(cursor.getCount()<1){
+            cursor.close();
+            return null;
+        }
+        if(cursor.moveToFirst()){
+            return cursor;
+        }
+        cursor.close();
+        return null;
+
+    }
+
+    public Cursor getTransaction(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_TRANSACTION,null," _id = ?", new String[]{id}, null, null, null);
+        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
+        if(cursor.getCount()<1){ // Transaction Not Exist
+
+            cursor.close();
+            return null;
+        }
+        if(cursor.moveToFirst()) {
+
+            return cursor;
+        }
+        cursor.close();
+        return null;
+
     }
 
     /*public boolean updateData(String id,String name,String surname,String marks) {

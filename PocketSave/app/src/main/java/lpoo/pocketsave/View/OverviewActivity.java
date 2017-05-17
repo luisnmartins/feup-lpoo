@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
@@ -34,6 +35,7 @@ public class OverviewActivity extends AppCompatActivity {
         });
 
         populateListView();
+        registerListClickCallback();
     }
 
     private void populateListView(){
@@ -65,17 +67,34 @@ public class OverviewActivity extends AppCompatActivity {
         list.setAdapter(myCursorAdapter);
     }
 
-    /*private void detailViewClick(){
+    private void registerListClickCallback() {
         ListView list = (ListView) findViewById(R.id.ListViewDB);
-        list.setOnClickListener(new AdapterView.OnItemClickListener(){
-
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View viewClicked,
+                                    int position, long idInDB) {
 
+
+
+                displayToastForId(idInDB);
             }
+        });
+    }
+
+    private void displayToastForId(long idInDB) {
+        Cursor cursor = DatabaseSingleton.getInstance().getDB().getTransaction(Long.toString(idInDB));
+        if(cursor != null) {
+            if (cursor.moveToFirst()) {
+                String idDB = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
+                String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE));
+
+                String message = "ID: " + idDB + "\n"
+                        + "Name: " + name;
+                Toast.makeText(OverviewActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+            cursor.close();
         }
-        );
-
-    }   */
-
+        else
+            System.out.println("Error getting Transaction\n");
+    }
 }

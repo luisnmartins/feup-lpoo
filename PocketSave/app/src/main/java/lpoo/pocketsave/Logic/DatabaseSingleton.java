@@ -22,6 +22,7 @@ public class DatabaseSingleton {
 
     public void createDB(Context context){
         this.myDB = new DatabaseHelper(context);
+        System.out.println("Database created\n");
     }
 
 }

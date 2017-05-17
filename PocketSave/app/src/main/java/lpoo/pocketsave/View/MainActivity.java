@@ -1,6 +1,7 @@
 package lpoo.pocketsave.View;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -53,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"Error trying to log in. Please try again",Toast.LENGTH_LONG).show();
 
 
-        DatabaseSingleton.getInstance().getDB().addType("income");
+        /*DatabaseSingleton.getInstance().getDB().addType("income");
         DatabaseSingleton.getInstance().getDB().addType("expense");
         DatabaseSingleton.getInstance().getDB().addCategory("cat1", 0);
-        DatabaseSingleton.getInstance().getDB().addCategory("cat2", 1);
+        DatabaseSingleton.getInstance().getDB().addCategory("cat2", 1);*/
         /*
         PocketSave.getInstance().addCategory("Carro", "income");
         PocketSave.getInstance().addCategory("Propinas", "income");
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public Context getcontext(){
+        return this;
     }
 
     public void NewTransaction(View view){

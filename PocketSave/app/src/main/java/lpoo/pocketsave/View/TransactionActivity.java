@@ -25,6 +25,7 @@ public class TransactionActivity extends AppCompatActivity {
     EditText value, description;
     TextView date;
     int year_x, month_x, day_x;
+    String category;
     static final int DIALOG_ID =0;
     Button savebtn;
     @Override
@@ -43,6 +44,7 @@ public class TransactionActivity extends AppCompatActivity {
         value = (EditText) findViewById(R.id.ValueText);
         description = (EditText) findViewById(R.id.DescriptionText);
         savebtn = (Button) findViewById(R.id.Savebtn);
+        category = getIntent().getExtras().getString("Category");
         AddData();
 
 
@@ -88,9 +90,13 @@ public class TransactionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String dateString = year_x+"/"+month_x+"/"+day_x;
-                            DatabaseSingleton.getInstance().getDB().addTransaction(Integer.parseInt(value.getText().toString()),
+                        int valueInt = Integer.parseInt(value.getText().toString());
+                        //TODO: change done value
+                        User.getInstance().getCategory(category).addTransaction(valueInt, dateString, description.getText().toString(),true);
+
+                            /*DatabaseSingleton.getInstance().getDB().addTransaction(Integer.parseInt(value.getText().toString()),
                                     dateString,
-                                    description.getText().toString(), 0);
+                                    description.getText().toString(), 0);*/
                         /*if(isInserted == true)
                             Toast.makeText(MainActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
                         else

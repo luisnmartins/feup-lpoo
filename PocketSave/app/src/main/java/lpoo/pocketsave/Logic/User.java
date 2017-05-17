@@ -1,9 +1,15 @@
 package lpoo.pocketsave.Logic;
 
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 import static lpoo.pocketsave.Logic.DatabaseHelper.*;
 
@@ -12,6 +18,7 @@ public class User {
     private String username;
     private double totalSaved;
     private int availableMonth;
+    private HashMap<String, Integer> types;
     private HashMap<String, Category> userCategories;
 
     static private User instance = null;
@@ -27,6 +34,7 @@ public class User {
 
     public User(){
        this.userCategories = new HashMap<String, Category>();
+        this.types = new HashMap<String, Integer>();
     };
 
     /**
@@ -55,6 +63,20 @@ public class User {
 
         this.username = userInfo.getString(userInfo.getColumnIndex(USER_EMAIL));
         this.totalSaved = userInfo.getDouble(userInfo.getColumnIndex(USER_TOTALSAVED));
+        //TODO: only to test. Delete
+        setTypes();
+        addCategory("cat1", "income");
+        addCategory("cat2", "fixed expense");
+        addCategory("cat3", "variable expense");
+
+
+    }
+
+    public void setTypes(){
+
+        addType("income");
+        addType("fixed expense");
+        addType("variable expense");
 
     }
 
@@ -69,24 +91,50 @@ public class User {
     }
 
 
-    public Category addCategory(String title, String type){
+    public boolean addCategory(String title, String type){
 
-
-        Category newCategory;
-       if(!userCategories.isEmpty()){
-        if((newCategory = userCategories.get(title)) == null){
-
-            //newCategory = new Category(title, type, myDB);
-            userCategories.put(title, newCategory);
+        //get type id
+        Integer typeID;
+        if((typeID= types.get(type)) == null){
+            System.out.println("This type does not exist");
+            return false;
         }
-       }
-       else
-        newCategory = new Category(title, type);
 
-        return newCategory;
+        //Verify if this category doesn't already exist, and if not, add it
+        if(userCategories.get(title) == null){
+
+            //create category
+            Category newCategory = new Category(title, typeID);
+            userCategories.put(title, newCategory);
+            return true;
+        }
+        else
+            return false;
     }
 
-    public boolean addTransaction(int value, String date, String description, String category){
+    public Category getCategory(String title){
+        return userCategories.get(title);
+    }
+
+    public boolean addType(String title){
+
+
+        int id;
+
+        //android.util.Log.d("Numero", "addType");
+        if((id = DatabaseSingleton.getInstance().getDB().addType(title)) != -1){
+
+            System.out.println(id);
+            this.types.put(title, id);
+            return true;
+        }
+        System.out.println(id);
+        return false;
+    }
+
+
+
+    /*public boolean addTransaction(int value, String date, String description, String category){
 
         Category newCategory;
         if((newCategory = userCategories.get(category)) == null){
@@ -98,6 +146,17 @@ public class User {
             //newCategory.addTransaction(newTransaction);
             return true;
         }
+    }*/
+
+    //TODO: transactions
+    public TreeSet<Transaction> getAllTransactionsBetween(Date d1, Date d2){
+
+        TreeSet<Transaction> trans = new TreeSet<Transaction>();
+        for(HashMap.Entry<String, Category> it: userCategories.entrySet()){
+
+        }
+        return trans;
+
     }
 
     public String getUsername(){

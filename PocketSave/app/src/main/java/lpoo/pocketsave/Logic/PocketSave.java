@@ -6,7 +6,7 @@ import android.content.Context;
 public class PocketSave {
 
 
-    private DatabaseHelper myDB;
+    /*private DatabaseHelper myDB;
     private Context context;
     private User currUser;
     static private PocketSave instance = null;
@@ -60,7 +60,7 @@ public class PocketSave {
     public DatabaseHelper getDB(){
 
         return myDB;
-    }
+    }*/
 
 
 
