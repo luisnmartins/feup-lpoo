@@ -48,6 +48,8 @@ public class Transaction implements Comparable<Transaction>{
         return this.date;
     }
 
+    public int getID(){return this.id;}
+
     public String getDateString(){
         return df1.format(date);
     }

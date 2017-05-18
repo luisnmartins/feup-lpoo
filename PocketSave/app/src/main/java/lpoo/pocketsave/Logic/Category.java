@@ -1,5 +1,8 @@
 package lpoo.pocketsave.Logic;
 
+import android.util.Log;
+
+import java.io.Console;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +41,7 @@ public class Category {
         this.estimatedValue = value;
     }
 
-    public boolean addTransaction(int value, String date, String description, boolean done) {
+    public Transaction addTransaction(int value, String date, String description, boolean done) {
 
         Transaction transaction=null;
         try {
@@ -46,23 +49,30 @@ public class Category {
         }catch (NoSuchElementException a){
 
             if(a.getMessage() == "Transaction")
-                return false;
+                return null;
         }
         transactions.add(transaction);
         addTotalSpent(value);
-        return true;
+        return transaction;
     }
+
+
+
     //TODO: transactions
     public TreeSet<Transaction> getTransactionsBetween(Date d1, Date d2){
 
-        if((transactions.first().getDate().after(d1) || transactions.first().getDate().equals(d1))
-                && (transactions.last().getDate().before(d2)) || transactions.last().getDate().equals(d2)){
+        TreeSet<Transaction> transactionsBetween = new TreeSet<Transaction>();
+       if((transactions.first().getDate().after(d1)|| transactions.first().getDate().equals(d1)) &&
+               (d2.before(transactions.last().getDate()) || d2.equals(transactions.last().getDate()))){
 
-            for(Transaction tran: transactions){
-                //if(tran.getDate().)
+              for(Transaction tran: transactions){
+
+                if((tran.getDate().after(d1) || tran.getDate().equals(d1)) && (d2.before(tran.getDate()) || d2.equals(tran.getDate())))
+                    transactionsBetween.add(tran);
             }
-        }
-        return transactions;
+
+       }
+        return transactionsBetween;
     }
 
 

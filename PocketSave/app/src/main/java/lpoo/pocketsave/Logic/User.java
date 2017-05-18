@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
 
-import java.sql.Date;
+import java.lang.reflect.Array;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.TreeSet;
 
 import static lpoo.pocketsave.Logic.DatabaseHelper.*;
@@ -20,6 +25,7 @@ public class User {
     private int availableMonth;
     private HashMap<String, Integer> types;
     private HashMap<String, Category> userCategories;
+    DateFormat df1;
 
     static private User instance = null;
 
@@ -35,6 +41,7 @@ public class User {
     public User(){
        this.userCategories = new HashMap<String, Category>();
         this.types = new HashMap<String, Integer>();
+        df1 = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
     };
 
     /**
@@ -149,13 +156,32 @@ public class User {
     }*/
 
     //TODO: transactions
-    public TreeSet<Transaction> getAllTransactionsBetween(Date d1, Date d2){
+    public TreeSet<Transaction> getAllTransactionsBetween(String dS1, String dS2){
+
 
         TreeSet<Transaction> trans = new TreeSet<Transaction>();
-        for(HashMap.Entry<String, Category> it: userCategories.entrySet()){
+        try {
 
+            Date d1 = df1.parse(dS1);
+            Date d2 = df1.parse(dS2);
+            TreeSet<Transaction> temporary;
+
+
+            for(HashMap.Entry<String, Category> it: userCategories.entrySet()){
+
+                temporary = it.getValue().getTransactionsBetween(d1, d2);
+                for(Transaction tran: temporary)
+                    trans.add(tran);
+                Log.d("Size1 ", Integer.toString(trans.size()));
+            }
+            return trans;
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        return trans;
+        return null;
+
 
     }
 

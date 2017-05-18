@@ -9,8 +9,12 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.Console;
+import java.util.TreeSet;
+
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.View.MainActivity;
 
@@ -84,12 +88,37 @@ public class ExampleInstrumentedTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         DatabaseSingleton.getInstance().createDB(appContext);
         assertEquals(true, User.getInstance().addType("income"));
         Cursor cursor = DatabaseSingleton.getInstance().getDB().getType(Integer.toString(1));
-       assertEquals("income", cursor.getString(cursor.getColumnIndex(TYPE_NAME)));
+        assertEquals("income", cursor.getString(cursor.getColumnIndex(TYPE_NAME)));
 
     }
 
+    @Test
+    public void getTransBetweenDates(){
+
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DatabaseSingleton.getInstance().createDB(appContext);
+        assertEquals(true, User.getInstance().addType("income"));
+        assertEquals(true, User.getInstance().addCategory("carro", "income"));
+        Transaction t1 = User.getInstance().getCategory("carro").addTransaction(10, "1997/12/21", "ola",true);
+        assertNotNull(User.getInstance().getCategory("carro").addTransaction(11, "1997/12/23", "ola2",true));
+        TreeSet<Transaction> res = User.getInstance().getAllTransactionsBetween("1997/12/20", "1997/12/22");
+        //assertEquals(t1.getID(), res.first().getID());
+        for(Transaction tran: res){
+
+            System.out.println("IT2: "+tran.getDate());
+        }
+
+
+
+
+    }
 
 }

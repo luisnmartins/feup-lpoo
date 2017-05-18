@@ -68,12 +68,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
 
-        System.out.println(create_user);
-        System.out.println(create_category);
-        System.out.println(create_type);
-        System.out.println(create_transaction);
-
-
         /*String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" DATE NOT NULL, "+
                 TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL)";*/
