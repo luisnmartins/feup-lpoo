@@ -170,9 +170,9 @@ public class User {
             for(HashMap.Entry<String, Category> it: userCategories.entrySet()){
 
                 temporary = it.getValue().getTransactionsBetween(d1, d2);
-                for(Transaction tran: temporary)
-                    trans.add(tran);
-                Log.d("Size1 ", Integer.toString(trans.size()));
+                if(temporary.size()>0)
+                    for(Transaction tran: temporary)
+                        trans.add(tran);
             }
             return trans;
 

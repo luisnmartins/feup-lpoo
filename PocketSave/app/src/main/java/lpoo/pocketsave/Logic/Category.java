@@ -1,5 +1,6 @@
 package lpoo.pocketsave.Logic;
 
+import android.database.Cursor;
 import android.util.Log;
 
 import java.io.Console;
@@ -62,14 +63,31 @@ public class Category {
     public TreeSet<Transaction> getTransactionsBetween(Date d1, Date d2){
 
         TreeSet<Transaction> transactionsBetween = new TreeSet<Transaction>();
-       if((transactions.first().getDate().after(d1)|| transactions.first().getDate().equals(d1)) &&
-               (d2.before(transactions.last().getDate()) || d2.equals(transactions.last().getDate()))){
+        Date temp_date;
+       if((d1.after(transactions.first().getDate()) || d1.equals(transactions.first().getDate())) &&
+               (d2.before(transactions.last().getDate()) || d2.equals(transactions.last().getDate()))) {
 
-              for(Transaction tran: transactions){
+           for (Transaction tran : transactions) {
 
-                if((tran.getDate().after(d1) || tran.getDate().equals(d1)) && (d2.before(tran.getDate()) || d2.equals(tran.getDate())))
-                    transactionsBetween.add(tran);
-            }
+
+               temp_date = tran.getDate();
+               if ((temp_date.after(d1) || temp_date.equals(d1)) &&
+                       (temp_date.before(d2) || temp_date.equals(d2)))
+
+                       transactionsBetween.add(tran);
+
+           }
+       }
+       else
+       {
+           Cursor cursor = DatabaseSingleton.getInstance().getDB().getTransactionsBetween(d1, d2);
+           Transaction newTransaction;
+           do{
+               boolean done = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0;
+                newTransaction = new Transaction(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)), cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)), done);
+                transactionsBetween.add(newTransaction);
+           }while(cursor.moveToNext());
+
 
        }
         return transactionsBetween;

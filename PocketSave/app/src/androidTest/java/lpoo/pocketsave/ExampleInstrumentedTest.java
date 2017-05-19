@@ -107,16 +107,20 @@ public class ExampleInstrumentedTest {
         DatabaseSingleton.getInstance().createDB(appContext);
         assertEquals(true, User.getInstance().addType("income"));
         assertEquals(true, User.getInstance().addCategory("carro", "income"));
+        //add to category transaction vector and db
         Transaction t1 = User.getInstance().getCategory("carro").addTransaction(10, "1997/12/21", "ola",true);
-        assertNotNull(User.getInstance().getCategory("carro").addTransaction(11, "1997/12/23", "ola2",true));
-        TreeSet<Transaction> res = User.getInstance().getAllTransactionsBetween("1997/12/20", "1997/12/22");
-        //assertEquals(t1.getID(), res.first().getID());
-        for(Transaction tran: res){
-
-            System.out.println("IT2: "+tran.getDate());
-        }
-
-
+        assertNotNull(User.getInstance().getCategory("carro").addTransaction(11, "1997/12/24", "ola2",true));
+        //only add db to test get db values between dates
+        DatabaseSingleton.getInstance().getDB().addTransaction(12, "1997/02/17", "JulietaQueChunga", 0, true);
+        DatabaseSingleton.getInstance().getDB().addTransaction(13, "1997/11/02", "baldaia", 0, true);
+        TreeSet<Transaction> res;
+        res = User.getInstance().getAllTransactionsBetween("1997/12/21", "1997/12/23");
+        assertEquals(t1.getID(), res.first().getID());
+        assertEquals(1, res.size());
+        res = User.getInstance().getAllTransactionsBetween("1995/05/10", "1997/12/24");
+        assertEquals(4, res.size());
+        res = User.getInstance().getAllTransactionsBetween("1997/01/01", "1997/11/02");
+        assertEquals(2, res.size());
 
 
     }

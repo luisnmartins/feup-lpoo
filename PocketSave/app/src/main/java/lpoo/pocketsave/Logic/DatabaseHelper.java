@@ -6,7 +6,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.RelativeDateTimeFormatter;
 import android.provider.Settings;
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -222,6 +227,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_TRANSACTION,null," _id = ?", new String[]{id}, null, null, null);
         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
+        if(cursor.getCount()<1){ // Transaction Not Exist
+
+            cursor.close();
+            return null;
+        }
+        if(cursor.moveToFirst()) {
+
+            return cursor;
+        }
+        cursor.close();
+        return null;
+
+    }
+
+    public Cursor getTransactionsBetween(Date d1, Date d2){
+        SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+"' ORDER BY Date", null);
+
+        Log.d("test: ", df1.format(d1));
         if(cursor.getCount()<1){ // Transaction Not Exist
 
             cursor.close();
