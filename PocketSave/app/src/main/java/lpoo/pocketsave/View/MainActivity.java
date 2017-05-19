@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentContainer;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,16 +19,19 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.PocketSave;
 import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.R;
+import lpoo.pocketsave.View.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     Button more;
 
@@ -99,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void getOverview(View view){
 
-        Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
-        MainActivity.this.startActivity(overviewIntent);
+        //Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
+        //MainActivity.this.startActivity(overviewIntent);
+        mToolbar.setTitle("Overview");
+        setFragment(new OverviewListFragment());
     }
 
 
@@ -167,6 +176,18 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatemen
         return super.onOptionsItemSelected(item);
     }
+
+    protected void setFragment(Fragment fragment)
+    {
+        //findViewById(R.id.linear_main).setVisibility(LinearLayout.INVISIBLE);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.linear_main, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
 
 
 }

@@ -7,22 +7,41 @@
     tools:context="lpoo.pocketsave.View.MainActivity"
     android:id="@+id/drawerLayout">
 
-    <android.support.design.widget.CoordinatorLayout
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
+
+
+        <FrameLayout
+            android:id="@+id/linear_main"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <include
+                android:id="@+id/content_of_main"
+                layout="@layout/content_main"/>
+        </FrameLayout>
 
         <include
             layout="@layout/navigation_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+
         </include>
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/content_main"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
