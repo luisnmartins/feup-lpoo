@@ -24,9 +24,17 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        View rootView = inflater.inflate(R.layout.content_main, container, false);
+        return rootView;
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        MainActivity activity = (MainActivity) getActivity();
+        //activity.resetButtons(true);
+        activity.getmToolbar().setTitle("Main Menu");
     }
 
 }

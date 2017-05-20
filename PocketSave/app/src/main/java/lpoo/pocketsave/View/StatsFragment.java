@@ -73,14 +73,14 @@ public class StatsFragment extends Fragment {
         year_x = cal.get(java.util.Calendar.YEAR);
         month_x = cal.get(java.util.Calendar.MONTH);
         day_x = cal.get(java.util.Calendar.DAY_OF_MONTH);
-        showDialogDate();
+        //showDialogDate();
 
 
 
     }
 
 
-    public void showDialogDate(){
+   /* public void showDialogDate(){
         date_From = (TextView) getActivity().findViewById(R.id.From);
         date_To = (TextView) getActivity().findViewById(R.id.To);
 
@@ -105,7 +105,7 @@ public class StatsFragment extends Fragment {
                     }
                 }
         );
-    }
+    }*/
 
 
     protected Dialog onCreateDialog(int id){
@@ -143,17 +143,19 @@ public class StatsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        /*if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }
+        }*/
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getmToolbar().setTitle("Main Menu");
         mListener = null;
     }
 

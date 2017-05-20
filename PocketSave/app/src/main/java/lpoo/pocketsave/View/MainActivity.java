@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentContainer;
@@ -31,7 +33,7 @@ import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.R;
 import lpoo.pocketsave.View.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Button more;
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity  {
     private DrawerLayout sDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+    private NavigationView mNavView;
 
 
 
@@ -61,7 +64,15 @@ public class MainActivity extends AppCompatActivity  {
         mToggle.syncState();
 
 
+        Fragment fragment = new MainFragment();
+        fragment.setRetainInstance(true);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.linear_main, fragment);
+        fragmentTransaction.commit();
 
+        mNavView = (NavigationView) findViewById(R.id.nav_view);
+        mNavView.setNavigationItemSelectedListener(this);
 
         more = (Button) findViewById(R.id.Morebtn);
         //initialize database instance
@@ -109,13 +120,13 @@ public class MainActivity extends AppCompatActivity  {
         //Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
         //MainActivity.this.startActivity(overviewIntent);
         mToolbar.setTitle("Overview");
-        setFragment(new OverviewListFragment());
+        setFragment(new OverviewListFragment(),"over");
     }
 
     public void getNewCategory(View view)
     {
         mToolbar.setTitle("New Category");
-        setFragment(new AddCategoryFragment());
+        setFragment(new AddCategoryFragment(),"cat");
     }
 
 
@@ -123,7 +134,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        //getMenuInflater().inflate(R.menu.navigation_menu, menu);
         return true;
     }
 
@@ -183,15 +194,22 @@ public class MainActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void setFragment(Fragment fragment)
+    protected void setFragment(Fragment fragment,String tag)
     {
         //findViewById(R.id.linear_main).setVisibility(LinearLayout.INVISIBLE);
-        resetButtons(false);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.linear_main, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+
+         if(getFragmentManager().findFragmentByTag(tag) == null)
+         {
+             FragmentManager fragmentManager = getSupportFragmentManager();
+             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+             fragmentTransaction.replace(R.id.linear_main, fragment,tag);
+             fragmentTransaction.addToBackStack(tag);
+             fragmentTransaction.commit();
+         }
+
+
+
+        //resetButtons(false);
     }
 
     public void resetButtons(Boolean clickable)
@@ -210,7 +228,30 @@ public class MainActivity extends AppCompatActivity  {
         return this.mToolbar;
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
 
+        if(id == R.id.nav_overview)
+        {
+            mToolbar.setTitle("Overview");
+            setFragment(new OverviewListFragment(),"over");
+        }else if(id == R.id.nav_transactions)
+        {
+            mToolbar.setTitle("Stats");
+            setFragment(new StatsFragment(),"stats");
+        }else if(id == R.id.nav_logout)
+        {
+
+        }else if(id == R.id.nav_settings)
+        {
+
+        }
+        sDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+
+    }
 
 
 }

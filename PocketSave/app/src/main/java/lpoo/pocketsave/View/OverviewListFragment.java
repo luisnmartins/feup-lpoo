@@ -113,7 +113,7 @@ public class OverviewListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         MainActivity activity = (MainActivity) getActivity();
-        activity.resetButtons(true);
+        //activity.resetButtons(true);
         activity.getmToolbar().setTitle("Main Menu");
 
 
