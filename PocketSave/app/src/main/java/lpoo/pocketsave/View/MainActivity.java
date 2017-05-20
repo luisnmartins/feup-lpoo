@@ -198,12 +198,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         //findViewById(R.id.linear_main).setVisibility(LinearLayout.INVISIBLE);
 
-         if(getFragmentManager().findFragmentByTag(tag) == null)
+         if(getSupportFragmentManager().findFragmentByTag(tag) == null)
          {
              FragmentManager fragmentManager = getSupportFragmentManager();
              FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
              fragmentTransaction.replace(R.id.linear_main, fragment,tag);
-             fragmentTransaction.addToBackStack(tag);
+             fragmentTransaction.addToBackStack(null);
              fragmentTransaction.commit();
          }
 
