@@ -72,8 +72,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:srcCompat="@android:drawable/ic_delete"
-        android:layout_marginBottom="58dp"
-        android:layout_above="@+id/Savebtn"
+        android:layout_alignBottom="@+id/Savebtn"
         android:layout_toEndOf="@+id/receiptText" />
 
     <Button
@@ -91,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/DescriptionText"
         android:layout_alignTop="@+id/textView3"
-        android:text="TextView"
+        android:text="Choose Date"
         android:layout_alignEnd="@+id/DescriptionText" />
 
 </RelativeLayout>

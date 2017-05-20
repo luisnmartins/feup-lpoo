@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class OverviewListFragment extends Fragment {
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private static final int DATASET_COUNT = 60;
+    //private Toolbar mToolbar;
 
 
     private enum LayoutManagerType {
@@ -53,8 +55,10 @@ public class OverviewListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        //getActivity().s(mToolbar);
         // Initialize dataset, this data would usually come from a local content provider or
-        // remote server.
+        // remote server
         initDataset();
     }
 
@@ -103,6 +107,16 @@ public class OverviewListFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.resetButtons(true);
+        activity.getmToolbar().setTitle("Main Menu");
+
+
     }
 
 
@@ -159,9 +173,9 @@ public class OverviewListFragment extends Fragment {
 
 
         String[] fromFieldNames = new String[]
-                {DatabaseHelper.TRANS_ID,DatabaseHelper.TRANS_VALUE, DatabaseHelper.TRANS_DATE};
+                {DatabaseHelper.CAT_TITLE,DatabaseHelper.TRANS_VALUE, DatabaseHelper.TRANS_DATE};
         int[] toViewIDs = new int[]
-                {R.id.textView,    R.id.textValue,     R.id.textDate};
+                {R.id.listCat,    R.id.listValue,     R.id.listDate};
 
 
 
@@ -176,8 +190,8 @@ public class OverviewListFragment extends Fragment {
                 );
 
         System.out.println("Try  fill list");
-        ListView list = (ListView) getActivity().findViewById(R.id.ListViewDB);
-        list.setAdapter(myCursorAdapter);
+        RecyclerView list = (RecyclerView) getActivity().findViewById(R.id.OverviewList);
+       // list.setAdapter(myCursorAdapter);
 
     }
 

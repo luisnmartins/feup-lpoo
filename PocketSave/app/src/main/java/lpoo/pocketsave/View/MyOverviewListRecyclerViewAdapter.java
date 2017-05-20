@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
 import lpoo.pocketsave.R;
@@ -19,7 +22,11 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     private String[] mDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView listValue;
+        private final TextView listDate;
+        private final TextView listCat;
+        private final ImageView CatIcon;
+
 
         public ViewHolder(View v) {
             super(v);
@@ -30,12 +37,18 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
                    // Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            textView = (TextView) v.findViewById(R.id.textView);
+            listValue = (TextView) v.findViewById(R.id.listValue);
+            listDate = (TextView) v.findViewById(R.id.listDate);
+            listCat = (TextView) v.findViewById(R.id.listCat);
+            CatIcon = (ImageView) v.findViewById(R.id.transIcon);
         }
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getlistValue() {
+            return listValue;
         }
+        public TextView getListDate() {return listDate;}
+        public TextView getListCat() {return listCat;}
+        public ImageView getCatIcon() {return CatIcon;}
     }
 
 
@@ -58,7 +71,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        viewHolder.getTextView().setText(mDataSet[position]);
+        viewHolder.getlistValue().setText(mDataSet[position]);
     }
 
     @Override

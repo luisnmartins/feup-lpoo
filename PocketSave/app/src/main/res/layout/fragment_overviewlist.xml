@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/textValue"
+    <ImageView
+        android:id="@+id/transIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"/>
+        android:layout_gravity="center"
+        android:layout_x="4dp"
+        android:layout_y="36dp"
+        android:padding="8dp"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/textDate"
+        android:id="@+id/listCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"/>
-</FrameLayout>
+        android:layout_gravity="center_vertical"
+        android:layout_x="68dp"
+        android:layout_y="83dp"
+        android:text="Transaction Category" />
+
+    <TextView
+        android:id="@+id/listValue"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_gravity="center_vertical"
+        android:layout_x="67dp"
+        android:layout_y="37dp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:text="Transaction Value" />
+
+    <TextView
+        android:id="@+id/listDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_x="239dp"
+        android:layout_y="53dp"
+        android:text="Transaction Date" />
+
+
+</AbsoluteLayout>

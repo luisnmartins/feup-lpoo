@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:background="@color/colorPrimary">
+    android:layout_height="190dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="#FF000000" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/AppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="19dp"
-        android:text="Header Navigation"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp" />
+        android:layout_above="@+id/User"
+        android:layout_alignLeft="@+id/profile_image"
+        android:layout_alignStart="@+id/profile_image"
+        android:gravity="left"
+        android:paddingBottom="4dp"
+        android:text="PokectSave"
+        android:textColor="#FFF"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/User"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/AppName"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/AppName"
+        android:layout_marginBottom="8dp"
+        android:gravity="left"
+        android:text="UserName"
+        android:textColor="#fff"
+        android:textSize="14sp" />
+
 </RelativeLayout>

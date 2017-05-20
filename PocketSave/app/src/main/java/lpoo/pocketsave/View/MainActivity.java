@@ -112,6 +112,12 @@ public class MainActivity extends AppCompatActivity  {
         setFragment(new OverviewListFragment());
     }
 
+    public void getNewCategory(View view)
+    {
+        mToolbar.setTitle("New Category");
+        setFragment(new AddCategoryFragment());
+    }
+
 
 
     @Override
@@ -180,11 +186,28 @@ public class MainActivity extends AppCompatActivity  {
     protected void setFragment(Fragment fragment)
     {
         //findViewById(R.id.linear_main).setVisibility(LinearLayout.INVISIBLE);
+        resetButtons(false);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.linear_main, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void resetButtons(Boolean clickable)
+    {
+        findViewById(R.id.Cat1btn).setClickable(clickable);
+        findViewById(R.id.Cat2btn).setClickable(clickable);
+        findViewById(R.id.Cat3btn).setClickable(clickable);
+        findViewById(R.id.Cat4btn).setClickable(clickable);
+        findViewById(R.id.Cat5btn).setClickable(clickable);
+        findViewById(R.id.Addbtn).setClickable(clickable);
+        findViewById(R.id.BalanceView).setClickable(clickable);
+    }
+
+    public Toolbar getmToolbar()
+    {
+        return this.mToolbar;
     }
 
 
