@@ -3,9 +3,11 @@ package lpoo.pocketsave.Logic;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -15,6 +17,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TreeSet;
+import java.util.Set;
+import java.util.Map;
 
 import static lpoo.pocketsave.Logic.DatabaseHelper.*;
 
@@ -128,7 +132,6 @@ public class User {
 
         int id;
 
-        //android.util.Log.d("Numero", "addType");
         if((id = DatabaseSingleton.getInstance().getDB().addType(title)) != -1){
 
             System.out.println(id);
@@ -156,10 +159,10 @@ public class User {
     }*/
 
     //TODO: transactions
-    public TreeSet<Transaction> getAllTransactionsBetween(String dS1, String dS2){
+    public Map<Category, TreeSet<Transaction>> getAllTransactionsBetween(String dS1, String dS2){
 
 
-        TreeSet<Transaction> trans = new TreeSet<Transaction>();
+        Map<Category, TreeSet<Transaction>> allTrans = new HashMap<Category, TreeSet<Transaction> >();
         try {
 
             Date d1 = df1.parse(dS1);
@@ -170,11 +173,9 @@ public class User {
             for(HashMap.Entry<String, Category> it: userCategories.entrySet()){
 
                 temporary = it.getValue().getTransactionsBetween(d1, d2);
-                if(temporary.size()>0)
-                    for(Transaction tran: temporary)
-                        trans.add(tran);
+                allTrans.put(it.getValue(), temporary);
             }
-            return trans;
+            return allTrans;
 
 
         } catch (ParseException e) {
@@ -182,6 +183,32 @@ public class User {
         }
         return null;
 
+
+    }
+
+
+    public Map<Category, Double> getCategoriesSpents(String dS1, String dS2){
+
+        Map<Category, Double> totalSpentsCategories = new HashMap<Category, Double> ();
+        try {
+
+            Date d1 = df1.parse(dS1);
+            Date d2 = df1.parse(dS2);
+            double totalSpent;
+
+
+            for(HashMap.Entry<String, Category> it: userCategories.entrySet()){
+
+                totalSpent = it.getValue().getTransactionsTotalValue(d1, d2);
+                totalSpentsCategories.put(it.getValue(), totalSpent);
+            }
+            return totalSpentsCategories;
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
 
     }
 

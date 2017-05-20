@@ -9,9 +9,10 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.Console;
+import java.util.Map;
 import java.util.TreeSet;
 
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.Transaction;
@@ -66,22 +67,9 @@ public class ExampleInstrumentedTest {
 
     }
 
-    @Test
-    public void testAddTransaction(){
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DatabaseSingleton.getInstance().createDB(appContext);
-        assertEquals(true, User.getInstance().addType("income"));
-        assertEquals(true, User.getInstance().addCategory("ordenado", "income"));
-        assertEquals(true, User.getInstance().getCategory("ordenado").addTransaction(10, "1997/05/21", "teste", true));
-
-    }
 
     @Test
-    public void getDBTypeName(){
+    public void testgetDBTypeName(){
 
         try {
             useAppContext();
@@ -97,7 +85,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void getTransBetweenDates(){
+    public void testgetTransBetweenDates(){
 
         try {
             useAppContext();
@@ -112,16 +100,52 @@ public class ExampleInstrumentedTest {
         assertNotNull(User.getInstance().getCategory("carro").addTransaction(11, "1997/12/24", "ola2",true));
         //only add db to test get db values between dates
         DatabaseSingleton.getInstance().getDB().addTransaction(12, "1997/02/17", "JulietaQueChunga", 0, true);
-        DatabaseSingleton.getInstance().getDB().addTransaction(13, "1997/11/02", "baldaia", 0, true);
-        TreeSet<Transaction> res;
+        DatabaseSingleton.getInstance().getDB().addTransaction(13, "1997/11/02", "baldaia", 1, true);
+        Map<Category,TreeSet<Transaction>> res;
         res = User.getInstance().getAllTransactionsBetween("1997/12/21", "1997/12/23");
-        assertEquals(t1.getID(), res.first().getID());
-        assertEquals(1, res.size());
+        assertEquals(1, res.get(User.getInstance().getCategory("carro")).size());
         res = User.getInstance().getAllTransactionsBetween("1995/05/10", "1997/12/24");
-        assertEquals(4, res.size());
+        assertEquals(3, res.get(User.getInstance().getCategory("carro")).size());
         res = User.getInstance().getAllTransactionsBetween("1997/01/01", "1997/11/02");
-        assertEquals(2, res.size());
+        assertEquals(1, res.get(User.getInstance().getCategory("carro")).size());
 
+
+    }
+
+
+    @Test
+    public void testgetTotalSpentsBetweenDates(){
+
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DatabaseSingleton.getInstance().createDB(appContext);
+        assertEquals(true, User.getInstance().addType("income"));
+        assertEquals(true, User.getInstance().addCategory("carro", "income"));
+        assertEquals(true, User.getInstance().addCategory("comida", "income"));
+        assertNotNull(User.getInstance().getCategory("carro").addTransaction(10, "1997/12/21", "ola",true));
+        assertNotNull(User.getInstance().getCategory("carro").addTransaction(11, "1997/12/24", "ola2",true));
+        assertNotNull(User.getInstance().getCategory("comida").addTransaction(20, "1997/12/24", "teste",true));
+        Category a = User.getInstance().getCategory("carro");
+        Double b = User.getInstance().getCategoriesSpents("1997/12/20", "1997/12/25").get(a);
+        Double c = 21.0;
+        assertEquals(c,b);
+
+    }
+
+    @Test
+    public void testAddTransaction(){
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DatabaseSingleton.getInstance().createDB(appContext);
+        assertEquals(true, User.getInstance().addType("income"));
+        assertEquals(true, User.getInstance().addCategory("carro", "income"));
+        assertNotNull(User.getInstance().getCategory("carro").addTransaction(10, "1997/12/21", "ola",true));
 
     }
 

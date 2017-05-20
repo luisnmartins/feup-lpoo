@@ -51,6 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     String [] USER_COLUMNS = {USER_ID, USER_EMAIL, USER_PASSWORD, USER_TOTALSAVED};
 
+
+
     static private DatabaseHelper instance = null;
 
     public DatabaseHelper(Context context) {
@@ -68,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 CAT_TITLE+" VARCHAR(30) UNIQUE, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"))";
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TYPE_NAME+" VARCHAR(30) NOT NULL UNIQUE)";
         String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
+                TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
                 TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+
                 TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
@@ -130,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public int addTransaction(int value, String date, String description, int categoryID, boolean done){
+    public int addTransaction(double value, String date, String description, int categoryID, boolean done){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -241,11 +243,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getTransactionsBetween(Date d1, Date d2){
+    public Cursor getTransactionsBetween(Date d1, Date d2, int catID){
         SQLiteDatabase db = this.getWritableDatabase();
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+"' ORDER BY Date", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+"' AND "+ TRANS_CATEGORY_ID+ " = "+catID+" ORDER BY Date", null);
 
         Log.d("test: ", df1.format(d1));
         if(cursor.getCount()<1){ // Transaction Not Exist
@@ -260,6 +262,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return null;
 
+    }
+
+    public double getTransactionsTotalValue(Date d1, Date d2, int catID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
+
+        Cursor cursor = db.rawQuery("SELECT SUM("+TRANS_VALUE+") FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+"' AND "+ TRANS_CATEGORY_ID+ " = "+catID, null);
+
+        if(cursor.moveToFirst())
+            return cursor.getDouble(0);
+        else
+            return -1;
     }
 
     /*public boolean updateData(String id,String name,String surname,String marks) {

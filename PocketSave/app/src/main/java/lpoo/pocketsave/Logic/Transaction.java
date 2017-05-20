@@ -15,14 +15,14 @@ import java.util.NoSuchElementException;
 
 public class Transaction implements Comparable<Transaction>{
     private int id;
-    private int value;
+    private double value;
     private Date date;
     private String description;
     private boolean done;
     DateFormat df1;
     //Image
 
-    public Transaction(int value, String dateS, String description, int catID, boolean done) {
+    public Transaction(double value, String dateS, String description, int catID, boolean done) {
 
         this.id = DatabaseSingleton.getInstance().getDB().addTransaction(value, dateS, description, catID, done);
         if (this.id == -1)
@@ -40,7 +40,7 @@ public class Transaction implements Comparable<Transaction>{
 
 
 
-    public int getValue(){
+    public double getValue(){
         return value;
     }
 

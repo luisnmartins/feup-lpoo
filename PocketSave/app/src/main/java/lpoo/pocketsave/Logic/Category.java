@@ -42,7 +42,7 @@ public class Category {
         this.estimatedValue = value;
     }
 
-    public Transaction addTransaction(int value, String date, String description, boolean done) {
+    public Transaction addTransaction(double value, String date, String description, boolean done) {
 
         Transaction transaction=null;
         try {
@@ -53,7 +53,7 @@ public class Category {
                 return null;
         }
         transactions.add(transaction);
-        addTotalSpent(value);
+        totalSpent += value;
         return transaction;
     }
 
@@ -69,7 +69,6 @@ public class Category {
 
            for (Transaction tran : transactions) {
 
-
                temp_date = tran.getDate();
                if ((temp_date.after(d1) || temp_date.equals(d1)) &&
                        (temp_date.before(d2) || temp_date.equals(d2)))
@@ -80,7 +79,7 @@ public class Category {
        }
        else
        {
-           Cursor cursor = DatabaseSingleton.getInstance().getDB().getTransactionsBetween(d1, d2);
+           Cursor cursor = DatabaseSingleton.getInstance().getDB().getTransactionsBetween(d1, d2, this.id);
            Transaction newTransaction;
            do{
                boolean done = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0;
@@ -91,6 +90,30 @@ public class Category {
 
        }
         return transactionsBetween;
+    }
+
+
+    public double getTransactionsTotalValue(Date d1, Date d2){
+
+        double total=0;
+        Date temp_date;
+        if((d1.after(transactions.first().getDate()) || d1.equals(transactions.first().getDate())) &&
+                (d2.before(transactions.last().getDate()) || d2.equals(transactions.last().getDate()))) {
+
+            for (Transaction tran : transactions) {
+
+                temp_date = tran.getDate();
+                if ((temp_date.after(d1) || temp_date.equals(d1)) &&
+                        (temp_date.before(d2) || temp_date.equals(d2)))
+
+                    total+=tran.getValue();
+
+            }
+            return total;
+        }
+        else{
+            return DatabaseSingleton.getInstance().getDB().getTransactionsTotalValue(d1, d2, this.id);
+        }
     }
 
 
