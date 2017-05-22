@@ -26,7 +26,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/From"
+        android:id="@+id/From1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -41,15 +41,16 @@
         android:id="@+id/chooseFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/From"
+        android:layout_alignBottom="@+id/From1"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_marginStart="33dp"
-        android:layout_toEndOf="@+id/From"
+        android:layout_toEndOf="@+id/From1"
+        android:onClick="showDatePickerDialog"
         android:text="Choose Date" />
 
     <TextView
-        android:id="@+id/To"
+        android:id="@+id/To1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To"
@@ -67,9 +68,10 @@
         android:layout_marginEnd="37dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:onClick="showDatePickerDialog"
         android:text="Choose Date"
-        android:layout_alignBaseline="@+id/To"
-        android:layout_alignBottom="@+id/To"
+        android:layout_alignBaseline="@+id/To1"
+        android:layout_alignBottom="@+id/To1"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -79,7 +81,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="39dp"
         android:layout_marginStart="13dp"
-        android:layout_toEndOf="@+id/From"
+        android:layout_toEndOf="@+id/From1"
         android:text="Compare With"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
@@ -89,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/From"
+        android:layout_alignStart="@+id/From1"
         android:layout_marginStart="12dp"
         android:layout_marginTop="46dp"
         android:background="@color/colorPrimary"

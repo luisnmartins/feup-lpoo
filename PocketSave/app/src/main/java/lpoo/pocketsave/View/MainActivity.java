@@ -116,11 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void setCatsChoose(View view)
-    {
-        DialogFragment dialog = new ChooseCategoriesDialog();
-        dialog.show(getSupportFragmentManager(),"ChooseCategoriesDialog");
-    }
+
 
     public void getOverview(View view){
 
@@ -128,6 +124,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //MainActivity.this.startActivity(overviewIntent);
         mToolbar.setTitle("Overview");
         setFragment(new OverviewListFragment(),"over");
+    }
+
+    public void getStats(View view)
+    {
+        Intent transactionIntent = new Intent(MainActivity.this, StatsActivity.class);
+        transactionIntent.putExtra("Stats", String.valueOf(view.getTag()));
+        MainActivity.this.startActivity(transactionIntent);
     }
 
     public void setStatsAlert(View view)
@@ -262,8 +265,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setFragment(new OverviewListFragment(),"over");
         }else if(id == R.id.nav_transactions)
         {
-            mToolbar.setTitle("Stats");
-            setFragment(new StatsFragment(),"stats");
+            Intent transactionIntent = new Intent(MainActivity.this, StatsActivity.class);
+            MainActivity.this.startActivity(transactionIntent);
+
         }else if(id == R.id.nav_logout)
         {
             quitApp();

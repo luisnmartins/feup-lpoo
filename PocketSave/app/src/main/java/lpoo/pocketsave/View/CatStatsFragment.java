@@ -48,8 +48,8 @@ public class CatStatsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        MainActivity activity = (MainActivity) getActivity();
-        activity.getmToolbar().setTitle("Main Menu");
+       // MainActivity activity = (MainActivity) getActivity();
+       // activity.getmToolbar().setTitle("Main Menu");
     }
 
 

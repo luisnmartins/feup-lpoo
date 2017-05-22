@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.IntroActivity"></activity>
+        <activity android:name=".View.IntroActivity" />
         <activity
             android:name=".View.TransactionActivity"
             android:label="@string/title_activity_transaction"
@@ -35,8 +35,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".View.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-        <activity android:name=".View.Month"></activity>
+            android:label="@string/title_activity_login" />
+        <activity android:name=".View.Month" />
+        <activity android:name=".View.StatsActivity"></activity>
     </application>
 
 </manifest>
