@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -33,7 +34,7 @@ import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.R;
 import lpoo.pocketsave.View.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener{
 
     Button more;
 
@@ -115,12 +116,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public void setCatsChoose(View view)
+    {
+        DialogFragment dialog = new ChooseCategoriesDialog();
+        dialog.show(getSupportFragmentManager(),"ChooseCategoriesDialog");
+    }
+
     public void getOverview(View view){
 
         //Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
         //MainActivity.this.startActivity(overviewIntent);
         mToolbar.setTitle("Overview");
         setFragment(new OverviewListFragment(),"over");
+    }
+
+    public void setStatsAlert(View view)
+    {
+        DialogFragment dialog = new ChooseStatsDialog();
+        dialog.show(getSupportFragmentManager(),"ChooseStatsDialog");
     }
 
     public void getNewCategory(View view)
@@ -194,6 +207,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    protected void quitApp()
+    {
+        int pid = android.os.Process.myPid();
+        android.os.Process.killProcess(pid);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+
+    }
+
     protected void setFragment(Fragment fragment,String tag)
     {
         //findViewById(R.id.linear_main).setVisibility(LinearLayout.INVISIBLE);
@@ -243,15 +266,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setFragment(new StatsFragment(),"stats");
         }else if(id == R.id.nav_logout)
         {
-
+            quitApp();
         }else if(id == R.id.nav_settings)
         {
 
+        }else if(id == R.id.nav_month)
+        {
+            Intent transactionIntent = new Intent(MainActivity.this, Month.class);
+            MainActivity.this.startActivity(transactionIntent);
         }
         sDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
 
     }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        mToolbar.setTitle("Stats");
+        setFragment(new StatsFragment(),"stats");
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        mToolbar.setTitle("Stats");
+        setFragment(new CatStatsFragment(),"stats");
+
+    }
+
 
 
 }

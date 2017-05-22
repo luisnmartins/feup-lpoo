@@ -87,16 +87,19 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/textView15"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:text="Save"
+        android:textColor="@android:color/background_light"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_alignEnd="@+id/editText"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
