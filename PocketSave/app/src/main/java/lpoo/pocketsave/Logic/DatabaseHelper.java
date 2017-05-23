@@ -15,6 +15,9 @@ import java.util.Date;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String TAG = "Database";
+
     public static final String DATABASE_NAME = "PocketSave.db";
 
     //Tables
@@ -31,7 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USER_TOTALSAVED = "TotalSaved";
 
     //Transaction Table Columns
-    public static final String TRANS_USER_ID = "User_ID";
     public static final String TRANS_ID = "_id";
     public static final String TRANS_DESCRIPTION = "Description";
     public static final String TRANS_VALUE = "Value";
@@ -43,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CAT_ID = "_id";
     public static final String CAT_TITLE = "Title";
     public static final String CAT_TYPE_ID = "Type_ID";
+    public static final String CAT_USER_ID = "User_ID";
 
     //Type Table Columns
     public static final  String TYPE_ID = "_id";
@@ -57,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
+        //TODO: delete
         context.deleteDatabase(DATABASE_NAME);
     }
 
@@ -64,20 +68,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                USER_NAME+" VARCHAR(30), "+ USER_EMAIL+" VARCHAR(30) UNIQUE, "+USER_PASSWORD+" VARCHAR(30) NOT NULL, "+
+                USER_NAME+" VARCHAR(30) UNIQUE, "+ USER_EMAIL+" VARCHAR(30) UNIQUE, "+USER_PASSWORD+" VARCHAR(30) NOT NULL, "+
                 USER_TOTALSAVED+" INTEGER)";
         String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                CAT_TITLE+" VARCHAR(30) UNIQUE, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"))";
+                CAT_TITLE+" VARCHAR(30) NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"))";
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TYPE_NAME+" VARCHAR(30) NOT NULL UNIQUE)";
         String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
-                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+
-                TRANS_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"), "+TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
+                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+ TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
 
-        /*String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                TRANS_VALUE+" INTEGER NOT NULL, "+TRANS_DATE+" DATE NOT NULL, "+
-                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL)";*/
+
+        /*System.out.println(create_user);
+        System.out.println(create_category);
+        System.out.println(create_type);
+        System.out.println(create_transaction);*/
+
 
     try{
         db.execSQL(create_user);
@@ -96,39 +102,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addUser(String email, String password) {
+
+    /**
+     * Add a new user to the Database
+     * @param user user instance of the new user
+     * @param password
+     * @return
+     */
+    public boolean addUser(User user, String password) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_EMAIL,email);
+        contentValues.put(USER_EMAIL,user.getEmail());
         contentValues.put(USER_PASSWORD, password);
         long result = db.insert(TABLE_USER,null ,contentValues);
-        if(result == -1)
+        if(result == -1){
+            Log.d(TAG, "Error adding the new user\n");
             return false;
+        }
         else
         {
-            System.out.println("User added to db\n");
+            user.setID(result);
             return true;
         }
 
     }
 
-    public Cursor openUser(String email, String password){
+    /**
+     * Get the new user from the database
+     * @param email user email
+     * @param password user password
+     * @return Return a new instance of user
+     */
+    public User openUser(String email, String password){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USER,null," email = ?", new String[]{email}, null, null, null);
-        if(cursor.getCount()<1){ // UserName Not Exist
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USER+" WHERE "+USER_EMAIL+" = '"+email+"' AND "+USER_PASSWORD+" = '"+password+"'", null);
+        if(cursor.moveToFirst()) {
 
+            User newUser = new User(cursor.getInt(cursor.getColumnIndex(USER_ID)),
+                    cursor.getString(cursor.getColumnIndex(USER_EMAIL)),
+                    cursor.getDouble(cursor.getColumnIndex(USER_TOTALSAVED)));
+
+            return newUser;
+        }
+        else{
             cursor.close();
             return null;
         }
-        cursor.moveToFirst();
-
-            if(cursor.getString(cursor.getColumnIndex(USER_PASSWORD)).equals(password)){
-                return cursor;
-            }
-        cursor.close();
-        return null;
 
     }
 
@@ -163,7 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return -1;
         else
         {
-            System.out.println("Type added successfully\n");
+            Log.d(TAG, "Type added successfully\n");
             return (int) result;
         }
 
@@ -183,19 +204,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }*/
 
-    public int addCategory(String title, int typeID){
+    public boolean addCategory(Category newCategory){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CAT_TITLE, title);
-        contentValues.put(CAT_TYPE_ID, typeID);
+        contentValues.put(CAT_TITLE, newCategory.getTitle());
+        contentValues.put(CAT_TYPE_ID, newCategory.getTypeID());
+        contentValues.put(CAT_USER_ID, newCategory.getUserID());
         long result = db.insert(TABLE_CATEGORY,null, contentValues);
         if(result == -1)
-            return -1;
+            return false;
         else
         {
             System.out.println("Category added successfully\n");
-            return (int)result;
+            newCategory.setID(result);
+            return true;
         }
 
     }

@@ -14,53 +14,71 @@ import java.util.TreeSet;
 
 public class Category {
 
-    int id;
-    String title;
-    int typeID;
-    double estimatedValue;
-    double totalSpent;
-    TreeSet<Transaction> transactions;
+    private long id;
+    private long userID;
+    private String title;
+    private long typeID;
+    private double estimatedValue;
+    private double totalSpent;
+    private TreeSet<Transaction> transactions;
 
+    /**
+     * Create a new Category
+     * @param title category's title
+     * @param typeID Id of the category's type. From user's types' hashmap
+     * @param userID user that is logged in
+     */
+    public Category(String title, long typeID, long userID){
 
-    public Category(String title, int typeID){
-
-        this.id = DatabaseSingleton.getInstance().getDB().addCategory(title, typeID);
+        this.userID = userID;
+        this.id = -1;
         this.typeID = typeID;
         this.title = title;
         this.totalSpent=0;
-        transactions = new TreeSet<Transaction>();
+
     }
 
 
-
-    public int getID(){
+    /**
+     *
+     * @return
+     */
+    public long getID(){
 
         return id;
+    }
+
+    public long getUserID() {
+        return userID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public long getTypeID() {
+        return typeID;
+    }
+
+
+    /**
+     * Set user's ID
+     * @param id new user's id
+     */
+    public void setID(long id){
+        this.id = id;
     }
 
     public void setEstimatedValue(double value){
         this.estimatedValue = value;
     }
 
-    public Transaction addTransaction(double value, String date, String description, boolean done) {
 
-        Transaction transaction=null;
-        try {
-            transaction = new Transaction(value, date, description, this.id, done);
-        }catch (NoSuchElementException a){
-
-            if(a.getMessage() == "Transaction")
-                return null;
-        }
-        transactions.add(transaction);
-        totalSpent += value;
-        return transaction;
-    }
 
 
 
     //TODO: transactions
-    public TreeSet<Transaction> getTransactionsBetween(Date d1, Date d2){
+   /* public TreeSet<Transaction> getTransactionsBetween(Date d1, Date d2){
 
         TreeSet<Transaction> transactionsBetween = new TreeSet<Transaction>();
         Date temp_date;
@@ -83,7 +101,7 @@ public class Category {
            Transaction newTransaction;
            do{
                boolean done = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0;
-                newTransaction = new Transaction(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)), cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)), done);
+               newTransaction = new Transaction(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)), cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)), done);
                 transactionsBetween.add(newTransaction);
            }while(cursor.moveToNext());
 

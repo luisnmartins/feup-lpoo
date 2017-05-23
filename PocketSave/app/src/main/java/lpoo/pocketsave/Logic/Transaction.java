@@ -24,7 +24,7 @@ public class Transaction implements Comparable<Transaction>{
 
     public Transaction(double value, String dateS, String description, int catID, boolean done) {
 
-        this.id = DatabaseSingleton.getInstance().getDB().addTransaction(value, dateS, description, catID, done);
+        //this.id = DatabaseSingleton.getInstance().getDB().addTransaction(value, dateS, description, catID, done);
         if (this.id == -1)
             throw new NoSuchElementException("Transaction");
         this.value = value;

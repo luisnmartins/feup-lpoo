@@ -1,12 +1,14 @@
 package lpoo.pocketsave.Logic;
 
 import android.content.Context;
+import android.util.Log;
 
 
 public class PocketSave {
 
+    private static final String TAG = "PocketSave";
 
-    /*private DatabaseHelper myDB;
+    private DatabaseHelper myDB;
     private Context context;
     private User currUser;
     static private PocketSave instance = null;
@@ -19,16 +21,84 @@ public class PocketSave {
 
     }
 
-    public void startTypes(){
+    /**
+     * Sign in in the user account
+     * @param email user email
+     * @param password user password
+     * @return Returns true if logged in successfully and false if not
+     */
+    public boolean signin(String email, String password){
 
-        myDB.addType("income");
-        myDB.addType("fixed expense");
-        myDB.addType("variable expense");
+        if((currUser = myDB.openUser(email, password)) != null){
+
+            Log.d(TAG, "User logged in");
+            return true;
+        }
+        else {
+            Log.d(TAG, "Error trying to log in\n");
+            return false;
+        }
+
     }
 
-    public void addTransaction(int value, String date, String description, String category){
+    /**
+     * Sign up a new user
+     * @param email user email
+     * @param password user password
+     * @return Returns true if user was added and false if not
+     */
+    public boolean signup(String email, String password){
 
-        //currUser.addTransaction(value, date, description, category);
+        currUser = new User(email);
+        return myDB.addUser(currUser, password);
+
+    }
+
+    //TODO: verify best place for this
+
+    /**
+     * Inicialize default types
+     */
+    public void setInicialTypes(){
+        addType("income");
+        addType("fixed expense");
+        addType("variable expense");
+    }
+
+    /**
+     * Add a new type
+     * @param title type title
+     * @return Returns true if type was added and false if not
+     */
+    public boolean addType(String title){
+        long id;
+        if((id= myDB.addType(title) )!= -1) {
+            currUser.addType(title, id);
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+
+    public boolean addCategory(String title, String type){
+
+        Category newCategory;
+        if((newCategory =currUser.addCategory(title, type)) != null){
+
+            return myDB.addCategory(newCategory);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    /*public Transaction addTransaction(double value, String date, String description, boolean done){
+
+        Transaction newTransaction = currUser.addTransaction(value, date, description, done);
         myDB.addTransaction(value, date, description, currUser.getCategoryID(category));
 
     }
@@ -36,31 +106,26 @@ public class PocketSave {
     public void addCategory(String title, String type){
         currUser.addCategory(title, type);
         myDB.addCategory(title, 0);
-    }
+    }*/
 
     public User getUser(){
 
         return currUser;
     }
 
-    private PocketSave(){
-        //myDB.deleteAllData();
-        this.currUser = new User();
-
-
-    }
+    private PocketSave(){};
 
     public DatabaseHelper createDB(Context context){
 
         myDB = new DatabaseHelper(context);
-        startTypes();
+        //startTypes();
         return myDB;
     }
 
     public DatabaseHelper getDB(){
 
         return myDB;
-    }*/
+    }
 
 
 

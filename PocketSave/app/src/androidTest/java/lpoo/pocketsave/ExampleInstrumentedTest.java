@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
+import lpoo.pocketsave.Logic.PocketSave;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.View.MainActivity;
@@ -41,6 +42,33 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
+    public void testSignUp(){
+
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PocketSave.getInstance().createDB(appContext);
+        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
+        assertEquals(false, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
+
+    }
+
+    @Test
+    public  void testSignIn(){
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PocketSave.getInstance().createDB(appContext);
+        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
+        assertEquals(true, PocketSave.getInstance().signin("ola@ola.pt", "1234"));
+        assertEquals(false, PocketSave.getInstance().signin("ola@ola.pt", "123") );
+    }
+
+    @Test
     public void testAddType(){
 
         try {
@@ -48,27 +76,33 @@ public class ExampleInstrumentedTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DatabaseSingleton.getInstance().createDB(appContext);
-        assertEquals(true, User.getInstance().addType("income"));
-        assertEquals(false, User.getInstance().addType("income"));
+        PocketSave.getInstance().createDB(appContext);
+        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
+        assertEquals(true, PocketSave.getInstance().addType("income"));
+        assertEquals(true, PocketSave.getInstance().addType("fixed expense"));
+        assertEquals(false, PocketSave.getInstance().addType("income"));
     }
 
-    @Test
+   @Test
     public void testAddCategory(){
         try {
             useAppContext();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DatabaseSingleton.getInstance().createDB(appContext);
-        assertEquals(true, User.getInstance().addType("income"));
-        assertEquals(true, User.getInstance().addCategory("ordenado", "income"));
-        assertEquals(false, User.getInstance().addCategory("carro", "expense"));
+        PocketSave.getInstance().createDB(appContext);
+        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
+        assertEquals(true, PocketSave.getInstance().addType("income"));
+        assertEquals(true, PocketSave.getInstance().addCategory("carro", "income"));
+        assertEquals(true, PocketSave.getInstance().addCategory("compras", "income"));
+        assertEquals(false, PocketSave.getInstance().addCategory("compras", "income"));
+        assertEquals(false, PocketSave.getInstance().addCategory("compras", "expenses"));
+
 
     }
 
 
-    @Test
+    /*@Test
     public void testgetDBTypeName(){
 
         try {
@@ -78,7 +112,7 @@ public class ExampleInstrumentedTest {
         }
 
         DatabaseSingleton.getInstance().createDB(appContext);
-        assertEquals(true, User.getInstance().addType("income"));
+        assertEquals(true, User.getInstance().signup("ola@ola.pt", "1234"));
         Cursor cursor = DatabaseSingleton.getInstance().getDB().getType(Integer.toString(1));
         assertEquals("income", cursor.getString(cursor.getColumnIndex(TYPE_NAME)));
 
@@ -147,6 +181,6 @@ public class ExampleInstrumentedTest {
         assertEquals(true, User.getInstance().addCategory("carro", "income"));
         assertNotNull(User.getInstance().getCategory("carro").addTransaction(10, "1997/12/21", "ola",true));
 
-    }
+    }*/
 
 }

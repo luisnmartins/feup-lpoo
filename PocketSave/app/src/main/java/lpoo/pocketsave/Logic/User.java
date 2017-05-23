@@ -6,55 +6,107 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.TreeSet;
-import java.util.Set;
+
 import java.util.Map;
 
 import static lpoo.pocketsave.Logic.DatabaseHelper.*;
 
 public class User {
 
-    private String username;
+    private static final String TAG = "User";
+
+    private String email;
     private double totalSaved;
-    private int availableMonth;
-    private HashMap<String, Integer> types;
-    private HashMap<String, Category> userCategories;
+    /*private int availableMonth;*/
+    private long id;
+    private HashMap<String, Long> types; // map<type_name, typeDB_ID>
+    private HashMap<String, Category> categories;  //map<category_name, category object>
+    private HashMap<Long, TreeSet<Transaction> > transactions;    //multimap<category_id, transactions of that category>
     DateFormat df1;
 
-    static private User instance = null;
 
-    static public User getInstance(){
-        if(instance == null) {
-            instance = new User();
-        }
-        return instance;
+    /**
+     * Constructor. Start user maps and variables.
+     */
+    public User(int id, String email, double totalSaved){
+        this.categories = new HashMap<String, Category>();
+        this.transactions = new HashMap<Long, TreeSet<Transaction>>();
+        this.types = new HashMap<String, Long>();
+        this.id = id;
+        this.email = email;
+        this.totalSaved = totalSaved;
 
+        //df1 = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+
+
+    };
+
+    public User(String email){
+        this.categories = new HashMap<String, Category>();
+        this.transactions = new HashMap<Long, TreeSet<Transaction>>();
+        this.types = new HashMap<String, Long>();
+        this.email = email;
+        this.id = -1;
+        totalSaved = 0;
+    }
+
+    public String getEmail(){
+        return email;
     }
 
 
-    public User(){
-       this.userCategories = new HashMap<String, Category>();
-        this.types = new HashMap<String, Integer>();
-        df1 = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-    };
+    public void setID(long id){
+        this.id = id;
+
+    }
+
+    public void addType(String title, long id){
+        types.put(title, id);
+    }
 
     /**
+     *
+     * @param title
+     * @param type
+     * @return
+     */
+    public Category addCategory(String title, String type){
+
+        //verify if category doesn't already exist or if type doesn't exist
+        if(categories.get(title) != null || types.get(type) == null) {
+            Log.d(TAG, "New category was not added\n");
+            return null;
+        }
+        else{
+
+            Category newCategory = new Category(title, types.get(type), this.id);
+            categories.put(title, newCategory);
+            Log.d(TAG, "New category was added successfully\n");
+            return newCategory;
+        }
+    }
+
+
+
+   /* /**
      * Login the user in the database and set his values in user singleton class using setUser function
      * @param email user email
      * @param password user password
      * @return Returns true if the user logged in with success and false if not
      */
-    public boolean login(String email, String password){
+   /* public boolean signin(String email, String password){
 
 
         Cursor userInfo = DatabaseSingleton.getInstance().getDB().openUser(email, password);
@@ -64,24 +116,26 @@ public class User {
             return true;
         }
         return false;
-    }
+    }*/
+
+
 
     /**
      * Set user settings in the user singleton class
      * @param userInfo Cursor containing the user data from database
      */
-    public void setUser(Cursor userInfo){
+    /*public void setUser(Cursor userInfo){
 
         this.username = userInfo.getString(userInfo.getColumnIndex(USER_EMAIL));
         this.totalSaved = userInfo.getDouble(userInfo.getColumnIndex(USER_TOTALSAVED));
-        //TODO: only to test. Delete
+        this.id = userInfo.getInt(userInfo.getColumnIndex(USER_ID));
         setTypes();
-        addCategory("cat1", "income");
-        addCategory("cat2", "fixed expense");
-        addCategory("cat3", "variable expense");
+
 
 
     }
+
+
 
     public void setTypes(){
 
@@ -96,49 +150,52 @@ public class User {
      * @param title
      * @return
      */
-    public int getCategoryID(String title){
+    /*public int getCategoryID(String title){
 
-       return userCategories.get(title).getID();
-    }
+       returnc.get(title).getID();
+    }*/
 
-
-    public boolean addCategory(String title, String type){
+    /*/**
+     * Add a new category to categories hashmap
+     * @param title Name of the category
+     * @param type Type's name of the category
+     * @return Returns the category or null if it was not created
+     */
+    /*public Category addCategory(String title, String type){
 
         //get type id
         Integer typeID;
         if((typeID= types.get(type)) == null){
             System.out.println("This type does not exist");
-            return false;
+            return null;
         }
 
         //Verify if this category doesn't already exist, and if not, add it
-        if(userCategories.get(title) == null){
+        if(categories.get(title) == null){
 
             //create category
-            Category newCategory = new Category(title, typeID);
-            userCategories.put(title, newCategory);
-            return true;
+            Category newCategory = new Category(title, typeID, this.id);
+            categories.put(title, newCategory);
+            Log.d("User class: ", "New category added\n");
+            return newCategory;
         }
         else
-            return false;
+            return null;
     }
 
-    public Category getCategory(String title){
-        return userCategories.get(title);
-    }
+    /*public Category getCategory(String title){
+        return .get(title);
+    }*/
 
-    public boolean addType(String title){
+   /* public boolean addType(String title){
 
 
-        int id;
+        if(types.get(title) == null){
 
-        if((id = DatabaseSingleton.getInstance().getDB().addType(title)) != -1){
-
-            System.out.println(id);
+            Log.d("User class: ","New type added\n");
             this.types.put(title, id);
             return true;
         }
-        System.out.println(id);
         return false;
     }
 
@@ -159,7 +216,7 @@ public class User {
     }*/
 
     //TODO: transactions
-    public Map<Category, TreeSet<Transaction>> getAllTransactionsBetween(String dS1, String dS2){
+   /* public Map<Category, TreeSet<Transaction>> getAllTransactionsBetween(String dS1, String dS2){
 
 
         Map<Category, TreeSet<Transaction>> allTrans = new HashMap<Category, TreeSet<Transaction> >();
@@ -216,9 +273,9 @@ public class User {
         return username;
     }
 
-    /*public int getTotalSaved(){
+    public int getTotalSaved(){
         return totalSaved;
-    }*/
+    }
 
     public int getAvailableMonth(){
 
@@ -226,4 +283,21 @@ public class User {
     }
 
 
+    public Transaction addTransaction(double value, String date, String description, boolean done) {
+
+        int transID;
+        if((transID = DatabaseSingleton.getInstance().getDB().addTransaction(value, date, description, catID, done)))
+
+            Transaction transaction=null;
+        try {
+            transaction = new Transaction(value, date, description, this.id, done);
+        }catch (NoSuchElementException a){
+
+            if(a.getMessage() == "Transaction")
+                return null;
+        }
+        transactions.add(transaction);
+        totalSpent += value;
+        return transaction;
+    }*/
 }
