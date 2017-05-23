@@ -14,7 +14,7 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:checkedButton="@+id/linear_layout_rb">

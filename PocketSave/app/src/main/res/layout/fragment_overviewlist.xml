@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -10,39 +11,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_x="4dp"
-        android:layout_y="36dp"
         android:padding="8dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
 
     <TextView
         android:id="@+id/listCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_x="68dp"
-        android:layout_y="83dp"
-        android:text="Transaction Category" />
+        android:text="Transaction Category"
+        android:layout_below="@+id/listValue"
+        android:layout_alignEnd="@+id/listValue" />
 
     <TextView
         android:id="@+id/listValue"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_gravity="center_vertical"
-        android:layout_x="67dp"
-        android:layout_y="37dp"
+        android:textAlignment="center"
         android:textStyle="bold"
         android:padding="8dp"
-        android:text="Transaction Value" />
+        android:text="Transaction Value"
+        android:layout_alignTop="@+id/transIcon"
+        android:layout_toEndOf="@+id/transIcon" />
 
     <TextView
         android:id="@+id/listDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_x="239dp"
-        android:layout_y="53dp"
-        android:text="Transaction Date" />
+        android:text="Transaction Date"
+        android:layout_marginStart="29dp"
+        android:layout_above="@+id/imageButton5"
+        android:layout_toEndOf="@+id/listValue" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_mode_edit_black_24dp"
+        android:layout_alignBottom="@+id/listCat"
+        android:layout_alignParentEnd="true" />
 
 
-</AbsoluteLayout>
+</RelativeLayout>

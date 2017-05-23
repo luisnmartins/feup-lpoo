@@ -85,6 +85,8 @@ public class OverviewListFragment extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext()));
+
         mAdapter = new MyOverviewListRecyclerViewAdapter(mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
