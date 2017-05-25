@@ -15,14 +15,17 @@
         android:background="@color/colorPrimary"
         android:id="@+id/relativeLayout">
 
-        <Spinner
-            android:id="@+id/spinner"
+        <TextView
+            android:id="@+id/chooseCompare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="None"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="39dp"
+            android:layout_marginEnd="84dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="33dp"
-            android:layout_marginEnd="83dp" />
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <TextView

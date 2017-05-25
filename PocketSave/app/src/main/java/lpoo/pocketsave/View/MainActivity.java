@@ -269,20 +269,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          }
 
 
-
-        //resetButtons(false);
     }
 
-    public void resetButtons(Boolean clickable)
-    {
-        findViewById(R.id.Cat1btn).setClickable(clickable);
-        findViewById(R.id.Cat2btn).setClickable(clickable);
-        findViewById(R.id.Cat3btn).setClickable(clickable);
-        findViewById(R.id.Cat4btn).setClickable(clickable);
-        findViewById(R.id.Cat5btn).setClickable(clickable);
-        findViewById(R.id.Addbtn).setClickable(clickable);
-        findViewById(R.id.BalanceView).setClickable(clickable);
-    }
+
 
     public Toolbar getmToolbar()
     {

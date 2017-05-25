@@ -43,7 +43,7 @@
         android:onClick="NewTransaction"
         android:drawableTop="@drawable/polo"
         android:text="Clothes"
-        android:layout_centerVertical="true"
+        android:layout_alignBottom="@+id/Addbtn"
         android:layout_alignStart="@+id/Morebtn" />
 
     <Button

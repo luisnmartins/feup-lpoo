@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import lpoo.pocketsave.R;
 
@@ -18,7 +19,7 @@ import lpoo.pocketsave.R;
 public class CatStatsFragment extends Fragment {
 
 
-    private Spinner spinner;
+    private TextView chooseComp;
 
     public CatStatsFragment()
     {
@@ -34,7 +35,15 @@ public class CatStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.catstats_fragment, container, false);
+        View rootView =  inflater.inflate(R.layout.catstats_fragment, container, false);
+        chooseComp = (TextView) rootView.findViewById(R.id.chooseCompare);
+        chooseComp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return  rootView;
     }
 
 

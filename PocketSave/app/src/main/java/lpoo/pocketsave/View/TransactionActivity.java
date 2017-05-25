@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import java.text.SimpleDateFormat;
+
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -58,14 +60,15 @@ public class TransactionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v){
 
-                        showDialog(DIALOG_ID);
+                        DialogFragment newFragment = new DatePickerFragment().newInstance(v.getId());
+                        newFragment.show(getSupportFragmentManager(),"datePicker");
 
                     }
                 }
         );
     }
 
-    @Override
+    /*@Override
     protected Dialog onCreateDialog(int id){
         if(id == DIALOG_ID)
             return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
@@ -82,13 +85,18 @@ public class TransactionActivity extends AppCompatActivity {
             day_x = dayOfMonth;
             date.setText(year_x+" / "+month_x+" / "+day_x);
         }
-    };
+    };*/
 
     public  void AddData() {
         savebtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        if(value.getText() == null || date.getText() == "Choose Date" )
+                        {
+                            return ;
+                        }
                         String dateString = year_x+"/"+month_x+"/"+day_x;
                         int valueInt = Integer.parseInt(value.getText().toString());
                         //TODO: change done value

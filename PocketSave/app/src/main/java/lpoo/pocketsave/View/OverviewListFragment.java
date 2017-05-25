@@ -187,7 +187,6 @@ public class OverviewListFragment extends Fragment {
         });*/
 
 
-
         mLinearLayoutRadioButton = (RadioButton) rootView.findViewById(R.id.linear_layout_rb);
         mLinearLayoutRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
