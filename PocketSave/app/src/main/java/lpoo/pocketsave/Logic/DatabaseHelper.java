@@ -1,5 +1,6 @@
 package lpoo.pocketsave.Logic;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,7 +12,9 @@ import android.provider.Settings;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -46,38 +49,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CAT_TITLE = "Title";
     public static final String CAT_TYPE_ID = "Type_ID";
     public static final String CAT_USER_ID = "User_ID";
+    public static  final String CAT_MAIN = "main_menu";
 
     //Type Table Columns
     public static final  String TYPE_ID = "_id";
     public static final String TYPE_NAME = "Name";
 
 
-    String [] USER_COLUMNS = {USER_ID, USER_EMAIL, USER_PASSWORD, USER_TOTALSAVED};
+    private User currUser;
 
-
-
-    static private DatabaseHelper instance = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         //TODO: delete
-        context.deleteDatabase(DATABASE_NAME);
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                USER_NAME+" VARCHAR(30) UNIQUE, "+ USER_EMAIL+" VARCHAR(30) UNIQUE, "+USER_PASSWORD+" VARCHAR(30) NOT NULL, "+
+        String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY, "+
+                USER_NAME+" STRING UNIQUE, "+ USER_EMAIL+" STRING UNIQUE, "+USER_PASSWORD+" STRING NOT NULL, "+
                 USER_TOTALSAVED+" INTEGER)";
-        String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                CAT_TITLE+" VARCHAR(30) NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"))";
-        String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TYPE_NAME+" VARCHAR(30) NOT NULL UNIQUE)";
-        String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+        String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY, "+
+                CAT_TITLE+" STRING, "+CAT_MAIN+" BOOLEAN NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"))";
+        String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
+        String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY, "+
                 TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
-                TRANS_DESCRIPTION+ " VARCHAR(100), "+TRANS_DONE+" BOOLEAN NOT NULL, "+ TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
+                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+ TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
-
+        Log.d(TAG, create_category);
 
         /*System.out.println(create_user);
         System.out.println(create_category);
@@ -86,9 +87,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     try{
+        db.execSQL(create_type);
         db.execSQL(create_user);
         db.execSQL(create_category);
-        db.execSQL(create_type);
         db.execSQL(create_transaction);
         System.out.println("Success querying\n");
     } catch (SQLException e){
@@ -103,18 +104,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    //USER FUNCTIONS
+
     /**
-     * Add a new user to the Database
-     * @param user user instance of the new user
+     *
+     * @param email
      * @param password
      * @return
      */
-    public boolean addUser(User user, String password) {
+    public boolean addUser(String email, String password) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_EMAIL,user.getEmail());
+        contentValues.put(USER_EMAIL,email);
         contentValues.put(USER_PASSWORD, password);
+        contentValues.put(USER_TOTALSAVED, 0);
         long result = db.insert(TABLE_USER,null ,contentValues);
         if(result == -1){
             Log.d(TAG, "Error adding the new user\n");
@@ -122,8 +126,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else
         {
-            user.setID(result);
-            return true;
+            if(openUser(email, password))
+                return true;
+            else
+                return false;
         }
 
     }
@@ -134,83 +140,108 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param password user password
      * @return Return a new instance of user
      */
-    public User openUser(String email, String password){
+    public boolean openUser(String email, String password){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USER+" WHERE "+USER_EMAIL+" = '"+email+"' AND "+USER_PASSWORD+" = '"+password+"'", null);
+        Cursor cursor = db.query(TABLE_USER, null, USER_EMAIL + "=? AND "+USER_PASSWORD+ "=?", new String[]{email, password}, null, null, null);
+        //Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USER+" WHERE "+USER_EMAIL+" = '"+email+"' AND "+USER_PASSWORD+" = '"+password+"'", null);
+        if(cursor == null)
+            return false;
         if(cursor.moveToFirst()) {
 
-            User newUser = new User(cursor.getInt(cursor.getColumnIndex(USER_ID)),
-                    cursor.getString(cursor.getColumnIndex(USER_EMAIL)),
-                    cursor.getDouble(cursor.getColumnIndex(USER_TOTALSAVED)));
+            currUser = new User(cursor.getLong(cursor.getColumnIndex(USER_ID)),
+                                cursor.getString(cursor.getColumnIndex(USER_EMAIL)),
+                                cursor.getString(cursor.getColumnIndex(USER_PASSWORD)),
+                                cursor.getDouble(cursor.getColumnIndex(USER_TOTALSAVED)));
 
-            return newUser;
+            return true;
         }
         else{
             cursor.close();
-            return null;
+            return false;
         }
 
     }
 
-    public int addTransaction(double value, String date, String description, int categoryID, boolean done){
-
+    public boolean updateUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TRANS_DESCRIPTION, description);
-        contentValues.put(TRANS_VALUE, value);
-        contentValues.put(TRANS_DATE, date);
-        contentValues.put(TRANS_CATEGORY_ID, categoryID);
-        contentValues.put(TRANS_DONE, done);
-        long result = db.insert(TABLE_TRANSACTION,null, contentValues);
-        if(result == -1)
-            return -1;
-        else
-        {
-            System.out.println("Transaction added successfully\n");
-            return (int)result;
-        }
-
-
+        contentValues.put(USER_EMAIL,email);
+        contentValues.put(USER_PASSWORD, password);
+        return db.update(TABLE_USER, contentValues, USER_ID+"= ?",new String[] { Long.toString(currUser.getID()) })>0;
     }
 
-    public int addType(String title){
 
+    public boolean deleteUser(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_USER, USER_ID+"=?",new String[]{Long.toString(currUser.getID())})>0;
+    }
+
+
+
+    public User getUser(){
+        return this.currUser;
+    }
+
+
+    //TYPE FUNCTIONS
+
+
+    /**
+     * Add a new type
+     * @param title name od the type
+     */
+    public long addType(String title){
+
+        Log.d(TAG, "USER: "+currUser.getID());
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TYPE_NAME, title);
-        long result = db.insert(TABLE_TYPE,null, contentValues);
-        if(result == -1)
-            return -1;
-        else
-        {
-            Log.d(TAG, "Type added successfully\n");
-            return (int) result;
-        }
+        Log.d(TAG, "Type added successfully\n");
+        return db.insert(TABLE_TYPE,null, contentValues);
+
+
 
     }
 
-    /*public int getTypeID(String title){
 
+    /**
+     * get the type which name is the param
+     * @param title Name of the type to get
+     * @return Returns the requested type id
+     */
+    public long getTypeID(String title){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.query(TABLE_TYPE, null, " Name = ?", new String[]{title}, null, null, null);
-        if(res.moveToFirst()) {
-            return Integer.parseInt(res.getString(res.getColumnIndex(DatabaseHelper.TYPE_NAME)));
-        }
-        else{
-            res.close();
+        Cursor cursor = db.query(TABLE_TYPE, new String[]{TYPE_ID}, TYPE_NAME + "=?", new String[]{title}, null, null, null);
+        if(cursor == null)
             return -1;
+        if(cursor.moveToFirst()){
+            return cursor.getInt(cursor.getColumnIndex(TYPE_ID));
         }
+        cursor.close();
+        return -1;
 
-    }*/
+    }
 
+
+    //CATEGORY FUNCTIONS
+
+
+    /**
+     * Add a new Category to the dataBase
+     * @param newCategory Category instance that should be to add
+     * @return Returns true if category was added and false if not
+     */
     public boolean addCategory(Category newCategory){
 
+
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
+        contentValues.put(CAT_USER_ID, Long.toString(currUser.getID()));
         contentValues.put(CAT_TITLE, newCategory.getTitle());
-        contentValues.put(CAT_TYPE_ID, newCategory.getTypeID());
-        contentValues.put(CAT_USER_ID, newCategory.getUserID());
+        contentValues.put(CAT_TYPE_ID, Long.toString(newCategory.getTypeID()));
+        contentValues.put(CAT_MAIN, newCategory.isMainMenu());
         long result = db.insert(TABLE_CATEGORY,null, contentValues);
         if(result == -1)
             return false;
@@ -223,24 +254,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getAllData() {
+    /**
+     * Get a instance of the category
+     * @param name name of the category for which the instance should be returned
+     * @return Returns and instance of the category. Returns null if was not possible to get data.
+     */
+    public Cursor getCategory(String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_TRANSACTION,null);
-        if(res == null)
-            System.out.println("Error getting data\n");
-        return res;
-    }
+        Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_USER_ID + "=? AND "+CAT_TITLE+"=?", new String[]{Long.toString(currUser.getID()), name}, null, null, null);
+        if(cursor == null) {
 
-
-    public Cursor getType(String id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_TYPE,null," _id = ?", new String[]{id}, null, null, null);
-        //cursor.getString(cursor.getColumnIndex(DatabaseHelper.TYPE_ID));
-        if(cursor.getCount()<1){
-            cursor.close();
             return null;
         }
+
         if(cursor.moveToFirst()){
+
             return cursor;
         }
         cursor.close();
@@ -248,75 +276,179 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
+    public boolean deleteCategory(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_CATEGORY, CAT_ID+"=?",new String[]{Long.toString(id)})>0;
+
+    }
+
+
+    /**
+     *
+     * @param toUpdate
+     */
+    public boolean updateCategory(Category toUpdate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CAT_TITLE, toUpdate.getTitle());
+        contentValues.put(CAT_TYPE_ID, toUpdate.getTypeID());
+        contentValues.put(CAT_MAIN, toUpdate.isMainMenu());
+        int result =  db.update(TABLE_CATEGORY, contentValues, CAT_ID+"=?",new String[] { Long.toString(toUpdate.getID()) });
+        return result>0;
+
+    }
+    //TODO: get main categories
+    public Cursor getMainCategories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+USER_ID+"=?", new String[]{Integer.toString(1), Long.toString(currUser.getID())}, null, null, null);
+        if(cursor == null)
+            return null;
+        if(cursor.moveToFirst()){
+
+            return cursor;
+        }
+        cursor.close();
+        return null;
+    }
+
+
+    //TRANSACTION FUNCTIONS
+
+
+    //TODO: verify return type of add functions
+
+    /**
+     *
+     * @param newTransaction
+     */
+    public boolean addTransaction(Transaction newTransaction){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TRANS_DESCRIPTION, newTransaction.getDescription());
+        contentValues.put(TRANS_VALUE, newTransaction.getValue());
+        contentValues.put(TRANS_DATE, newTransaction.getValue());
+        contentValues.put(TRANS_CATEGORY_ID, newTransaction.getCatID());
+        contentValues.put(TRANS_DONE, newTransaction.getDone());
+        long result = db.insert(TABLE_TRANSACTION,null, contentValues);
+        if(result == -1)
+            return false;
+        else
+        {
+            System.out.println("Category added successfully\n");
+            newTransaction.setID(result);
+            return true;
+        }
+
+
+    }
+
+
+
+    public boolean updateTransaction(Transaction toUpdate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TRANS_ID, toUpdate.getID());
+        contentValues.put(TRANS_VALUE, toUpdate.getValue());
+        contentValues.put(TRANS_DATE, toUpdate.getDateString());
+        contentValues.put(TRANS_DESCRIPTION, toUpdate.getDescription());
+        contentValues.put(TRANS_CATEGORY_ID, toUpdate.getCatID());
+        contentValues.put(TRANS_DONE, toUpdate.getDone());
+        return db.update(TABLE_TRANSACTION, contentValues, TRANS_ID+"= ?",new String[] { Long.toString(toUpdate.getID()) })>0;
+
+    }
+
+    public boolean deleteTransaction(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_TRANSACTION, TRANS_ID+"=?",new String[]{Long.toString(id)})>0;
+    }
+
+
+
+    /**
+     * Get the transaction with the given id
+     * @param id id of the transaction
+     * @return Returns an instance of the requested transaction
+     */
     public Cursor getTransaction(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_TRANSACTION,null," _id = ?", new String[]{id}, null, null, null);
         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
-        if(cursor.getCount()<1){ // Transaction Not Exist
-
-            cursor.close();
+        if(cursor == null)
             return null;
-        }
         if(cursor.moveToFirst()) {
 
             return cursor;
+
         }
         cursor.close();
         return null;
 
     }
 
-    public Cursor getTransactionsBetween(Date d1, Date d2, int catID){
+
+
+
+    public Cursor getTransactionsBetween(String d1, String d2, String catTitle){
         SQLiteDatabase db = this.getWritableDatabase();
-        SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
+        //SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+"' AND "+ TRANS_CATEGORY_ID+ " = "+catID+" ORDER BY Date", null);
+        Cursor cursor;
 
-        Log.d("test: ", df1.format(d1));
-        if(cursor.getCount()<1){ // Transaction Not Exist
+        if(catTitle != null)
+           cursor  = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+
+                   " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."
+                   + CAT_TITLE+ " = '"+catTitle+"' AND C."+CAT_ID+" = T."+TRANS_CATEGORY_ID+" ORDER BY Date", null);
 
-            cursor.close();
-            return null;
-        }
-        if(cursor.moveToFirst()) {
-
-            return cursor;
-        }
-        cursor.close();
-        return null;
-
-    }
-
-    public double getTransactionsTotalValue(Date d1, Date d2, int catID){
-        SQLiteDatabase db = this.getWritableDatabase();
-        SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
-
-        Cursor cursor = db.rawQuery("SELECT SUM("+TRANS_VALUE+") FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+"' AND "+ TRANS_CATEGORY_ID+ " = "+catID, null);
-
-        if(cursor.moveToFirst())
-            return cursor.getDouble(0);
         else
-            return -1;
+            cursor  = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ d2+"' AND '"+d2+"' ORDER BY Date", null);
+
+
+        if(cursor == null)
+            return null;
+        if(cursor.moveToFirst()) {
+
+
+            return cursor;
+        }
+        cursor.close();
+        return null;
+
     }
 
-    /*public boolean updateData(String id,String name,String surname,String marks) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,id);
-        contentValues.put(COL_2,name);
-        contentValues.put(COL_3,surname);
-        contentValues.put(COL_4,marks);
-        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
-        return true;
-    }*/
 
-    /*public Integer deleteData (String id) {
+
+    public Cursor getTransactionsTotalValue(Date d1, Date d2, String typeTitle){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
+
+        Cursor cursor = db.rawQuery("SELECT "+ "C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
+                TABLE_TRANSACTION+" T INNER JOIN "+TABLE_CATEGORY+" C ON"+
+                "T."+TRANS_CATEGORY_ID+ " = C."+CAT_ID+
+                " WHERE T."+ TRANS_DATE+" BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+
+                "' AND C."+CAT_TYPE_ID+ " = "+typeTitle+ " GROUP BY C."+CAT_TITLE, null);
+
+        if(cursor == null)
+            return null;
+        if(cursor.moveToFirst()){
+            return cursor;
+        }
+        else {
+            cursor.close();
+            return null;
+        }
     }
 
-    public void deleteAllData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, null, null);
-    }*/
+
+
+
+
+
+
+
+
+
+
 }

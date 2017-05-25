@@ -29,23 +29,20 @@ public class User {
 
     private String email;
     private double totalSaved;
+    private String password;
     /*private int availableMonth;*/
     private long id;
-    private HashMap<String, Long> types; // map<type_name, typeDB_ID>
-    private HashMap<String, Category> categories;  //map<category_name, category object>
-    private HashMap<Long, TreeSet<Transaction> > transactions;    //multimap<category_id, transactions of that category>
     DateFormat df1;
 
 
     /**
      * Constructor. Start user maps and variables.
      */
-    public User(int id, String email, double totalSaved){
-        this.categories = new HashMap<String, Category>();
-        this.transactions = new HashMap<Long, TreeSet<Transaction>>();
-        this.types = new HashMap<String, Long>();
+    public User(long id, String email, String password, double totalSaved){
+
         this.id = id;
         this.email = email;
+        this.password = password;
         this.totalSaved = totalSaved;
 
         //df1 = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
@@ -53,10 +50,8 @@ public class User {
 
     };
 
-    public User(String email){
-        this.categories = new HashMap<String, Category>();
-        this.transactions = new HashMap<Long, TreeSet<Transaction>>();
-        this.types = new HashMap<String, Long>();
+    public User(String email, String password){
+
         this.email = email;
         this.id = -1;
         totalSaved = 0;
@@ -67,12 +62,24 @@ public class User {
     }
 
 
-    public void setID(long id){
-        this.id = id;
 
+    public double getTotalSaved(){
+        return totalSaved;
     }
 
-    public void addType(String title, long id){
+    public long getID(){
+        return id;
+    }
+
+    public void setID(long id){
+        this.id = id;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    /*public void addType(String title, long id){
         types.put(title, id);
     }
 
@@ -82,7 +89,7 @@ public class User {
      * @param type
      * @return
      */
-    public Category addCategory(String title, String type){
+    /*public Category addCategory(String title, String type){
 
         //verify if category doesn't already exist or if type doesn't exist
         if(categories.get(title) != null || types.get(type) == null) {
@@ -269,18 +276,7 @@ public class User {
 
     }
 
-    public String getUsername(){
-        return username;
-    }
 
-    public int getTotalSaved(){
-        return totalSaved;
-    }
-
-    public int getAvailableMonth(){
-
-        return availableMonth;
-    }
 
 
     public Transaction addTransaction(double value, String date, String description, boolean done) {

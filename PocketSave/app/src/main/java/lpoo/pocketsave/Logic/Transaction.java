@@ -14,19 +14,18 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 
 public class Transaction implements Comparable<Transaction>{
-    private int id;
+    private long id;
     private double value;
     private Date date;
     private String description;
+    private long catID;
     private boolean done;
     DateFormat df1;
     //Image
 
-    public Transaction(double value, String dateS, String description, int catID, boolean done) {
+    public Transaction(long id, double value, String dateS, String description, long catID, boolean done) {
 
-        //this.id = DatabaseSingleton.getInstance().getDB().addTransaction(value, dateS, description, catID, done);
-        if (this.id == -1)
-            throw new NoSuchElementException("Transaction");
+        this.id = id;
         this.value = value;
         df1 = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
         try {
@@ -36,6 +35,7 @@ public class Transaction implements Comparable<Transaction>{
         }
         this.description = description;
         this.done = done;
+        this.catID = catID;
     }
 
 
@@ -48,7 +48,13 @@ public class Transaction implements Comparable<Transaction>{
         return this.date;
     }
 
-    public int getID(){return this.id;}
+    public long getID(){return this.id;}
+
+    public void setID(long value){this.id = value;}
+
+    public long getCatID(){return this.catID;}
+
+    public boolean getDone(){ return this.done;}
 
     public String getDateString(){
         return df1.format(date);

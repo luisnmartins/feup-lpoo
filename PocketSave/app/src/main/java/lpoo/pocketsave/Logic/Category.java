@@ -18,25 +18,26 @@ public class Category {
     private long userID;
     private String title;
     private long typeID;
+    private boolean mainMenu;
     private double estimatedValue;
     private double totalSpent;
-    private TreeSet<Transaction> transactions;
 
     /**
      * Create a new Category
      * @param title category's title
      * @param typeID Id of the category's type. From user's types' hashmap
-     * @param userID user that is logged in
      */
-    public Category(String title, long typeID, long userID){
+    public Category(long id, String title, long typeID, boolean mainMenu){
 
-        this.userID = userID;
-        this.id = -1;
+        this.id = id;
         this.typeID = typeID;
         this.title = title;
         this.totalSpent=0;
+        this.mainMenu=mainMenu;
 
     }
+
+
 
 
     /**
@@ -47,6 +48,12 @@ public class Category {
 
         return id;
     }
+
+    public void setUserID(long id){
+        this.userID = id;
+    }
+
+
 
     public long getUserID() {
         return userID;
@@ -73,8 +80,13 @@ public class Category {
         this.estimatedValue = value;
     }
 
+    public boolean isMainMenu() {
+        return mainMenu;
+    }
 
-
+    public void setMainMenu(boolean value){
+        this.mainMenu=value;
+    }
 
 
     //TODO: transactions

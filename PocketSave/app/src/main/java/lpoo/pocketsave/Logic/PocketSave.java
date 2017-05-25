@@ -6,7 +6,7 @@ import android.util.Log;
 
 public class PocketSave {
 
-    private static final String TAG = "PocketSave";
+    /*private static final String TAG = "PocketSave";
 
     private DatabaseHelper myDB;
     private Context context;
@@ -27,7 +27,7 @@ public class PocketSave {
      * @param password user password
      * @return Returns true if logged in successfully and false if not
      */
-    public boolean signin(String email, String password){
+   /* public boolean signin(String email, String password){
 
         if((currUser = myDB.openUser(email, password)) != null){
 
@@ -47,7 +47,7 @@ public class PocketSave {
      * @param password user password
      * @return Returns true if user was added and false if not
      */
-    public boolean signup(String email, String password){
+    /*public boolean signup(String email, String password){
 
         currUser = new User(email);
         return myDB.addUser(currUser, password);
@@ -59,7 +59,7 @@ public class PocketSave {
     /**
      * Inicialize default types
      */
-    public void setInicialTypes(){
+   /* public void setInicialTypes(){
         addType("income");
         addType("fixed expense");
         addType("variable expense");
@@ -70,7 +70,7 @@ public class PocketSave {
      * @param title type title
      * @return Returns true if type was added and false if not
      */
-    public boolean addType(String title){
+   /* public boolean addType(String title){
         long id;
         if((id= myDB.addType(title) )!= -1) {
             currUser.addType(title, id);
@@ -108,7 +108,7 @@ public class PocketSave {
         myDB.addCategory(title, 0);
     }*/
 
-    public User getUser(){
+   /* public User getUser(){
 
         return currUser;
     }
@@ -125,7 +125,7 @@ public class PocketSave {
     public DatabaseHelper getDB(){
 
         return myDB;
-    }
+    }*/
 
 
 

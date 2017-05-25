@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 import lpoo.pocketsave.Logic.Category;
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.PocketSave;
@@ -42,31 +43,22 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void testSignUp(){
+    public void testSignUp_SignIn(){
 
         try {
             useAppContext();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PocketSave.getInstance().createDB(appContext);
-        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
-        assertEquals(false, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
+        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        DataManager.getInstance().startDB(appContext);
+        assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(false, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals("1234", DataManager.getInstance().getUser().getPassword());
+        assertEquals(true, DataManager.getInstance().DeleteElements("User", 1));
 
     }
 
-    @Test
-    public  void testSignIn(){
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        PocketSave.getInstance().createDB(appContext);
-        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
-        assertEquals(true, PocketSave.getInstance().signin("ola@ola.pt", "1234"));
-        assertEquals(false, PocketSave.getInstance().signin("ola@ola.pt", "123") );
-    }
 
     @Test
     public void testAddType(){
@@ -76,31 +68,54 @@ public class ExampleInstrumentedTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PocketSave.getInstance().createDB(appContext);
-        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
-        assertEquals(true, PocketSave.getInstance().addType("income"));
-        assertEquals(true, PocketSave.getInstance().addType("fixed expense"));
-        assertEquals(false, PocketSave.getInstance().addType("income"));
+        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        DataManager.getInstance().startDB(appContext);
+        assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
+        assertEquals(-1, DataManager.getInstance().addGetType("Add", "income"));
+        assertEquals(1, DataManager.getInstance().addGetType("Get", "income"));
     }
 
    @Test
-    public void testAddCategory(){
+    public void testAddChangeDeleteCategory(){
         try {
             useAppContext();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PocketSave.getInstance().createDB(appContext);
-        assertEquals(true, PocketSave.getInstance().signup("ola@ola.pt", "1234"));
-        assertEquals(true, PocketSave.getInstance().addType("income"));
-        assertEquals(true, PocketSave.getInstance().addCategory("carro", "income"));
-        assertEquals(true, PocketSave.getInstance().addCategory("compras", "income"));
-        assertEquals(false, PocketSave.getInstance().addCategory("compras", "income"));
-        assertEquals(false, PocketSave.getInstance().addCategory("compras", "expenses"));
-
+       appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+       DataManager.getInstance().startDB(appContext);
+       assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+       assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
+       assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
+       assertEquals(false, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
+       Category a = DataManager.getInstance().getCategory("carro").get(0);
+       Log.d("TESTES: ",Long.toString(a.getID()));
+       assertEquals(true, DataManager.getInstance().addChangeCategory("Update", a.getID(), "bolachas", Long.toString(a.getTypeID()), true));
+       assertEquals(true, DataManager.getInstance().getCategory("bolachas").get(0).isMainMenu());
+       assertEquals(true, DataManager.getInstance().DeleteElements("Category", a.getID()));
 
     }
 
+    @Test
+    public void testAddChangeDeleteTransaction(){
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        DataManager.getInstance().startDB(appContext);
+        assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
+        assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
+        assertEquals(true, DataManager.getInstance().addChangeTransaction("Add", -1, 10.2, "1997/12/21", "test", 1, false));
+        assertEquals(true, DataManager.getInstance().addChangeTransaction("Update", 1, 21, "1997/12/21", "mudar", 1, true));
+        Transaction a = DataManager.getInstance().getTransactions("carro", "1997/12/20", "1997/12/21").get(0);
+        assertEquals(true, a.getDone());
+        assertEquals(true, DataManager.getInstance().DeleteElements("Transaction", a.getID()));
+
+    }
 
     /*@Test
     public void testgetDBTypeName(){
@@ -118,7 +133,7 @@ public class ExampleInstrumentedTest {
 
     }
 
-    @Test
+    /*@Test
     public void testgetTransBetweenDates(){
 
         try {
