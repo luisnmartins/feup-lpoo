@@ -16,9 +16,11 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
 import lpoo.pocketsave.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOverviewListRecyclerViewAdapter.ViewHolder> {
@@ -27,7 +29,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     private static final String TAG = "CustomAdapter";
 
     private Context mContext;
-    private List<String> mDataSet;
+    private ArrayList<Transaction> mDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
         private final TextView listValue;
@@ -91,7 +93,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     }
 
 
-    public MyOverviewListRecyclerViewAdapter(Context context,List<String> dataSet) {
+    public MyOverviewListRecyclerViewAdapter(Context context,ArrayList<Transaction> dataSet) {
         mContext=context;
         mDataSet = dataSet;
     }
@@ -112,7 +114,9 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //Picasso.with(mContext).load(R.mipmap.ic_launcher).into(viewHolder.getCatIcon());
-        viewHolder.getlistValue().setText(mDataSet.get(position));
+        viewHolder.getlistValue().setText(String.valueOf(mDataSet.get(position).getValue()));
+        viewHolder.getListCat().setText(String.valueOf(mDataSet.get(position).getCatID()));
+        viewHolder.getListDate().setText(String.valueOf(mDataSet.get(position).getDate()));
     }
 
     @Override
@@ -133,7 +137,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         return super.getItemId(position);
     }
 
-    public  void add(String text,int position)
+    public  void add(Transaction text,int position)
     {
         mDataSet.add(position,text);
         this.notifyItemInserted(position);

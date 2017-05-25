@@ -44,13 +44,13 @@ public class OverviewActivity extends AppCompatActivity {
         mToggle.syncState();
 
 
-        populateListView();
+        //populateListView();
         registerListClickCallback();
     }
 
     private void populateListView(){
 
-        Cursor cursor = DatabaseSingleton.getInstance().getDB().getAllData();
+        /*Cursor cursor = DatabaseSingleton.getInstance().getDB().getAllData();
 
         startManagingCursor(cursor);
 
@@ -74,7 +74,7 @@ public class OverviewActivity extends AppCompatActivity {
 
         System.out.println("Try  fill list");
         ListView list = (ListView) findViewById(R.id.ListViewDB);
-        list.setAdapter(myCursorAdapter);
+        list.setAdapter(myCursorAdapter);*/
 
     }
 

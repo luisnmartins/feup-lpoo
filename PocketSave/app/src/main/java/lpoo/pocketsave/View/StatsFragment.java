@@ -12,8 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
+import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 /**
@@ -32,6 +39,7 @@ public class StatsFragment extends Fragment {
     static final int DIALOG_ID =0;
     TextView date_From,date_To;
     int year_x, month_x, day_x;
+    private ImageButton setStats;
 
 
     // TODO: Rename and change types of parameters
@@ -80,32 +88,6 @@ public class StatsFragment extends Fragment {
     }
 
 
-   /* public void showDialogDate(){
-        date_From = (TextView) getActivity().findViewById(R.id.From);
-        date_To = (TextView) getActivity().findViewById(R.id.To);
-
-        date_From.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-
-                        getActivity().showDialog(DIALOG_ID);
-
-                    }
-                }
-        );
-
-        date_To.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-
-                        getActivity().showDialog(DIALOG_ID);
-
-                    }
-                }
-        );
-    }*/
 
 
     protected Dialog onCreateDialog(int id){
@@ -130,7 +112,20 @@ public class StatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stats, container, false);
+        final View view =  inflater.inflate(R.layout.fragment_stats, container, false);
+        setStats = (ImageButton) view.findViewById(R.id.setStats2);
+        setStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String from = ((TextView) view.findViewById(R.id.From)).getText().toString();
+                String to = ((TextView) view.findViewById(R.id.To)).getText().toString();
+                if(from != "Choose Date" && to != "Choose Date") {
+                    ArrayList<Transaction> aux = DataManager.getInstance().getTransactions(null, from, to);
+                }
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

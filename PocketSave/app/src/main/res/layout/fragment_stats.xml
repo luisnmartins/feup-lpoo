@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,14 +17,14 @@
         android:id="@+id/relativeLayout">
 
         <TextView
-            android:id="@+id/From"
+            android:id="@+id/To"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="showDatePickerDialog"
             android:text="Choose Date"
             android:textColor="@android:color/white"
-            android:onClick="showDatePickerDialog"
-            android:layout_alignBottom="@+id/textView6"
-            android:layout_alignStart="@+id/To" />
+            android:layout_alignTop="@+id/textView6"
+            android:layout_alignStart="@+id/From" />
 
         <TextView
             android:id="@+id/textView6"
@@ -38,7 +39,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/To"
+            android:id="@+id/From"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose Date"
@@ -62,7 +63,14 @@
 
     </RelativeLayout>
 
-
+    <ImageButton
+        android:id="@+id/setStats2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_check_circle_black_24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp" />
 
 
 </RelativeLayout>

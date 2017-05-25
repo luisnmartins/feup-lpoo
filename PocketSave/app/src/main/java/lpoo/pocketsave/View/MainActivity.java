@@ -11,6 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentContainer;
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,11 +43,12 @@ import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.PocketSave;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.R;
 import lpoo.pocketsave.View.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener,SearchView.OnQueryTextListener{
 
     Button more;
     Menu mOptionsMenu;
@@ -172,10 +175,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.navigation_menu, menu);
         mOptionsMenu = menu;
-        getMenuInflater().inflate(R.menu.edit_menu, mOptionsMenu);
+        getMenuInflater().inflate(R.menu.main_menu, mOptionsMenu);
+        mOptionsMenu.findItem(R.id.action_search).setVisible(false);
         mOptionsMenu.findItem(R.id.addTrans).setVisible(false);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
         return true;
     }
+
 
     /*public void goTransaction(){
 
@@ -188,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res = DatabaseSingleton.getInstance().getDB().getAllData();
+                    /*    Cursor res = DatabaseSingleton.getInstance().getDB().getAllData();
                         if(res.getCount() == 0) {
                             // show message
                             showMessage("Error","Nothing found");
@@ -205,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
 
                         // Show all data
-                        showMessage("Data",buffer.toString());
+                        showMessage("Data",buffer.toString());*/
                     }
                 }
         );
@@ -234,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             OverviewListFragment fragment= (OverviewListFragment) getSupportFragmentManager().findFragmentByTag("over");
             if( fragment != null)
             {
-                fragment.getmAdapter().add("newly added item", 1);
+                fragment.getmAdapter().add(new Transaction(-1,23,"27/1/2017","",1,true), 1);
                 fragment.getmRecyclerView().setAdapter(fragment.getmAdapter());
             }
 
@@ -285,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(id == R.id.nav_overview)
         {
+            mOptionsMenu.findItem(R.id.action_search).setVisible(true);
             mOptionsMenu.findItem(R.id.addTrans).setVisible(true);
             mToolbar.setTitle("Overview");
             setFragment(new OverviewListFragment(),"over");
@@ -378,7 +388,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
-
-
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        // Here is where we are going to implement the filter logic
+        return false;
+    }
 }

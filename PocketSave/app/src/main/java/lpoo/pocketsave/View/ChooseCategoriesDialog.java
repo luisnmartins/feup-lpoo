@@ -12,7 +12,11 @@ import java.util.List;
 
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
+import android.widget.ArrayAdapter;
 
+import lpoo.pocketsave.Logic.Category;
+import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 
@@ -30,21 +34,15 @@ public class ChooseCategoriesDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, DataManager.getInstance().getCategory("mainMenuCategories"));
         // Set the dialog title
         builder.setTitle("Categories")
 
-                .setMultiChoiceItems(R.array.categories, null,
-                        new DialogInterface.OnMultiChoiceClickListener() {
+                .setAdapter(arrayAdapter,
+                        new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which,
-                                                boolean isChecked) {
-                                if (isChecked) {
-                                    // If the user checked the item, add it to the selected items
-                                    mSelectedItems.add(which);
-                                } else if (mSelectedItems.contains(which)) {
-                                    // Else, if the item is already in the array, remove it
-                                    mSelectedItems.remove(Integer.valueOf(which));
-                                }
+                            public void onClick(DialogInterface dialog, int which) {
+
                             }
                         })
                 // Set the action buttons

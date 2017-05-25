@@ -47,8 +47,10 @@ import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 import lpoo.pocketsave.View.dummy.DummyContent;
 import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
@@ -117,7 +119,7 @@ public class OverviewListFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected MyOverviewListRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    protected List<String> mDataset;
+    protected ArrayList<Transaction> mDataset;
 
 
     @Override
@@ -212,6 +214,7 @@ public class OverviewListFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         //activity.resetButtons(true);
         activity.getmToolbar().setTitle("Main Menu");
+        activity.getmOptionsMenu().findItem(R.id.action_search).setVisible(false);
         activity.getmOptionsMenu().findItem(R.id.addTrans).setVisible(false);
 
 
@@ -259,83 +262,14 @@ public class OverviewListFragment extends Fragment {
     private void initDataset() {
         mDataset = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
-            mDataset.add(i,"This is element #" + i);
+            mDataset.add(new Transaction(i,23,"27/1/2017","",1,true));
         }
+      //mDataset = DataManager.getInstance().getTransactions()
     }
 
-    private void populateListView(){
-
-        Cursor cursor = DatabaseSingleton.getInstance().getDB().getAllData();
-
-        //startManagingCursor(cursor);
-
-
-        String[] fromFieldNames = new String[]
-                {DatabaseHelper.CAT_TITLE,DatabaseHelper.TRANS_VALUE, DatabaseHelper.TRANS_DATE};
-        int[] toViewIDs = new int[]
-                {R.id.listCat,    R.id.listValue,     R.id.listDate};
 
 
 
-        // Create adapter to may columns of the DB onto elemesnt in the UI.
-        SimpleCursorAdapter myCursorAdapter =
-                new SimpleCursorAdapter(
-                        getActivity(),		// Context
-                        R.layout.fragment_overviewlist,	// Row layout template
-                        cursor,					// cursor (set of DB records to map)
-                        fromFieldNames,			// DB Column names
-                        toViewIDs				// View IDs to put information in
-                );
-
-        System.out.println("Try  fill list");
-        RecyclerView list = (RecyclerView) getActivity().findViewById(R.id.OverviewList);
-       // list.setAdapter(myCursorAdapter);
-
-    }
-
-    private void registerListClickCallback() {
-        ListView list = (ListView) getActivity().findViewById(R.id.ListViewDB);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked,
-                                    int position, long idInDB) {
-
-
-
-                displayToastForId(idInDB);
-            }
-        });
-    }
-
-    private void displayToastForId(long idInDB) {
-        Cursor cursor = DatabaseSingleton.getInstance().getDB().getTransaction(Long.toString(idInDB));
-        if(cursor != null) {
-            if (cursor.moveToFirst()) {
-                String idDB = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
-                String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE));
-
-                String message = "ID: " + idDB + "\n"
-                        + "Name: " + name;
-                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-            }
-            cursor.close();
-        }
-        else
-            System.out.println("Error getting Transaction\n");
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id =item.getItemId();
-
-        if(id == R.id.addTrans)
-        {
-            mAdapter.add("newly added item", 1);
-            mRecyclerView.setAdapter(mAdapter);
-        }
-
-        return true;
-    }
 
 
 }
