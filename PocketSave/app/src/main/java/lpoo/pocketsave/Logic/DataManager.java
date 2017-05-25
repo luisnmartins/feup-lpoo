@@ -103,16 +103,18 @@ public class DataManager {
     }
 
     /**
+     * Get all or only one category. If is called without parameters ( null) it will return all user categories
+     * @param name Name of the category that should be returned. To get categories to be shown on the main menu,
+     *             this variable value should be "mainMenuCategories"
      *
-     * @param name
-     * @return
+     * @return Returns an array containing the categories
      */
     public ArrayList<Category> getCategory(String name){
         Cursor cursor;
         ArrayList<Category> categories=null;
         Category newCategory;
         boolean mainMenu;
-        if(name.equals("mainMenuCategories")){
+        if(name == "mainMenuCategories"){
             cursor = db.getMainCategories();
         }
         else
@@ -160,24 +162,27 @@ public class DataManager {
     }
 
 
+
     /**
-     *
-     * @param catTitle
-     * @param d1
-     * @param d2
-     * @return
+     * Get transactions between dates or not, from a category or not. If is called with null parameters
+     * all categories will be returned.
+     * @param catTitle_transID category title or transaction id to get
+     * @param d1 initial date to get transactions between dates.
+     * @param d2 final date to get transactions between dates.
+     * @return Returns an array containing the transactions
      */
-    public ArrayList<Transaction> getTransactions(String catTitle, String d1, String d2){
+    public ArrayList<Transaction> getTransactions(String catTitle_transID, String d1, String d2){
 
         ArrayList<Transaction> transactions = null;
         Transaction newTransaction;
         boolean done;
         Cursor cursor;
         if(d1 != null && d2 != null){
-         cursor = db.getTransactionsBetween(d1, d2, catTitle);
+         cursor = db.getTransactionsBetween(d1, d2, catTitle_transID);
         }
-        else
-            return null;
+        else{
+         cursor = db.getTransaction(catTitle_transID);
+        }
         if(cursor == null || cursor.getCount()<1)
             return null;
         if(cursor.moveToFirst()){

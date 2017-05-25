@@ -145,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_USER, null, USER_EMAIL + "=? AND "+USER_PASSWORD+ "=?", new String[]{email, password}, null, null, null);
         //Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USER+" WHERE "+USER_EMAIL+" = '"+email+"' AND "+USER_PASSWORD+" = '"+password+"'", null);
-        if(cursor == null)
+        if(cursor == null || cursor.getCount()<1)
             return false;
         if(cursor.moveToFirst()) {
 
@@ -213,7 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long getTypeID(String title){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_TYPE, new String[]{TYPE_ID}, TYPE_NAME + "=?", new String[]{title}, null, null, null);
-        if(cursor == null)
+        if(cursor == null || cursor.getCount()<1)
             return -1;
         if(cursor.moveToFirst()){
             return cursor.getInt(cursor.getColumnIndex(TYPE_ID));
@@ -261,8 +261,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getCategory(String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_USER_ID + "=? AND "+CAT_TITLE+"=?", new String[]{Long.toString(currUser.getID()), name}, null, null, null);
-        if(cursor == null) {
+        Cursor cursor;
+        if(name == null){
+            cursor = db.query(TABLE_CATEGORY, null, CAT_USER_ID + "=?", new String[]{Long.toString(currUser.getID())}, null, null, null);
+        }else{
+            cursor = db.query(TABLE_CATEGORY, null, CAT_USER_ID + "=? AND "+CAT_TITLE+"=?", new String[]{Long.toString(currUser.getID()), name}, null, null, null);
+        }
+
+        if(cursor == null || cursor.getCount()<1) {
 
             return null;
         }
@@ -303,7 +309,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getMainCategories(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+USER_ID+"=?", new String[]{Integer.toString(1), Long.toString(currUser.getID())}, null, null, null);
-        if(cursor == null)
+        if(cursor == null || cursor.getCount()<1)
             return null;
         if(cursor.moveToFirst()){
 
@@ -374,9 +380,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getTransaction(String id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_TRANSACTION,null," _id = ?", new String[]{id}, null, null, null);
+        Cursor cursor;
+        if(id == null){
+            cursor = db.query(TABLE_TRANSACTION, null, null, null, null, null, null);
+        }else {
+            cursor = db.query(TABLE_TRANSACTION, null, " _id = ?", new String[]{id}, null, null, null);
+        }
         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
-        if(cursor == null)
+        if(cursor == null || cursor.getCount()<1)
             return null;
         if(cursor.moveToFirst()) {
 
@@ -406,7 +417,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor  = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ d2+"' AND '"+d2+"' ORDER BY Date", null);
 
 
-        if(cursor == null)
+        if(cursor == null || cursor.getCount()<1)
             return null;
         if(cursor.moveToFirst()) {
 
@@ -430,7 +441,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " WHERE T."+ TRANS_DATE+" BETWEEN '"+ df1.format(d1)+"' AND '"+df1.format(d2)+
                 "' AND C."+CAT_TYPE_ID+ " = "+typeTitle+ " GROUP BY C."+CAT_TITLE, null);
 
-        if(cursor == null)
+        if(cursor == null || cursor.getCount()<1)
             return null;
         if(cursor.moveToFirst()){
             return cursor;

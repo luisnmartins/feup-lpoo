@@ -92,7 +92,7 @@ public class ExampleInstrumentedTest {
        Category a = DataManager.getInstance().getCategory("carro").get(0);
        Log.d("TESTES: ",Long.toString(a.getID()));
        assertEquals(true, DataManager.getInstance().addChangeCategory("Update", a.getID(), "bolachas", Long.toString(a.getTypeID()), true));
-       assertEquals(true, DataManager.getInstance().getCategory("bolachas").get(0).isMainMenu());
+       assertEquals(true, DataManager.getInstance().getCategory("mainMenuCategories").get(0).isMainMenu());
        assertEquals(true, DataManager.getInstance().DeleteElements("Category", a.getID()));
 
     }
