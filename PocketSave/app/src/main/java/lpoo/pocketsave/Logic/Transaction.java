@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import android.support.v7.util.SortedList;
+import android.support.v7.widget.util.SortedListAdapterCallback;
+
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
@@ -69,5 +72,16 @@ public class Transaction implements Comparable<Transaction>{
     public int compareTo(@NonNull Transaction o) {
 
         return this.date.compareTo(o.date);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.id == ((Transaction)obj).getID();
+    }
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

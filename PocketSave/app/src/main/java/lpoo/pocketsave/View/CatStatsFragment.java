@@ -7,9 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 /**
@@ -20,6 +25,7 @@ public class CatStatsFragment extends Fragment {
 
 
     private TextView chooseComp;
+    private ImageButton setStats;
 
     public CatStatsFragment()
     {
@@ -35,12 +41,24 @@ public class CatStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.catstats_fragment, container, false);
+        final View rootView =  inflater.inflate(R.layout.catstats_fragment, container, false);
         chooseComp = (TextView) rootView.findViewById(R.id.chooseCompare);
         chooseComp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        setStats = (ImageButton) rootView.findViewById(R.id.setStats1);
+        setStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String from = ((TextView) rootView.findViewById(R.id.chooseFrom)).getText().toString();
+                String to = ((TextView) rootView.findViewById(R.id.chooseTo)).getText().toString();
+                if(!from.equals("Choose Date")  && !to.equals("Choose Date")) {
+                    ArrayList<Transaction> aux = DataManager.getInstance().getTransactions(null, from, to);
+                }
             }
         });
         return  rootView;

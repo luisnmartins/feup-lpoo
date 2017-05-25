@@ -3,6 +3,7 @@ package lpoo.pocketsave.View;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
 import lpoo.pocketsave.R;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOverviewListRecyclerViewAdapter.ViewHolder> {
@@ -30,13 +32,15 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
 
     private Context mContext;
     private ArrayList<Transaction> mDataSet;
+    private final Comparator<Transaction> mComparator;
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
         private final TextView listValue;
         private final TextView listDate;
         private final TextView listCat;
         private final ImageView CatIcon;
-
 
         public ViewHolder(View v) {
             super(v);
@@ -92,10 +96,50 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         }
     }
 
+    private final SortedList<Transaction> mSortedList = new SortedList<>(Transaction.class, new SortedList.Callback<Transaction>() {
+        @Override
+        public int compare(Transaction a, Transaction b) {
+            return mComparator.compare(a, b);
+        }
 
-    public MyOverviewListRecyclerViewAdapter(Context context,ArrayList<Transaction> dataSet) {
+        @Override
+        public void onInserted(int position, int count) {
+            notifyItemRangeInserted(position, count);
+        }
+
+        @Override
+        public void onRemoved(int position, int count) {
+            notifyItemRangeRemoved(position, count);
+        }
+
+        @Override
+        public void onMoved(int fromPosition, int toPosition) {
+            notifyItemMoved(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onChanged(int position, int count) {
+            notifyItemRangeChanged(position, count);
+        }
+
+        @Override
+        public boolean areContentsTheSame(Transaction oldItem, Transaction newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areItemsTheSame(Transaction item1, Transaction item2) {
+            return item1 == item2;
+        }
+    });
+
+
+
+
+    public MyOverviewListRecyclerViewAdapter(Context context,ArrayList<Transaction> dataSet,Comparator<Transaction> comp) {
         mContext=context;
         mDataSet = dataSet;
+        mComparator = comp;
     }
 
     @Override
@@ -114,14 +158,14 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //Picasso.with(mContext).load(R.mipmap.ic_launcher).into(viewHolder.getCatIcon());
-        viewHolder.getlistValue().setText(String.valueOf(mDataSet.get(position).getValue()));
-        viewHolder.getListCat().setText(String.valueOf(mDataSet.get(position).getCatID()));
-        viewHolder.getListDate().setText(String.valueOf(mDataSet.get(position).getDate()));
+        viewHolder.getlistValue().setText(String.valueOf(mSortedList.get(position).getValue()));
+        viewHolder.getListCat().setText(String.valueOf(mSortedList.get(position).getCatID()));
+        viewHolder.getListDate().setText(String.valueOf(mSortedList.get(position).getDate()));
     }
 
     @Override
     public int getItemCount() {
-        return mDataSet.size();
+        return mSortedList.size();
     }
 
 
@@ -141,5 +185,39 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     {
         mDataSet.add(position,text);
         this.notifyItemInserted(position);
+    }
+
+    public void add(Transaction tr)
+    {
+        mSortedList.add(tr);
+    }
+
+    public void remove(Transaction tr)
+    {
+        mSortedList.remove(tr);
+    }
+
+    public void add(List<Transaction> models) {
+        mSortedList.addAll(models);
+    }
+
+    public void remove(List<Transaction> models) {
+        mSortedList.beginBatchedUpdates();
+        for (Transaction model : models) {
+            mSortedList.remove(model);
+        }
+        mSortedList.endBatchedUpdates();
+    }
+
+    public void replaceAll(List<Transaction> models) {
+        mSortedList.beginBatchedUpdates();
+        for (int i = mSortedList.size() - 1; i >= 0; i--) {
+            final Transaction model = mSortedList.get(i);
+            if (!models.contains(model)) {
+                mSortedList.remove(model);
+            }
+        }
+        mSortedList.addAll(models);
+        mSortedList.endBatchedUpdates();
     }
 }

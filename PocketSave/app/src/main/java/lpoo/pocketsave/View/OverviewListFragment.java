@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -57,15 +58,24 @@ import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 
-public class OverviewListFragment extends Fragment {
+public class OverviewListFragment extends Fragment implements SearchView.OnQueryTextListener{
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
 
-        enum Type {
+    enum Type {
             FadeIn(new FadeInAnimator()),
             FadeInDown(new FadeInDownAnimator()),
             FadeInUp(new FadeInUpAnimator()),
@@ -122,6 +132,13 @@ public class OverviewListFragment extends Fragment {
     protected ArrayList<Transaction> mDataset;
 
 
+    private static final Comparator<Transaction> ALPHABETICAL_COMPARATOR = new Comparator<Transaction>() {
+        @Override
+        public int compare(Transaction a, Transaction b) {
+            return a.getDate().compareTo(b.getDate());
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,14 +188,17 @@ public class OverviewListFragment extends Fragment {
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
                     .getSerializable(KEY_LAYOUT_MANAGER);
         }
+
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext()));
 
 
-       mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset);
+       mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset,ALPHABETICAL_COMPARATOR);
+
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.add(mDataset);
         // END_INCLUDE(initializeRecyclerView)
 
         /*getActivity().findViewById(R.id.addTrans).setOnClickListener(new View.OnClickListener() {
@@ -265,6 +285,25 @@ public class OverviewListFragment extends Fragment {
             mDataset.add(new Transaction(i,23,"27/1/2017","",1,true));
         }
       //mDataset = DataManager.getInstance().getTransactions()
+    }
+
+    public void filterIn(String query)
+    {
+        final List<Transaction> filteredModelList = filter(mDataset, query);
+        mAdapter.replaceAll(filteredModelList);
+    }
+
+    private static ArrayList<Transaction> filter(ArrayList<Transaction> models, String query) {
+        final String lowerCaseQuery = query.toLowerCase();
+
+        final ArrayList<Transaction> filteredModelList = new ArrayList<>();
+        for (Transaction model : models) {
+            final String text = model.getDate().toString();
+            if (text.contains(lowerCaseQuery)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
     }
 
 

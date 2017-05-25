@@ -39,6 +39,9 @@ import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
@@ -396,6 +399,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onQueryTextChange(String newText) {
         // Here is where we are going to implement the filter logic
-        return false;
+        OverviewListFragment fragment = (OverviewListFragment) getSupportFragmentManager().findFragmentByTag("over");
+        if(fragment != null)
+        {
+            fragment.filterIn(newText);
+        }
+        return true;
     }
+
+
+
 }
