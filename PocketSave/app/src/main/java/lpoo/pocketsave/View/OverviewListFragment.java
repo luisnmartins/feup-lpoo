@@ -9,29 +9,98 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.BaseItemAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInDownAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInRightAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
+import jp.wasabeef.recyclerview.animators.FlipInBottomXAnimator;
+import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator;
+import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator;
+import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator;
+import jp.wasabeef.recyclerview.animators.LandingAnimator;
+import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.OvershootInRightAnimator;
+import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
+import jp.wasabeef.recyclerview.animators.ScaleInBottomAnimator;
+import jp.wasabeef.recyclerview.animators.ScaleInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.ScaleInRightAnimator;
+import jp.wasabeef.recyclerview.animators.ScaleInTopAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.R;
 import lpoo.pocketsave.View.dummy.DummyContent;
 import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class OverviewListFragment extends Fragment {
 
+
+
+
+        enum Type {
+            FadeIn(new FadeInAnimator()),
+            FadeInDown(new FadeInDownAnimator()),
+            FadeInUp(new FadeInUpAnimator()),
+            FadeInLeft(new FadeInLeftAnimator()),
+            FadeInRight(new FadeInRightAnimator()),
+            Landing(new LandingAnimator()),
+            ScaleIn(new ScaleInAnimator()),
+            ScaleInTop(new ScaleInTopAnimator()),
+            ScaleInBottom(new ScaleInBottomAnimator()),
+            ScaleInLeft(new ScaleInLeftAnimator()),
+            ScaleInRight(new ScaleInRightAnimator()),
+            FlipInTopX(new FlipInTopXAnimator()),
+            FlipInBottomX(new FlipInBottomXAnimator()),
+            FlipInLeftY(new FlipInLeftYAnimator()),
+            FlipInRightY(new FlipInRightYAnimator()),
+            SlideInLeft(new SlideInLeftAnimator()),
+            SlideInRight(new SlideInRightAnimator()),
+            SlideInDown(new SlideInDownAnimator()),
+            SlideInUp(new SlideInUpAnimator()),
+            OvershootInRight(new OvershootInRightAnimator(1.0f)),
+            OvershootInLeft(new OvershootInLeftAnimator(1.0f));
+
+            private BaseItemAnimator mAnimator;
+
+            Type(BaseItemAnimator animator) {
+                mAnimator = animator;
+            }
+
+            public BaseItemAnimator getAnimator() {
+                return mAnimator;
+            }
+        }
+
+
     private static final String TAG = "RecyclerViewFragment";
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
-    private static final int DATASET_COUNT = 60;
     //private Toolbar mToolbar;
 
 
@@ -48,7 +117,7 @@ public class OverviewListFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected MyOverviewListRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    protected String[] mDataset;
+    protected List<String> mDataset;
 
 
     @Override
@@ -62,6 +131,16 @@ public class OverviewListFragment extends Fragment {
         initDataset();
     }
 
+    public MyOverviewListRecyclerViewAdapter getmAdapter()
+    {
+        return  mAdapter;
+    }
+
+    public RecyclerView getmRecyclerView()
+    {
+        return mRecyclerView;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +149,13 @@ public class OverviewListFragment extends Fragment {
 
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.OverviewList);
+        if (getActivity().getIntent().getBooleanExtra("GRID", true)) {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        } else {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+
+        mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
 
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
@@ -87,10 +173,20 @@ public class OverviewListFragment extends Fragment {
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext()));
 
-        mAdapter = new MyOverviewListRecyclerViewAdapter(mDataset);
+
+       mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
+
+        /*getActivity().findViewById(R.id.addTrans).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter.add("newly added item", 1);
+            }
+        });*/
+
+
 
         mLinearLayoutRadioButton = (RadioButton) rootView.findViewById(R.id.linear_layout_rb);
         mLinearLayoutRadioButton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +213,7 @@ public class OverviewListFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         //activity.resetButtons(true);
         activity.getmToolbar().setTitle("Main Menu");
+        activity.getmOptionsMenu().findItem(R.id.addTrans).setVisible(false);
 
 
     }
@@ -161,9 +258,9 @@ public class OverviewListFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
-        mDataset = new String[DATASET_COUNT];
-        for (int i = 0; i < DATASET_COUNT; i++) {
-            mDataset[i] = "This is element #" + i;
+        mDataset = new ArrayList<>();
+        for (int i = 0; i < 60; i++) {
+            mDataset.add(i,"This is element #" + i);
         }
     }
 
@@ -227,4 +324,19 @@ public class OverviewListFragment extends Fragment {
         else
             System.out.println("Error getting Transaction\n");
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id =item.getItemId();
+
+        if(id == R.id.addTrans)
+        {
+            mAdapter.add("newly added item", 1);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+        return true;
+    }
+
+
 }

@@ -1,8 +1,12 @@
 package lpoo.pocketsave.View;
 
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -25,16 +29,23 @@ public class Month extends AppCompatActivity {
         mytool.setLogo(R.mipmap.ic_schedule_black_24dp);
         setSupportActionBar(mytool);
 
-        addItemsOnSpinner();
+       // addItemsOnSpinner();
     }
 
 
     public void addItemsOnSpinner()
     {
-        mSpinner = (Spinner) findViewById(R.id.categorycombobox);
+        //mSpinner = (Spinner) findViewById(R.id.categorycombobox);
         List<String> list = new ArrayList<String>();
         list.add("Cat1");
         list.add("Cat2");
         list.add("Cat3");
+    }
+
+    public void getCategoriesList(View v)
+    {
+        DialogFragment dialog = new ChooseSpecificCatDialog();
+        dialog.show(getSupportFragmentManager(),"chooseCategories");
+
     }
 }

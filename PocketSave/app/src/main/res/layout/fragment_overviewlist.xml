@@ -45,11 +45,11 @@
         android:layout_gravity="center_vertical"
         android:text="Transaction Date"
         android:layout_marginStart="29dp"
-        android:layout_above="@+id/imageButton5"
+        android:layout_above="@+id/editButtonOver"
         android:layout_toEndOf="@+id/listValue" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/editButtonOver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/ic_mode_edit_black_24dp"

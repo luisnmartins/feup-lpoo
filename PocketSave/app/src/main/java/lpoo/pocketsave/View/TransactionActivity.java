@@ -92,7 +92,7 @@ public class TransactionActivity extends AppCompatActivity {
                         String dateString = year_x+"/"+month_x+"/"+day_x;
                         int valueInt = Integer.parseInt(value.getText().toString());
                         //TODO: change done value
-                        User.getInstance().getCategory(category).addTransaction(valueInt, dateString, description.getText().toString(),true);
+                        //User.getInstance().getCategory(category).addTransaction(valueInt, dateString, description.getText().toString(),true);
 
                             /*DatabaseSingleton.getInstance().getDB().addTransaction(Integer.parseInt(value.getText().toString()),
                                     dateString,

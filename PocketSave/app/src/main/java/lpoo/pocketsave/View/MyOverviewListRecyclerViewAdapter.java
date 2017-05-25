@@ -1,14 +1,21 @@
 package lpoo.pocketsave.View;
 
+import android.content.Context;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
+import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
 import lpoo.pocketsave.R;
 
@@ -19,9 +26,10 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
 
     private static final String TAG = "CustomAdapter";
 
-    private String[] mDataSet;
+    private Context mContext;
+    private List<String> mDataSet;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
         private final TextView listValue;
         private final TextView listDate;
         private final TextView listCat;
@@ -30,17 +38,17 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
 
         public ViewHolder(View v) {
             super(v);
-            // Define click listener for the ViewHolder's View.
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   // Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                }
-            });
             listValue = (TextView) v.findViewById(R.id.listValue);
             listDate = (TextView) v.findViewById(R.id.listDate);
             listCat = (TextView) v.findViewById(R.id.listCat);
             CatIcon = (ImageView) v.findViewById(R.id.transIcon);
+            // Define click listener for the ViewHolder's View.
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                }
+            });
         }
 
         public TextView getlistValue() {
@@ -49,17 +57,49 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         public TextView getListDate() {return listDate;}
         public TextView getListCat() {return listCat;}
         public ImageView getCatIcon() {return CatIcon;}
+
+        @Override
+        public void preAnimateAddImpl(RecyclerView.ViewHolder holder) {
+            ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
+            ViewCompat.setAlpha(itemView, 0);
+        }
+
+        @Override
+        public void preAnimateRemoveImpl(RecyclerView.ViewHolder holder) {
+
+        }
+
+        @Override
+        public void animateAddImpl(RecyclerView.ViewHolder holder, ViewPropertyAnimatorListener listener) {
+            ViewCompat.animate(itemView)
+                    .translationY(0)
+                    .alpha(1)
+                    .setDuration(300)
+                    .setListener(listener)
+                    .start();
+        }
+
+        @Override
+        public void animateRemoveImpl(RecyclerView.ViewHolder holder, ViewPropertyAnimatorListener listener) {
+            ViewCompat.animate(itemView)
+                    .translationY(-itemView.getHeight() * 0.3f)
+                    .alpha(0)
+                    .setDuration(300)
+                    .setListener(listener)
+                    .start();
+        }
     }
 
 
-    public MyOverviewListRecyclerViewAdapter(String[] dataSet) {
+    public MyOverviewListRecyclerViewAdapter(Context context,List<String> dataSet) {
+        mContext=context;
         mDataSet = dataSet;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
-        View v = LayoutInflater.from(viewGroup.getContext())
+        View v = LayoutInflater.from(mContext)
                 .inflate(R.layout.fragment_overviewlist, viewGroup, false);
 
         return new ViewHolder(v);
@@ -71,12 +111,31 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        viewHolder.getlistValue().setText(mDataSet[position]);
+        //Picasso.with(mContext).load(R.mipmap.ic_launcher).into(viewHolder.getCatIcon());
+        viewHolder.getlistValue().setText(mDataSet.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mDataSet.size();
     }
 
+
+    public  void remove(int position)
+    {
+        mDataSet.remove(position);
+        this.notifyItemRemoved(position);
+
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    public  void add(String text,int position)
+    {
+        mDataSet.add(position,text);
+        this.notifyItemInserted(position);
+    }
 }

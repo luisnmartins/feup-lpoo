@@ -2,6 +2,7 @@ package lpoo.pocketsave.View;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,15 +19,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
+import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.PocketSave;
@@ -37,7 +48,7 @@ import lpoo.pocketsave.View.dummy.DummyContent;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener{
 
     Button more;
-
+    Menu mOptionsMenu;
     DatabaseHelper myDB;
     private DrawerLayout sDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -49,7 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         mToolbar.setTitle("Main Menu");
         mToolbar.setLogo(R.mipmap.ic_launcher_round);
@@ -78,11 +91,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         more = (Button) findViewById(R.id.Morebtn);
         //initialize database instance
         DatabaseSingleton.getInstance().createDB(this);
-        DatabaseSingleton.getInstance().getDB().addUser("ola@ola.pt", "1234");
-        if(User.getInstance().login("ola@ola.pt", "1234"))
+       // DatabaseSingleton.getInstance().getDB().addUser("ola@ola.pt", "1234");
+        //if(User.getInstance().login("ola@ola.pt", "1234"))
             Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(MainActivity.this,"Error trying to log in. Please try again",Toast.LENGTH_LONG).show();
+       // else
+           // Toast.makeText(MainActivity.this,"Error trying to log in. Please try again",Toast.LENGTH_LONG).show();
 
 
         /*DatabaseSingleton.getInstance().getDB().addType("income");
@@ -97,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewAll();*/
 
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -107,21 +119,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+
     public void NewTransaction(View view){
 
 
+
+                closeAllFragments();
                 Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
                 transactionIntent.putExtra("Category", String.valueOf(view.getTag()));
                 MainActivity.this.startActivity(transactionIntent);
 
     }
 
-
+    public Menu getmOptionsMenu()
+    {
+        return mOptionsMenu;
+    }
 
     public void getOverview(View view){
 
         //Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
         //MainActivity.this.startActivity(overviewIntent);
+       // getMenuInflater().inflate(R.menu.navigation_menu,mOptionsMenu);
         mToolbar.setTitle("Overview");
         setFragment(new OverviewListFragment(),"over");
     }
@@ -151,6 +171,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        mOptionsMenu = menu;
+        getMenuInflater().inflate(R.menu.edit_menu, mOptionsMenu);
+        mOptionsMenu.findItem(R.id.addTrans).setVisible(false);
         return true;
     }
 
@@ -205,6 +228,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mToggle.onOptionsItemSelected(item)){
             return true;
         }
+
+        if(id == R.id.addTrans)
+        {
+            OverviewListFragment fragment= (OverviewListFragment) getSupportFragmentManager().findFragmentByTag("over");
+            if( fragment != null)
+            {
+                fragment.getmAdapter().add("newly added item", 1);
+                fragment.getmRecyclerView().setAdapter(fragment.getmAdapter());
+            }
+
+        }
+
 
         //noinspection SimplifiableIfStatemen
         return super.onOptionsItemSelected(item);
@@ -261,10 +296,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(id == R.id.nav_overview)
         {
+            mOptionsMenu.findItem(R.id.addTrans).setVisible(true);
             mToolbar.setTitle("Overview");
             setFragment(new OverviewListFragment(),"over");
         }else if(id == R.id.nav_transactions)
         {
+            closeAllFragments();
             Intent transactionIntent = new Intent(MainActivity.this, StatsActivity.class);
             MainActivity.this.startActivity(transactionIntent);
 
@@ -276,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if(id == R.id.nav_month)
         {
+            closeAllFragments();
             Intent transactionIntent = new Intent(MainActivity.this, Month.class);
             MainActivity.this.startActivity(transactionIntent);
         }
@@ -283,6 +321,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
 
     }
+
+
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -300,6 +340,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setFragment(new CatStatsFragment(),"stats");
 
     }
+
+
+    public void getColorPicker(View v)
+    {
+
+        ColorPickerDialogBuilder
+                .with(this.getcontext())
+                .setTitle("Choose color")
+                .initialColor(999999999)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                        //toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
+                    }
+                })
+                .setPositiveButton("ok", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        changeBackgroundColor(selectedColor);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .build()
+                .show();
+    }
+
+    public void changeBackgroundColor(int color)
+    {
+        Button btn = (Button) findViewById(R.id.colorbutton);
+        btn.setBackgroundColor(color);
+    }
+
+
+    public void closeAllFragments()
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for(int i = 0; i < fragmentManager.getBackStackEntryCount();i++)
+        {
+            fragmentManager.popBackStack();
+        }
+    }
+
+
 
 
 

@@ -12,106 +12,105 @@
         android:tag="cat1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:text="Cat1"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:onClick="NewTransaction"
-        android:layout_marginBottom="36dp"
-        android:layout_above="@+id/Cat3btn" />
+        android:drawableTop="@drawable/restaurant_cutlery"
+        android:textColor="@android:color/black"
+        android:text="Eat"
+        android:background="@android:color/background_light"
+        android:layout_alignBaseline="@+id/Cat2btn"
+        android:layout_alignBottom="@+id/Cat2btn"
+        android:layout_alignStart="@+id/Cat3btn" />
 
     <Button
         android:id="@+id/Cat2btn"
         android:tag="cat2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cat2"
+        android:text="Transport"
         android:onClick="NewTransaction"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:layout_alignBaseline="@+id/Cat1btn"
-        android:layout_alignBottom="@+id/Cat1btn"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="59dp" />
+        android:drawableTop="@drawable/underground"
+        android:background="@android:color/background_light"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="48dp"
+        android:layout_above="@+id/Cat4btn"
+        android:layout_alignStart="@+id/Cat4btn" />
 
     <Button
         android:id="@+id/Cat3btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
+        android:background="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:onClick="NewTransaction"
-        android:text="Cat3"
+        android:drawableTop="@drawable/polo"
+        android:text="Clothes"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/Cat1btn" />
+        android:layout_alignStart="@+id/Morebtn" />
 
     <Button
         android:id="@+id/Cat4btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:text="Cat4"
-        android:onClick="NewTransaction"
-        android:layout_alignBaseline="@+id/Cat3btn"
-        android:layout_alignBottom="@+id/Cat3btn"
-        android:layout_alignStart="@+id/Cat2btn" />
+        android:background="@android:color/background_light"
+        android:textColor="@android:color/black"
+        android:drawableTop="@drawable/pills"
+        android:text="Health"
+        android:layout_alignBottom="@+id/Addbtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="14dp" />
 
     <Button
         android:id="@+id/Cat5btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:text="Cat5"
-        android:onClick="NewTransaction"
-        android:layout_below="@+id/Cat3btn"
-        android:layout_alignStart="@+id/Cat3btn" />
+        android:background="@android:color/background_light"
+        android:drawableTop="@drawable/gamepad"
+        android:textColor="@android:color/black"
+        android:text="Joy"
+        android:layout_below="@+id/Addbtn"
+        android:layout_alignStart="@+id/Cat4btn"
+        android:layout_marginTop="46dp" />
 
     <Button
         android:id="@+id/Morebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:text="..."
-        android:layout_above="@+id/BalanceText"
-        android:layout_alignStart="@+id/Cat4btn" />
+        android:background="@android:color/background_light"
+        android:textColor="@android:color/black"
+        android:text="More"
+        android:layout_alignTop="@+id/Cat5btn"
+        android:layout_toEndOf="@+id/BalanceView"
+        android:layout_marginStart="30dp" />
 
     <TextView
         android:id="@+id/BalanceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
         android:text="Balance"
-        android:layout_marginStart="15dp"
-        android:layout_below="@+id/Cat5btn"
-        android:layout_alignStart="@+id/Cat5btn" />
+        android:layout_above="@+id/Morebtn"
+        android:layout_centerHorizontal="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/Addbtn"
         android:layout_width="100px"
         android:layout_height="100px"
-        android:layout_marginBottom="21dp"
         android:clickable="true"
         android:onClick="getNewCategory"
         app:backgroundTint="@android:color/background_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_above="@+id/Cat1btn"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/BalanceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:text="TextView"
+        android:text="See Statistics"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:onClick="getStats"
-        android:layout_below="@+id/BalanceText"
-        android:layout_alignStart="@+id/BalanceText" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="65dp" />
 
 
 </RelativeLayout>

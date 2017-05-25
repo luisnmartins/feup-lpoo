@@ -85,11 +85,13 @@
         android:layout_marginTop="62dp"
         android:text="Estimated Variable Expenses" />
 
-    <Spinner
+    <TextView
         android:id="@+id/categorycombobox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:text="Choose Category"
+        android:onClick="getCategoriesList"
         android:layout_below="@+id/EstimatedVariableExpenses"
         android:layout_toStartOf="@+id/editText4"
         android:layout_marginEnd="13dp" />
