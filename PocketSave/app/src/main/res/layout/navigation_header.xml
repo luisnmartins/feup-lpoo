@@ -5,17 +5,16 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
-        android:src="@mipmap/ic_launcher"
-        app:civ_border_color="#FF000000" />
+        android:src="@drawable/user" />
 
     <TextView
         android:id="@+id/AppName"
@@ -26,7 +25,7 @@
         android:layout_alignStart="@+id/profile_image"
         android:gravity="left"
         android:paddingBottom="4dp"
-        android:text="PokectSave"
+        android:text="PocketSave"
         android:textColor="#FFF"
         android:textSize="18dp"
         android:textStyle="bold" />

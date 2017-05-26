@@ -102,9 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
        // DataManager.startDB(MainActivity.this);
 
-        DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234");
-
-
+        ((TextView)mNavView.getHeaderView(0).findViewById(R.id.User)).setText(DataManager.getInstance().getUser().getEmail());
         // else
            // Toast.makeText(MainActivity.this,"Error trying to log in. Please try again",Toast.LENGTH_LONG).show();
 

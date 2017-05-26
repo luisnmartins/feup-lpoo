@@ -3,6 +3,7 @@ package lpoo.pocketsave.View;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -326,6 +328,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
+            DataManager.getInstance().addChangeUser("Add",mEmail,mPassword);
             return true;
         }
 
@@ -335,6 +338,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(mainIntent);
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
