@@ -88,6 +88,10 @@ public class Category {
         this.mainMenu=value;
     }
 
+    @Override
+    public String toString() {
+        return Long.toString(id);
+    }
 
     //TODO: transactions
    /* public TreeSet<Transaction> getTransactionsBetween(Date d1, Date d2){

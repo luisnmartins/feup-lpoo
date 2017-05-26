@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
 import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.PocketSave;
@@ -96,11 +97,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         more = (Button) findViewById(R.id.Morebtn);
         //initialize database instance
-        DatabaseSingleton.getInstance().createDB(this);
        // DatabaseSingleton.getInstance().getDB().addUser("ola@ola.pt", "1234");
         //if(User.getInstance().login("ola@ola.pt", "1234"))
             Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
-       // else
+       // DataManager.startDB(MainActivity.this);
+
+        DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234");
+
+
+        // else
            // Toast.makeText(MainActivity.this,"Error trying to log in. Please try again",Toast.LENGTH_LONG).show();
 
 

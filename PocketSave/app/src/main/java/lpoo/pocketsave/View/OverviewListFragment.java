@@ -282,7 +282,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     private void initDataset() {
         mDataset = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
-            mDataset.add(new Transaction(i,23,"27/1/2017","",1,true));
+            mDataset.add(new Transaction(i,23,"2017/03/15","",1,true));
         }
       //mDataset = DataManager.getInstance().getTransactions()
     }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
 public class IntroActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
+        DataManager.startDB(IntroActivity.this);
 
         new Handler().postDelayed(new Runnable() {
 

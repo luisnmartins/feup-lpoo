@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Transaction;
@@ -33,18 +35,31 @@ public class ChooseCategoriesDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mSelectedItems = new ArrayList();  // Where we track the selected items
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, DataManager.getInstance().getCategory("mainMenuCategories"));
+        ArrayList<Category> aux = new ArrayList<>();
+        aux.add(0,new Category(1,"Cenas",1,true));
+        aux.add(1,new Category(2,"consigo",1,true));
+        String[] categories = ListToArray(aux);
+
+        final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, aux);
         // Set the dialog title
         builder.setTitle("Categories")
 
-                .setAdapter(arrayAdapter,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+               .setMultiChoiceItems(categories, null, new DialogInterface.OnMultiChoiceClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                       if (isChecked) {
+                           // If the user checked the item, add it to the selected items
+                           mSelectedItems.add(which);
+                       } else if (mSelectedItems.contains(which)) {
+                           // Else, if the item is already in the array, remove it
+                           mSelectedItems.remove(Integer.valueOf(which));
+                       }
+                   }
 
-                            }
-                        })
+               })
                 // Set the action buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -61,7 +76,18 @@ public class ChooseCategoriesDialog extends DialogFragment {
                     }
                 });
 
-        return builder.create();
+        return  builder.create();
+
+    }
+
+    private String[] ListToArray(ArrayList<Category> aux)
+    {
+        String[] result = new String[aux.size()];
+        for(int i = 0; i < aux.size();i++)
+        {
+            result[i] = aux.get(i).toString();
+        }
+        return result;
     }
 
 }

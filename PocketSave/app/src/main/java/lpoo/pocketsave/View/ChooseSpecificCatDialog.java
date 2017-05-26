@@ -36,7 +36,7 @@ public class ChooseSpecificCatDialog extends DialogFragment {
 
         //testList();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-       // final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_singlechoice, DataManager.getInstance().getCategory("mainMenuCategories"));
+        final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_singlechoice, DataManager.getInstance().getCategory("mainMenuCategories"));
         builder.setTitle("Categories").setItems(mOptions, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
