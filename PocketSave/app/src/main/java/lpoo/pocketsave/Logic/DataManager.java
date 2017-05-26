@@ -116,12 +116,14 @@ public class DataManager {
         ArrayList<Category> categories=null;
         Category newCategory;
         boolean mainMenu;
-        if(name == "mainMenuCategories"){
+        if(name=="mainMenuCategories"){
             cursor = db.getMainCategories();
+
         }
         else
             cursor= db.getCategory(name);
         if(cursor == null) {
+
             return null;
         }
 

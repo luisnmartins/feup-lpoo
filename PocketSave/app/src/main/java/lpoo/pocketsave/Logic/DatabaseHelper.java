@@ -308,9 +308,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //TODO: get main categories
     public Cursor getMainCategories(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+USER_ID+"=?", new String[]{Integer.toString(1), Long.toString(currUser.getID())}, null, null, null);
-        if(cursor == null || cursor.getCount()<1)
+        //Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_CATEGORY+" WHERE "+CAT_MAIN+" = '"+Boolean.toString(true)+"' AND "+CAT)
+        Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{Long.toString(1), Long.toString(currUser.getID())}, null, null, null);
+        if(cursor == null || cursor.getCount()<1) {
+            Log.d(TAG, "Cursor null");
             return null;
+        }
         if(cursor.moveToFirst()){
 
             return cursor;
