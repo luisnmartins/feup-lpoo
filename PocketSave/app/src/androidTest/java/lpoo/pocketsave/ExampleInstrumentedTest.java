@@ -52,8 +52,9 @@ public class ExampleInstrumentedTest {
         }
         appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
         DataManager.getInstance().startDB(appContext);
-        assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
-        assertEquals(false, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(false, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "syfi"));
+        assertEquals(false, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
         assertEquals("1234", DataManager.getInstance().getUser().getPassword());
         assertEquals(true, DataManager.getInstance().DeleteElements("User", 1));
 
@@ -70,7 +71,7 @@ public class ExampleInstrumentedTest {
         }
         appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
         DataManager.getInstance().startDB(appContext);
-        assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(-1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(1, DataManager.getInstance().addGetType("Get", "income"));
@@ -85,7 +86,7 @@ public class ExampleInstrumentedTest {
         }
        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
        DataManager.getInstance().startDB(appContext);
-       assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+       assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
        assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
        assertEquals(false, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
@@ -106,7 +107,7 @@ public class ExampleInstrumentedTest {
         }
         appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
         DataManager.getInstance().startDB(appContext);
-        assertEquals(true, DataManager.getInstance().addChangeUser("Add", "ola@ola.pt", "1234"));
+        assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
         assertEquals(true, DataManager.getInstance().addChangeTransaction("Add", -1, 10.2, "1997/12/21", "test", 1, false));

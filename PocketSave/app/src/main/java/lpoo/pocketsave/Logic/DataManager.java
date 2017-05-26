@@ -31,17 +31,19 @@ public class DataManager {
 
     /**
      * Add or update an user
-     * @param operation name of the operation - "Add" or "Update"
+     * @param operation name of the operation - "Add", "Open" or "Update"
      * @param email new email of the user
      * @param password new password of the user
      * @return Returns true if it was added/updated with success, and false if not
      */
-    public boolean addChangeUser(String operation, String email, String password){
+    public boolean addOpenChangeUser(String operation, String email, String password){
 
         if(operation == "Add"){
             return db.addUser(email, password);
         }else if(operation == "Update"){
             return db.updateUser(email, password);
+        }else if(operation == "Open"){
+            return db.openUser(email, password);
         }
         return false;
     }

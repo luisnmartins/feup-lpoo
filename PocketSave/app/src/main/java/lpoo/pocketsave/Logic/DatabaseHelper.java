@@ -80,10 +80,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Log.d(TAG, create_category);
 
-        /*System.out.println(create_user);
-        System.out.println(create_category);
+        System.out.println(create_user);
+        Log.d(TAG, create_category);
         System.out.println(create_type);
-        System.out.println(create_transaction);*/
+        Log.d(TAG, create_transaction);
 
 
     try{
