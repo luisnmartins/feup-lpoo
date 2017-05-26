@@ -90,7 +90,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return Long.toString(id);
+        return this.getTitle();
     }
 
     //TODO: transactions

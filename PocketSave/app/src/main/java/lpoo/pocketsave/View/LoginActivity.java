@@ -319,16 +319,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            if(DataManager.getInstance().addOpenChangeUser("Open",mEmail,mPassword) == false)
+            {
+
+            }
+          /*  for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
-            }
+            }*/
 
             // TODO: register the new account here.
-            DataManager.getInstance().addChangeUser("Add",mEmail,mPassword);
+            DataManager.getInstance().addOpenChangeUser("Add",mEmail,mPassword);
+            DataManager.getInstance().addChangeCategory("Add",1,"Eat","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",2,"Transport","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",3,"Health","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",4,"Clothes","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",5,"Joy","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",6,"Food","Variable",false);
             return true;
         }
 
