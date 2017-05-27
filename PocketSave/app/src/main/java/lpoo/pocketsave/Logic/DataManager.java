@@ -2,7 +2,6 @@ package lpoo.pocketsave.Logic;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,7 +80,7 @@ public class DataManager {
     /**
      *
      * @param operation
-     * @param id
+     * @param id para que serve?
      * @param title
      * @param type
      * @param mainMenu
@@ -129,8 +128,9 @@ public class DataManager {
 
 
         if(cursor.moveToFirst()) {
+            categories = new ArrayList<Category>();
             do {
-                categories = new ArrayList<Category>();
+
                 mainMenu = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_MAIN)) > 0;
                 newCategory = new Category(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_ID)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAT_TITLE)),

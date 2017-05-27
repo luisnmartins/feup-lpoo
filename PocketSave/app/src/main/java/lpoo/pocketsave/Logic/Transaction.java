@@ -3,18 +3,11 @@ package lpoo.pocketsave.Logic;
 
 import android.support.annotation.NonNull;
 
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import android.support.v7.util.SortedList;
-import android.support.v7.widget.util.SortedListAdapterCallback;
-
+import java.util.Date;
 import java.util.Locale;
-import java.util.NoSuchElementException;
 
 public class Transaction implements Comparable<Transaction>{
     private long id;

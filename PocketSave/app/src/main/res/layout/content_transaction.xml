@@ -40,13 +40,14 @@
         android:layout_alignBottom="@+id/DescriptionText"
         android:layout_alignStart="@+id/textView3" />
 
-    <EditText
+    <com.blackcat.currencyedittext.CurrencyEditText
         android:id="@+id/ValueText"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:layout_alignTop="@+id/valueView"
-        android:layout_alignStart="@+id/DateView" />
+        android:layout_alignStart="@+id/DateView"
+        app:enable_default_hint="false"/>
 
     <EditText
         android:id="@+id/DescriptionText"

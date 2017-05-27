@@ -4,11 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
 /**
@@ -28,6 +31,13 @@ public class AddCategoryFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    private Button save,color;
+    private EditText catEstimaed;
+    private EditText catTitle;
+    private ImageButton catIcon;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +76,23 @@ public class AddCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_category, container, false);
+        save = (Button) view.findViewById(R.id.AddCat);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(catTitle.getText().toString().equals("") || catEstimaed.getText().toString().equals(""))
+                {
+                    return;
+                }
+                DataManager.getInstance().addChangeCategory("Add",24,catTitle.getText().toString(),"Variable",false);
+            }
+        });
+        color = (Button) view.findViewById(R.id.colorbutton);
+        catEstimaed = (EditText) view.findViewById(R.id.CatEstimated);
+        catTitle = (EditText) view.findViewById(R.id.CatTitle);
+        catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
+        return  view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

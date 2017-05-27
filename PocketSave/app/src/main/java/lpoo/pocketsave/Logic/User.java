@@ -1,27 +1,7 @@
 package lpoo.pocketsave.Logic;
 
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import java.util.HashMap;
-
-import java.util.Locale;
-import java.util.NoSuchElementException;
-import java.util.TreeSet;
-
-import java.util.Map;
-
-import static lpoo.pocketsave.Logic.DatabaseHelper.*;
 
 public class User {
 

@@ -1,17 +1,5 @@
 package lpoo.pocketsave.Logic;
 
-import android.database.Cursor;
-import android.util.Log;
-
-import java.io.Console;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.TreeSet;
-
-
 public class Category {
 
     private long id;
@@ -90,7 +78,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return Long.toString(id);
+        return this.getTitle();
     }
 
     //TODO: transactions

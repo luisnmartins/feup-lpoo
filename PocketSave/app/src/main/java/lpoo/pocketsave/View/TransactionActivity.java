@@ -1,35 +1,30 @@
 package lpoo.pocketsave.View;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import java.text.SimpleDateFormat;
-
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.blackcat.currencyedittext.CurrencyEditText;
 
 import java.util.Calendar;
-import java.util.Date;
 
-import lpoo.pocketsave.Logic.DatabaseSingleton;
-import lpoo.pocketsave.Logic.PocketSave;
-import lpoo.pocketsave.Logic.User;
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
 public class TransactionActivity extends AppCompatActivity {
-    EditText value, description;
+    EditText  description;
+    CurrencyEditText value;
     TextView date;
     int year_x, month_x, day_x;
     String category;
-    static final int DIALOG_ID =0;
     Button savebtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +38,7 @@ public class TransactionActivity extends AppCompatActivity {
         day_x = cal.get(Calendar.DAY_OF_MONTH);
         showDialogDate();
 
-        value = (EditText) findViewById(R.id.ValueText);
+        value = (CurrencyEditText) findViewById(R.id.ValueText);
         description = (EditText) findViewById(R.id.DescriptionText);
         savebtn = (Button) findViewById(R.id.Savebtn);
         category = getIntent().getExtras().getString("Category");
@@ -51,6 +46,7 @@ public class TransactionActivity extends AppCompatActivity {
 
 
     }
+
 
     public void showDialogDate(){
         date = (TextView) findViewById(R.id.DateView);
@@ -68,24 +64,6 @@ public class TransactionActivity extends AppCompatActivity {
         );
     }
 
-    /*@Override
-    protected Dialog onCreateDialog(int id){
-        if(id == DIALOG_ID)
-            return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
-        else
-            return null;
-
-    }
-
-    private DatePickerDialog.OnDateSetListener dpickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            year_x = year;
-            month_x = month+1;
-            day_x = dayOfMonth;
-            date.setText(year_x+" / "+month_x+" / "+day_x);
-        }
-    };*/
 
     public  void AddData() {
         savebtn.setOnClickListener(
@@ -93,22 +71,23 @@ public class TransactionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        if(value.getText() == null || date.getText() == "Choose Date" )
+                        value.getTextLocale();
+                        if(value.getText().toString() == "" || date.getText().toString().equals("Choose Date"))
                         {
                             return ;
                         }
-                        String dateString = year_x+"/"+month_x+"/"+day_x;
-                        int valueInt = Integer.parseInt(value.getText().toString());
+                        String dateString = date.getText().toString();
+                        String desc = description.getText().toString();
+                        double valueDouble = value.getRawValue();
+                        System.out.println("value" + valueDouble);
+                        Bundle b = getIntent().getExtras();
+                        long id = 0;
+                        if(b != null)
+                          id = b.getInt("CatID");
+                        DataManager.getInstance().addChangeTransaction("Add",id,valueDouble,dateString,desc,1,true);
+                        finish();
                         //TODO: change done value
-                        //User.getInstance().getCategory(category).addTransaction(valueInt, dateString, description.getText().toString(),true);
 
-                            /*DatabaseSingleton.getInstance().getDB().addTransaction(Integer.parseInt(value.getText().toString()),
-                                    dateString,
-                                    description.getText().toString(), 0);*/
-                        /*if(isInserted == true)
-                            Toast.makeText(MainActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(MainActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();*/
                     }
                 }
         );

@@ -2,24 +2,16 @@ package lpoo.pocketsave.View;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-import android.support.v7.app.AppCompatActivity;
-import android.app.Activity;
-import android.widget.ArrayAdapter;
-
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
-import lpoo.pocketsave.Logic.Transaction;
-import lpoo.pocketsave.R;
 
 
 /**
@@ -41,7 +33,7 @@ public class ChooseCategoriesDialog extends DialogFragment {
         ArrayList<Category> aux = new ArrayList<>();
         aux.add(0,new Category(1,"Cenas",1,true));
         aux.add(1,new Category(2,"consigo",1,true));
-        String[] categories = ListToArray(aux);
+        String[] categories = ListToArray(DataManager.getInstance().getCategory(null));
 
         final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, aux);
         // Set the dialog title
@@ -82,11 +74,14 @@ public class ChooseCategoriesDialog extends DialogFragment {
 
     private String[] ListToArray(ArrayList<Category> aux)
     {
+
         String[] result = new String[aux.size()];
         for(int i = 0; i < aux.size();i++)
         {
             result[i] = aux.get(i).toString();
+            System.out.println(aux.get(i));
         }
+        System.out.println("o meu numero de cat e " + aux.size());
         return result;
     }
 

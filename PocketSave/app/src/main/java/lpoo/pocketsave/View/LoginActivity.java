@@ -3,22 +3,20 @@ package lpoo.pocketsave.View;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -319,16 +317,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            if(DataManager.getInstance().addOpenChangeUser("Open",mEmail,mPassword) == false)
+            {
+
+            }
+          /*  for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
-            }
+            }*/
 
             // TODO: register the new account here.
-            DataManager.getInstance().addChangeUser("Add",mEmail,mPassword);
+            DataManager.getInstance().addOpenChangeUser("Add",mEmail,mPassword);
+            DataManager.getInstance().addChangeCategory("Add",1,"Eat","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",2,"Transport","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",3,"Health","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",4,"Clothes","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",5,"Joy","Variable",true);
+            DataManager.getInstance().addChangeCategory("Add",6,"Food","Variable",false);
             return true;
         }
 

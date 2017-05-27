@@ -12,18 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
-import lpoo.pocketsave.Logic.Transaction;
-import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
-import lpoo.pocketsave.R;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
+import lpoo.pocketsave.Logic.Transaction;
+import lpoo.pocketsave.R;
 
 public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOverviewListRecyclerViewAdapter.ViewHolder> {
 

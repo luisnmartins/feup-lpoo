@@ -1,9 +1,5 @@
 package lpoo.pocketsave.Logic;
 
-import android.content.Context;
-import android.util.Log;
-
-
 public class PocketSave {
 
     /*private static final String TAG = "PocketSave";
