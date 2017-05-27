@@ -385,7 +385,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         if(id == null){
-            cursor = db.query(TABLE_TRANSACTION, null, null, null, null, null, null);
+            cursor = db.rawQuery("SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+
+                                  TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+
+                                 ", T." + TRANS_DONE + " FROM "+TABLE_TRANSACTION+" T JOIN "+TABLE_CATEGORY+
+                                 " C ON T."+TRANS_CATEGORY_ID+" = C."+CAT_ID+
+                                 " WHERE C."+CAT_USER_ID+" = '"+currUser.getID()+"';", null);
+
+
         }else {
             cursor = db.query(TABLE_TRANSACTION, null, " _id = ?", new String[]{id}, null, null, null);
         }
