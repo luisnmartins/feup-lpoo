@@ -9,6 +9,7 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -89,10 +90,13 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
        assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
+       assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"compras","income",true));
        assertEquals(false, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
        Category a = DataManager.getInstance().getCategory("carro").get(0);
        assertEquals(true, DataManager.getInstance().addChangeCategory("Update", a.getID(), "bolachas", Long.toString(a.getTypeID()), true));
-       assertEquals(true, DataManager.getInstance().getCategory("mainMenuCategories").get(0).isMainMenu());
+       ArrayList<Category> mainCategories = DataManager.getInstance().getCategory("mainMenuCategories");
+       assertEquals(1, mainCategories.get(0).getID());
+       assertEquals(2, mainCategories.get(1).getID());
        assertEquals(true, DataManager.getInstance().DeleteElements("Category", a.getID()));
 
     }
