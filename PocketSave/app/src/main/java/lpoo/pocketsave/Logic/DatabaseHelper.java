@@ -382,23 +382,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return Returns an instance of the requested transaction
      */
     public Cursor getTransaction(String id){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         if(id == null){
             cursor = db.query(TABLE_TRANSACTION, null, null, null, null, null, null);
         }else {
             cursor = db.query(TABLE_TRANSACTION, null, " _id = ?", new String[]{id}, null, null, null);
         }
-        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_ID));
-        if(cursor == null || cursor.getCount()<1)
+        if(cursor == null || cursor.getCount()<1){
+            cursor.close();
             return null;
-        if(cursor.moveToFirst()) {
+        }
+
+        else{
 
             return cursor;
 
         }
-        cursor.close();
-        return null;
+
 
     }
 

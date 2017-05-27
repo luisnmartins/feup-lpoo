@@ -106,6 +106,7 @@ public class ExampleInstrumentedTest {
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
         assertEquals(true, DataManager.getInstance().addChangeTransaction("Add", -1, 10.2, "1997/12/21", "test", 1, false));
+        assertEquals(1, DataManager.getInstance().getTransactions(null, null, null).size());
         assertEquals(true, DataManager.getInstance().addChangeTransaction("Update", 1, 21, "1997/12/21", "mudar", 1, true));
         Transaction a = DataManager.getInstance().getTransactions("carro", "1997/12/20", "1997/12/21").get(0);
         assertEquals(true, a.getDone());
