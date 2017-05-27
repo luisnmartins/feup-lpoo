@@ -122,7 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 closeAllFragments();
                 Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
                 ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString());
+        System.out.println("a categoria e " + ((Button)view).getText().toString());
                 Category cat = aux.get(0);
+        System.out.println("a categoria e " + cat.getID());
                 Bundle b = new Bundle();
                 b.putLong("CatID",cat.getID());
                 transactionIntent.putExtras(b);
@@ -277,6 +279,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    protected void logOut()
+    {
+        Intent logoutIntent = new Intent(MainActivity.this,LoginActivity.class);
+        MainActivity.this.startActivity(logoutIntent);
+        finish();
+    }
+
 
     public Toolbar getmToolbar()
     {
@@ -302,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if(id == R.id.nav_logout)
         {
-            quitApp();
+            this.logOut();
         }else if(id == R.id.nav_settings)
         {
 
@@ -311,6 +320,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             closeAllFragments();
             Intent transactionIntent = new Intent(MainActivity.this, Month.class);
             MainActivity.this.startActivity(transactionIntent);
+        }else if(id == R.id.nav_exit)
+        {
+            quitApp();
         }
         sDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

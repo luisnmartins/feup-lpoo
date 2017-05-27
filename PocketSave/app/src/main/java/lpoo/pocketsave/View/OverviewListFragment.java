@@ -115,7 +115,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     private static final Comparator<Transaction> ALPHABETICAL_COMPARATOR = new Comparator<Transaction>() {
         @Override
         public int compare(Transaction a, Transaction b) {
-            return a.getDate().compareTo(b.getDate());
+            return a.compareTo(b);
         }
     };
 
@@ -260,11 +260,11 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
      * from a local content provider or remote server.
      */
     private void initDataset() {
-        mDataset = new ArrayList<>();
+       /* mDataset = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
             mDataset.add(new Transaction(i,23,"2017/03/15","",1,true));
-        }
-        //mDataset = DataManager.getInstance().getTransactions(null,null,null);
+        }*/
+        mDataset = DataManager.getInstance().getTransactions(null,null,null);
       //mDataset = DataManager.getInstance().getTransactions()
     }
 
@@ -279,7 +279,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
 
         final ArrayList<Transaction> filteredModelList = new ArrayList<>();
         for (Transaction model : models) {
-            final String text = model.getDate().toString();
+            final String text = Double.toString(model.getValue());
             if (text.contains(lowerCaseQuery)) {
                 filteredModelList.add(model);
             }

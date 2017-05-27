@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private UserSignTask mSignTask  = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -89,6 +90,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        Button mSignUpButton = (Button) findViewById(R.id.email_sign_up);
+        mSignUpButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptSingUp();
             }
         });
 
@@ -189,6 +198,53 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+        }
+    }
+
+    private void attemptSingUp() {
+        if (mSignTask != null) {
+            return;
+        }
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            mSignTask = new UserSignTask(email, password);
+            mSignTask.execute((Void) null);
         }
     }
 
@@ -317,8 +373,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            if(DataManager.getInstance().addOpenChangeUser("Open",mEmail,mPassword) == false)
+            if(!DataManager.getInstance().addOpenChangeUser("Open", mEmail, mPassword))
             {
+                return false;
+            }else{
+                DataManager.getInstance().addGetType("Add","Income");
+                DataManager.getInstance().addGetType("Add","Variable Expense");
+                DataManager.getInstance().addGetType("Add","Fixed Expense");
+                DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variabel Expense",true);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Transport","Variable Expense",true);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Health","Variable Expense",true);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Clothes","Variable Expense",true);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Joy","Variable Expense",true);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Food","Variable Expense",false);
+                return true;
 
             }
           /*  for (String credential : DUMMY_CREDENTIALS) {
@@ -329,15 +397,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }*/
 
-            // TODO: register the new account here.
-            DataManager.getInstance().addOpenChangeUser("Add",mEmail,mPassword);
-            DataManager.getInstance().addChangeCategory("Add",1,"Eat","Variable",true);
-            DataManager.getInstance().addChangeCategory("Add",2,"Transport","Variable",true);
-            DataManager.getInstance().addChangeCategory("Add",3,"Health","Variable",true);
-            DataManager.getInstance().addChangeCategory("Add",4,"Clothes","Variable",true);
-            DataManager.getInstance().addChangeCategory("Add",5,"Joy","Variable",true);
-            DataManager.getInstance().addChangeCategory("Add",6,"Food","Variable",false);
-            return true;
+
         }
 
         @Override
@@ -352,12 +412,68 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
+                mEmailView.setError(getString(R.string.error_invalid_email));
+                mEmailView.requestFocus();
             }
         }
 
         @Override
         protected void onCancelled() {
             mAuthTask = null;
+            showProgress(false);
+        }
+    }
+
+    public class UserSignTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+
+        UserSignTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            if(DataManager.getInstance().addOpenChangeUser("Open",mEmail,mPassword))
+            {
+                return false;
+            }
+
+            DataManager.getInstance().addOpenChangeUser("Add",mEmail,mPassword);
+            DataManager.getInstance().addGetType("Add","Income");
+            DataManager.getInstance().addGetType("Add","Variable Expense");
+            DataManager.getInstance().addGetType("Add","Fixed Expense");
+            DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variable Expense",true);
+            DataManager.getInstance().addChangeCategory("Add",-1,"Transport","Variable Expense",true);
+            DataManager.getInstance().addChangeCategory("Add",-1,"Health","Variable Expense",true);
+            DataManager.getInstance().addChangeCategory("Add",-1,"Clothes","Variable Expense",true);
+            DataManager.getInstance().addChangeCategory("Add",-1,"Joy","Variable Expense",true);
+            DataManager.getInstance().addChangeCategory("Add",-1,"Food","Variable Expense",false);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mSignTask = null;
+            showProgress(false);
+
+            if (success) {
+                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(mainIntent);
+                finish();
+            } else {
+                mEmailView.setError(getString(R.string.email_exists));
+                mEmailView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mSignTask = null;
             showProgress(false);
         }
     }

@@ -85,7 +85,8 @@ public class AddCategoryFragment extends Fragment {
                 {
                     return;
                 }
-                DataManager.getInstance().addChangeCategory("Add",24,catTitle.getText().toString(),"Variable",false);
+                DataManager.getInstance().addChangeCategory("Add",-1,catTitle.getText().toString(),"Variable Expense",false);
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
         color = (Button) view.findViewById(R.id.colorbutton);
