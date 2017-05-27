@@ -2,18 +2,12 @@ package lpoo.pocketsave.View;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.Date;
 
 /**
  * Created by Carlos Freitas on 22/05/2017.
@@ -63,7 +57,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         Bundle args = getArguments();
         TextView text = (TextView) getActivity().findViewById(args.getInt("id"));
-        text.setText(this.year + "-" + this.month + "-" + day);
+        text.setText(this.year + "/" + this.month + "/" + day);
 
 
         

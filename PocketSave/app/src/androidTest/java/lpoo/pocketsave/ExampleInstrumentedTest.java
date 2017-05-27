@@ -1,28 +1,18 @@
 package lpoo.pocketsave;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Map;
-import java.util.TreeSet;
-
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
-import lpoo.pocketsave.Logic.DatabaseSingleton;
-import lpoo.pocketsave.Logic.PocketSave;
 import lpoo.pocketsave.Logic.Transaction;
-import lpoo.pocketsave.Logic.User;
-import lpoo.pocketsave.View.MainActivity;
 
-import static lpoo.pocketsave.Logic.DatabaseHelper.TYPE_NAME;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumentation test, which will execute on an Android device.

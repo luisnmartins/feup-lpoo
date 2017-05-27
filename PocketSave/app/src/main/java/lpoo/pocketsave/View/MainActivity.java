@@ -4,35 +4,25 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentContainer;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
+import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -40,17 +30,12 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
-import lpoo.pocketsave.Logic.DatabaseSingleton;
-import lpoo.pocketsave.Logic.PocketSave;
 import lpoo.pocketsave.Logic.Transaction;
-import lpoo.pocketsave.Logic.User;
 import lpoo.pocketsave.R;
-import lpoo.pocketsave.View.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener,SearchView.OnQueryTextListener{
 
@@ -136,7 +121,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 closeAllFragments();
                 Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
-                transactionIntent.putExtra("Category", String.valueOf(view.getTag()));
+                ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString());
+                Category cat = aux.get(0);
+                Bundle b = new Bundle();
+                b.putLong("CatID",cat.getID());
+                transactionIntent.putExtras(b);
+                //transactionIntent.putExtra("Category", String.valueOf(view.getTag()));
                 MainActivity.this.startActivity(transactionIntent);
 
     }

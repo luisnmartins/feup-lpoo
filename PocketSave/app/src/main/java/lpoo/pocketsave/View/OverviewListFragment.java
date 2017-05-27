@@ -1,31 +1,20 @@
 package lpoo.pocketsave.View;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import jp.wasabeef.recyclerview.animators.BaseItemAnimator;
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 import jp.wasabeef.recyclerview.animators.FadeInDownAnimator;
@@ -49,17 +38,8 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import lpoo.pocketsave.Logic.DataManager;
-import lpoo.pocketsave.Logic.DatabaseHelper;
-import lpoo.pocketsave.Logic.DatabaseSingleton;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
-import lpoo.pocketsave.View.dummy.DummyContent;
-import lpoo.pocketsave.View.dummy.DummyContent.DummyItem;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 
 public class OverviewListFragment extends Fragment implements SearchView.OnQueryTextListener{
@@ -284,6 +264,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
         for (int i = 0; i < 60; i++) {
             mDataset.add(new Transaction(i,23,"2017/03/15","",1,true));
         }
+        //mDataset = DataManager.getInstance().getTransactions(null,null,null);
       //mDataset = DataManager.getInstance().getTransactions()
     }
 

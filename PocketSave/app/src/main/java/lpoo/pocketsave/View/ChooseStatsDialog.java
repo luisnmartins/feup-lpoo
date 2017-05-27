@@ -3,11 +3,9 @@ package lpoo.pocketsave.View;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
-import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
 /**
  * Created by Carlos Freitas on 21/05/2017.

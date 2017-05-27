@@ -2,24 +2,16 @@ package lpoo.pocketsave.View;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-import android.support.v7.app.AppCompatActivity;
-import android.app.Activity;
-import android.widget.ArrayAdapter;
-
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
-import lpoo.pocketsave.Logic.Transaction;
-import lpoo.pocketsave.R;
 
 
 /**
@@ -41,7 +33,7 @@ public class ChooseCategoriesDialog extends DialogFragment {
         ArrayList<Category> aux = new ArrayList<>();
         aux.add(0,new Category(1,"Cenas",1,true));
         aux.add(1,new Category(2,"consigo",1,true));
-        String[] categories = ListToArray(DataManager.getInstance().getCategory("mainMenuCategories"));
+        String[] categories = ListToArray(DataManager.getInstance().getCategory(null));
 
         final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, aux);
         // Set the dialog title

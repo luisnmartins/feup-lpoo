@@ -2,17 +2,13 @@ package lpoo.pocketsave.View;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
@@ -36,7 +32,7 @@ public class ChooseSpecificCatDialog extends DialogFragment {
 
         //testList();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-       final String[] aux = ListToArray(DataManager.getInstance().getCategory("mainMenuCategories"));
+       final String[] aux = ListToArray(DataManager.getInstance().getCategory(null));
         final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_singlechoice, DataManager.getInstance().getCategory("mainMenuCategories"));
         builder.setTitle("Categories").setItems(aux, new DialogInterface.OnClickListener() {
             @Override
