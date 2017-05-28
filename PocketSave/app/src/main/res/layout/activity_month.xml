@@ -17,9 +17,9 @@
         android:id="@+id/editIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/SetIncome"
-        android:layout_toEndOf="@+id/SetFixedExpenses"
-        android:background="@mipmap/ic_mode_edit_black_24dp" />
+        android:background="@mipmap/ic_mode_edit_black_24dp"
+        android:layout_alignTop="@+id/Income"
+        android:layout_alignStart="@+id/editExpenses" />
 
 
 
@@ -35,55 +35,58 @@
         android:layout_marginTop="51dp"
         android:text="Income" />
 
-    <EditText
+    <com.blackcat.currencyedittext.CurrencyEditText
         android:id="@+id/SetIncome"
-        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:hint="your income"
         android:inputType="numberDecimal"
+        app:enable_default_hint="false"
         android:layout_alignBaseline="@+id/Income"
         android:layout_alignBottom="@+id/Income"
-        android:layout_toEndOf="@+id/FixedExpenses" />
+        android:layout_toStartOf="@+id/editExpenses" />
 
     <ImageButton
         android:id="@+id/editExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/ic_mode_edit_black_24dp"
-        android:layout_above="@+id/EstimatedVariableExpenses"
-        android:layout_toEndOf="@+id/EstimatedVariableExpenses" />
+        android:layout_alignTop="@+id/FixedExpenses"
+        android:layout_toEndOf="@+id/EstimatedVariableExpenses"
+        android:layout_marginStart="36dp" />
 
     <TextView
         android:id="@+id/FixedExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="49dp"
         android:text="FixedExpenses"
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_below="@+id/SetIncome"
         android:layout_alignStart="@+id/Income" />
 
-    <EditText
+    <com.blackcat.currencyedittext.CurrencyEditText
         android:id="@+id/SetFixedExpenses"
-        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:hint="expenses"
         android:inputType="numberDecimal"
+        app:enable_default_hint="false"
+        android:layout_alignBaseline="@+id/FixedExpenses"
         android:layout_alignBottom="@+id/FixedExpenses"
-        android:layout_toEndOf="@+id/FixedExpenses"
-        android:layout_marginStart="32dp" />
+        android:layout_toEndOf="@+id/EstimatedBalance" />
 
     <TextView
         android:id="@+id/EstimatedVariableExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/Income"
         android:textStyle="bold"
         android:textSize="16dp"
+        android:layout_marginTop="43dp"
+        android:text="Estimated Variable Expenses"
         android:layout_below="@+id/SetFixedExpenses"
-        android:layout_marginTop="62dp"
-        android:text="Estimated Variable Expenses" />
+        android:layout_alignStart="@+id/FixedExpenses" />
 
     <TextView
         android:id="@+id/categorycombobox"
@@ -96,23 +99,25 @@
         android:layout_toStartOf="@+id/SetFixedExpenses"
         android:layout_marginEnd="13dp" />
 
-    <EditText
+    <com.blackcat.currencyedittext.CurrencyEditText
         android:id="@+id/SetCatValue"
-        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="amount"
+        android:inputType="numberDecimal"
+        app:enable_default_hint="false"
+        android:layout_alignBaseline="@+id/categorycombobox"
         android:layout_alignBottom="@+id/categorycombobox"
-        android:layout_alignStart="@+id/SetFixedExpenses"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:layout_toStartOf="@+id/editExpenses" />
 
     <ImageButton
         android:id="@+id/saveCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/SetCatValue"
-        android:layout_toEndOf="@+id/editExpenses"
         android:background="@mipmap/ic_check_circle_black_24dp"
-        app:srcCompat="@mipmap/ic_check_circle_black_24dp" />
+        app:srcCompat="@mipmap/ic_check_circle_black_24dp"
+        android:layout_alignBottom="@+id/SetCatValue"
+        android:layout_alignStart="@+id/editExpenses" />
 
     <TextView
         android:id="@+id/EstimatedBalance"
@@ -129,20 +134,22 @@
         android:id="@+id/setMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorPrimary"
         android:text="Set Month"
         android:textColor="@android:color/background_light"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/categorycombobox" />
+        android:layout_centerHorizontal="true" />
 
-    <EditText
+    <com.blackcat.currencyedittext.CurrencyEditText
         android:id="@+id/SetEstimatedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="estimative"
+        android:inputType="numberDecimal"
+        app:enable_default_hint="false"
         android:layout_below="@+id/EstimatedBalance"
-        android:layout_toEndOf="@+id/Income"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:layout_alignEnd="@+id/setMonth" />
 
 </RelativeLayout>

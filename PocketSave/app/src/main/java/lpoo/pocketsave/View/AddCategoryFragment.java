@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.blackcat.currencyedittext.CurrencyEditText;
+
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
@@ -34,7 +36,7 @@ public class AddCategoryFragment extends Fragment {
 
 
     private Button save,color;
-    private EditText catEstimaed;
+    private CurrencyEditText catEstimaed;
     private EditText catTitle;
     private ImageButton catIcon;
 
@@ -90,7 +92,7 @@ public class AddCategoryFragment extends Fragment {
             }
         });
         color = (Button) view.findViewById(R.id.colorbutton);
-        catEstimaed = (EditText) view.findViewById(R.id.CatEstimated);
+        catEstimaed = (CurrencyEditText) view.findViewById(R.id.CatEstimated);
         catTitle = (EditText) view.findViewById(R.id.CatTitle);
         catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
         return  view;

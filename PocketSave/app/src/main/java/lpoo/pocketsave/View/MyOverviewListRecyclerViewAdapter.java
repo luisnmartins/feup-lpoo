@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blackcat.currencyedittext.CurrencyEditText;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,6 +30,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     private Context mContext;
     private ArrayList<Transaction> mDataSet;
     private final Comparator<Transaction> mComparator;
+    private CurrencyEditText curr;
 
 
 
@@ -149,11 +152,11 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
        // Log.d(TAG, "Element " + position + " set.");
-
+        String value = curr.formatCurrency(Double.toString(mSortedList.get(position).getValue()));
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //Picasso.with(mContext).load(R.mipmap.ic_launcher).into(viewHolder.getCatIcon());
-        viewHolder.getlistValue().setText(String.valueOf(mSortedList.get(position).getValue()));
+        viewHolder.getlistValue().setText(String.valueOf(value));
         viewHolder.getListCat().setText(String.valueOf(mSortedList.get(position).getCatID()));
         viewHolder.getListDate().setText(String.valueOf(mSortedList.get(position).getDate()));
     }
@@ -193,6 +196,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     }
 
     public void add(List<Transaction> models) {
+        if (models != null)
         mSortedList.addAll(models);
     }
 
@@ -214,5 +218,10 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         }
         mSortedList.addAll(models);
         mSortedList.endBatchedUpdates();
+    }
+
+    public void setCurr(CurrencyEditText curr)
+    {
+        this.curr = curr;
     }
 }

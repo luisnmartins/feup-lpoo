@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import com.blackcat.currencyedittext.CurrencyEditText;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -127,7 +129,9 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
         //getActivity().s(mToolbar);
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server
+
         initDataset();
+
     }
 
     public MyOverviewListRecyclerViewAdapter getmAdapter()
@@ -163,6 +167,8 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
+
+
         if (savedInstanceState != null) {
             // Restore saved layout manager type.
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
@@ -176,9 +182,12 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
 
        mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset,ALPHABETICAL_COMPARATOR);
 
+        CurrencyEditText curr = new CurrencyEditText(getContext(),null);
+
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.add(mDataset);
+        mAdapter.setCurr(curr);
         // END_INCLUDE(initializeRecyclerView)
 
         /*getActivity().findViewById(R.id.addTrans).setOnClickListener(new View.OnClickListener() {

@@ -28,7 +28,8 @@
         android:text="Date"
         android:textSize="18sp"
         android:layout_below="@+id/ValueText"
-        android:layout_alignStart="@+id/valueView" />
+        android:layout_alignStart="@+id/valueView"
+        android:layout_alignEnd="@+id/valueView" />
 
     <TextView
         android:id="@+id/textView4"
@@ -42,12 +43,14 @@
 
     <com.blackcat.currencyedittext.CurrencyEditText
         android:id="@+id/ValueText"
-        android:layout_width="190dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/valueView"
+        android:layout_alignBaseline="@+id/valueView"
+        android:layout_alignBottom="@+id/valueView"
         android:layout_alignStart="@+id/DateView"
-        app:enable_default_hint="false"/>
+        android:hint="money spent"
+        android:inputType="numberDecimal"
+        app:enable_default_hint="false" />
 
     <EditText
         android:id="@+id/DescriptionText"
@@ -55,9 +58,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:layout_above="@+id/receiptText"
+        android:lines="5"
+        android:minLines="1"
+        android:maxLines="8"
+        android:layout_below="@+id/textView3"
         android:layout_toEndOf="@+id/receiptText"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginTop="41dp">
+    </EditText>
 
     <TextView
         android:id="@+id/receiptText"
@@ -65,7 +72,8 @@
         android:layout_height="wrap_content"
         android:text="Receipt Photo"
         android:textSize="18sp"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="29dp"
+        android:layout_above="@+id/imageView"
         android:layout_alignStart="@+id/textView4" />
 
     <ImageView
@@ -73,7 +81,9 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:srcCompat="@android:drawable/ic_delete"
-        android:layout_alignBottom="@+id/Savebtn"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="74dp"
+        android:layout_above="@+id/Savebtn"
         android:layout_toEndOf="@+id/receiptText" />
 
     <Button
@@ -85,7 +95,7 @@
         android:text="Save"
         android:textColor="@android:color/background_light"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/ValueText" />
+        android:layout_toEndOf="@+id/ValueText" />
 
     <TextView
         android:id="@+id/DateView"
@@ -95,5 +105,44 @@
         android:layout_alignTop="@+id/textView3"
         android:text="Choose Date"
         android:layout_alignEnd="@+id/DescriptionText" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Payment Method"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/receiptText" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/imageView"
+        android:checkedButton="@+id/money"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/creditcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/imageView"
+            android:layout_alignTop="@+id/radioGroup"
+            android:layout_weight="1"
+            android:button="@drawable/credit_button" />
+
+        <RadioButton
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioGroup"
+            android:layout_marginStart="29dp"
+            android:layout_toEndOf="@+id/radioGroup"
+            android:button="@drawable/cash_button" />
+
+    </RadioGroup>
+
 
 </RelativeLayout>

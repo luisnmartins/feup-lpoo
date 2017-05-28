@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.blackcat.currencyedittext.CurrencyEditText;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class Month extends AppCompatActivity {
     private Toolbar mytool;
     private Spinner mSpinner;
 
-    private EditText EstimatedValue, SetCatValue,SetFixedExpenses,SetIncome;
+    private CurrencyEditText EstimatedValue, SetCatValue,SetFixedExpenses,SetIncome;
     private ImageButton editIncome,editFixedExpenses,saveCategory;
     private Button saveButton;
 
@@ -57,10 +59,10 @@ public class Month extends AppCompatActivity {
 
     public void initializeEditTexts()
     {
-        EstimatedValue = (EditText) findViewById(R.id.SetEstimatedValue);
-        SetCatValue = (EditText) findViewById(R.id.SetCatValue);
-        SetFixedExpenses = (EditText) findViewById(R.id.SetFixedExpenses);
-        SetIncome = (EditText) findViewById(R.id.SetIncome);
+        EstimatedValue = (CurrencyEditText) findViewById(R.id.SetEstimatedValue);
+        SetCatValue = (CurrencyEditText) findViewById(R.id.SetCatValue);
+        SetFixedExpenses = (CurrencyEditText) findViewById(R.id.SetFixedExpenses);
+        SetIncome = (CurrencyEditText) findViewById(R.id.SetIncome);
 
         EstimatedValue.setEnabled(false);
         SetCatValue.setEnabled(false);
