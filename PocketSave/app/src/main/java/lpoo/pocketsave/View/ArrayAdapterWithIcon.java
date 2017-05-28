@@ -14,26 +14,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import lpoo.pocketsave.Logic.Category;
+
 /**
  * Created by Carlos Freitas on 28/05/2017.
  */
 
-public class ArrayAdapterWithIcon extends ArrayAdapter<String> {
+public class ArrayAdapterWithIcon extends ArrayAdapter<Category> {
 
     private List<Integer> images;
 
-    public ArrayAdapterWithIcon(Context context, List<String> items, List<Integer> images) {
+    public ArrayAdapterWithIcon(Context context, List<Category> items, List<Integer> images) {
         super(context, android.R.layout.select_dialog_item, items);
         this.images = images;
     }
 
-    public ArrayAdapterWithIcon(Context context, String[] items, Integer[] images) {
+    public ArrayAdapterWithIcon(Context context, Category[] items, Integer[] images) {
         super(context, android.R.layout.select_dialog_item, items);
         this.images = Arrays.asList(images);
     }
 
     public ArrayAdapterWithIcon(Context context, int items, int images) {
-        super(context, android.R.layout.select_dialog_item, (String[]) context.getResources().getTextArray(items));
+        super(context, android.R.layout.select_dialog_item, (Category[]) context.getResources().getTextArray(items));
 
         final TypedArray imgs = context.getResources().obtainTypedArray(images);
         this.images = new ArrayList<Integer>() {{ for (int i = 0; i < imgs.length(); i++) {add(imgs.getResourceId(i, -1));} }};
