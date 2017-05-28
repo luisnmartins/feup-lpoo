@@ -84,9 +84,9 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
        assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"compras","income",true));
        assertEquals(false, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
-       Category a = DataManager.getInstance().getCategory("carro").get(0);
+       Category a = DataManager.getInstance().getCategory("carro", null).get(0);
        assertEquals(true, DataManager.getInstance().addChangeCategory("Update", a.getID(), "bolachas", Long.toString(a.getTypeID()), true));
-       ArrayList<Category> mainCategories = DataManager.getInstance().getCategory("mainMenuCategories");
+       ArrayList<Category> mainCategories = DataManager.getInstance().getCategory("mainMenuCategories", true);
        assertEquals(1, mainCategories.get(0).getID());
        assertEquals(2, mainCategories.get(1).getID());
        assertEquals(true, DataManager.getInstance().DeleteElements("Category", a.getID()));
@@ -105,10 +105,10 @@ public class ExampleInstrumentedTest {
         assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
-        assertEquals(true, DataManager.getInstance().addChangeTransaction("Add", -1, 10.2, "1997/12/21", "test", 1, false));
-        assertEquals(1, DataManager.getInstance().getTransactions(null, null, null).size());
-        assertEquals(true, DataManager.getInstance().addChangeTransaction("Update", 1, 21, "1997/12/21", "mudar", 1, true));
-        Transaction a = DataManager.getInstance().getTransactions("carro", "1997/12/20", "1997/12/21").get(0);
+        assertEquals(true, DataManager.getInstance().addChangeTransaction("Add", -1, 10.2, "1997-12-21", "test", 1, false));
+        assertEquals("1997-12-21", DataManager.getInstance().getTransactions(null, null, null).get(0).getDate());
+        assertEquals(true, DataManager.getInstance().addChangeTransaction("Update", 1, 21, "1997-12-21", "mudar", 1, true));
+        Transaction a = DataManager.getInstance().getTransactions("carro", "1997-12-20", "1997-12-21").get(0);
         assertEquals(true, a.getDone());
         assertEquals(true, DataManager.getInstance().DeleteElements("Transaction", a.getID()));
 

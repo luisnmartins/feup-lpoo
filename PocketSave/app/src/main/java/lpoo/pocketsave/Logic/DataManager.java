@@ -93,7 +93,7 @@ public class DataManager {
         else
             newCategory = new Category(id, title, addGetType("Get", type), mainMenu);
         if(operation == "Add"){
-            if(getCategory(title) == null)
+            if(getCategory(title, false) == null)
                 return db.addCategory(newCategory);
             else
                 return false;
@@ -105,22 +105,22 @@ public class DataManager {
 
     /**
      * Get all or only one category. If is called without parameters ( null) it will return all user categories
-     * @param name Name of the category that should be returned. To get categories to be shown on the main menu,
+     * @param id Name of the category that should be returned. To get categories to be shown on the main menu,
      *             this variable value should be "mainMenuCategories"
-     *
+     * @param main If is a main category then this represents if is to get the visible categories or the other ones
      * @return Returns an array containing the categories
      */
-    public ArrayList<Category> getCategory(String name){
+    public ArrayList<Category> getCategory(String id, Boolean main){
         Cursor cursor;
         ArrayList<Category> categories=null;
         Category newCategory;
         boolean mainMenu;
-        if(name=="mainMenuCategories"){
-            cursor = db.getMainCategories();
+        if(id=="mainMenuCategories"){
+            cursor = db.getMainCategories(main);
 
         }
         else
-            cursor= db.getCategory(name);
+            cursor= db.getCategory(id);
         if(cursor == null) {
 
             return null;

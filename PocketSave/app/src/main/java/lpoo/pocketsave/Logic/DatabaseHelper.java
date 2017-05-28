@@ -306,10 +306,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
     //TODO: get main categories
-    public Cursor getMainCategories(){
+    public Cursor getMainCategories(boolean main){
         SQLiteDatabase db = this.getWritableDatabase();
-        //Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_CATEGORY+" WHERE "+CAT_MAIN+" = '"+Boolean.toString(true)+"' AND "+CAT)
-        Cursor cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{Long.toString(1), Long.toString(currUser.getID())}, null, null, null);
+        Cursor cursor;
+            cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{Boolean.toString(main), Long.toString(currUser.getID())}, null, null, null);
         if(cursor == null || cursor.getCount()<1) {
             Log.d(TAG, "Cursor null");
             return null;
@@ -338,7 +338,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TRANS_DESCRIPTION, newTransaction.getDescription());
         contentValues.put(TRANS_VALUE, newTransaction.getValue());
-        contentValues.put(TRANS_DATE, newTransaction.getValue());
+        contentValues.put(TRANS_DATE, newTransaction.getDate());
         contentValues.put(TRANS_CATEGORY_ID, newTransaction.getCatID());
         contentValues.put(TRANS_DONE, newTransaction.getDone());
         long result = db.insert(TABLE_TRANSACTION,null, contentValues);
@@ -361,7 +361,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TRANS_ID, toUpdate.getID());
         contentValues.put(TRANS_VALUE, toUpdate.getValue());
-        contentValues.put(TRANS_DATE, toUpdate.getDateString());
+        contentValues.put(TRANS_DATE, toUpdate.getDate());
         contentValues.put(TRANS_DESCRIPTION, toUpdate.getDescription());
         contentValues.put(TRANS_CATEGORY_ID, toUpdate.getCatID());
         contentValues.put(TRANS_DONE, toUpdate.getDone());
@@ -424,7 +424,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                    + CAT_TITLE+ " = '"+catTitle+"' AND C."+CAT_ID+" = T."+TRANS_CATEGORY_ID+" ORDER BY Date", null);
 
         else
-            cursor  = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ d2+"' AND '"+d2+"' ORDER BY Date", null);
+            cursor  = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" WHERE Date BETWEEN '"+ d1+"' AND '"+d2+"' ORDER BY Date", null);
 
 
         if(cursor == null || cursor.getCount()<1)
@@ -443,7 +443,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getTransactionsTotalValue(Date d1, Date d2, String typeTitle){
         SQLiteDatabase db = this.getWritableDatabase();
-        SimpleDateFormat df1 = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
 
         Cursor cursor = db.rawQuery("SELECT "+ "C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
                 TABLE_TRANSACTION+" T INNER JOIN "+TABLE_CATEGORY+" C ON"+

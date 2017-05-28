@@ -7,6 +7,7 @@ public class Category {
     private String title;
     private long typeID;
     private boolean mainMenu;
+    private long iconID;
     private double estimatedValue;
     private double totalSpent;
 

@@ -12,7 +12,7 @@ import java.util.Locale;
 public class Transaction implements Comparable<Transaction>{
     private long id;
     private double value;
-    private Date date;
+    private String date;
     private String description;
     private long catID;
     private boolean done;
@@ -23,12 +23,7 @@ public class Transaction implements Comparable<Transaction>{
 
         this.id = id;
         this.value = value;
-        df1 = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-        try {
-            this.date = df1.parse(dateS);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            this.date = dateS;
         this.description = description;
         this.done = done;
         this.catID = catID;
@@ -40,7 +35,7 @@ public class Transaction implements Comparable<Transaction>{
         return value;
     }
 
-    public Date getDate(){
+    public String getDate(){
         return this.date;
     }
 
@@ -52,9 +47,6 @@ public class Transaction implements Comparable<Transaction>{
 
     public boolean getDone(){ return this.done;}
 
-    public String getDateString(){
-        return df1.format(date);
-    }
 
     public String getDescription(){
         return description;
