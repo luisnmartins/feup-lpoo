@@ -114,10 +114,24 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     protected ArrayList<Transaction> mDataset;
 
 
-    private static final Comparator<Transaction> ALPHABETICAL_COMPARATOR = new Comparator<Transaction>() {
+    private static final Comparator<Transaction> VALUE_COMPARATOR = new Comparator<Transaction>() {
         @Override
         public int compare(Transaction a, Transaction b) {
             return a.compareTo(b);
+        }
+    };
+
+    private static final Comparator<Transaction> DATE_COMPARATOR = new Comparator<Transaction>() {
+        @Override
+        public int compare(Transaction o1, Transaction o2) {
+            return o1.getDate().compareTo(o2.getDate());
+        }
+    };
+
+    private static final Comparator<Transaction> CAT_COMPARATOR = new Comparator<Transaction>() {
+        @Override
+        public int compare(Transaction o1, Transaction o2) {
+            return Long.compare(o1.getCatID(),o2.getCatID());
         }
     };
 
@@ -132,6 +146,21 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
 
         initDataset();
 
+    }
+
+    public  Comparator<Transaction> getDateComparator()
+    {
+        return DATE_COMPARATOR;
+    }
+
+    public  Comparator<Transaction> getValueComparator()
+    {
+        return VALUE_COMPARATOR;
+    }
+
+    public  Comparator<Transaction> getCatComparator()
+    {
+        return CAT_COMPARATOR;
     }
 
     public MyOverviewListRecyclerViewAdapter getmAdapter()
@@ -180,7 +209,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext()));
 
 
-       mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset,ALPHABETICAL_COMPARATOR);
+       mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset,DATE_COMPARATOR);
 
         CurrencyEditText curr = new CurrencyEditText(getContext(),null);
 
@@ -224,7 +253,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
         //activity.resetButtons(true);
         activity.getmToolbar().setTitle("Main Menu");
         activity.getmOptionsMenu().findItem(R.id.action_search).setVisible(false);
-        activity.getmOptionsMenu().findItem(R.id.addTrans).setVisible(false);
+        activity.getmOptionsMenu().setGroupVisible(R.id.overGroup,false);
 
 
     }
@@ -269,12 +298,9 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
      * from a local content provider or remote server.
      */
     private void initDataset() {
-       /* mDataset = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
-            mDataset.add(new Transaction(i,23,"2017/03/15","",1,true));
-        }*/
+
         mDataset = DataManager.getInstance().getTransactions(null,null,null);
-      //mDataset = DataManager.getInstance().getTransactions()
+
     }
 
     public void filterIn(String query)

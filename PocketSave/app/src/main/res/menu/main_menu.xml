@@ -6,8 +6,27 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/addTrans"
-        android:icon="@mipmap/ic_attach_money_black_24dp"
-        android:title="Add" />
+
+    <group android:id="@+id/overGroup">
+
+        <item
+            android:id="@+id/sortTransDate"
+            android:icon="@mipmap/ic_attach_money_black_24dp"
+            android:title="Sort by Date" />
+
+        <item
+            android:id="@+id/sortTransValue"
+            android:icon="@mipmap/ic_attach_money_black_24dp"
+            android:title="Sort by value">
+
+        </item>
+
+        <item
+            android:id="@+id/sortTransCat"
+            android:icon="@mipmap/ic_attach_money_black_24dp"
+            android:title="Sort by Category">
+
+        </item>
+    </group>
 
 </menu>

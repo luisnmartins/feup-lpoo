@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import lpoo.pocketsave.Logic.Category;
+import lpoo.pocketsave.R;
 
 /**
  * Created by Carlos Freitas on 28/05/2017.
@@ -24,9 +25,9 @@ public class ArrayAdapterWithIcon extends ArrayAdapter<Category> {
 
     private List<Integer> images;
 
-    public ArrayAdapterWithIcon(Context context, List<Category> items, List<Integer> images) {
+    public ArrayAdapterWithIcon(Context context, List<Category> items) {
         super(context, android.R.layout.select_dialog_item, items);
-        this.images = images;
+        //this.images = images;
     }
 
     public ArrayAdapterWithIcon(Context context, Category[] items, Integer[] images) {
@@ -50,9 +51,9 @@ public class ArrayAdapterWithIcon extends ArrayAdapter<Category> {
         TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(images.get(position), 0, 0, 0);
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.gamepad, 0, 0, 0);
         } else {
-            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(images.get(position), 0, 0, 0);
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.gamepad, 0, 0, 0);
 
         }
         textView.setCompoundDrawablePadding(

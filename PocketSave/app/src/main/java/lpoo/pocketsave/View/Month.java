@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 
@@ -20,12 +23,11 @@ import lpoo.pocketsave.R;
 public class Month extends AppCompatActivity {
 
     private Toolbar mytool;
-    private Spinner mSpinner;
 
     private CurrencyEditText EstimatedValue, SetCatValue,SetFixedExpenses,SetIncome;
     private ImageButton editIncome,editFixedExpenses,saveCategory;
     private Button saveButton;
-
+    private TextView cat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,44 @@ public class Month extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(SetFixedExpenses.getText().toString().equals(""))
+                {
+                    SetFixedExpenses.requestFocus();
+                    SetFixedExpenses.setError("You need to input a value");
+                }
+                if (SetIncome.getText().toString().equals(""))
+                {
+                    SetIncome.setError("You need to input a value");
+                    SetIncome.requestFocus();
+                }
+                if(SetCatValue.getText().toString().equals(""))
+                {
+                    SetCatValue.setError("You need to input a value for each category");
+                    SetCatValue.requestFocus();
+                }
+            }
+        });
+
+        cat= (TextView) findViewById(R.id.categorycombobox);
+        cat.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    if(cat.getText().toString().equals("Choose Category"))
+                    {
+                        SetCatValue.setEnabled(false);
+                    }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!cat.getText().toString().equals("Choose Category"))
+                    SetCatValue.setEnabled(true);
+                else SetCatValue.setEnabled(false);
             }
         });
 
@@ -93,7 +133,7 @@ public class Month extends AppCompatActivity {
         saveCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                cat.setText("Choose Category");
             }
         });
     }

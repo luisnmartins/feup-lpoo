@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavView = (NavigationView) findViewById(R.id.nav_view);
         mNavView.setNavigationItemSelectedListener(this);
 
-        more = (Button) findViewById(R.id.Morebtn);
         //initialize database instance
        // DatabaseSingleton.getInstance().getDB().addUser("ola@ola.pt", "1234");
         //if(User.getInstance().login("ola@ola.pt", "1234"))
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 closeAllFragments();
                 Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
-                ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString());
+                ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString(),null);
         System.out.println("a categoria e " + ((Button)view).getText().toString());
                 Category cat = aux.get(0);
         System.out.println("a categoria e " + cat.getID());
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.main_menu, mOptionsMenu);
         mOptionsMenu.findItem(R.id.action_search).setVisible(false);
-        mOptionsMenu.findItem(R.id.addTrans).setVisible(false);
+        mOptionsMenu.setGroupVisible(R.id.overGroup,false);
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -235,17 +235,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mToggle.onOptionsItemSelected(item)){
             return true;
         }
+        OverviewListFragment fragment= (OverviewListFragment) getSupportFragmentManager().findFragmentByTag("over");
 
-        if(id == R.id.addTrans)
-        {
-            OverviewListFragment fragment= (OverviewListFragment) getSupportFragmentManager().findFragmentByTag("over");
-            if( fragment != null)
+        System.out.println("PRESTES");
+
+        if( fragment != null)
             {
-                fragment.getmAdapter().add(new Transaction(-1,23,"27/1/2017","",1,true), 1);
+                if(id == R.id.sortTransDate)
+                {
+                fragment.getmAdapter().setmComparator(fragment.getDateComparator());
                 fragment.getmRecyclerView().setAdapter(fragment.getmAdapter());
+                }else if(id == R.id.sortTransValue)
+                {
+                    fragment.getmAdapter().setmComparator(fragment.getValueComparator());
+                    System.out.println("entrou");
+                    fragment.getmAdapter().notifyDataSetChanged();
+                    fragment.getmRecyclerView().setAdapter(fragment.getmAdapter());
+                }else if(id == R.id.sortTransCat)
+                {
+                    fragment.getmAdapter().setmComparator(fragment.getCatComparator());
+
+                    fragment.getmRecyclerView().setAdapter(fragment.getmAdapter());
+                    fragment.getmAdapter().notifyDataSetChanged();
+                }
             }
 
-        }
+
 
 
         //noinspection SimplifiableIfStatemen
@@ -300,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.nav_overview)
         {
             mOptionsMenu.findItem(R.id.action_search).setVisible(true);
-            mOptionsMenu.findItem(R.id.addTrans).setVisible(true);
+            mOptionsMenu.setGroupVisible(R.id.overGroup,true);;
             mToolbar.setTitle("Overview");
             setFragment(new OverviewListFragment(),"over");
         }else if(id == R.id.nav_transactions)

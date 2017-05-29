@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -29,7 +30,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
 
     private Context mContext;
     private ArrayList<Transaction> mDataSet;
-    private final Comparator<Transaction> mComparator;
+    private  Comparator<Transaction> mComparator;
     private CurrencyEditText curr;
 
 
@@ -140,6 +141,10 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         mComparator = comp;
     }
 
+    public void setmComparator(Comparator<Transaction> comp)
+    {
+        mComparator = comp;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
@@ -153,6 +158,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
        // Log.d(TAG, "Element " + position + " set.");
         String value = curr.formatCurrency(Double.toString(mSortedList.get(position).getValue()));
+        //String cat = DataManager.getInstance().getCategory(Long.toString(mSortedList.get(position).getCatID()),null).get(0).getTitle();
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //Picasso.with(mContext).load(R.mipmap.ic_launcher).into(viewHolder.getCatIcon());

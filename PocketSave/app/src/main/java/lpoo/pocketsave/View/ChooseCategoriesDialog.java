@@ -33,7 +33,7 @@ public class ChooseCategoriesDialog extends DialogFragment {
         ArrayList<Category> aux = new ArrayList<>();
         aux.add(0,new Category(1,"Cenas",1,true));
         aux.add(1,new Category(2,"consigo",1,true));
-        String[] categories = ListToArray(DataManager.getInstance().getCategory(null));
+        String[] categories = ListToArray(DataManager.getInstance().getCategory(null,null));
 
         final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, aux);
         // Set the dialog title
