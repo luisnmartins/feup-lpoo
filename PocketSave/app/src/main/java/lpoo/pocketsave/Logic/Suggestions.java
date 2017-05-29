@@ -13,7 +13,7 @@ public class Suggestions {
         Calendar c = Calendar.getInstance();
         String d1 = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-01";
         String d2 = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH);
-        DataManager.getInstance().getTransactions(category, d1, d2);
+        //DataManager.getInstance().getTransactions(category, d1, d2);
     }
 
 

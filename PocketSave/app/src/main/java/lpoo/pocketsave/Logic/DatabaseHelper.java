@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY, "+
                 USER_NAME+" STRING UNIQUE, "+ USER_EMAIL+" STRING UNIQUE, "+USER_PASSWORD+" STRING NOT NULL, "+
-                USER_TOTALSAVED+" INTEGER)";
+                USER_TOTALSAVED+" REAL)";
         String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY, "+
                 CAT_TITLE+" STRING, "+CAT_MAIN+" BOOLEAN NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"))";
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
@@ -107,10 +107,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //USER FUNCTIONS
 
     /**
-     *
-     * @param email
-     * @param password
-     * @return
+     * Add a new User to the db
+     * @param email new User email
+     * @param password new User password
+     * @return Returns true if the user was added and false if not
      */
     public boolean addUser(String email, String password) {
 
@@ -144,7 +144,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_USER, null, USER_EMAIL + "=? AND "+USER_PASSWORD+ "=?", new String[]{email, password}, null, null, null);
-        //Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USER+" WHERE "+USER_EMAIL+" = '"+email+"' AND "+USER_PASSWORD+" = '"+password+"'", null);
         if(cursor == null || cursor.getCount()<1)
             return false;
         if(cursor.moveToFirst()) {
@@ -163,22 +162,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean updateUser(String email, String password){
+    /**
+     * Update current user info
+     * @param email email to be updated
+     * @param password password to be updated
+     * @return Returns true if user was updated and false if not
+     */
+    public boolean updateUser(String email, String password, double totalSaved){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_EMAIL,email);
         contentValues.put(USER_PASSWORD, password);
-        return db.update(TABLE_USER, contentValues, USER_ID+"= ?",new String[] { Long.toString(currUser.getID()) })>0;
+        contentValues.put(USER_TOTALSAVED, totalSaved);
+        if(db.update(TABLE_USER, contentValues, USER_ID+"= ?",new String[] { Long.toString(currUser.getID()) })>0) {
+            return openUser(email, password);
+        }
+        else
+            return false;
+
     }
 
-
+    /**
+     * Delete the current user from the db
+     * @return Returns true if it was deleted and false if not
+     */
     public boolean deleteUser(){
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_USER, USER_ID+"=?",new String[]{Long.toString(currUser.getID())})>0;
     }
 
 
-
+    /**
+     *
+     * @return Returns an instance of the current User
+     */
     public User getUser(){
         return this.currUser;
     }
@@ -189,7 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Add a new type
-     * @param title name od the type
+     * @param title name of the type
      */
     public long addType(String title){
 
@@ -255,18 +272,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
-    public boolean deleteCategory(long id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_CATEGORY, CAT_ID+"=?",new String[]{Long.toString(id)})>0;
-
-    }
-
-
     /**
-     *
-     * @param toUpdate
+     * Update a category info
+     * @param toUpdate category instance with the updted info to update db
      */
     public boolean updateCategory(Category toUpdate){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -279,6 +287,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
+    /**
+     * Delete the category with id equals to the param
+     * @param id id of the category that should be deleted
+     * @return Returns true if the category was deleted and false if not
+     */
+    public boolean deleteCategory(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_CATEGORY, CAT_ID+"=?",new String[]{id})>0;
+
+    }
 
 
     /**
@@ -299,39 +319,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             return null;
         }
-
-        if(cursor.moveToFirst()){
-
+        else
             return cursor;
-        }
-        cursor.close();
-        return null;
 
     }
 
 
-    //TODO: get main categories
+    /**
+     * Get categories to be shown on the main menu
+     * @param main if is true it returns info of the 5 pricipal catgeories, and if false it returns the other ones
+     * @return Returns a cursor with the asked categories info
+     */
     public Cursor getMainCategories(boolean main){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
             cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{Boolean.toString(main), Long.toString(currUser.getID())}, null, null, null);
         if(cursor == null || cursor.getCount()<1) {
-            Log.d(TAG, "Cursor null");
+            cursor.close();
             return null;
         }
-        if(cursor.moveToFirst()){
-
+        else
             return cursor;
-        }
-        cursor.close();
-        return null;
     }
 
 
     //TRANSACTION FUNCTIONS
 
 
-    //TODO: verify return type of add functions
 
     /**
      * Add a new transaction to the db
@@ -384,9 +398,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param id Id of the transaction to be deleted
      * @return Returns true if transaction was deleted and false if not
      */
-    public boolean deleteTransaction(long id){
+    public boolean deleteTransaction(String id){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_TRANSACTION, TRANS_ID+"=?",new String[]{Long.toString(id)})>0;
+        return db.delete(TABLE_TRANSACTION, TRANS_ID+"=?",new String[]{id})>0;
     }
 
 
@@ -396,7 +410,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param id id of the transaction. Null if ir to get all transactions
      * @return Returns a curosr with the query result
      */
-    public Cursor getTransactions(String id){
+    public Cursor getTransaction(String id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         if(id == null){
@@ -430,26 +444,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param catTitle category name of the transactions
      * @param d1 initial date
      * @param d2 final date
+     * @param done variable to define if it is to get transactions that was already done or the ones that will happen in the future
      * @return Returns a cursor to the query result
      */
-    public Cursor getCatTransactionsBetweenDates(String catTitle, String d1, String d2){
+    public Cursor getCatTransactionsBetweenDates(String catTitle, String d1, String d2, boolean done){
 
         SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor  = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+
-                   " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."
-                   + CAT_TITLE+ " = '"+catTitle+"' AND C."+CAT_ID+" = T."+TRANS_CATEGORY_ID+" ORDER BY Date", null);
+        String query = "SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+", T."+
+                TRANS_DONE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+
+                " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."
+                + CAT_TITLE+ " = '"+catTitle+"' AND C."+CAT_ID+" = T."+TRANS_CATEGORY_ID+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+" ORDER BY Date";
+        Cursor cursor  = db.rawQuery(query, null);
 
 
         if(cursor == null || cursor.getCount()<1)
             return null;
-        if(cursor.moveToFirst()) {
-
-
+        else
             return cursor;
-        }
-        cursor.close();
-        return null;
+
 
     }
 
@@ -459,13 +471,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param typeTitle type of the transactions
      * @param d1 initial date
      * @param d2 final date
+     * @param done variable to define if it is to get transactions that was already done or the ones that will happen in the future
      * @return Returns a cursor to the query result
      */
-    public Cursor getTypeTransactionsBetweenDates( String typeTitle, String d1, String d2){
+    public Cursor getTypeTransactionsBetweenDates( String typeTitle, String d1, String d2, boolean done){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE T.Date BETWEEN '"+
-        d1+"' AND '"+d2+"' AND C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+ " AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY T.Date", null);
+        String query = "SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+", T."+
+                TRANS_DONE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE T.Date BETWEEN '"+
+                d1+"' AND '"+d2+"' AND C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+ " AND C."+CAT_USER_ID+" = "+currUser.getID()+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+" ORDER BY T.Date";
+        Log.d(TAG, query);
+        Cursor cursor = db.rawQuery(query, null);
         if(cursor == null || cursor.getCount()<1){
             cursor.close();
             return null;
@@ -477,20 +493,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Get total value spent in transactions of the cateegory which name is catTitle
-     * @param catTitle
-     * @param d1
-     * @param d2
-     * @return
+     * Get total value spent in transactions of the category which name is catTitle
+     * @param catTitle title of the category to get total spent value
+     * @param d1 initial date
+     * @param d2 final date
+     * @param done variable to define if it is to get values of the transactions that was already done or the ones that will happen in the future
+     * @return Returns a cursor with the name of the category and total value spent
      */
-    public Cursor getCategoryTotalValueSpent(String catTitle, String d1, String d2){
-        SQLiteDatabase db = this.getReadableDatabase();
+    public Cursor getCategoryTotalValueSpent(String catTitle, String d1, String d2,boolean done){
 
-        Cursor cursor = db.rawQuery("SELECT C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
-                TABLE_TRANSACTION+" T INNER JOIN "+TABLE_CATEGORY+" C ON"+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor;
+        if(catTitle == null){
+            String query = "SELECT C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
+                    TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE "+
+                    "T."+TRANS_CATEGORY_ID+ " = C."+CAT_ID+
+                    " AND T."+ TRANS_DATE+" BETWEEN '"+ d1+"' AND '"+d2+"' AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+
+                    " GROUP BY C."+CAT_TITLE;
+            cursor = db.rawQuery(query, null);
+        }
+        else
+            cursor = db.rawQuery("SELECT C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
+                TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE "+
                 "T."+TRANS_CATEGORY_ID+ " = C."+CAT_ID+
-                " WHERE T."+ TRANS_DATE+" BETWEEN '"+ d1+"' AND '"+d2+
-                "' AND C."+CAT_TITLE+ " = "+catTitle+ " GROUP BY C."+CAT_TITLE, null);
+                " AND T."+ TRANS_DATE+" BETWEEN '"+ d1+"' AND '"+d2+
+                "' AND C."+CAT_TITLE+ " = "+catTitle+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+ " GROUP BY C."+CAT_TITLE, null);
 
         if(cursor == null || cursor.getCount()<1){
             cursor.close();
@@ -498,17 +525,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else {
 
-            return  cursor;
+            if(cursor.moveToFirst()){
+
+                return cursor;
+            }else{
+
+                return null;
+            }
+
         }
     }
 
-    public Cursor getTypeTotalValueSpent(String typeTitle, String d1, String d2){
+
+    /**
+     * Get total value spent in transactions of the type which name id typeTitle
+     * @param typeTitle title of the type to get total spent value
+     * @param d1 Initial Date
+     * @param d2 Final Date
+     * @param done variable to define if it is to get values of the transactions that was already done or the ones that will happen in the future
+     * @return Returns a cursor with the name of the category and total value spent
+     */
+    public Cursor getTypeTotalValueSpent(String typeTitle, String d1, String d2, boolean done){
 
         SQLiteDatabase db = this.getReadableDatabase();
+        Double value;
         Cursor cursor= db.rawQuery("SELECT P."+TYPE_NAME+", SUM(T."+TRANS_VALUE+") FROM "+
                                     TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C, "+TABLE_TYPE+" P " +
                                     "WHERE P."+TYPE_ID+ " = C."+CAT_TYPE_ID+ " AND T."+TRANS_CATEGORY_ID +" = "+
-                                    "C."+CAT_ID+ " AND P."+TYPE_NAME+" = "+typeTitle+ " AND C."+CAT_USER_ID+ " = "+currUser.getID()+
+                                    "C."+CAT_ID+ " AND P."+TYPE_NAME+" = '"+typeTitle+ "' AND C."+CAT_USER_ID+ " = "+currUser.getID()+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+
                                     " GROUP BY P."+TYPE_NAME,null);
 
         if(cursor == null || cursor.getCount()<1){
@@ -517,16 +561,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else {
 
-            return  cursor;
+            if(cursor.moveToFirst()) {
+                return cursor;
+            }else
+                return null;
         }
 
     }
-
-
-
-
-
-
 
 
 
