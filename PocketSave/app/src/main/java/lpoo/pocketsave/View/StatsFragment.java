@@ -117,7 +117,7 @@ public class StatsFragment extends Fragment {
                 String from = ((TextView) view.findViewById(R.id.From)).getText().toString();
                 String to = ((TextView) view.findViewById(R.id.To)).getText().toString();
                 if(!from.equals("Choose Date")  && !to.equals("Choose Date")) {
-                    ArrayList<Transaction> aux = DataManager.getInstance().getTransactions(null, from, to);
+                    ArrayList<Transaction> aux = DataManager.getInstance().getTransactionsBetweenDates("Type","Variable Expense", from, to,true);
                 }
             }
         });

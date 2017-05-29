@@ -75,8 +75,8 @@ public class Month extends AppCompatActivity {
                 long ExpenseValue = SetFixedExpenses.getRawValue();
                 long IncomeID = DataManager.getInstance().getCategory("Income",null).get(0).getID();
                 long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null).get(0).getID();
-                DataManager.getInstance().addChangeTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false);
-                DataManager.getInstance().addChangeTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false);
                 finish();
 
 
@@ -156,7 +156,7 @@ public class Month extends AppCompatActivity {
         saveCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!SetCatValue.getText().toString().equals(""))
+                if(!SetCatValue.getText().toString().equals("") && !cat.getText().toString().equals("Choose Category"))
                 {
                     Calendar c = Calendar.getInstance();
                     int year = c.get(Calendar.YEAR);
@@ -165,7 +165,7 @@ public class Month extends AppCompatActivity {
                     String date = year + "-" + month + "-" + day;
                     long value = SetCatValue.getRawValue();
                     long catID = DataManager.getInstance().getCategory(cat.getText().toString(),null).get(0).getID();
-                    DataManager.getInstance().addChangeTransaction("Add",-1,value,date,"estimativa",catID,false);
+                    DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",catID,false);
                 }else
                 {
                     SetCatValue.setError("You need to insert a value");

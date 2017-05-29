@@ -55,7 +55,7 @@ public class CatStatsFragment extends Fragment {
                 String from = ((TextView) rootView.findViewById(R.id.chooseFrom)).getText().toString();
                 String to = ((TextView) rootView.findViewById(R.id.chooseTo)).getText().toString();
                 if(!from.equals("Choose Date")  && !to.equals("Choose Date")) {
-                    ArrayList<Transaction> aux = DataManager.getInstance().getTransactions(null, from, to);
+                    ArrayList<Transaction> aux = DataManager.getInstance().getTransactionsBetweenDates("Type","Variable Expense", from, to,true);
                 }
             }
         });

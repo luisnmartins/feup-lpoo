@@ -97,7 +97,7 @@ public class TransactionActivity extends AppCompatActivity {
                         long id = 0;
                         if(b != null)
                           id = b.getLong("CatID");
-                        DataManager.getInstance().addChangeTransaction("Add",-1,valueDouble,dateString,desc,id,true);
+                        DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true);
                         finish();
                         //TODO: change done value
 

@@ -375,7 +375,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            if(!DataManager.getInstance().addOpenChangeUser("Open", mEmail, mPassword))
+            if(!DataManager.getInstance().addOpenUpdateUser("Open", mEmail, mPassword,0))
             {
                 return false;
             }else{
@@ -383,14 +383,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 DataManager.getInstance().addGetType("Add","Variable Expense");
                 DataManager.getInstance().addGetType("Add","Fixed Expense");
 
-                DataManager.getInstance().addChangeCategory("Add",-1,"Income","Income",false);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Fixed Expense","Fixed Expense",false);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variable Expense",true);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Transport","Variable Expense",true);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Health","Variable Expense",true);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Clothes","Variable Expense",true);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Joy","Variable Expense",true);
-                DataManager.getInstance().addChangeCategory("Add",-1,"Food","Variable Expense",false);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Income","Income",false);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Fixed Expense","Fixed Expense",false);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Eat","Variable Expense",true);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Transport","Variable Expense",true);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Health","Variable Expense",true);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Clothes","Variable Expense",true);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Joy","Variable Expense",true);
+                DataManager.getInstance().addUpdateCategory("Add",-1,"Food","Variable Expense",false);
                 return true;
 
             }
@@ -438,24 +438,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            if(DataManager.getInstance().addOpenChangeUser("Open",mEmail,mPassword))
+            if(DataManager.getInstance().addOpenUpdateUser("Open",mEmail,mPassword,0))
             {
                 return false;
             }
 
-            DataManager.getInstance().addOpenChangeUser("Add",mEmail,mPassword);
+            DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,0);
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");
 
-            DataManager.getInstance().addChangeCategory("Add",-1,"Income","Income",false);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Fixed Expense","Fixed Expense",false);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variable Expense",true);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Transport","Variable Expense",true);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Health","Variable Expense",true);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Clothes","Variable Expense",true);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Joy","Variable Expense",true);
-            DataManager.getInstance().addChangeCategory("Add",-1,"Food","Variable Expense",false);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Income","Income",false);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Fixed Expense","Fixed Expense",false);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Eat","Variable Expense",true);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Transport","Variable Expense",true);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Health","Variable Expense",true);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Clothes","Variable Expense",true);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Joy","Variable Expense",true);
+            DataManager.getInstance().addUpdateCategory("Add",-1,"Food","Variable Expense",false);
             return true;
         }
 

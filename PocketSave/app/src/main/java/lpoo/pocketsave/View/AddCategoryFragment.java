@@ -98,7 +98,7 @@ public class AddCategoryFragment extends Fragment {
                 {
                     return;
                 }
-                DataManager.getInstance().addChangeCategory("Add",-1,catTitle.getText().toString(),"Variable Expense",false);
+                DataManager.getInstance().addUpdateCategory("Add",-1,catTitle.getText().toString(),"Variable Expense",false);
                 Calendar c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
@@ -107,7 +107,7 @@ public class AddCategoryFragment extends Fragment {
                 long estimated_value = catEstimaed.getRawValue();
                 long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null).get(0).getID();
 
-                DataManager.getInstance().addChangeTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false);
 
                 getActivity().getSupportFragmentManager().popBackStack();
             }
