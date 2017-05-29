@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 
+import java.util.Calendar;
+
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
@@ -77,8 +79,17 @@ public class AddCategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
+
+        color = (Button) view.findViewById(R.id.colorbutton);
+        catEstimaed = (CurrencyEditText) view.findViewById(R.id.CatEstimated);
+        catTitle = (EditText) view.findViewById(R.id.CatTitle);
+        catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
+
+
         save = (Button) view.findViewById(R.id.AddCat);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,13 +99,20 @@ public class AddCategoryFragment extends Fragment {
                     return;
                 }
                 DataManager.getInstance().addChangeCategory("Add",-1,catTitle.getText().toString(),"Variable Expense",false);
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = 1;
+                String date = year + "-" + month + "-" + day;
+                long estimated_value = catEstimaed.getRawValue();
+                long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null).get(0).getID();
+
+                DataManager.getInstance().addChangeTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false);
+
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
-        color = (Button) view.findViewById(R.id.colorbutton);
-        catEstimaed = (CurrencyEditText) view.findViewById(R.id.CatEstimated);
-        catTitle = (EditText) view.findViewById(R.id.CatTitle);
-        catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
+
         return  view;
     }
 

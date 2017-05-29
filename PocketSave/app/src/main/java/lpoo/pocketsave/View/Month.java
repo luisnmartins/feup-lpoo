@@ -16,8 +16,11 @@ import android.widget.TextView;
 import com.blackcat.currencyedittext.CurrencyEditText;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
 public class Month extends AppCompatActivity {
@@ -48,17 +51,37 @@ public class Month extends AppCompatActivity {
                 {
                     SetFixedExpenses.requestFocus();
                     SetFixedExpenses.setError("You need to input a value");
+                    return;
                 }
                 if (SetIncome.getText().toString().equals(""))
                 {
                     SetIncome.setError("You need to input a value");
                     SetIncome.requestFocus();
+                    return;
                 }
-                if(SetCatValue.getText().toString().equals(""))
+               /* if(SetCatValue.getText().toString().equals(""))
                 {
                     SetCatValue.setError("You need to input a value for each category");
                     SetCatValue.requestFocus();
-                }
+                    return;
+                }*/
+
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = 1;
+                String date = year + "-" + month + "-" + day;
+                long IncomeValue = SetIncome.getRawValue();
+                long ExpenseValue = SetFixedExpenses.getRawValue();
+                long IncomeID = DataManager.getInstance().getCategory("Income",null).get(0).getID();
+                long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null).get(0).getID();
+                DataManager.getInstance().addChangeTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false);
+                DataManager.getInstance().addChangeTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false);
+                finish();
+
+
+
+
             }
         });
 
@@ -133,6 +156,21 @@ public class Month extends AppCompatActivity {
         saveCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!SetCatValue.getText().toString().equals(""))
+                {
+                    Calendar c = Calendar.getInstance();
+                    int year = c.get(Calendar.YEAR);
+                    int month = c.get(Calendar.MONTH);
+                    int day = 1;
+                    String date = year + "-" + month + "-" + day;
+                    long value = SetCatValue.getRawValue();
+                    long catID = DataManager.getInstance().getCategory(cat.getText().toString(),null).get(0).getID();
+                    DataManager.getInstance().addChangeTransaction("Add",-1,value,date,"estimativa",catID,false);
+                }else
+                {
+                    SetCatValue.setError("You need to insert a value");
+                    SetCatValue.requestFocus();
+                }
                 cat.setText("Choose Category");
             }
         });

@@ -62,10 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(mToolbar);
 
         sDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-
         mToggle = new ActionBarDrawerToggle(this,sDrawerLayout,R.string.open,R.string.close);
-
-
 
         sDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -81,28 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavView = (NavigationView) findViewById(R.id.nav_view);
         mNavView.setNavigationItemSelectedListener(this);
 
-        //initialize database instance
-       // DatabaseSingleton.getInstance().getDB().addUser("ola@ola.pt", "1234");
-        //if(User.getInstance().login("ola@ola.pt", "1234"))
-            Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
-       // DataManager.startDB(MainActivity.this);
-
+        Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
         ((TextView)mNavView.getHeaderView(0).findViewById(R.id.User)).setText(DataManager.getInstance().getUser().getEmail());
-        // else
-           // Toast.makeText(MainActivity.this,"Error trying to log in. Please try again",Toast.LENGTH_LONG).show();
-
-
-        /*DatabaseSingleton.getInstance().getDB().addType("income");
-        DatabaseSingleton.getInstance().getDB().addType("expense");
-        DatabaseSingleton.getInstance().getDB().addCategory("cat1", 0);
-        DatabaseSingleton.getInstance().getDB().addCategory("cat2", 1);*/
-        /*
-        PocketSave.getInstance().addCategory("Carro", "income");
-        PocketSave.getInstance().addCategory("Propinas", "income");
-        TextView balanceView = (TextView) findViewById(R.id.BalanceView);
-        balanceView.setText("1244");
-        viewAll();*/
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -122,13 +99,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 closeAllFragments();
                 Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
                 ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString(),null);
-        System.out.println("a categoria e " + ((Button)view).getText().toString());
+                System.out.println("a categoria e " + ((Button)view).getText().toString());
                 Category cat = aux.get(0);
-        System.out.println("a categoria e " + cat.getID());
+                System.out.println("a categoria e " + cat.getID());
                 Bundle b = new Bundle();
                 b.putLong("CatID",cat.getID());
+                b.putString("Category",cat.getTitle());
                 transactionIntent.putExtras(b);
-                //transactionIntent.putExtra("Category", String.valueOf(view.getTag()));
                 MainActivity.this.startActivity(transactionIntent);
 
     }
@@ -140,23 +117,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void getOverview(View view){
 
-        //Intent overviewIntent = new Intent(MainActivity.this, OverviewActivity.class);
-        //MainActivity.this.startActivity(overviewIntent);
-       // getMenuInflater().inflate(R.menu.navigation_menu,mOptionsMenu);
+
         mToolbar.setTitle("Overview");
         setFragment(new OverviewListFragment(),"over");
     }
 
     public void getStats(View view)
     {
-        Intent transactionIntent = new Intent(MainActivity.this, StatsActivity.class);
-        transactionIntent.putExtra("Stats", String.valueOf(view.getTag()));
-        MainActivity.this.startActivity(transactionIntent);
+        Intent statsIntent;
+        statsIntent = new Intent(MainActivity.this, StatsActivity.class);
+        statsIntent.putExtra("Stats", String.valueOf(view.getTag()));
+        MainActivity.this.startActivity(statsIntent);
     }
 
     public void setStatsAlert(View view)
     {
-        DialogFragment dialog = new ChooseStatsDialog();
+        DialogFragment dialog;
+        dialog = new ChooseStatsDialog();
         dialog.show(getSupportFragmentManager(),"ChooseStatsDialog");
     }
 

@@ -27,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -348,6 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -380,7 +382,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 DataManager.getInstance().addGetType("Add","Income");
                 DataManager.getInstance().addGetType("Add","Variable Expense");
                 DataManager.getInstance().addGetType("Add","Fixed Expense");
-                DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variabel Expense",true);
+
+                DataManager.getInstance().addChangeCategory("Add",-1,"Income","Income",false);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Fixed Expense","Fixed Expense",false);
+                DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variable Expense",true);
                 DataManager.getInstance().addChangeCategory("Add",-1,"Transport","Variable Expense",true);
                 DataManager.getInstance().addChangeCategory("Add",-1,"Health","Variable Expense",true);
                 DataManager.getInstance().addChangeCategory("Add",-1,"Clothes","Variable Expense",true);
@@ -389,13 +394,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return true;
 
             }
-          /*  for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }*/
+
 
 
         }
@@ -408,6 +407,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(mainIntent);
+                Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -447,6 +447,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");
+
+            DataManager.getInstance().addChangeCategory("Add",-1,"Income","Income",false);
+            DataManager.getInstance().addChangeCategory("Add",-1,"Fixed Expense","Fixed Expense",false);
             DataManager.getInstance().addChangeCategory("Add",-1,"Eat","Variable Expense",true);
             DataManager.getInstance().addChangeCategory("Add",-1,"Transport","Variable Expense",true);
             DataManager.getInstance().addChangeCategory("Add",-1,"Health","Variable Expense",true);
@@ -464,6 +467,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(mainIntent);
+                Toast.makeText(LoginActivity.this,"User created succesfully",Toast.LENGTH_LONG).show();
                 finish();
             } else {
                 mEmailView.setError(getString(R.string.email_exists));

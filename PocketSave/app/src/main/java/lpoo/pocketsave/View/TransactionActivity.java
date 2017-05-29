@@ -31,6 +31,7 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Transaction - " + getIntent().getExtras().getString("Category"));
         setSupportActionBar(toolbar);
 
         Calendar cal = Calendar.getInstance();
@@ -42,7 +43,6 @@ public class TransactionActivity extends AppCompatActivity {
         value = (CurrencyEditText) findViewById(R.id.ValueText);
         description = (EditText) findViewById(R.id.DescriptionText);
         savebtn = (Button) findViewById(R.id.Savebtn);
-        category = getIntent().getExtras().getString("Category");
         AddData();
 
 
@@ -73,10 +73,22 @@ public class TransactionActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
 
-                        if(value.getText().toString() == "" || date.getText().toString().equals("Choose Date"))
+                        if(value.getText().toString().equals(""))
                         {
+
+                            value.setError("You must insert a value");
+                            value.requestFocus();
                             return ;
+
+
                         }
+                        if( date.getText().toString().equals("Choose Date"))
+                        {
+                            date.setError("You must choose a date");
+                            date.requestFocus();
+                            return;
+                        }
+
                         String dateString = date.getText().toString();
                         String desc = description.getText().toString();
                         double valueDouble = value.getRawValue();
