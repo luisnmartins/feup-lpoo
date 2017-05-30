@@ -1,4 +1,4 @@
-package lpoo.pocketsave;
+package lpoo.pocketsave.unitTest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

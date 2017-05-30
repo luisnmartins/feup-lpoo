@@ -168,18 +168,18 @@ public class DataManager {
 
 
     /**
-     * get an array with one or all transactions
-     * @param id ID of the transaction to get. Null if is to get all current user's transactions
+     * get an array with one or all transactions of the asked type
+     * @param type Name of the type to get transactions
      * @return Returns an array with asked transactions, or null if there is any error
      */
-    public ArrayList<Transaction> getTransaction(String id){
+    public ArrayList<Transaction> getTypeTransaction(String type){
 
 
         ArrayList<Transaction> transactions = null;
         Transaction newTransaction;
         boolean done;
 
-        Cursor cursor = db.getTransaction(id);
+        Cursor cursor = db.getTypeTransactions(type);
         if(cursor == null)
             return null;
         if(cursor.moveToFirst()){
@@ -202,6 +202,8 @@ public class DataManager {
         return transactions;
 
     }
+
+
 
 
 

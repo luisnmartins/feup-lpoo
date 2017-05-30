@@ -333,7 +333,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getMainCategories(boolean main){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
-            cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{Boolean.toString(main), Long.toString(currUser.getID())}, null, null, null);
+            cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{((main) ? Integer.toString(1) : Integer.toString(0)), Long.toString(currUser.getID())}, null, null, null);
         if(cursor == null || cursor.getCount()<1) {
             cursor.close();
             return null;
@@ -406,24 +406,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Get the transaction with the given id, or all transactions od the current user
-     * @param id id of the transaction. Null if ir to get all transactions
+     * Get the transaction of the given type
+     * @param typeTitle Type of the transactions to get
      * @return Returns a curosr with the query result
      */
-    public Cursor getTransaction(String id){
+    public Cursor getTypeTransactions(String typeTitle){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
-        if(id == null){
+        String query = "SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+", T."+
+        TRANS_DONE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+ " AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY T.Date";
+        cursor = db.rawQuery(query, null);
+
+        /*if(id == null){
             cursor = db.rawQuery("SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+
                                   TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+
                                  ", T." + TRANS_DONE + " FROM "+TABLE_TRANSACTION+" T JOIN "+TABLE_CATEGORY+
                                  " C ON T."+TRANS_CATEGORY_ID+" = C."+CAT_ID+
-                                 " WHERE C."+CAT_USER_ID+" = '"+currUser.getID()+"';", null);
+                                 " WHERE C."+CAT_USER_ID+" = '"+currUser.getID()+"' AND T."+TRANS_DONE+" = "+1, null);
 
 
         }else {
-            cursor = db.query(TABLE_TRANSACTION, null, " _id = ?", new String[]{id},null, null, TRANS_DATE);
-        }
+            cursor = db.query(TABLE_TRANSACTION, null, " _id = ? AND "+TRANS_DONE, new String[]{id, Integer.toString(1)},null, null, TRANS_DATE);
+        }*/
         if(cursor == null || cursor.getCount()<1){
             cursor.close();
             return null;
