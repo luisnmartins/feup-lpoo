@@ -152,12 +152,13 @@ public class DataManager {
      * @param value Value of the transaction to be added or updated
      * @param date Date of the transaction to be added or updated
      * @param description Date of the transaction to be added or updated
-     * @param catID
-     * @param done
+     * @param catID ID of the category of the new transaction
+     * @param done True if the transaction is already done and false if not
+     * @param image Path od the receipt image
      * @return
      */
-    public boolean addUpdateTransaction( String operation, long id, double value, String date, String description, long catID, boolean done){
-        Transaction newTransaction = new Transaction(id, value, date, description, catID, done);
+    public boolean addUpdateTransaction( String operation, long id, double value, String date, String description, long catID, boolean done, String image){
+        Transaction newTransaction = new Transaction(id, value, date, description, catID, done, image);
         if(operation == "Add"){
             return db.addTransaction(newTransaction);
         }else if(operation == "Update"){
@@ -192,7 +193,8 @@ public class DataManager {
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)),
                         cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
-                        done);
+                        done,
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
 
                 transactions.add(newTransaction);
             }while(cursor.moveToNext());
@@ -241,7 +243,8 @@ public class DataManager {
                                                  cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
                                                  cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)),
                                                  cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
-                                                 donef);
+                                                 donef,
+                                                cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
 
                 transactions.add(newTransaction);
             }while(cursor.moveToNext());

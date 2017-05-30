@@ -16,10 +16,9 @@ public class Transaction implements Comparable<Transaction>{
     private String description;
     private long catID;
     private boolean done;
-    DateFormat df1;
-    //Image
+    private String image;
 
-    public Transaction(long id, double value, String dateS, String description, long catID, boolean done) {
+    public Transaction(long id, double value, String dateS, String description, long catID, boolean done, String image) {
 
         this.id = id;
         this.value = value;
@@ -27,6 +26,7 @@ public class Transaction implements Comparable<Transaction>{
         this.description = description;
         this.done = done;
         this.catID = catID;
+        this.image = image;
     }
 
 
@@ -52,6 +52,7 @@ public class Transaction implements Comparable<Transaction>{
         return description;
     }
 
+    public String getImage(){return image;}
 
     @Override
     public int compareTo(@NonNull Transaction o) {

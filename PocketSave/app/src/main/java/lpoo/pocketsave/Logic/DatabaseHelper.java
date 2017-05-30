@@ -43,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TRANS_DATE = "Date";
     public static final String TRANS_DONE = "Done";
     public static final String TRANS_CATEGORY_ID = "Category_ID";
+    public static final String TRANS_IMAGE = "Image";
 
     //Category Table Columns
     public static final String CAT_ID = "_id";
@@ -76,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
         String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY, "+
                 TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
-                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+ TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
+                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
         Log.d(TAG, create_category);
 
@@ -389,6 +390,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TRANS_DESCRIPTION, toUpdate.getDescription());
         contentValues.put(TRANS_CATEGORY_ID, toUpdate.getCatID());
         contentValues.put(TRANS_DONE, toUpdate.getDone());
+        contentValues.put(TRANS_IMAGE, toUpdate.getImage());
         return db.update(TABLE_TRANSACTION, contentValues, TRANS_ID+"= ?",new String[] { Long.toString(toUpdate.getID()) })>0;
 
     }
