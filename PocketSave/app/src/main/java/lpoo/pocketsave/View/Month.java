@@ -1,5 +1,6 @@
 package lpoo.pocketsave.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,14 +33,16 @@ public class Month extends AppCompatActivity {
 
     private Toolbar mytool;
 
-    private CurrencyEditText EstimatedValue, SetCatValue,SetFixedExpenses,SetIncome;
+    private CurrencyEditText  SetCatValue,SetFixedExpenses,SetIncome;
+    private  EditText EstimatedValue;
     private ImageButton editIncome,editFixedExpenses,saveCategory;
     private Button saveButton;
     private TextView cat;
     private Category category;
-    private Set<String> categories_names = new HashSet<String>();
     private Transaction trans;
     private int categories_size=1;
+    private String tempCatName;
+    private HashMap<String,Double> catValues = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,7 @@ public class Month extends AppCompatActivity {
                     SetIncome.requestFocus();
                     return;
                 }
-                if(categories_size != categories_names.size())
+                if(categories_size != catValues.size())
                 {
                     SetCatValue.setError("You need to add values to all categories");
                     SetCatValue.requestFocus();
@@ -86,6 +91,8 @@ public class Month extends AppCompatActivity {
                 long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
                 DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false, null);
                 DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false, null);
+                Intent mainIntent = new Intent(Month.this, MainActivity.class);
+                Month.this.startActivity(mainIntent);
                 finish();
 
 
@@ -131,7 +138,7 @@ public class Month extends AppCompatActivity {
 
     public void initializeEditTexts()
     {
-        EstimatedValue = (CurrencyEditText) findViewById(R.id.SetEstimatedValue);
+        EstimatedValue = (EditText) findViewById(R.id.SetEstimatedValue);
         SetCatValue = (CurrencyEditText) findViewById(R.id.SetCatValue);
         SetFixedExpenses = (CurrencyEditText) findViewById(R.id.SetFixedExpenses);
         SetIncome = (CurrencyEditText) findViewById(R.id.SetIncome);
@@ -179,6 +186,9 @@ public class Month extends AppCompatActivity {
                     }else{
                         DataManager.getInstance().addUpdateTransaction("Update",trans.getID(),value,date,"estimativa",category.getID(),false,null);
                     }
+                    catValues.put(tempCatName, (double) value);
+                    Double estimative = calculateBalance();
+                    EstimatedValue.setText(Double.toString(estimative));
 
                 }else
                 {
@@ -227,7 +237,24 @@ public class Month extends AppCompatActivity {
 
     public void add(String name)
     {
-        categories_names.add(name);
+        tempCatName= name;
+
+    }
+
+    public Double calculateBalance()
+    {
+        long income = SetIncome.getRawValue();
+        long expenses = SetFixedExpenses.getRawValue();
+        Double valor=0.0;
+        Double total;
+
+        for(HashMap.Entry<String, Double> expected : catValues.entrySet()){
+            valor += expected.getValue();
+        }
+
+        total=income-expenses-valor;
+        System.out.println("valor total " + total);
+        return total;
     }
 
 }

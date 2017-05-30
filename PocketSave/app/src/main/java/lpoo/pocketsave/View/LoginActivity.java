@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import java.util.Calendar;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -30,9 +31,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -405,10 +408,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                LoginActivity.this.startActivity(mainIntent);
-                Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
-                finish();
+                if(verifyMonth())
+                {
+                    Intent mainIntent = new Intent(LoginActivity.this, Month.class);
+                    LoginActivity.this.startActivity(mainIntent);
+                    Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
+
+                    finish();
+                }else
+                {
+                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    LoginActivity.this.startActivity(mainIntent);
+                    Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -465,7 +479,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent mainIntent = new Intent(LoginActivity.this, Month.class);
                 LoginActivity.this.startActivity(mainIntent);
                 Toast.makeText(LoginActivity.this,"User created succesfully",Toast.LENGTH_LONG).show();
                 finish();
@@ -481,5 +495,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+
+    public boolean verifyMonth()
+    {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = 1;
+        String date = year + "-" + month + "-" + day;
+        HashMap<String,Double> trans = DataManager.getInstance().getTotalSpentValues("Type","Income",date,date,false);
+        if(trans == null)
+        {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
 }
 

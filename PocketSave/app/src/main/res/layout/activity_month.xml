@@ -141,14 +141,13 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <com.blackcat.currencyedittext.CurrencyEditText
+    <EditText
         android:id="@+id/SetEstimatedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="estimative"
-        android:inputType="numberDecimal"
-        app:enable_default_hint="false"
+        android:inputType="numberSigned"
         android:layout_below="@+id/EstimatedBalance"
         android:layout_alignEnd="@+id/setMonth" />
 
