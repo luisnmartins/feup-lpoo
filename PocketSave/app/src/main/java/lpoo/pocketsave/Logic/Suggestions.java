@@ -10,7 +10,9 @@ import java.util.HashMap;
 public class Suggestions {
 
     ArrayList<Integer> daysofmonths = new ArrayList<Integer>();
-
+    Calendar c = Calendar.getInstance();
+    String d1 = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-01"; //first day of the current month
+    String d2 = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH); //current date
 
     public Suggestions(){
 
@@ -42,15 +44,11 @@ public class Suggestions {
     //CORRENTE
 
     //TODO: verificar se uma categoria esta acima (20%) do seu valor previsto comparativamente com o que ja passou do mes corrente
-    public HashMap<String, Boolean> OnlimitCategory(String category){
+    public HashMap<String, Boolean> onlimitCategory(){
 
         HashMap<String, Boolean> limitCategories = new HashMap<String, Boolean>();
         Double occurred;
         Double expected;
-
-        Calendar c = Calendar.getInstance();
-        String d1 = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-01"; //first day of the current month
-        String d2 = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH); //current date
 
 
         HashMap<String, Double> expectedValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d1, false);
@@ -74,8 +72,20 @@ public class Suggestions {
 
 
 
-    //TODO: Verificar o metodo de pagamaneto dominante e se for dinheiro verificar se o valor medio das transacoes
+    //TODO: Verificar o metodo de pagamento dominante e se for dinheiro verificar se o valor medio das transacoes
         // e de baixa quantia (<20€) - para categorias que estao muito proximo do limite
+
+    public void paymentMethodCategory(){
+
+        HashMap<String, Boolean> onLimit = onlimitCategory();
+
+        for (HashMap.Entry<String, Boolean> exp : onLimit.entrySet()){
+
+
+
+        }
+
+    }
 
 
 
@@ -83,7 +93,14 @@ public class Suggestions {
 
     //TODO: comparacao do ultimo mes para cada categoria verificando as que ficaram a baixo e as que ficaram a cima do valor previsto
 
+
+
+
+
     //TODO: verificar valores medios para os valores previstos e valores efetivos para cada categoria desde o inicio dos registos
+
+
+
 
     //TODO: sugestao dos valores aproximados para o mes seguinte tendo em conta a variacao em termos de receitas
     // e de despesas fixas e mantendo a mesma percentagem de poupanca do mes passado
