@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class ChooseSpecificCatDialog extends DialogFragment {
        final ArrayList<Category> aux = DataManager.getInstance().getCategory(null,null,"Variable Expense");
 
         final ListAdapter adapter = new ArrayAdapterWithIcon(getActivity(),aux);
+        ((Month) getActivity()).setCategories_size(adapter.getCount());
 
         // final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_singlechoice, DataManager.getInstance().getCategory("mainMenuCategories",true));
         builder.setTitle("Categories").setAdapter(adapter, new DialogInterface.OnClickListener() {
@@ -47,13 +49,15 @@ public class ChooseSpecificCatDialog extends DialogFragment {
                 ((Month) getActivity()).setCat((Category)adapter.getItem(which));
                 String date =  ((Month) getActivity()).returnFirstofMonth();
                 ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Category",((Category) adapter.getItem(which)).getTitle(),date,date,false);
+                ((Month) getActivity()).add(((Category) adapter.getItem(which)).getTitle());
 
                 if(trans != null) {
+                    Log.d("DIALOG", "TRANS NOT NULL");
                     ((Month)getActivity()).setTrans(trans.get(0));
-                    ((Month) getActivity()).getSetCatValue().setText(Double.toString(trans.get(0).getValue()));
+                    ((Month) getActivity()).setSetCatValue((long)trans.get(0).getValue());
                 }
                 else
-                    ((Month) getActivity()).getSetCatValue().setText("no value");
+                    ((Month) getActivity()).setSetCatValue(0);
 
 
             }

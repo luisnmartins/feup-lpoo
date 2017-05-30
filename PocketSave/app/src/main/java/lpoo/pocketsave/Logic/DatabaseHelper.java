@@ -466,6 +466,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 TRANS_DONE+", T."+TRANS_IMAGE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+
                 " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."
                 + CAT_TITLE+ " = '"+catTitle+"' AND C."+CAT_ID+" = T."+TRANS_CATEGORY_ID+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+" AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY Date";
+        Log.d(TAG, query);
         Cursor cursor  = db.rawQuery(query, null);
 
 

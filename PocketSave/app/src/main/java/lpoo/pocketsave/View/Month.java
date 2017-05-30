@@ -17,6 +17,7 @@ import com.blackcat.currencyedittext.CurrencyEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,8 +35,9 @@ public class Month extends AppCompatActivity {
     private Button saveButton;
     private TextView cat;
     private Category category;
-    private Set<String> categories_names;
+    private Set<String> categories_names = new HashSet<String>();
     private Transaction trans;
+    private int categories_size=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,12 @@ public class Month extends AppCompatActivity {
                 {
                     SetIncome.setError("You need to input a value");
                     SetIncome.requestFocus();
+                    return;
+                }
+                if(categories_size != categories_names.size())
+                {
+                    SetCatValue.setError("You need to add values to all categories");
+                    SetCatValue.requestFocus();
                     return;
                 }
 
@@ -204,8 +212,22 @@ public class Month extends AppCompatActivity {
         return date;
     }
 
-    public CurrencyEditText getSetCatValue()
+    public void setSetCatValue(long value)
     {
-        return SetCatValue;
+        if(value >0)
+            SetCatValue.formatCurrency(value);
+        else
+            SetCatValue.setHint("No Value");
     }
+
+    public void setCategories_size(int number)
+    {
+        this.categories_size = number;
+    }
+
+    public void add(String name)
+    {
+        categories_names.add(name);
+    }
+
 }
