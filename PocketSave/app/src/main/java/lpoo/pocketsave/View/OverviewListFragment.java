@@ -211,12 +211,10 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
 
        mAdapter = new MyOverviewListRecyclerViewAdapter(getActivity(),mDataset,DATE_COMPARATOR);
 
-        CurrencyEditText curr = new CurrencyEditText(getContext(),null);
 
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.add(mDataset);
-        mAdapter.setCurr(curr);
         // END_INCLUDE(initializeRecyclerView)
 
         /*getActivity().findViewById(R.id.addTrans).setOnClickListener(new View.OnClickListener() {

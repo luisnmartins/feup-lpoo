@@ -82,14 +82,13 @@
         android:layout_below="@+id/colorbutton"
         android:layout_alignStart="@+id/textView14" />
 
-    <com.blackcat.currencyedittext.CurrencyEditText
+    <EditText
         android:id="@+id/CatEstimated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/AddCat"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
-        app:enable_default_hint="false"
         android:ems="10"
         android:inputType="numberDecimal" />
 

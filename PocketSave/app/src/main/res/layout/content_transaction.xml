@@ -41,7 +41,7 @@
         android:layout_alignBottom="@+id/DescriptionText"
         android:layout_alignStart="@+id/textView3" />
 
-    <com.blackcat.currencyedittext.CurrencyEditText
+    <EditText
         android:id="@+id/ValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,8 +49,7 @@
         android:layout_alignBottom="@+id/valueView"
         android:layout_alignStart="@+id/DateView"
         android:hint="money spent"
-        android:inputType="numberDecimal"
-        app:enable_default_hint="false" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/DescriptionText"

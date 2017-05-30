@@ -38,7 +38,7 @@ public class AddCategoryFragment extends Fragment {
 
 
     private Button save,color;
-    private CurrencyEditText catEstimaed;
+    private EditText catEstimaed;
     private EditText catTitle;
     private ImageButton catIcon;
 
@@ -85,7 +85,7 @@ public class AddCategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
 
         color = (Button) view.findViewById(R.id.colorbutton);
-        catEstimaed = (CurrencyEditText) view.findViewById(R.id.CatEstimated);
+        catEstimaed = (EditText) view.findViewById(R.id.CatEstimated);
         catTitle = (EditText) view.findViewById(R.id.CatTitle);
         catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
 
@@ -104,7 +104,7 @@ public class AddCategoryFragment extends Fragment {
                 int month = c.get(Calendar.MONTH);
                 int day = 1;
                 String date = year + "-" + month + "-" + day;
-                long estimated_value = catEstimaed.getRawValue();
+                Double estimated_value = Double.parseDouble(catEstimaed.getText().toString());
                 long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null,null).get(0).getID();
 
                 DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false,null);

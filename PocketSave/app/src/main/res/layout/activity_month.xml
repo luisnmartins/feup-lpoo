@@ -35,13 +35,12 @@
         android:layout_marginTop="51dp"
         android:text="Income" />
 
-    <com.blackcat.currencyedittext.CurrencyEditText
+    <EditText
         android:id="@+id/SetIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="your income"
         android:inputType="numberDecimal"
-        app:enable_default_hint="false"
         android:layout_alignBaseline="@+id/Income"
         android:layout_alignBottom="@+id/Income"
         android:layout_toStartOf="@+id/editExpenses" />
@@ -66,13 +65,12 @@
         android:layout_below="@+id/SetIncome"
         android:layout_alignStart="@+id/Income" />
 
-    <com.blackcat.currencyedittext.CurrencyEditText
+    <EditText
         android:id="@+id/SetFixedExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="expenses"
         android:inputType="numberDecimal"
-        app:enable_default_hint="false"
         android:layout_alignBaseline="@+id/FixedExpenses"
         android:layout_alignBottom="@+id/FixedExpenses"
         android:layout_toEndOf="@+id/EstimatedBalance" />
@@ -99,13 +97,12 @@
         android:layout_toStartOf="@+id/SetFixedExpenses"
         android:layout_marginEnd="13dp" />
 
-    <com.blackcat.currencyedittext.CurrencyEditText
+    <EditText
         android:id="@+id/SetCatValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="amount"
         android:inputType="numberDecimal"
-        app:enable_default_hint="false"
         android:layout_alignBaseline="@+id/categorycombobox"
         android:layout_alignBottom="@+id/categorycombobox"
         android:layout_toStartOf="@+id/editExpenses" />

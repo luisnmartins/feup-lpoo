@@ -31,7 +31,7 @@ import lpoo.pocketsave.R;
 
 public class TransactionActivity extends AppCompatActivity {
     EditText  description;
-    CurrencyEditText value;
+    EditText value;
     TextView date;
     static final int CAM_REQUEST = 1;
     String category,mCurrentPhotoPath;
@@ -51,7 +51,7 @@ public class TransactionActivity extends AppCompatActivity {
 
         showDialogDate();
 
-        value = (CurrencyEditText) findViewById(R.id.ValueText);
+        value = (EditText) findViewById(R.id.ValueText);
         description = (EditText) findViewById(R.id.DescriptionText);
         savebtn = (Button) findViewById(R.id.Savebtn);
 
@@ -184,7 +184,7 @@ public class TransactionActivity extends AppCompatActivity {
 
                         String dateString = date.getText().toString();
                         String desc = description.getText().toString();
-                        double valueDouble = value.getRawValue();
+                        Double valueDouble = Double.parseDouble(value.getText().toString());
                         System.out.println("value" + valueDouble);
                         Bundle b = getIntent().getExtras();
                         long id = 0;

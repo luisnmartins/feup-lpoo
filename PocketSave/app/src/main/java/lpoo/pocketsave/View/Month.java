@@ -33,7 +33,7 @@ public class Month extends AppCompatActivity {
 
     private Toolbar mytool;
 
-    private CurrencyEditText  SetCatValue,SetFixedExpenses,SetIncome;
+    private EditText  SetCatValue,SetFixedExpenses,SetIncome;
     private  EditText EstimatedValue;
     private ImageButton editIncome,editFixedExpenses,saveCategory;
     private Button saveButton;
@@ -85,8 +85,8 @@ public class Month extends AppCompatActivity {
                 int month = c.get(Calendar.MONTH);
                 int day = 1;
                 String date = year + "-" + month + "-" + day;
-                long IncomeValue = SetIncome.getRawValue();
-                long ExpenseValue = SetFixedExpenses.getRawValue();
+                Double IncomeValue = Double.parseDouble(SetIncome.getText().toString());
+                Double ExpenseValue = Double.parseDouble(SetFixedExpenses.getText().toString());
                 long IncomeID = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
                 long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
                 DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false, null);
@@ -139,9 +139,9 @@ public class Month extends AppCompatActivity {
     public void initializeEditTexts()
     {
         EstimatedValue = (EditText) findViewById(R.id.SetEstimatedValue);
-        SetCatValue = (CurrencyEditText) findViewById(R.id.SetCatValue);
-        SetFixedExpenses = (CurrencyEditText) findViewById(R.id.SetFixedExpenses);
-        SetIncome = (CurrencyEditText) findViewById(R.id.SetIncome);
+        SetCatValue = (EditText) findViewById(R.id.SetCatValue);
+        SetFixedExpenses = (EditText) findViewById(R.id.SetFixedExpenses);
+        SetIncome = (EditText) findViewById(R.id.SetIncome);
 
         EstimatedValue.setEnabled(false);
         SetCatValue.setEnabled(false);
@@ -179,7 +179,7 @@ public class Month extends AppCompatActivity {
                 if(!SetCatValue.getText().toString().equals("") && !cat.getText().toString().equals("Choose Category"))
                 {
                     String date = returnFirstofMonth();
-                    long value = SetCatValue.getRawValue();
+                    Double value = Double.parseDouble(SetCatValue.getText().toString());
                     if(trans == null){
                         DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",category.getID(),false, null);
 
@@ -225,7 +225,7 @@ public class Month extends AppCompatActivity {
     public void setSetCatValue(long value)
     {
         if(value >0)
-            SetCatValue.formatCurrency(value);
+            SetCatValue.setText(Long.toString(value));
         else
             SetCatValue.setHint("No Value");
     }
@@ -243,8 +243,8 @@ public class Month extends AppCompatActivity {
 
     public Double calculateBalance()
     {
-        long income = SetIncome.getRawValue();
-        long expenses = SetFixedExpenses.getRawValue();
+        Double income = Double.parseDouble(SetIncome.getText().toString());
+        Double expenses = Double.parseDouble(SetFixedExpenses.getText().toString());
         Double valor=0.0;
         Double total;
 
