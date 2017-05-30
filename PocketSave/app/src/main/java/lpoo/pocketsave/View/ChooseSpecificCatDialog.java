@@ -33,7 +33,7 @@ public class ChooseSpecificCatDialog extends DialogFragment {
         //testList();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
        final String[] aux = ListToArray(DataManager.getInstance().getCategory(null,null));
-        final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_singlechoice, DataManager.getInstance().getCategory("mainMenuCategories",true));
+       // final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_singlechoice, DataManager.getInstance().getCategory("mainMenuCategories",true));
         builder.setTitle("Categories").setItems(aux, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

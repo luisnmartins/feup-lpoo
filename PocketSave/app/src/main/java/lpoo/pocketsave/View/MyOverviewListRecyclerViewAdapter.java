@@ -158,6 +158,9 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
        // Log.d(TAG, "Element " + position + " set.");
         String value = curr.formatCurrency(Double.toString(mSortedList.get(position).getValue()));
+        //String catname = DataManager.getInstance().getCategory(Long.toString(mSortedList.get(position).getCatID()),null).get(0).getTitle();
+
+        //System.out.println(catname + " o  nome!!!");
         //String cat = DataManager.getInstance().getCategory(Long.toString(mSortedList.get(position).getCatID()),null).get(0).getTitle();
         // Get element from your dataset at this position and replace the contents of the view
         // with that element

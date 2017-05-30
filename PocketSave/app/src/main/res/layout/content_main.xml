@@ -18,12 +18,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.882"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="1.0" />
 
     <Button
         android:id="@+id/Cat1btn"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/BalanceView"
         android:layout_toStartOf="@+id/BalanceText"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:drawableTop="@drawable/restaurant_cutlery"
         android:tag="cat1"
         android:text="Eat"
@@ -41,11 +41,11 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView3"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.268"
+        app:layout_constraintRight_toRightOf="@+id/imageView3" />
 
     <Button
         android:id="@+id/Cat2btn"
@@ -54,7 +54,7 @@
         android:layout_alignTop="@+id/Cat1btn"
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@+id/BalanceText"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:drawableTop="@drawable/underground"
         android:onClick="NewTransaction"
         android:tag="cat2"
@@ -66,16 +66,16 @@
         app:layout_constraintRight_toRightOf="@+id/imageView3"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.699"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.178" />
 
     <Button
         android:id="@+id/Cat3btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:textColor="@android:color/black"
         android:onClick="NewTransaction"
         android:drawableTop="@drawable/polo"
@@ -86,16 +86,16 @@
         app:layout_constraintLeft_toLeftOf="@+id/imageView3"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.501"
+        app:layout_constraintVertical_bias="0.471"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.031" />
+        app:layout_constraintHorizontal_bias="0.028" />
 
     <Button
         android:id="@+id/Cat4btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:textColor="@android:color/black"
         android:drawableTop="@drawable/pills"
         android:text="Health"
@@ -107,14 +107,14 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintVertical_bias="0.471" />
 
     <Button
         android:id="@+id/Cat5btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:drawableTop="@drawable/gamepad"
         android:textColor="@android:color/black"
         android:text="Joy"
@@ -127,13 +127,13 @@
         app:layout_constraintVertical_bias="0.719"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.097" />
+        app:layout_constraintHorizontal_bias="0.128" />
 
     <Button
         android:id="@+id/Morebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:textColor="@android:color/black"
         android:text="More"
         android:layout_marginLeft="8dp"
@@ -143,7 +143,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintVertical_bias="0.717"
         app:layout_constraintLeft_toLeftOf="@+id/imageView3" />
 
