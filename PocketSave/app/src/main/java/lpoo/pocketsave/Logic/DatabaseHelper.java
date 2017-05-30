@@ -307,11 +307,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param name name of the category for which the instance should be returned
      * @return Returns and instance of the category. Returns null if was not possible to get data.
      */
-    public Cursor getCategory(String name){
+    public Cursor getCategory(String name, String type){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         if(name == null){
-            cursor = db.query(TABLE_CATEGORY, null, CAT_USER_ID + "=?", new String[]{Long.toString(currUser.getID())}, null, null, null);
+            cursor = db.rawQuery("SELECT C."+CAT_ID+", C."+CAT_TITLE+", C."+CAT_MAIN+", C."+CAT_TYPE_ID+", C."+CAT_USER_ID+" FROM "+
+                    TABLE_CATEGORY+" C, "+TABLE_TYPE+" P WHERE C."+CAT_TYPE_ID+" = P."+TYPE_ID+" AND P."+TYPE_NAME+" = '"+
+                    type+ "' AND C."+CAT_USER_ID+" = '"+currUser.getID()+ "'", null );
         }else{
             cursor = db.query(TABLE_CATEGORY, null, CAT_USER_ID + "=? AND "+CAT_TITLE+"=?", new String[]{Long.toString(currUser.getID()), name}, null, null, null);
         }
@@ -331,10 +333,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param main if is true it returns info of the 5 pricipal catgeories, and if false it returns the other ones
      * @return Returns a cursor with the asked categories info
      */
-    public Cursor getMainCategories(boolean main){
+    public Cursor getMainCategories(boolean main, String type){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
-            cursor = db.query(TABLE_CATEGORY, null, CAT_MAIN+"=? AND "+CAT_USER_ID+"=?", new String[]{((main) ? Integer.toString(1) : Integer.toString(0)), Long.toString(currUser.getID())}, null, null, null);
+        cursor = db.rawQuery("SELECT C."+CAT_ID+", C."+CAT_TITLE+", C."+CAT_MAIN+", C."+CAT_TYPE_ID+", C."+CAT_USER_ID+" FROM "+
+                                TABLE_CATEGORY+" C, "+TABLE_TYPE+" P WHERE C."+CAT_TYPE_ID+" = P."+TYPE_ID+" AND P."+TYPE_NAME+" = '"+
+                            type+ "' AND C."+CAT_USER_ID+" = '"+currUser.getID()+ "' AND C."+CAT_MAIN+" = '"+((main) ? 1 : 0)+"'", null );
+
+
         if(cursor == null || cursor.getCount()<1) {
             cursor.close();
             return null;

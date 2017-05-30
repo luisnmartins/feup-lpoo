@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 closeAllFragments();
                 Intent transactionIntent = new Intent(MainActivity.this, TransactionActivity.class);
-                ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString(),null);
+                ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString(),null,null);
                 System.out.println("a categoria e " + ((Button)view).getText().toString());
                 Category cat = aux.get(0);
                 System.out.println("a categoria e " + cat.getID());

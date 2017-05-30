@@ -96,7 +96,7 @@ public class DataManager {
         Category newCategory;
         newCategory = new Category(-1, title, addGetType("Get", type), mainMenu);
         if(operation == "Add"){
-            if(getCategory(title, false) == null)
+            if(getCategory(title, false, type) == null)
                 return db.addCategory(newCategory);
             else
                 return false;
@@ -114,16 +114,16 @@ public class DataManager {
      *             If null, it will return return the categories considering only catTitle value.
      * @return Returns an array containing the categories
      */
-    public ArrayList<Category> getCategory(String catTitle, Boolean main){
+    public ArrayList<Category> getCategory(String catTitle, Boolean main,String type){
         Cursor cursor;
         ArrayList<Category> categories=null;
         Category newCategory;
         boolean mainMenu;
         if(catTitle=="mainMenuCategories"){
-            cursor = db.getMainCategories(main);
+            cursor = db.getMainCategories(main,type);
         }
         else
-            cursor= db.getCategory(catTitle);
+            cursor= db.getCategory(catTitle,type);
         if(cursor == null) {
 
             return null;

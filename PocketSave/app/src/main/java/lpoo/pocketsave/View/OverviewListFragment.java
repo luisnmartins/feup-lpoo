@@ -299,7 +299,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
      */
     private void initDataset() {
 
-        mDataset = DataManager.getInstance().getTransaction(null);
+        mDataset = DataManager.getInstance().getTypeTransaction("Variable Expense");
 
     }
 

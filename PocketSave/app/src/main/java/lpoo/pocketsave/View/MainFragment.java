@@ -1,9 +1,12 @@
 package lpoo.pocketsave.View;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -116,14 +119,24 @@ public class MainFragment extends Fragment {
 
     public  void startDialogOtherCategories()
     {
-        ArrayList<Category> cats = DataManager.getInstance().getCategory("mainMenuCategories",false);
+        ArrayList<Category> cats = DataManager.getInstance().getCategory("mainMenuCategories",false,"Variable Expense");
         if(cats != null)
         {
-            ListAdapter adapter = new ArrayAdapterWithIcon(getActivity(),cats);
+            final ListAdapter adapter = new ArrayAdapterWithIcon(getActivity(),cats);
             new AlertDialog.Builder(getActivity()).setTitle("Other Categories").setAdapter(adapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Toast.makeText(getActivity(), "Item Selected: " + which, Toast.LENGTH_SHORT).show();
+                    Category aux = (Category) adapter.getItem(which);
+                    Intent transactionIntent = new Intent(getActivity(), TransactionActivity.class);
+                    Bundle b = new Bundle();
+                    b.putLong("CatID",aux.getID());
+                    b.putString("Category",aux.getTitle());
+                    transactionIntent.putExtras(b);
+                    getActivity().startActivity(transactionIntent);
+
+
+
                 }
             }).show();
         }

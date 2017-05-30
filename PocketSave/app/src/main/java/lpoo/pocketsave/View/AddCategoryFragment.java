@@ -105,9 +105,9 @@ public class AddCategoryFragment extends Fragment {
                 int day = 1;
                 String date = year + "-" + month + "-" + day;
                 long estimated_value = catEstimaed.getRawValue();
-                long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null).get(0).getID();
+                long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null,null).get(0).getID();
 
-                DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false,null);
 
                 getActivity().getSupportFragmentManager().popBackStack();
             }

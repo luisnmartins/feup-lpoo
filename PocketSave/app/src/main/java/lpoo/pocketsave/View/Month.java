@@ -20,7 +20,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 public class Month extends AppCompatActivity {
@@ -31,6 +33,10 @@ public class Month extends AppCompatActivity {
     private ImageButton editIncome,editFixedExpenses,saveCategory;
     private Button saveButton;
     private TextView cat;
+    private Category category;
+    private Set<String> categories_names;
+    private Transaction trans;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +65,7 @@ public class Month extends AppCompatActivity {
                     SetIncome.requestFocus();
                     return;
                 }
-               /* if(SetCatValue.getText().toString().equals(""))
-                {
-                    SetCatValue.setError("You need to input a value for each category");
-                    SetCatValue.requestFocus();
-                    return;
-                }*/
+
 
                 Calendar c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
@@ -73,8 +74,8 @@ public class Month extends AppCompatActivity {
                 String date = year + "-" + month + "-" + day;
                 long IncomeValue = SetIncome.getRawValue();
                 long ExpenseValue = SetFixedExpenses.getRawValue();
-                long IncomeID = DataManager.getInstance().getCategory("Income",null).get(0).getID();
-                long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null).get(0).getID();
+                long IncomeID = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
+                long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
                 DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false, null);
                 DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false, null);
                 finish();
@@ -133,6 +134,10 @@ public class Month extends AppCompatActivity {
         SetIncome.setEnabled(false);
     }
 
+    public void setCat(Category cat)
+    {
+        this.category = cat;
+    }
     public void initializeImageButtons()
     {
         editIncome = (ImageButton) findViewById(R.id.editIncome);
@@ -158,14 +163,15 @@ public class Month extends AppCompatActivity {
             public void onClick(View v) {
                 if(!SetCatValue.getText().toString().equals("") && !cat.getText().toString().equals("Choose Category"))
                 {
-                    Calendar c = Calendar.getInstance();
-                    int year = c.get(Calendar.YEAR);
-                    int month = c.get(Calendar.MONTH);
-                    int day = 1;
-                    String date = year + "-" + month + "-" + day;
+                    String date = returnFirstofMonth();
                     long value = SetCatValue.getRawValue();
-                    long catID = DataManager.getInstance().getCategory(cat.getText().toString(),null).get(0).getID();
-                    DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",catID,false, null);
+                    if(trans == null){
+                        DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",category.getID(),false, null);
+
+                    }else{
+                        DataManager.getInstance().addUpdateTransaction("Update",trans.getID(),value,date,"estimativa",category.getID(),false,null);
+                    }
+
                 }else
                 {
                     SetCatValue.setError("You need to insert a value");
@@ -181,5 +187,25 @@ public class Month extends AppCompatActivity {
         DialogFragment dialog = new ChooseSpecificCatDialog();
         dialog.show(getSupportFragmentManager(),"chooseCategories");
 
+    }
+
+    public void setTrans(Transaction trans)
+    {
+        this.trans  =trans;
+    }
+
+    public String returnFirstofMonth()
+    {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = 1;
+        String date = year + "-" + month + "-" + day;
+        return date;
+    }
+
+    public CurrencyEditText getSetCatValue()
+    {
+        return SetCatValue;
     }
 }
