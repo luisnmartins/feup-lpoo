@@ -230,8 +230,12 @@ public class DataManager {
         else if (structure == "Type")
             cursor = db.getTypeTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
 
-        if(cursor == null)
+        if(cursor == null){
+
+            Log.d(TAG, "CUROSR NULL");
             return null;
+        }
+
 
         if(cursor.moveToFirst()){
 

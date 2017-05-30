@@ -47,11 +47,13 @@ public class ChooseSpecificCatDialog extends DialogFragment {
                 ((Month) getActivity()).setCat((Category)adapter.getItem(which));
                 String date =  ((Month) getActivity()).returnFirstofMonth();
                 ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Category",((Category) adapter.getItem(which)).getTitle(),date,date,false);
-                ((Month)getActivity()).setTrans(trans.get(0));
-                if(trans != null)
+
+                if(trans != null) {
+                    ((Month)getActivity()).setTrans(trans.get(0));
                     ((Month) getActivity()).getSetCatValue().setText(Double.toString(trans.get(0).getValue()));
+                }
                 else
-                    ((Month) getActivity()).getSetCatValue().setText("");
+                    ((Month) getActivity()).getSetCatValue().setText("no value");
 
 
             }
