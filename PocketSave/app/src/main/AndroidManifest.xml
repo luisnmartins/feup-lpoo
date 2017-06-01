@@ -76,8 +76,12 @@
         <activity
             android:name=".View.StatsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".View.SettingsActivity" />
-        <activity android:name=".View.FixValueActivity"></activity>
+        <activity android:name=".View.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".View.FixValueActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

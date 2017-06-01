@@ -138,7 +138,7 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
     public IncomeExpensesRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(mContext)
-                .inflate(R.layout.fragment_overviewlist, viewGroup, false);
+                .inflate(R.layout.fragment_settingslist, viewGroup, false);
 
         return new IncomeExpensesRecyclerViewAdapter.ViewHolder(v);
     }

@@ -92,11 +92,11 @@ public class FixedExpensesIncomesListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_overviewlist_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settingslist_list, container, false);
         rootView.setTag(TAG);
 
         // BEGIN_INCLUDE(initializeRecyclerView)
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.OverviewList);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.SettingsList);
         if (getActivity().getIntent().getBooleanExtra("GRID", true)) {
             mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         } else {
@@ -106,7 +106,6 @@ public class FixedExpensesIncomesListFragment extends Fragment {
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext()));
         mAdapter = new IncomeExpensesRecyclerViewAdapter(getActivity(),mDataset,DATE_COMPARATOR);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.add(mDataset);

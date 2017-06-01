@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
@@ -70,6 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
         editPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!newPass.isEnabled())
                 verifyPasswordDialog(newPass);
             }
         });
@@ -77,6 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         editMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!newEmail.isEnabled())
                 verifyPasswordDialog(newEmail);
             }
         });
@@ -91,7 +95,8 @@ public class SettingsActivity extends AppCompatActivity {
                 String email = newEmail.getText().toString();
                 String pass = newPass.getText().toString();
 
-                if(!isEmailValid(email) || !DataManager.getInstance().addOpenUpdateUser("Open",email,pass,0))
+
+                if(!isEmailValid(email) || (DataManager.getInstance().addOpenUpdateUser("Open",email,pass,0) && newEmail.isEnabled()))
                 {
                     newEmail.setError("Invalid new Email");
                     newEmail.requestFocus();
@@ -105,7 +110,11 @@ public class SettingsActivity extends AppCompatActivity {
                     return;
                 }
 
+
                 DataManager.getInstance().addOpenUpdateUser("Update",email,pass,DataManager.getInstance().getUser().getTotalSaved());
+                Toast.makeText(getApplicationContext(),"Changes Save",Toast.LENGTH_SHORT);
+                newPass.setEnabled(false);
+                newEmail.setEnabled(false);
 
             }
         });
@@ -132,22 +141,22 @@ public class SettingsActivity extends AppCompatActivity {
                 switch (checkedId){
                     case R.id.IncomeButton:{
 
-                        destroyFragment();
+                        destroyFragment("overExpense");
                         FixedExpensesIncomesListFragment frag = new FixedExpensesIncomesListFragment();
                         Bundle b = new Bundle();
                         b.putString("TransType","Income");
                         frag.setArguments(b);
-                        createListFragment(frag,"over");
+                        createListFragment(frag,"overIncome");
                         break;
                     }
                     case R.id.ExpensesButton:{
 
-                        destroyFragment();
+                        destroyFragment("overIncome");
                         FixedExpensesIncomesListFragment frag = new FixedExpensesIncomesListFragment();
                         Bundle b = new Bundle();
                         b.putString("TransType","Fixed Expense");
                         frag.setArguments(b);
-                        createListFragment(frag,"over");
+                        createListFragment(frag,"overExpense");
                         break;
 
                     }
@@ -170,10 +179,10 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    public  void destroyFragment()
+    public  void destroyFragment(String tag)
     {
-        OverviewListFragment fragment = (OverviewListFragment) getSupportFragmentManager().findFragmentByTag("over");
-        if(fragment == null)
+        FixedExpensesIncomesListFragment fragment = (FixedExpensesIncomesListFragment) getSupportFragmentManager().findFragmentByTag(tag);
+        if(fragment != null)
         {
             getSupportFragmentManager().popBackStack();
         }
@@ -187,7 +196,7 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setTitle("Verify Password");
 
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builder.setView(input);
 
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
