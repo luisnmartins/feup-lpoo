@@ -333,41 +333,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void getColorPicker(View v)
-    {
-
-        ColorPickerDialogBuilder
-                .with(this.getcontext())
-                .setTitle("Choose color")
-                .initialColor(999999999)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
-                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int selectedColor) {
-                        //toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
-                    }
-                })
-                .setPositiveButton("ok", new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        changeBackgroundColor(selectedColor);
-                    }
-                })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .build()
-                .show();
-    }
-
-    public void changeBackgroundColor(int color)
-    {
-        Button btn = (Button) findViewById(R.id.colorbutton);
-        btn.setBackgroundColor(color);
-    }
 
 
     public void closeAllFragments()

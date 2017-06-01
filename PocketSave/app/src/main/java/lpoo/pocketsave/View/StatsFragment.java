@@ -305,7 +305,7 @@ public class StatsFragment extends Fragment {
         {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.listContainer, fragment,tag);
+            fragmentTransaction.replace(R.id.statsContainer, fragment,tag);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
@@ -315,7 +315,7 @@ public class StatsFragment extends Fragment {
     public  void destroyFragment()
     {
         OverviewListFragment fragment = (OverviewListFragment) getFragmentManager().findFragmentByTag("over");
-        if(fragment == null)
+        if(fragment != null)
         {
             getFragmentManager().popBackStack();
         }
