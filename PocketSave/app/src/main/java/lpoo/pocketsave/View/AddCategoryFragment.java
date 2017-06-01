@@ -1,6 +1,7 @@
 package lpoo.pocketsave.View;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.Calendar;
 
@@ -37,10 +42,11 @@ public class AddCategoryFragment extends Fragment {
     private String mParam2;
 
 
-    private Button save,color;
+    private Button save,colorButton;
     private EditText catEstimaed;
     private EditText catTitle;
     private ImageButton catIcon;
+    private int  color = 9999999;
 
 
     private OnFragmentInteractionListener mListener;
@@ -84,7 +90,13 @@ public class AddCategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
 
-        color = (Button) view.findViewById(R.id.colorbutton);
+        colorButton = (Button) view.findViewById(R.id.colorbutton);
+        colorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getColorPicker(v);
+            }
+        });
         catEstimaed = (EditText) view.findViewById(R.id.CatEstimated);
         catTitle = (EditText) view.findViewById(R.id.CatTitle);
         catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
@@ -127,12 +139,6 @@ public class AddCategoryFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-       /* if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 
     @Override
@@ -158,5 +164,46 @@ public class AddCategoryFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void getColorPicker(View v)
+    {
+
+
+        ColorPickerDialogBuilder
+                .with(getActivity().getBaseContext())
+                .setTitle("Choose color")
+                .initialColor(999999999)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                        //toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
+                    }
+                })
+                .setPositiveButton("ok", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        changeBackgroundColor(selectedColor);
+                        color = selectedColor;
+
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .build()
+                .show();
+
+    }
+
+    public void changeBackgroundColor(int color)
+    {
+
+        this.colorButton.setBackgroundColor(color);
     }
 }

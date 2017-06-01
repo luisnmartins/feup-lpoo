@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.IdRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,7 @@ public class TransactionActivity extends AppCompatActivity {
     String category,mCurrentPhotoPath;
     Button savebtn;
     ImageView image;
+    RadioGroup checkPayment;
 
 
 
@@ -51,15 +55,28 @@ public class TransactionActivity extends AppCompatActivity {
 
         showDialogDate();
 
+        checkPayment = (RadioGroup) findViewById(R.id.radioGroupPaymentMethod);
         value = (EditText) findViewById(R.id.ValueText);
         description = (EditText) findViewById(R.id.DescriptionText);
         savebtn = (Button) findViewById(R.id.Savebtn);
 
         image = (ImageView) findViewById(R.id.receiptImage);
 
+        image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }}
+        );
         image.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+
+                    return false;
+                }
                 if(event.getAction() == MotionEvent.ACTION_UP)
                 {
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -86,13 +103,9 @@ public class TransactionActivity extends AppCompatActivity {
             }
         });
 
-        /*try {
-            image.setImageDrawable(Drawable.createFromPath("/storage/emulated/0/Android/data/lpoo.pocketsave.View/files/Pictures/JPEG_1_.jpg"));
-        }catch(NullPointerException a){
-            Toast.makeText(this, "Nao tem imagem", Toast.LENGTH_SHORT);
-        }*/
 
         AddData();
+        checkRadioGroupChange();
 
 
     }
@@ -197,6 +210,26 @@ public class TransactionActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void checkRadioGroupChange()
+    {
+        checkPayment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId){
+                    case (R.id.creditcard): {
+
+
+                        break;
+                    }
+                    case (R.id.money):
+                    {
+                        break;
+                    }
+                }
+            }
+        });
     }
 
 
