@@ -89,8 +89,8 @@ public class Month extends AppCompatActivity {
                 Double ExpenseValue = Double.parseDouble(SetFixedExpenses.getText().toString());
                 long IncomeID = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
                 long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
-                DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false, null);
-                DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false, null);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false, null,true);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false, null,true);
                 Intent mainIntent = new Intent(Month.this, MainActivity.class);
                 Month.this.startActivity(mainIntent);
                 finish();
@@ -181,10 +181,10 @@ public class Month extends AppCompatActivity {
                     String date = returnFirstofMonth();
                     Double value = Double.parseDouble(SetCatValue.getText().toString());
                     if(trans == null){
-                        DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",category.getID(),false, null);
+                        DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",category.getID(),false, null,true);
 
                     }else{
-                        DataManager.getInstance().addUpdateTransaction("Update",trans.getID(),value,date,"estimativa",category.getID(),false,null);
+                        DataManager.getInstance().addUpdateTransaction("Update",trans.getID(),value,date,"estimativa",category.getID(),false,null,true);
                     }
                     catValues.put(tempCatName, (double) value);
                     Double estimative = calculateBalance();

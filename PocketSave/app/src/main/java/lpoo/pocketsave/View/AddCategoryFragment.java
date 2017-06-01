@@ -94,7 +94,7 @@ public class AddCategoryFragment extends Fragment {
         colorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getColorPicker(v);
+                getColorPicker();
             }
         });
         catEstimaed = (EditText) view.findViewById(R.id.CatEstimated);
@@ -119,7 +119,7 @@ public class AddCategoryFragment extends Fragment {
                 Double estimated_value = Double.parseDouble(catEstimaed.getText().toString());
                 long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null,null).get(0).getID();
 
-                DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false,null);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false,null,false);
 
                 getActivity().getSupportFragmentManager().popBackStack();
             }
@@ -167,12 +167,12 @@ public class AddCategoryFragment extends Fragment {
     }
 
 
-    public void getColorPicker(View v)
+    public void getColorPicker()
     {
 
 
         ColorPickerDialogBuilder
-                .with(getActivity().getBaseContext())
+                .with(((MainActivity)getActivity()).getcontext())
                 .setTitle("Choose color")
                 .initialColor(999999999)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)

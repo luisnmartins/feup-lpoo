@@ -212,7 +212,7 @@ public class StatsFragment extends Fragment {
                     Bundle b = new Bundle();
                     b.putString("CatName",cat_name);
                     b.putString("FromDate",from);
-                    b.putString("ToDate",from);
+                    b.putString("ToDate",to);
                     frag.setArguments(b);
                     startOverview(frag,"over");
 

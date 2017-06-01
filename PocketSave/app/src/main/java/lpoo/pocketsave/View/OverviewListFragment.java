@@ -115,6 +115,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     protected ArrayList<Transaction> mDataset;
     protected String TransType;
     protected  String CatName;
+    protected String from,to;
 
 
     private static final Comparator<Transaction> VALUE_COMPARATOR = new Comparator<Transaction>() {
@@ -144,6 +145,8 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
         Bundle b = getArguments();
         TransType = b.getString("TransType");
         CatName = b.getString("CatName");
+        from = b.getString("FromDate");
+        to = b.getString("ToDate");
         initDataset();
 
     }
@@ -303,9 +306,12 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
 
         if(CatName != null)
         {
-            mDataset = DataManager.getInstance().getTransactionsBetweenDates("Category",CatName,getArguments().getString("FromDate"),getArguments().getString("ToDate"),true);
+            mDataset = DataManager.getInstance().getTransactionsBetweenDates("Category",CatName,from,to,true);
+        }else
+        {
+            mDataset = DataManager.getInstance().getTypeTransaction(TransType);
+
         }
-        mDataset = DataManager.getInstance().getTypeTransaction(TransType);
 
     }
 

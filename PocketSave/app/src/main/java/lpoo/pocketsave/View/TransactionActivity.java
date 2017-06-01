@@ -41,6 +41,7 @@ public class TransactionActivity extends AppCompatActivity {
     Button savebtn;
     ImageView image;
     RadioGroup checkPayment;
+    private boolean isCash = true;
 
 
 
@@ -203,7 +204,7 @@ public class TransactionActivity extends AppCompatActivity {
                         long id = 0;
                         if(b != null)
                           id = b.getLong("CatID");
-                        DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath);
+                        DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
                         finish();
                         //TODO: change done value
 
@@ -220,11 +221,12 @@ public class TransactionActivity extends AppCompatActivity {
                 switch (checkedId){
                     case (R.id.creditcard): {
 
-
+                        isCash = false;
                         break;
                     }
                     case (R.id.money):
                     {
+                        isCash = true;
                         break;
                     }
                 }

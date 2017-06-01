@@ -133,7 +133,7 @@ public class SettingsActivity extends AppCompatActivity {
                     case R.id.IncomeButton:{
 
                         destroyFragment();
-                        OverviewListFragment frag = new OverviewListFragment();
+                        FixedExpensesIncomesListFragment frag = new FixedExpensesIncomesListFragment();
                         Bundle b = new Bundle();
                         b.putString("TransType","Income");
                         frag.setArguments(b);
@@ -143,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
                     case R.id.ExpensesButton:{
 
                         destroyFragment();
-                        OverviewListFragment frag = new OverviewListFragment();
+                        FixedExpensesIncomesListFragment frag = new FixedExpensesIncomesListFragment();
                         Bundle b = new Bundle();
                         b.putString("TransType","Fixed Expense");
                         frag.setArguments(b);
