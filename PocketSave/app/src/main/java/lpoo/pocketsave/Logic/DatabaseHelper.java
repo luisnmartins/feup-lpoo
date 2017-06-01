@@ -44,6 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TRANS_DONE = "Done";
     public static final String TRANS_CATEGORY_ID = "Category_ID";
     public static final String TRANS_IMAGE = "Image";
+    public static final String TRANS_CASH = "Cash";
+
 
     //Category Table Columns
     public static final String CAT_ID = "_id";
@@ -77,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
         String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY, "+
                 TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
-                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
+                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, "+TRANS_CASH+" BOOLEAN NOT NULL, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
 
         Log.d(TAG, create_category);
 
@@ -368,6 +370,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TRANS_DATE, newTransaction.getDate());
         contentValues.put(TRANS_CATEGORY_ID, newTransaction.getCatID());
         contentValues.put(TRANS_DONE, newTransaction.getDone());
+        contentValues.put(TRANS_CASH, newTransaction.isCashMethod() );
         long result = db.insert(TABLE_TRANSACTION,null, contentValues);
         if(result == -1)
             return false;
@@ -397,6 +400,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TRANS_CATEGORY_ID, toUpdate.getCatID());
         contentValues.put(TRANS_DONE, toUpdate.getDone());
         contentValues.put(TRANS_IMAGE, toUpdate.getImage());
+        contentValues.put(TRANS_CASH, toUpdate.isCashMethod());
         return db.update(TABLE_TRANSACTION, contentValues, TRANS_ID+"= ?",new String[] { Long.toString(toUpdate.getID()) })>0;
 
     }
@@ -421,8 +425,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getTypeTransactions(String typeTitle){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
+        Log.d(TAG, Long.toString(getTypeID(typeTitle)));
         String query = "SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+", T."+
-        TRANS_DONE+", T."+TRANS_IMAGE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+ " AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY T.Date";
+                        TRANS_DONE+", T."+TRANS_IMAGE+
+                        " FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+
+                        " AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY T.Date";
         cursor = db.rawQuery(query, null);
 
         /*if(id == null){
@@ -517,6 +524,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         if(catTitle == null){
+
             String query = "SELECT C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
                     TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE "+
                     "T."+TRANS_CATEGORY_ID+ " = C."+CAT_ID+
@@ -524,14 +532,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " GROUP BY C."+CAT_TITLE;
             cursor = db.rawQuery(query, null);
         }
-        else
-            cursor = db.rawQuery("SELECT C."+CAT_TITLE+", SUM(T."+TRANS_VALUE+") FROM "+
-                TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE "+
-                "T."+TRANS_CATEGORY_ID+ " = C."+CAT_ID+
-                " AND T."+ TRANS_DATE+" BETWEEN '"+ d1+"' AND '"+d2+
-                "' AND C."+CAT_TITLE+ " = "+catTitle+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+ " GROUP BY C."+CAT_TITLE, null);
+        else {
+            String query = "SELECT C." + CAT_TITLE + ", SUM(T." + TRANS_VALUE + ") FROM " +
+                    TABLE_TRANSACTION + " T, " + TABLE_CATEGORY + " C WHERE " +
+                    "T." + TRANS_CATEGORY_ID + " = C." + CAT_ID +
+                    " AND T." + TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2 +
+                    "' AND C." + CAT_TITLE + " = " + catTitle + " AND T." + TRANS_DONE + " = " + ((done) ? 1 : 0) + " GROUP BY C." + CAT_TITLE;
+
+            cursor = db.rawQuery(query, null);
+
+        }
 
         if(cursor == null || cursor.getCount()<1){
+
             cursor.close();
             return null;
         }

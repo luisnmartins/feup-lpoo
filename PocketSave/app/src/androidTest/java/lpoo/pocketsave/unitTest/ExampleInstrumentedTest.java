@@ -3,20 +3,22 @@ package lpoo.pocketsave.unitTest;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeSet;
-import lpoo.pocketsave.Logic.Category;
+
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
-import lpoo.pocketsave.Logic.Transaction;
+import lpoo.pocketsave.Logic.Suggestions;
+
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
+
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -278,9 +280,9 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "ordenado", "income",false));
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "carro", "expense", true));
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "compras", "expense", true));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 3, true, null));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, false));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 3, true, null, true));
        assertEquals("2017-02-22", DataManager.getInstance().getTransactionsBetweenDates("Type", "expense", "2017-02-01", "2017-02-31", true).get(0).getDate());
    }
 
@@ -300,9 +302,9 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "ordenado", "income",false));
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "carro", "expense", true));
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "compras", "expense", true));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 3, true, null));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, false));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 3, true, null, false));
        assertEquals("2017-02-25", DataManager.getInstance().getTransactionsBetweenDates("Category", "carro", "2017-02-01", "2017-02-28", true).get(0).getDate());
 
    }
@@ -322,9 +324,9 @@ public class ExampleInstrumentedTest {
        assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "carro", "expense", true));
        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "compras", "expense", true));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null));
-       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 2, true, null));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, true));
+       assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 2, true, null, false));
        Double v = 204.0;
        assertEquals(v, DataManager.getInstance().getTotalSpentValues("Category", null, "2017-02-01", "2017-02-28", true).get("compras"));
 
@@ -345,11 +347,57 @@ public class ExampleInstrumentedTest {
         assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
         assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "carro", "expense", true));
         assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "compras", "expense", true));
-        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null));
-        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null));
-        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 2, false, null));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 2, false, null, false));
         Double v = 112.0;
         assertEquals(v, DataManager.getInstance().getTotalSpentValues("Type", "expense", "2017-02-01", "2017-02-28", false).get("expense"));
+
+    }
+
+    @Test
+    public void onlimitCategory(){
+
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        DataManager.getInstance().startDB(appContext);
+        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
+        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
+        assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "carro", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "compras", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-05-01", "expected", 1, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 7.0, "2017-05-01", "expected", 2, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-05-10", "expected", 1, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 1.0, "2017-05-13", "expected", 2, true, null, true));
+        Suggestions sug = new Suggestions();
+        assertEquals("carro", sug.onlimitCategory().get(0));
+
+    }
+
+    @Test
+    public void cashLimit(){
+
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        DataManager.getInstance().startDB(appContext);
+        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
+        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
+        assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "carro", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", -1, "compras", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-05-01", "expected", 1, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 7.0, "2017-05-01", "expected", 2, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-05-10", "expected", 1, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 1.0, "2017-05-13", "expected", 2, true, null, true));
 
     }
 

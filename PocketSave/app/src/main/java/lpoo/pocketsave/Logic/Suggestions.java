@@ -2,6 +2,7 @@ package lpoo.pocketsave.Logic;
 
 
 import android.provider.CalendarContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +12,8 @@ public class Suggestions {
 
     ArrayList<Integer> daysofmonths = new ArrayList<Integer>();
     static  final double PERCENTAGE_DIFERENCE = 0.2;
+
+    private static final String TAG = "Suggestions";
 
 
     public Suggestions(){
@@ -45,25 +48,34 @@ public class Suggestions {
     //TODO: verificar se uma categoria esta acima (20%) do seu valor previsto comparativamente com o que ja passou do mes corrente
     public ArrayList<String> onlimitCategory(){
 
+
         ArrayList<String> limitCategories = new ArrayList<>();
         Double occurred;
         Double expected;
         Calendar c = Calendar.getInstance();
-        String d1 = getInitialDate(true,"current");
-        String d2 = getInitialDate(false,"currentDate");
-
+        String d1 = "2017-05-01";
+        String d2 = "2017-05-17";
+        /*String d1 = getInitialDate(true,"current");
+        String d2 = getInitialDate(false,"currentDate");*/
         HashMap<String, Double> expectedValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d1, false);
         HashMap<String, Double> occurredValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d2, true);
-        double daysLeftperc = (daysofmonths.get(c.get(Calendar.MONTH)-1) - c.get(Calendar.DAY_OF_MONTH))/daysofmonths.get(c.get(Calendar.MONTH)-1)*100;
+        double daysLeftperc =50;
+        //double daysLeftperc = (daysofmonths.get(c.get(Calendar.MONTH)) - c.get(Calendar.DAY_OF_MONTH))/daysofmonths.get(c.get(Calendar.MONTH)-1)*100;
+
+
 
         for (HashMap.Entry<String, Double> exp : expectedValues.entrySet()){
-
+            Log.d(TAG, exp.getKey());
             if((occurred=occurredValues.get(exp.getKey())) != null){
                 expected = exp.getValue();
-                double moneyPerc = (expected-occurred)/expected*100;
 
-                if(daysLeftperc-moneyPerc > 20)
+                double moneyPerc = 100 - occurred*100/expected;
+                Log.d("TESTES: FIM ","Dias: "+daysLeftperc);
+                Log.d("TESTES: FIM ","DINH: "+moneyPerc);
+                if(daysLeftperc-moneyPerc > 20) {
+                    Log.d("TESTES: FIM ", exp.getKey());
                     limitCategories.add(exp.getKey());
+                }
             }
         }
 
@@ -83,8 +95,11 @@ public class Suggestions {
         int cashQuantity;
         int numberOfCashTransactions;
 
-        String d1 = getInitialDate(true,"current");
-        String d2 = getInitialDate(false,"currentDate");
+
+        String d1 = "2017-05-01";
+        String d2 = "2017-05-17";
+        /*String d1 = getInitialDate(true,"current");
+        String d2 = getInitialDate(false,"currentDate");*/
 
         for (String exp : onLimit){
             cashQuantity = 0;
@@ -92,7 +107,7 @@ public class Suggestions {
                ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Category",exp,d1,d2,true);
                 for(int i = 0; i < trans.size();i++)
                 {
-                    if(trans.get(i).isCashMethod())
+                    if(trans.get(i).isCashMethod()>0)
                     {
                         cashQuantity += trans.get(i).getValue();
                         numberOfCashTransactions++;
@@ -233,25 +248,31 @@ public class Suggestions {
     }
 
 
+    /**
+     *
+     * @param firstDay
+     * @param month
+     * @return
+     */
     public String getInitialDate(Boolean firstDay,String month){
         Calendar c = Calendar.getInstance();
         String date;
         if(month.equals("currentDate")) {
-            date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH);
+            date = c.get(Calendar.YEAR) + "-0" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DAY_OF_MONTH);
             return date;
         }
         if(firstDay)
         {
             if(month.equals("last"))
             {
-                if((c.get(Calendar.MONTH)) == 1) {
+                if((c.get(Calendar.MONTH)) == 0) {
                     return null;
                 }
-                date = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)-1) + "-" +  1;
+                date = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)) + "-" +  1;
             }else
             {
 
-                date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" +  1;
+                date = c.get(Calendar.YEAR) + "-0" + (c.get(Calendar.MONTH)+1) + "-0" +  1;
 
             }
 
@@ -259,14 +280,14 @@ public class Suggestions {
         {
             if(month.equals("last")){
 
-                if((c.get(Calendar.MONTH)) == 1) {
+                if((c.get(Calendar.MONTH)) == 0) {
                     return null;
                 }
-                date = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)-1) + "-" +  daysofmonths.get(c.get(Calendar.MONTH)-2);
+                date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" +  daysofmonths.get(c.get(Calendar.MONTH)-2);
 
             }else
             {
-                date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" +  daysofmonths.get(c.get(Calendar.MONTH)-1);
+                date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH)+1 + "-" +  daysofmonths.get(c.get(Calendar.MONTH)-1);
             }
         }
         return  date;

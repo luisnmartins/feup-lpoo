@@ -157,8 +157,8 @@ public class DataManager {
      * @param image Path od the receipt image
      * @return
      */
-    public boolean addUpdateTransaction( String operation, long id, double value, String date, String description, long catID, boolean done, String image){
-        Transaction newTransaction = new Transaction(id, value, date, description, catID, done, image);
+    public boolean addUpdateTransaction( String operation, long id, double value, String date, String description, long catID, boolean done, String image, boolean cash){
+        Transaction newTransaction = new Transaction(id, value, date, description, catID, done, image, cash);
         if(operation == "Add"){
             return db.addTransaction(newTransaction);
         }else if(operation == "Update"){
@@ -178,7 +178,7 @@ public class DataManager {
 
         ArrayList<Transaction> transactions = null;
         Transaction newTransaction;
-        boolean done;
+
 
         Cursor cursor = db.getTypeTransactions(type);
         if(cursor == null)
@@ -187,14 +187,15 @@ public class DataManager {
 
             transactions = new ArrayList<Transaction>();
             do{
-                done = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0;
+
                 newTransaction = new Transaction(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)),
                         cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)),
                         cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
-                        done,
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
+                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0,
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)),
+                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH))>0);
 
                 transactions.add(newTransaction);
             }while(cursor.moveToNext());
@@ -223,7 +224,6 @@ public class DataManager {
 
         ArrayList<Transaction> transactions = null;
         Transaction newTransaction;
-        boolean donef;
         Cursor cursor= null;
         if(structure == "Category")
             cursor = db.getCatTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
@@ -241,14 +241,14 @@ public class DataManager {
 
             transactions = new ArrayList<Transaction>();
             do{
-                donef = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0;
                 newTransaction = new Transaction(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)),
                                                  cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
                                                  cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
                                                  cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)),
                                                  cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
-                                                 donef,
-                                                cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
+                                                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE))>0,
+                                                cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)),
+                                                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH))>0);
 
                 transactions.add(newTransaction);
             }while(cursor.moveToNext());
@@ -273,7 +273,6 @@ public class DataManager {
         HashMap<String, Double> categories= null;
         String catType;
         double value;
-
         Cursor cursor;
         if(structure == "Category")
             cursor = db.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
@@ -282,8 +281,9 @@ public class DataManager {
         else
             return null;
 
-        if(cursor == null)
+        if(cursor == null) {
             return null;
+        }
 
 
         if(cursor.moveToFirst()){
