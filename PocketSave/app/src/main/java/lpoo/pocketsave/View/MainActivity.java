@@ -115,12 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return mOptionsMenu;
     }
 
-    public void getOverview(View view){
 
-
-        mToolbar.setTitle("Overview");
-        setFragment(new OverviewListFragment(),"over");
-    }
 
     public void getStats(View view)
     {
@@ -130,12 +125,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MainActivity.this.startActivity(statsIntent);
     }
 
-    public void setStatsAlert(View view)
-    {
-        DialogFragment dialog;
-        dialog = new ChooseStatsDialog();
-        dialog.show(getSupportFragmentManager(),"ChooseStatsDialog");
-    }
 
     public void getNewCategory(View view)
     {
@@ -161,11 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    /*public void goTransaction(){
 
-        PocketSave.getInstance().changeState(PocketSave.State.Transaction, );
-
-    }*/
 
     public void viewAll() {
         more.setOnClickListener(
@@ -294,7 +279,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mOptionsMenu.findItem(R.id.action_search).setVisible(true);
             mOptionsMenu.setGroupVisible(R.id.overGroup,true);;
             mToolbar.setTitle("Overview");
-            setFragment(new OverviewListFragment(),"over");
+            OverviewListFragment frag = new OverviewListFragment();
+            Bundle b = new Bundle();
+            b.putString("TransType","Variable Expense");
+            frag.setArguments(b);
+            setFragment(frag,"over");
         }else if(id == R.id.nav_transactions)
         {
             closeAllFragments();
@@ -306,6 +295,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.logOut();
         }else if(id == R.id.nav_settings)
         {
+            closeAllFragments();
+            Intent settingsIntent = new Intent(MainActivity.this,SettingsActivity.class);
+            MainActivity.this.startActivity(settingsIntent);
 
         }else if(id == R.id.nav_month)
         {

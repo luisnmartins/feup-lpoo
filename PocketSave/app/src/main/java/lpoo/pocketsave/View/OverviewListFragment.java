@@ -1,5 +1,6 @@
 package lpoo.pocketsave.View;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -112,6 +113,8 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     protected MyOverviewListRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Transaction> mDataset;
+    protected String TransType;
+    protected  String CatName;
 
 
     private static final Comparator<Transaction> VALUE_COMPARATOR = new Comparator<Transaction>() {
@@ -138,12 +141,9 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        //getActivity().s(mToolbar);
-        // Initialize dataset, this data would usually come from a local content provider or
-        // remote server
-
+        Bundle b = getArguments();
+        TransType = b.getString("TransType");
+        CatName = b.getString("CatName");
         initDataset();
 
     }
@@ -247,11 +247,15 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
     @Override
     public void onDetach() {
         super.onDetach();
-        MainActivity activity = (MainActivity) getActivity();
-        //activity.resetButtons(true);
-        activity.getmToolbar().setTitle("Main Menu");
-        activity.getmOptionsMenu().findItem(R.id.action_search).setVisible(false);
-        activity.getmOptionsMenu().setGroupVisible(R.id.overGroup,false);
+
+        Activity activity = getActivity();
+        if(activity instanceof MainActivity)
+        {
+            ((MainActivity) activity).getmToolbar().setTitle("Main Menu");
+            ((MainActivity)activity).getmOptionsMenu().findItem(R.id.action_search).setVisible(false);
+            ((MainActivity)activity).getmOptionsMenu().setGroupVisible(R.id.overGroup,false);
+        }
+
 
 
     }
@@ -297,7 +301,11 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
      */
     private void initDataset() {
 
-        mDataset = DataManager.getInstance().getTypeTransaction("Variable Expense");
+        if(CatName != null)
+        {
+            mDataset = DataManager.getInstance().getTransactionsBetweenDates("Category",CatName,getArguments().getString("FromDate"),getArguments().getString("ToDate"),true);
+        }
+        mDataset = DataManager.getInstance().getTypeTransaction(TransType);
 
     }
 
