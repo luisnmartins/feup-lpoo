@@ -427,7 +427,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor;
         Log.d(TAG,"ID: "+ getTypeID(typeTitle));
         String query = "SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+", T."+
-                TRANS_DONE+", T."+TRANS_IMAGE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+" AND T."+TRANS_CATEGORY_ID+" = C."+CAT_ID +" AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY T.Date";
+                TRANS_DONE+", T."+TRANS_IMAGE+", T."+TRANS_CASH+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+" AND T."+TRANS_CATEGORY_ID+" = C."+CAT_ID +" AND C."+CAT_USER_ID+" = "+currUser.getID()+" ORDER BY T.Date";
         cursor = db.rawQuery(query, null);
 
         if(cursor == null || cursor.getCount()<1){
@@ -483,7 +483,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT T."+TRANS_ID+", T."+TRANS_VALUE+", T."+TRANS_DATE+", T."+TRANS_DESCRIPTION+", T."+TRANS_CATEGORY_ID+", T."+
-                TRANS_DONE+", T."+TRANS_IMAGE+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE T.Date BETWEEN '"+
+                TRANS_DONE+", T."+TRANS_IMAGE+", T."+TRANS_CASH+" FROM "+TABLE_TRANSACTION+" T, "+TABLE_CATEGORY+" C WHERE T.Date BETWEEN '"+
                 d1+"' AND '"+d2+"' AND C."+CAT_TYPE_ID+" = "+getTypeID(typeTitle)+ " AND C."+CAT_USER_ID+" = "+currUser.getID()+" AND T."+TRANS_DONE+" = "+((done) ? 1 : 0)+" ORDER BY T.Date";
 
         Cursor cursor = db.rawQuery(query, null);
