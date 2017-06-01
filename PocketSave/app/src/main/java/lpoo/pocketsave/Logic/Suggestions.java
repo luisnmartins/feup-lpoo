@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class Suggestions {
@@ -53,15 +54,12 @@ public class Suggestions {
         Double occurred;
         Double expected;
         Calendar c = Calendar.getInstance();
-        String d1 = "2017-05-01";
-        String d2 = "2017-05-17";
-        /*String d1 = getInitialDate(true,"current");
-        String d2 = getInitialDate(false,"currentDate");*/
+        String d1 = getInitialDate(true,"current");
+        String d2 = getInitialDate(false,"currentDate");
         HashMap<String, Double> expectedValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d1, false);
         HashMap<String, Double> occurredValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d2, true);
-        double daysLeftperc =50;
-        //double daysLeftperc = (daysofmonths.get(c.get(Calendar.MONTH)) - c.get(Calendar.DAY_OF_MONTH))/daysofmonths.get(c.get(Calendar.MONTH)-1)*100;
-
+        double daysLeftperc = 100- c.get(Calendar.DAY_OF_MONTH)*100/daysofmonths.get(c.get(Calendar.MONTH));
+        Log.d(TAG, "DIAS: "+daysLeftperc);
 
 
         for (HashMap.Entry<String, Double> exp : expectedValues.entrySet()){
@@ -71,7 +69,7 @@ public class Suggestions {
 
                 double moneyPerc = 100 - occurred*100/expected;
                 Log.d("TESTES: FIM ","Dias: "+daysLeftperc);
-                Log.d("TESTES: FIM ","DINH: "+moneyPerc);
+                Log.d("TESTES: FIM ","DINHEIRO: "+moneyPerc);
                 if(daysLeftperc-moneyPerc > 20) {
                     Log.d("TESTES: FIM ", exp.getKey());
                     limitCategories.add(exp.getKey());
@@ -96,15 +94,14 @@ public class Suggestions {
         int numberOfCashTransactions;
 
 
-        String d1 = "2017-05-01";
-        String d2 = "2017-05-17";
-        /*String d1 = getInitialDate(true,"current");
-        String d2 = getInitialDate(false,"currentDate");*/
+        String d1 = getInitialDate(true,"current");
+        String d2 = getInitialDate(false,"currentDate");
 
         for (String exp : onLimit){
             cashQuantity = 0;
             numberOfCashTransactions = 0;
                ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Category",exp,d1,d2,true);
+
                 for(int i = 0; i < trans.size();i++)
                 {
                     if(trans.get(i).isCashMethod()>0)
@@ -113,18 +110,15 @@ public class Suggestions {
                         numberOfCashTransactions++;
                     }
                 }
+
                 if(numberOfCashTransactions/trans.size() >= 0.7)
                 {
+
                     if(cashQuantity/numberOfCashTransactions < 20)
                     {
                         ret.add(exp);
                     }
                 }
-
-
-
-
-
 
         }
         return ret;
