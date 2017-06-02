@@ -16,9 +16,9 @@ Java Project - object oriented programming
 <br><br>
 ## EclEmma Test
 
-![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/master/C02/ScreenShots/EclEmmaTest.png)
+![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/guided_project_delivery/C02/ScreenShots/EclEmmaTest.png)
 
 <br><br>
 ## Pit Mutation
 
-![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/master/C02/ScreenShots/PITMutationTest.png)
+![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/guided_project_delivery/C02/ScreenShots/PITMutationTest.png)
