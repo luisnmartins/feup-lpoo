@@ -27,6 +27,7 @@ public class TransactionDB implements CRUDDB<Transaction> {
         contentValues.put(DatabaseHelper.TRANS_DATE, newTransaction.getDate());
         contentValues.put(DatabaseHelper.TRANS_CATEGORY_ID, newTransaction.getCatID());
         contentValues.put(DatabaseHelper.TRANS_DONE, newTransaction.getDone());
+        contentValues.put(DatabaseHelper.TRANS_IMAGE, newTransaction.getImage());
         contentValues.put(DatabaseHelper.TRANS_CASH, newTransaction.isCashMethod() );
         long result = db.insert(DatabaseHelper.TABLE_TRANSACTION,null, contentValues);
         if(result == -1)

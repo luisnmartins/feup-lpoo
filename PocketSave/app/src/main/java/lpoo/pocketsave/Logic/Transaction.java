@@ -66,8 +66,11 @@ public class Transaction implements Comparable<Transaction>{
 
     @Override
     public boolean equals(Object obj) {
-        return this.id == ((Transaction)obj).getID();
+
+        return this.catID == ((Transaction)obj).getCatID() && this.description.equals(((Transaction)obj).getDescription());
     }
+
+
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
