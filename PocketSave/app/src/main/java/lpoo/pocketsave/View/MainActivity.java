@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Bundle b = new Bundle();
                 b.putLong("CatID",cat.getID());
                 b.putString("Category",cat.getTitle());
+                b.putBoolean("isToAdd",true);
                 transactionIntent.putExtras(b);
                 MainActivity.this.startActivity(transactionIntent);
 

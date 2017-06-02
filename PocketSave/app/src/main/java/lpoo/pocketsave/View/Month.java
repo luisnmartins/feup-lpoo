@@ -1,8 +1,11 @@
 package lpoo.pocketsave.View;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -43,6 +46,7 @@ public class Month extends AppCompatActivity {
     private int categories_size=1;
     private String tempCatName;
     private HashMap<String,Double> catValues = new HashMap<>();
+    private ImageButton addCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,13 @@ public class Month extends AppCompatActivity {
         initializeEditTexts();
         initializeImageButtons();
 
+        addCategory = (ImageButton) findViewById(R.id.addCatMonth);
+        addCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCategoryFragment();
+            }
+        });
         saveButton = (Button) findViewById(R.id.setMonth);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,6 +266,19 @@ public class Month extends AppCompatActivity {
         total=income-expenses-valor;
         System.out.println("valor total " + total);
         return total;
+    }
+
+    public void addCategoryFragment()
+    {
+        AddCategoryFragment frag = new AddCategoryFragment();
+        if(getSupportFragmentManager().findFragmentByTag("addCat") == null)
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.linear_month,frag,"addCat");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
     }
 
 }

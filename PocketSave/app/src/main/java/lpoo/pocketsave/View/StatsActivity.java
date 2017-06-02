@@ -59,7 +59,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
-        private String fragments [] = {"Stats1","Stats2"};
+        private String fragments [] = {"Category Stats","Stats2"};
         public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
 
             super(supportFragmentManager);
@@ -69,10 +69,12 @@ public class StatsActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0: {
-                    return new CatStatsFragment();
+
+                    return new StatsFragment();
+
                 }
                 case 1:{
-                    return new StatsFragment();
+                    return new CatStatsFragment();
                 }
                 default:
                     return null;

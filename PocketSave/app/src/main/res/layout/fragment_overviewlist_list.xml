@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name="lpoo.pocketsave.View.OverviewListFragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@android:color/white"
     app:layoutManager="LinearLayoutManager"
     android:orientation="vertical"
@@ -12,28 +12,22 @@
     tools:listitem="@layout/fragment_overviewlist">
 
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:checkedButton="@+id/linear_layout_rb">
-        <RadioButton android:id="@+id/linear_layout_rb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Linear"/>
-        <RadioButton android:id="@+id/grid_layout_rb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Grid"/>
-    </RadioGroup>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/OverviewList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="378dp"
+        android:layout_height="542dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="1dp"
         android:clipChildren="true"
         android:clipToPadding="true"
-        android:scrollbars="horizontal|vertical" />
+        android:scrollbars="horizontal|vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.205" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

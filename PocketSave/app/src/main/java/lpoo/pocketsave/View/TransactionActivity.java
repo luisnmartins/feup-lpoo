@@ -12,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,8 +51,8 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Transaction - " + getIntent().getExtras().getString("Category"));
-        setSupportActionBar(toolbar);
+
+
 
 
         showDialogDate();
@@ -107,6 +108,14 @@ public class TransactionActivity extends AppCompatActivity {
 
         AddData();
         checkRadioGroupChange();
+
+
+        if(!checkArguments())
+        {
+            toolbar.setTitle("Transaction - " + getIntent().getExtras().getString("Category"));
+            setSupportActionBar(toolbar);
+
+        }
 
 
     }
@@ -204,6 +213,7 @@ public class TransactionActivity extends AppCompatActivity {
                         long id = 0;
                         if(b != null)
                           id = b.getLong("CatID");
+                        Log.d("CNEAS","MANDO PATH: " + mCurrentPhotoPath);
                         DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
                         finish();
                         //TODO: change done value
@@ -234,5 +244,28 @@ public class TransactionActivity extends AppCompatActivity {
         });
     }
 
+    boolean checkArguments()
+    {
+
+        Bundle b = getIntent().getExtras();
+        Boolean isAdd = b.getBoolean("isToAdd");
+        if(isAdd)
+            return false;
+        else{
+            value.setEnabled(false);
+            value.setText(Double.toString(b.getDouble("value")));
+            date.setEnabled(false);
+            date.setText(b.getString("date"));
+            description.setEnabled(false);
+            description.setText(b.getString("description"));
+            checkPayment.setEnabled(false);
+            savebtn.setEnabled(false);
+            image.setImageDrawable(Drawable.createFromPath(b.getString("image")));
+            image.setEnabled(false);
+            Log.d("cenas","PATH IMAGEM" + b.getString("image"));
+            return true;
+
+        }
+    }
 
 }

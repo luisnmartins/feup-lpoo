@@ -1,5 +1,6 @@
 package lpoo.pocketsave.View;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -144,9 +145,13 @@ public class AddCategoryFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        MainActivity activity = (MainActivity) getActivity();
-        //activity.resetButtons(true);
-        activity.getmToolbar().setTitle("Main Menu");
+
+
+        Activity activity = getActivity();
+        if(activity instanceof MainActivity)
+        {
+            ((MainActivity) activity).getmToolbar().setTitle("Main Menu");
+        }
 
         mListener = null;
     }
@@ -172,7 +177,7 @@ public class AddCategoryFragment extends Fragment {
 
 
         ColorPickerDialogBuilder
-                .with(((MainActivity)getActivity()).getcontext())
+                .with(getActivity())
                 .setTitle("Choose color")
                 .initialColor(999999999)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)

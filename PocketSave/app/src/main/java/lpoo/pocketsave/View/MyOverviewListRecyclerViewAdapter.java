@@ -1,6 +1,11 @@
 package lpoo.pocketsave.View;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.util.SortedList;
@@ -9,16 +14,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
@@ -31,10 +39,46 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     private Context mContext;
     private ArrayList<Transaction> mDataSet;
     private  Comparator<Transaction> mComparator;
+    private final SortedList<Transaction> mSortedList = new SortedList<>(Transaction.class, new SortedList.Callback<Transaction>() {
+        @Override
+        public int compare(Transaction a, Transaction b) {
+            return mComparator.compare(a, b);
+        }
+
+        @Override
+        public void onInserted(int position, int count) {
+            notifyItemRangeInserted(position, count);
+        }
+
+        @Override
+        public void onRemoved(int position, int count) {
+            notifyItemRangeRemoved(position, count);
+        }
+
+        @Override
+        public void onMoved(int fromPosition, int toPosition) {
+            notifyItemMoved(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onChanged(int position, int count) {
+            notifyItemRangeChanged(position, count);
+        }
+
+        @Override
+        public boolean areContentsTheSame(Transaction oldItem, Transaction newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areItemsTheSame(Transaction item1, Transaction item2) {
+            return item1 == item2;
+        }
+    });
 
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
         private final TextView listValue;
         private final TextView listDate;
         private final TextView listCat;
@@ -51,6 +95,10 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                    loadTransaction(mSortedList.get(getAdapterPosition()));
+
+
+
                 }
             });
         }
@@ -94,42 +142,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         }
     }
 
-    private final SortedList<Transaction> mSortedList = new SortedList<>(Transaction.class, new SortedList.Callback<Transaction>() {
-        @Override
-        public int compare(Transaction a, Transaction b) {
-            return mComparator.compare(a, b);
-        }
 
-        @Override
-        public void onInserted(int position, int count) {
-            notifyItemRangeInserted(position, count);
-        }
-
-        @Override
-        public void onRemoved(int position, int count) {
-            notifyItemRangeRemoved(position, count);
-        }
-
-        @Override
-        public void onMoved(int fromPosition, int toPosition) {
-            notifyItemMoved(fromPosition, toPosition);
-        }
-
-        @Override
-        public void onChanged(int position, int count) {
-            notifyItemRangeChanged(position, count);
-        }
-
-        @Override
-        public boolean areContentsTheSame(Transaction oldItem, Transaction newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Override
-        public boolean areItemsTheSame(Transaction item1, Transaction item2) {
-            return item1 == item2;
-        }
-    });
 
 
 
@@ -160,6 +173,12 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         viewHolder.getlistValue().setText(String.valueOf(value));
         viewHolder.getListCat().setText(String.valueOf(mSortedList.get(position).getCatID()));
         viewHolder.getListDate().setText(String.valueOf(mSortedList.get(position).getDate()));
+        if(mSortedList.get(position).getImage() != null)
+        {
+
+            viewHolder.getCatIcon().setImageDrawable(Drawable.createFromPath(mSortedList.get(position).getImage()));
+
+        }
     }
 
     @Override
@@ -167,13 +186,12 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         return mSortedList.size();
     }
 
-
-    public  void remove(int position)
+    public SortedList<Transaction> getmSortedList()
     {
-        mDataSet.remove(position);
-        this.notifyItemRemoved(position);
-
+        return mSortedList;
     }
+
+
 
     @Override
     public long getItemId(int position) {
@@ -219,6 +237,31 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         }
         mSortedList.addAll(models);
         mSortedList.endBatchedUpdates();
+    }
+
+    public  void loadTransaction(Transaction t)
+    {
+
+        Intent transactionIntent = new Intent(mContext,TransactionActivity.class);
+        Bundle b = new Bundle();
+        b.putBoolean("isToAdd",false);
+        b.putDouble("value",t.getValue());
+        b.putString("description",t.getDescription());
+        b.putString("date",t.getDate());
+        b.putString("image",t.getImage());
+        b.putLong("cat",t.getCatID());
+        transactionIntent.putExtras(b);
+        mContext.startActivity(transactionIntent);
+       /* Intent transactionIntent = new Intent(getA.this, TransactionActivity.class);
+        ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString(),null,null);
+        System.out.println("a categoria e " + ((Button)view).getText().toString());
+        Category cat = aux.get(0);
+        System.out.println("a categoria e " + cat.getID());
+        Bundle b = new Bundle();
+        b.putLong("CatID",cat.getID());
+        b.putString("Category",cat.getTitle());
+        transactionIntent.putExtras(b);
+        MainActivity.this.startActivity(transactionIntent);*/
     }
 
 }

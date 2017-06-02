@@ -132,6 +132,7 @@ public class MainFragment extends Fragment {
                     Bundle b = new Bundle();
                     b.putLong("CatID",aux.getID());
                     b.putString("Category",aux.getTitle());
+                    b.putBoolean("isToAdd",true);
                     transactionIntent.putExtras(b);
                     getActivity().startActivity(transactionIntent);
 

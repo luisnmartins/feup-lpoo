@@ -216,6 +216,7 @@ public class StatsFragment extends Fragment {
                     frag.setArguments(b);
                     startOverview(frag,"over");
 
+
                 }
 
                /* int pos1 = e.toString().indexOf("y: ");
