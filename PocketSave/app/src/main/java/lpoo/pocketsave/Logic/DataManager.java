@@ -49,7 +49,6 @@ public class DataManager {
         switch (operation){
             case "Add":
                 return user.addUser(email, password);
-
             case "Update":
                 return user.updateUser(email, password, totalSaved);
             case "Open":
@@ -131,7 +130,7 @@ public class DataManager {
     /**
      * Get all or only one category. If is called without parameters (null) it will return all user categories
      * @param catTitle Title of the category that should be returned. To get categories to be shown on the main menu,
-     *             this variable should be "mainMenuCategories". If is nul it will return all current user's categories
+     *             this variable should be "mainMenuCategories". If is null it will return all current user's categories
      * @param main If is a main category then this represents if is to get the 5 visible categories or the other ones.
      *             If null, it will return return the categories considering only catTitle value.
      * @return Returns an array containing the categories
@@ -141,7 +140,7 @@ public class DataManager {
         ArrayList<Category> categories=null;
         Category newCategory;
         boolean mainMenu;
-        if(catTitle.equals("mainMenuCategories")){
+        if(catTitle == "mainMenuCategories"){
             cursor = category.getMainCategories(main,type);
         }
         else
@@ -248,9 +247,9 @@ public class DataManager {
         ArrayList<Transaction> transactions = null;
         Transaction newTransaction;
         Cursor cursor= null;
-        if(structure == "Category")
+        if(structure.equals("Category"))
             cursor = transaction.getCatTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
-        else if (structure == "Type")
+        else if (structure.equals("Type"))
             cursor = transaction.getTypeTransactionsBetweenDates(Long.toString(type.getTypeID(catTitle_typeTitle)), d1, d2, done);
 
         if(cursor == null){
@@ -296,9 +295,9 @@ public class DataManager {
         String catType;
         double value;
         Cursor cursor;
-        if(structure == "Category")
+        if(structure.equals("Category"))
             cursor = transaction.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
-        else if(structure == "Type")
+        else if(structure.equals("Type"))
             cursor = transaction.getTypeTotalValueSpent(catTitle_typeTitle, d1, d2, done);
         else
             return null;
@@ -329,18 +328,19 @@ public class DataManager {
      * @param id ID of the element to delete. To delete user this should be null
      * @return Returns true id the element that was deleted and false if not
      */
-    public boolean deleteElements(String element, String id){
+    public boolean deleteElements(String element, String id) {
 
-        if(element.equals("Transaction")){
-            return transaction.delete(id);
-        }else if( element.equals("Category")){
-            return category.delete(id);
-        }else if( element.equals("User")){
-            return user.deleteUser();
+        switch (element) {
+            case "Transaction":
+                return transaction.delete(id);
+            case "Category":
+                return category.delete(id);
+            case "User":
+                return user.delete();
+            default:
+                return false;
+
         }
-        return false;
-
     }
-
 
 }

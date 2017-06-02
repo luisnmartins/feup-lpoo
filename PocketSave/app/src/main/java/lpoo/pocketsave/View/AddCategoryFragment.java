@@ -110,7 +110,7 @@ public class AddCategoryFragment extends Fragment {
                 {
                     return;
                 }
-                DataManager.getInstance().addUpdateCategory("Add",-1,catTitle.getText().toString(),"Variable Expense",false);
+                DataManager.getInstance().addUpdateCategory("Add",catTitle.getText().toString(),"Variable Expense",false);
                 Calendar c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);

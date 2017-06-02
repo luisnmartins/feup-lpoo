@@ -111,7 +111,7 @@ public class UserDB {
      * Delete the current user from the db
      * @return Returns true if it was deleted and false if not
      */
-    public boolean deleteUser(){
+    public boolean delete(){
         SQLiteDatabase db = dbH.getWritableDatabase();
         return db.delete(DatabaseHelper.TABLE_USER, DatabaseHelper.USER_ID+"=?",new String[]{dbH.getUserID()})>0;
     }
