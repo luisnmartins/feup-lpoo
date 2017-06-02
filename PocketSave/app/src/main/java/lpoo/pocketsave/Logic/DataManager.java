@@ -5,21 +5,28 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashMap;
 
 
 public class DataManager {
 
-    static private DatabaseHelper db;
+    static private UserDB user;
+    static private CategoryDB category;
+    static private TypeDB type;
+    static private TransactionDB transaction;
 
     private static final String TAG = "DataManager";
 
     static private DataManager instance = null;
 
     static public void startDB(Context context){
-        if(db == null) {
-        db = new DatabaseHelper(context);
+        if(user == null) {
+            DatabaseHelper.startDB(context);
+            user = new UserDB();
+            category = new CategoryDB();
+            type = new TypeDB();
+            transaction = new TransactionDB();
         }
     }
 
@@ -39,14 +46,18 @@ public class DataManager {
      */
     public boolean addOpenUpdateUser(String operation, String email, String password, double totalSaved){
 
-        if(operation == "Add"){
-            return db.addUser(email, password);
-        }else if(operation == "Update"){
-            return db.updateUser(email, password, totalSaved);
-        }else if(operation == "Open"){
-            return db.openUser(email, password);
+        switch (operation){
+            case "Add":
+                return user.addUser(email, password);
+
+            case "Update":
+                return user.updateUser(email, password, totalSaved);
+            case "Open":
+                return user.openUser(email, password);
+            default:
+                return false;
         }
-        return false;
+
     }
 
     /**
@@ -54,7 +65,19 @@ public class DataManager {
      * @return Returns an instance of the user that is logged in
      */
     public User getUser(){
-        return db.getUser();
+
+        Cursor cursor = user.getUser();
+        if(cursor == null)
+            return null;
+        else if(cursor.moveToFirst()) {
+            User currUser = new User(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.USER_ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_PASSWORD)),
+                    cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.USER_TOTALSAVED)));
+            cursor.close();
+            return currUser;
+        }
+        return null;
     }
 
 
@@ -70,11 +93,11 @@ public class DataManager {
     public long addGetType(String operation, String title){
 
         long id=-1;
-        if(operation == "Add"){
-            id = db.addType(title);
+        if(operation.equals("Add")){
+            id = type.addType(title);
         }
-        else if(operation == "Get"){
-            id = db.getTypeID(title);
+        else if(operation.equals("Get")){
+            id = type.getTypeID(title);
         }
         return id;
 
@@ -86,22 +109,21 @@ public class DataManager {
     /**
      * Add a new category or update one that already exists
      * @param operation String to know which operation should be made - "Add" or "Update"
-     * @param id Id to identify the category that should be updated. Set -1 if is to add a new category
      * @param title Title of the category that should be added or updated
      * @param type type of the category that should be added or updated
      * @param mainMenu Boolean representing if this category is one of the 5 main categories or not
      * @return Returns true if the catgeory was added or updated and false if not
      */
-    public boolean addUpdateCategory(String operation, long id, String title,String type, boolean mainMenu){
+    public boolean addUpdateCategory(String operation, String title,String type, boolean mainMenu){
         Category newCategory;
         newCategory = new Category(-1, title, addGetType("Get", type), mainMenu);
-        if(operation == "Add"){
+        if(operation.equals("Add")){
             if(getCategory(title, false, type) == null)
-                return db.addCategory(newCategory);
+                return category.add(newCategory);
             else
                 return false;
-        }else if(operation == "Update"){
-            return db.updateCategory(newCategory);
+        }else if(operation.equals("Update")){
+            return category.update(newCategory);
         }
         return false;
     }
@@ -119,17 +141,17 @@ public class DataManager {
         ArrayList<Category> categories=null;
         Category newCategory;
         boolean mainMenu;
-        if(catTitle=="mainMenuCategories"){
-            cursor = db.getMainCategories(main,type);
+        if(catTitle.equals("mainMenuCategories")){
+            cursor = category.getMainCategories(main,type);
         }
         else
-            cursor= db.getCategory(catTitle,type);
+            cursor= category.getCategory(catTitle,type);
         if(cursor == null) {
 
             return null;
         }
         if(cursor.moveToFirst()) {
-            categories = new ArrayList<Category>();
+            categories = new ArrayList<>();
             do {
 
                 mainMenu = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_MAIN)) > 0;
@@ -154,15 +176,16 @@ public class DataManager {
      * @param description Date of the transaction to be added or updated
      * @param catID ID of the category of the new transaction
      * @param done True if the transaction is already done and false if not
-     * @param image Path od the receipt image
-     * @return
+     * @param image Path of the receipt image
+     * @param cash true if is was paid with money and false if not
+     * @return Returns true if the transaction was added or updated and false if not
      */
     public boolean addUpdateTransaction( String operation, long id, double value, String date, String description, long catID, boolean done, String image, boolean cash){
         Transaction newTransaction = new Transaction(id, value, date, description, catID, done, image, cash);
-        if(operation == "Add"){
-            return db.addTransaction(newTransaction);
-        }else if(operation == "Update"){
-            return db.updateTransaction(newTransaction);
+        if(operation.equals("Add")){
+            return transaction.add(newTransaction);
+        }else if(operation.equals("Update")){
+            return transaction.update(newTransaction);
         }
         return false;
     }
@@ -170,22 +193,22 @@ public class DataManager {
 
     /**
      * get an array with one or all transactions of the asked type
-     * @param type Name of the type to get transactions
+     * @param typeName Name of the type to get transactions
      * @return Returns an array with asked transactions, or null if there is any error
      */
-    public ArrayList<Transaction> getTypeTransaction(String type){
+    public ArrayList<Transaction> getTypeTransaction(String typeName){
 
 
         ArrayList<Transaction> transactions = null;
         Transaction newTransaction;
 
 
-        Cursor cursor = db.getTypeTransactions(type);
+        Cursor cursor = transaction.getTypeTransactions(Long.toString(type.getTypeID(typeName)));
         if(cursor == null)
             return null;
         if(cursor.moveToFirst()){
 
-            transactions = new ArrayList<Transaction>();
+            transactions = new ArrayList<>();
             do{
 
                 newTransaction = new Transaction(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)),
@@ -226,16 +249,15 @@ public class DataManager {
         Transaction newTransaction;
         Cursor cursor= null;
         if(structure == "Category")
-            cursor = db.getCatTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
+            cursor = transaction.getCatTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
         else if (structure == "Type")
-            cursor = db.getTypeTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
+            cursor = transaction.getTypeTransactionsBetweenDates(Long.toString(type.getTypeID(catTitle_typeTitle)), d1, d2, done);
 
         if(cursor == null){
 
             Log.d(TAG, "CUROSR NULL");
             return null;
         }
-
 
         if(cursor.moveToFirst()){
 
@@ -275,16 +297,15 @@ public class DataManager {
         double value;
         Cursor cursor;
         if(structure == "Category")
-            cursor = db.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
+            cursor = transaction.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
         else if(structure == "Type")
-            cursor = db.getTypeTotalValueSpent(catTitle_typeTitle, d1, d2, done);
+            cursor = transaction.getTypeTotalValueSpent(catTitle_typeTitle, d1, d2, done);
         else
             return null;
 
         if(cursor == null) {
             return null;
         }
-
 
         if(cursor.moveToFirst()){
             categories = new HashMap<String, Double>();
@@ -311,11 +332,11 @@ public class DataManager {
     public boolean deleteElements(String element, String id){
 
         if(element.equals("Transaction")){
-            return db.deleteTransaction(id);
+            return transaction.delete(id);
         }else if( element.equals("Category")){
-            return db.deleteCategory(id);
+            return category.delete(id);
         }else if( element.equals("User")){
-            return db.deleteUser();
+            return user.deleteUser();
         }
         return false;
 
