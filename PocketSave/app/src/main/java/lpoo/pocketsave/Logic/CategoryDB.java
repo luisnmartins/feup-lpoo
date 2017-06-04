@@ -30,6 +30,7 @@ public class CategoryDB implements CRUDDB<Category> {
         contentValues.put(DatabaseHelper.CAT_TITLE, newCategory.getTitle());
         contentValues.put(DatabaseHelper.CAT_TYPE_ID, Long.toString(newCategory.getTypeID()));
         contentValues.put(DatabaseHelper.CAT_MAIN, newCategory.isMainMenu());
+        contentValues.put(DatabaseHelper.CAT_COLOR, newCategory.getColor());
         long result = db.insert(DatabaseHelper.TABLE_CATEGORY,null, contentValues);
         if(result == -1)
             return false;
@@ -53,6 +54,7 @@ public class CategoryDB implements CRUDDB<Category> {
         contentValues.put(DatabaseHelper.CAT_TITLE, toUpdate.getTitle());
         contentValues.put(DatabaseHelper.CAT_TYPE_ID, toUpdate.getTypeID());
         contentValues.put(DatabaseHelper.CAT_MAIN, toUpdate.isMainMenu());
+        contentValues.put(DatabaseHelper.CAT_COLOR, toUpdate.getColor());
         int result =  db.update(DatabaseHelper.TABLE_CATEGORY, contentValues, DatabaseHelper.CAT_ID+"=?",new String[] { Long.toString(toUpdate.getID()) });
         return result>0;
 
@@ -81,7 +83,7 @@ public class CategoryDB implements CRUDDB<Category> {
         SQLiteDatabase db = dbH.getReadableDatabase();
         Cursor cursor;
         if(name == null){
-            cursor = db.rawQuery("SELECT C."+DatabaseHelper.CAT_ID+", C."+DatabaseHelper.CAT_TITLE+", C."+DatabaseHelper.CAT_MAIN+", C."+DatabaseHelper.CAT_TYPE_ID+", C."+DatabaseHelper.CAT_USER_ID+" FROM "+
+            cursor = db.rawQuery("SELECT C."+DatabaseHelper.CAT_ID+", C."+DatabaseHelper.CAT_TITLE+", C."+DatabaseHelper.CAT_MAIN+", C."+DatabaseHelper.CAT_TYPE_ID+", C."+DatabaseHelper.CAT_USER_ID+", C."+DatabaseHelper.CAT_COLOR+" FROM "+
                     DatabaseHelper.TABLE_CATEGORY+" C, "+DatabaseHelper.TABLE_TYPE+" P WHERE C."+DatabaseHelper.CAT_TYPE_ID+" = P."+DatabaseHelper.TYPE_ID+" AND P."+DatabaseHelper.TYPE_NAME+" = '"+
                     type+ "' AND C."+DatabaseHelper.CAT_USER_ID+" = '"+dbH.getUserID()+ "'", null );
         }else{
@@ -106,7 +108,7 @@ public class CategoryDB implements CRUDDB<Category> {
     public Cursor getMainCategories(boolean main, String type){
         SQLiteDatabase db = dbH.getReadableDatabase();
         Cursor cursor;
-        cursor = db.rawQuery("SELECT C."+DatabaseHelper.CAT_ID+", C."+DatabaseHelper.CAT_TITLE+", C."+DatabaseHelper.CAT_MAIN+", C."+DatabaseHelper.CAT_TYPE_ID+", C."+DatabaseHelper.CAT_USER_ID+" FROM "+
+        cursor = db.rawQuery("SELECT C."+DatabaseHelper.CAT_ID+", C."+DatabaseHelper.CAT_TITLE+", C."+DatabaseHelper.CAT_MAIN+", C."+DatabaseHelper.CAT_TYPE_ID+", C."+DatabaseHelper.CAT_USER_ID+", C."+DatabaseHelper.CAT_COLOR+" FROM "+
                 DatabaseHelper.TABLE_CATEGORY+" C, "+DatabaseHelper.TABLE_TYPE+" P WHERE C."+DatabaseHelper.CAT_TYPE_ID+" = P."+DatabaseHelper.TYPE_ID+" AND P."+DatabaseHelper.TYPE_NAME+" = '"+
                 type+ "' AND C."+DatabaseHelper.CAT_USER_ID+" = '"+dbH.getUserID()+ "' AND C."+DatabaseHelper.CAT_MAIN+" = '"+((main) ? 1 : 0)+"'", null );
 

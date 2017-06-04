@@ -152,7 +152,7 @@ public class ExampleInstrumentedTest {
        DataManager.getInstance().startDB(appContext);
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
 
 
     }
@@ -168,7 +168,7 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals("food", DataManager.getInstance().getCategory("food", true, "income").get(0).getTitle());
     }
 
@@ -184,8 +184,8 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "salary", "income", false));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "salary", "income", false, 2));
         assertEquals("food", DataManager.getInstance().getCategory("mainMenuCategories", true, "income").get(0).getTitle());
     }
 
@@ -200,8 +200,8 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Update", "food", "income", false));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Update", "food", "income", false, 2));
 
 
     }
@@ -218,7 +218,7 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals(true, DataManager.getInstance().deleteElements("Category", "1"));
     }
 
@@ -236,7 +236,7 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "1997-05-01", "teste", 1, true, null, true));
 
     }
@@ -254,7 +254,7 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "1997-02-01", "teste", 1, true, null, true));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "1997-05-01", "teste", 1, true, null, true));
         HashMap<Transaction, ArrayList<Integer>> b =  DataManager.getInstance().getTypeTransaction("income");
@@ -278,7 +278,7 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "1997-05-01", "teste", 1, true, null, true));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Update", 1, 12.0, "1997-05-01", "teste", 1, true, null, false));
 
@@ -296,7 +296,7 @@ public class ExampleInstrumentedTest {
         DataManager.getInstance().startDB(appContext);
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "1997-05-01", "teste", 1, true, null, true));
         assertEquals(true, DataManager.getInstance().deleteElements("Transaction", "1"));
         assertEquals(false, DataManager.getInstance().deleteElements("Transaction", "1"));
@@ -386,9 +386,9 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
        assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add",  "ordenado", "income",false));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add",  "ordenado", "income",false, 1));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true, 2));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true, 3));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, false));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 3, true, null, true));
@@ -408,9 +408,9 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
        assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "ordenado", "income",false));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "ordenado", "income",false, 1));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true, 2));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true,3));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, false));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 3, true, null, false));
@@ -431,8 +431,8 @@ public class ExampleInstrumentedTest {
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
        assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true));
-       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true, 1));
+       assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true, 2));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, true));
        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 2, true, null, false));
@@ -454,8 +454,8 @@ public class ExampleInstrumentedTest {
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true, 2));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "2017-02-23", "teste", 2, false, null, true));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-25", "teste", 2, true, null, true));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 102.0, "2017-02-22", "teste", 2, false, null, false));
@@ -477,8 +477,8 @@ public class ExampleInstrumentedTest {
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true, 2));
         Suggestions sug = new Suggestions();
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, sug.getInitialDate(true, "current"), "expected", 1, false, null, true));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 7.0, sug.getInitialDate(true, "current"), "expected", 2, false, null, true));
@@ -502,9 +502,9 @@ public class ExampleInstrumentedTest {
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", 0));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(2, DataManager.getInstance().addGetType("Add", "expense"));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true));
-        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "restauracao", "expense", true));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "carro", "expense", true, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "compras", "expense", true, 2));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "restauracao", "expense", true, 3));
         Suggestions sug = new Suggestions();
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 500.0, sug.getInitialDate(true, "current"), "expected", 1, false, null, true));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1,35.0, sug.getInitialDate(true, "current"), "expected", 2, false, null, true));

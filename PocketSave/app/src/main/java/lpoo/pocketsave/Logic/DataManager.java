@@ -117,9 +117,9 @@ public class DataManager {
      * @param mainMenu  Boolean representing if this category is one of the 5 main categories or not
      * @return Returns true if the catgeory was added or updated and false if not
      */
-    public boolean addUpdateCategory(String operation, String title, String type, boolean mainMenu) {
+    public boolean addUpdateCategory(String operation, String title, String type, boolean mainMenu, int color) {
         Category newCategory;
-        newCategory = new Category(-1, title, addGetType("Get", type), mainMenu);
+        newCategory = new Category(-1, title, addGetType("Get", type), mainMenu, color);
         if (operation.equals("Add")) {
             if (getCategory(title, false, type) == null)
                 return category.add(newCategory);
@@ -162,7 +162,8 @@ public class DataManager {
                 newCategory = new Category(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_ID)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAT_TITLE)),
                         cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_TYPE_ID)),
-                        mainMenu);
+                        mainMenu,
+                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_COLOR)));
                 categories.add(newCategory);
 
             } while (cursor.moveToNext());
