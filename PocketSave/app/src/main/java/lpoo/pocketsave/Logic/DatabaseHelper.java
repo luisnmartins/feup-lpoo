@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USER_EMAIL = "Email";
     public static final String USER_PASSWORD = "Password";
     public static final String USER_TOTALSAVED = "TotalSaved";
+    public static final String USER_SINCE = "Since";
 
     //Transaction Table Columns
     public static final String TRANS_ID = "_id";
@@ -88,14 +89,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY, "+
-                USER_NAME+" STRING UNIQUE, "+ USER_EMAIL+" STRING UNIQUE, "+USER_PASSWORD+" STRING NOT NULL, "+
+                USER_NAME+" STRING UNIQUE, "+ USER_EMAIL+" STRING UNIQUE, "+USER_SINCE+" STRING NOT NULL, "+USER_PASSWORD+" STRING NOT NULL, "+
                 USER_TOTALSAVED+" REAL)";
         String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY, "+
-                CAT_TITLE+" STRING, "+CAT_MAIN+" BOOLEAN NOT NULL, "+CAT_COLOR+" INTEGER NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+"))";
+                CAT_TITLE+" STRING, "+CAT_MAIN+" BOOLEAN NOT NULL, "+CAT_COLOR+" INTEGER NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+") ON DELETE CASCADE);";
         String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
         String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY, "+
                 TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
-                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, "+TRANS_CASH+" BOOLEAN NOT NULL, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+"))";
+                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, "+TRANS_CASH+" BOOLEAN NOT NULL, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+") ON DELETE CASCADE);";
 
         Log.d(TAG, create_category);
 
@@ -123,6 +124,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_TYPE);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_CATEGORY);
         onCreate(db);
+    }
+
+    public void deleteValues(SQLiteDatabase db){
+        //db.execSQL();
+
     }
 
 

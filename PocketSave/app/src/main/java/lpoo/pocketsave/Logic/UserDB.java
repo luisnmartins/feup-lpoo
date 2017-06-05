@@ -21,13 +21,14 @@ public class UserDB {
      * @param password new User password
      * @return Returns true if the user was added and false if not
      */
-    public boolean addUser(String email, String password) {
+    public boolean addUser(String email, String password, String since) {
 
         SQLiteDatabase db = dbH.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.USER_EMAIL,email);
         contentValues.put(DatabaseHelper.USER_PASSWORD, password);
         contentValues.put(DatabaseHelper.USER_TOTALSAVED, 0);
+        contentValues.put(DatabaseHelper.USER_SINCE, since);
         long result = db.insert(DatabaseHelper.TABLE_USER,null ,contentValues);
         if(result == -1){
             Log.d(TAG, "Error adding the new user\n");
@@ -92,7 +93,7 @@ public class UserDB {
      * @param password password to be updated
      * @return Returns true if user was updated and false if not
      */
-    public boolean updateUser(String email, String password, double totalSaved){
+    public boolean updateUser(String email, String password, Double totalSaved){
 
         SQLiteDatabase db = dbH.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

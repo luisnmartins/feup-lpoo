@@ -43,16 +43,16 @@ public class DataManager {
      * @param operation  name of the operation - "Add", "Open" or "Update"
      * @param email      new email of the user
      * @param password   new password of the user
-     * @param totalSaved Total value saved by the user. Set 0 if your adding or opening a user
+     * @param since Date of the account creation. Null if is to update or open
      * @return Returns true if it was added/updated with success, and false if not
      */
-    public boolean addOpenUpdateUser(String operation, String email, String password, double totalSaved) {
+    public boolean addOpenUpdateUser(String operation, String email, String password, String since) {
 
         switch (operation) {
             case "Add":
-                return user.addUser(email, password);
+                return user.addUser(email, password, since);
             case "Update":
-                return user.updateUser(email, password, totalSaved);
+                return user.updateUser(email, password, getUser().getTotalSaved());
             case "Open":
                 return user.openUser(email, password);
             default:
@@ -74,8 +74,7 @@ public class DataManager {
         else if (cursor.moveToFirst()) {
             User currUser = new User(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.USER_ID)),
                     cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_PASSWORD)),
-                    cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.USER_TOTALSAVED)));
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_PASSWORD)));
             cursor.close();
             return currUser;
         }
