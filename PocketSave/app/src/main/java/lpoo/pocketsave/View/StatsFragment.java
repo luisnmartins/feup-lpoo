@@ -118,6 +118,8 @@ public class StatsFragment extends Fragment {
                  from = ((TextView) view.findViewById(R.id.From)).getText().toString();
                  to = ((TextView) view.findViewById(R.id.To)).getText().toString();
                 if(!from.equals("Choose Date")  && !to.equals("Choose Date")) {
+                    Log.d(TAG,"FROM: " + from);
+                    Log.d(TAG,"TO: " + to);
                     each_cat_spent = DataManager.getInstance().getTotalSpentValues("Category",null,from,to,true);
                     if(each_cat_spent != null)
                     {

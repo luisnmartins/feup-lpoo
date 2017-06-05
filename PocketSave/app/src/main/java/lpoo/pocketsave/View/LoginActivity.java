@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Suggestions;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -378,7 +379,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            if(!DataManager.getInstance().addOpenUpdateUser("Open", mEmail, mPassword,0))
+            if(!DataManager.getInstance().addOpenUpdateUser("Open", mEmail, mPassword,null))
             {
                 return false;
             }else{
@@ -452,12 +453,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            if(DataManager.getInstance().addOpenUpdateUser("Open",mEmail,mPassword,0))
+            if(DataManager.getInstance().addOpenUpdateUser("Open",mEmail,mPassword,null))
             {
                 return false;
             }
 
-            DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,0);
+            Suggestions aux = new Suggestions();
+
+            DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,aux.getInitialDate(false,"currentDate"));
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");

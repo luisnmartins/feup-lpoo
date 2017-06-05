@@ -96,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String pass = newPass.getText().toString();
 
 
-                if(!isEmailValid(email) || (DataManager.getInstance().addOpenUpdateUser("Open",email,pass,0) && newEmail.isEnabled()))
+                if(!isEmailValid(email) || (DataManager.getInstance().addOpenUpdateUser("Open",email,pass,null) && newEmail.isEnabled()))
                 {
                     newEmail.setError("Invalid new Email");
                     newEmail.requestFocus();
@@ -111,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
 
-                DataManager.getInstance().addOpenUpdateUser("Update",email,pass,DataManager.getInstance().getUser().getTotalSaved());
+                DataManager.getInstance().addOpenUpdateUser("Update",email,pass,null);
                 Toast.makeText(getApplicationContext(),"Changes Save",Toast.LENGTH_SHORT);
                 newPass.setEnabled(false);
                 newEmail.setEnabled(false);

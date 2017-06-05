@@ -286,10 +286,10 @@ public class ExampleInstrumentedTest {
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "income", true, 1));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 10.0, "1997-05-01", "teste", 1, true, null, true));
-        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Update", 1, 12.0, "1997-12-02", "teste", 1, false, null, false));
-        assertEquals("1997-12-02", DataManager.getInstance().getTransactionsBetweenDates("Category", "food", "1997-04-27", "1997-12-15",false).get(0).getDate());
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Update", 1, 12.0, "1997-12-02", "teste", 1, true, null, false));
+        assertEquals("1997-12-02", DataManager.getInstance().getTransactionsBetweenDates("Category", "food", "1997-04-27", "1997-12-15",true).get(0).getDate());
         Double a = 12.0;
-        assertEquals(a, DataManager.getInstance().getTotalSpentValues("Category", null,"1997-04-27", "1997-12-21",false).get("food"));
+        assertEquals(a, DataManager.getInstance().getTotalSpentValues("Category", null,"1997-04-27", "1997-12-21",true).get("food"));
     }
 
     @Test
