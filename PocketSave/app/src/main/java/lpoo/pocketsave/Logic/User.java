@@ -33,9 +33,12 @@ public class User {
         String currentDate = c.get(Calendar.YEAR)+"-"+String.format("%02d", c.get(Calendar.MONTH)+1)+String.format("%02d",c.get(Calendar.DAY_OF_MONTH));
         totalSaved =0;
         HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since, currentDate, true);
-
-        for(HashMap.Entry<String ,Double> it: spents.entrySet()){
-            totalSaved +=it.getValue();
+        if(spents == null)
+            totalSaved =0;
+        else {
+            for (HashMap.Entry<String, Double> it : spents.entrySet()) {
+                totalSaved += it.getValue();
+            }
         }
 
     }
