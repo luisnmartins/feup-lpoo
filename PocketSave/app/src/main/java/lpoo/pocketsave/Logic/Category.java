@@ -1,5 +1,7 @@
 package lpoo.pocketsave.Logic;
 
+import java.util.Objects;
+
 public class Category {
 
     private long id;
@@ -74,6 +76,12 @@ public class Category {
         return this.getTitle();
     }
 
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return this.getID() == ((Category)obj).getID();
+    }
 
 
 }

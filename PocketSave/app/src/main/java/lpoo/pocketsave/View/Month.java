@@ -275,6 +275,9 @@ public class Month extends AppCompatActivity {
         {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Bundle b = new Bundle();
+            b.putBoolean("hideEstimated",true);
+            frag.setArguments(b);
             fragmentTransaction.replace(R.id.linear_month,frag,"addCat");
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();

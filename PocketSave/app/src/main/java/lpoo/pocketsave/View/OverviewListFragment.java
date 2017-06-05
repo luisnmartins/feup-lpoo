@@ -16,6 +16,7 @@ import com.blackcat.currencyedittext.CurrencyEditText;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.BaseItemAnimator;
@@ -225,7 +226,8 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
             mDataset = DataManager.getInstance().getTransactionsBetweenDates("Category",CatName,from,to,true);
         }else
         {
-            mDataset = DataManager.getInstance().getTypeTransaction(TransType);
+            HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType);
+            mDataset = new ArrayList<Transaction>(aux.keySet());
 
         }
 

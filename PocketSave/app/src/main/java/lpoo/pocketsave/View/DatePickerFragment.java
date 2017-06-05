@@ -57,7 +57,15 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         Bundle args = getArguments();
         TextView text = (TextView) getActivity().findViewById(args.getInt("id"));
-        text.setText(this.year + "-" + this.month + "-" + day);
+        String monthstr = Integer.toString(this.month);
+        String daystr = Integer.toString(this.day);
+        if(this.month < 10){
+            monthstr = 0 + monthstr;
+        }
+        if(this.day < 10){
+            daystr = 0 + daystr;
+        }
+        text.setText(this.year + "-" + monthstr + "-" + daystr);
 
 
         

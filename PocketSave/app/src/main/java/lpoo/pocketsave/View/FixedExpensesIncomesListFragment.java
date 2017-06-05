@@ -2,6 +2,7 @@ package lpoo.pocketsave.View;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
@@ -29,6 +36,7 @@ public class FixedExpensesIncomesListFragment extends Fragment {
     protected IncomeExpensesRecyclerViewAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Transaction> mDataset;
+    protected HashMap<Transaction,ArrayList<Integer>> mHashmap;
     private static final String TAG = "RecyclerViewFragmentSettings";
     private String TransType;
 
@@ -63,6 +71,8 @@ public class FixedExpensesIncomesListFragment extends Fragment {
         initDataset();
 
     }
+
+
 
     public  Comparator<Transaction> getDateComparator()
     {
@@ -108,7 +118,7 @@ public class FixedExpensesIncomesListFragment extends Fragment {
         // elements are laid out.
         mAdapter = new IncomeExpensesRecyclerViewAdapter(getActivity(),mDataset,DATE_COMPARATOR);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.add(mDataset);
+        mAdapter.add(mHashmap);
 
 
         return rootView;
@@ -133,7 +143,8 @@ public class FixedExpensesIncomesListFragment extends Fragment {
      */
     private void initDataset() {
 
-        mDataset = DataManager.getInstance().getTypeTransaction(TransType);
+       HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType);
+        mHashmap = DataManager.getInstance().getTypeTransaction(TransType);
 
     }
 

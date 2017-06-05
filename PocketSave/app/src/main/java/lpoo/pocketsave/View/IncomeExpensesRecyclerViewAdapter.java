@@ -1,6 +1,7 @@
 package lpoo.pocketsave.View;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.util.SortedList;
@@ -13,8 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
 
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 import lpoo.pocketsave.Logic.Transaction;
@@ -31,6 +39,7 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
     private Context mContext;
     private ArrayList<Transaction> mDataSet;
     private Comparator<Transaction> mComparator;
+    private Transaction[] mkeys;
 
 
 
@@ -84,6 +93,9 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         }
     }
 
+    private final TreeMap<Transaction,ArrayList<Integer>> mSortedMap = new TreeMap<Transaction,ArrayList<Integer>>();
+
+
     private final SortedList<Transaction> mSortedList = new SortedList<>(Transaction.class, new SortedList.Callback<Transaction>() {
         @Override
         public int compare(Transaction a, Transaction b) {
@@ -128,6 +140,7 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         mContext=context;
         mDataSet = dataSet;
         mComparator = comp;
+
     }
 
     public void setmComparator(Comparator<Transaction> comp)
@@ -146,15 +159,15 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
     @Override
     public void onBindViewHolder(IncomeExpensesRecyclerViewAdapter.ViewHolder viewHolder, final int position) {
 
-        String value = Double.toString(mSortedList.get(position).getValue());
+        String value = Double.toString(mkeys[position].getValue());
         viewHolder.getlistValue().setText(String.valueOf(value));
-        viewHolder.getLisMonths().setText(String.valueOf(mSortedList.get(position).getDate()));
-        viewHolder.getListType().setText(String.valueOf(mSortedList.get(position).getCatID()));
+        viewHolder.getLisMonths().setText(String.valueOf(mkeys[position].getDate()));
+        viewHolder.getListType().setText(String.valueOf(mkeys[position].getCatID()));
     }
 
     @Override
     public int getItemCount() {
-        return mSortedList.size();
+        return mSortedMap.size();
     }
 
 
@@ -186,9 +199,14 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         mSortedList.remove(tr);
     }
 
-    public void add(List<Transaction> models) {
+    public void add(HashMap<Transaction,ArrayList<Integer>> models) {
         if (models != null)
-            mSortedList.addAll(models);
+        {
+            mSortedMap.putAll(models);
+            Log.d(TAG,"mSortedMap SIZE" + mSortedMap.size());
+            mkeys = mSortedMap.keySet().toArray(new Transaction[models.size()]);
+        }
+
     }
 
     public void remove(List<Transaction> models) {
@@ -199,15 +217,4 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         mSortedList.endBatchedUpdates();
     }
 
-    public void replaceAll(List<Transaction> models) {
-        mSortedList.beginBatchedUpdates();
-        for (int i = mSortedList.size() - 1; i >= 0; i--) {
-            final Transaction model = mSortedList.get(i);
-            if (!models.contains(model)) {
-                mSortedList.remove(model);
-            }
-        }
-        mSortedList.addAll(models);
-        mSortedList.endBatchedUpdates();
-    }
 }

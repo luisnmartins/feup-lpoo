@@ -21,6 +21,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.Calendar;
 
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.R;
 
@@ -102,25 +103,43 @@ public class AddCategoryFragment extends Fragment {
         catTitle = (EditText) view.findViewById(R.id.CatTitle);
         catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
 
+        Boolean hide = false;
+        if(getArguments() != null)
+        {
+            hide = getArguments().getBoolean("hideEstimated");
+        }
+
+        if(hide)
+        {
+            catEstimaed.setEnabled(false);
+            catEstimaed.setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.catEstimatedText).setVisibility(View.INVISIBLE);
+        }
+
+
 
         save = (Button) view.findViewById(R.id.AddCat);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(catTitle.getText().toString().equals("") || catEstimaed.getText().toString().equals(""))
+                if(catTitle.getText().toString().equals("") || (catEstimaed.getText().toString().equals("") && catEstimaed.isEnabled()))
                 {
                     return;
                 }
-                DataManager.getInstance().addUpdateCategory("Add",catTitle.getText().toString(),"Variable Expense",false);
                 Calendar c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day = 1;
                 String date = year + "-" + month + "-" + day;
-                Double estimated_value = Double.parseDouble(catEstimaed.getText().toString());
-                long cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null,null).get(0).getID();
 
-                DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id,false,null,false);
+                DataManager.getInstance().addUpdateCategory("Add",catTitle.getText().toString(),"Variable Expense",false,color);
+
+                if(catEstimaed.isEnabled())
+                {
+                    Category cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null,null).get(0);
+                    Double estimated_value = Double.parseDouble(catEstimaed.getText().toString());
+                    DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id.getID(),false,null,false);
+                }
 
                 getActivity().getSupportFragmentManager().popBackStack();
             }

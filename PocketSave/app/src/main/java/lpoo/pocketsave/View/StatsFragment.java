@@ -56,9 +56,6 @@ public class StatsFragment extends Fragment {
     int year_x, month_x, day_x;
     private ImageButton setStats;
     private PieChart chart;
-    private float[] yData = {25.3f, 10.6f, 1.0f, 44.32f, 46.01f, 16.89f, 23.9f};
-    private String[] xData = {"Mitch", "Jessica" , "Mohammad" , "Kelsey", "Sam", "Robert", "Ashley"};
-
     private HashMap<String,Double> each_cat_spent;
 
 
@@ -101,7 +98,6 @@ public class StatsFragment extends Fragment {
         year_x = cal.get(java.util.Calendar.YEAR);
         month_x = cal.get(java.util.Calendar.MONTH);
         day_x = cal.get(java.util.Calendar.DAY_OF_MONTH);
-        //showDialogDate();
 
 
 
@@ -124,7 +120,11 @@ public class StatsFragment extends Fragment {
                 if(!from.equals("Choose Date")  && !to.equals("Choose Date")) {
                     each_cat_spent = DataManager.getInstance().getTotalSpentValues("Category",null,from,to,true);
                     if(each_cat_spent != null)
-                    addDataSet();
+                    {
+                        Log.d(TAG,"TOTALSPENTVALUES TRUE");
+                        addDataSet();
+
+                    }
                 }
             }
         });
@@ -152,7 +152,6 @@ public class StatsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
         mListener = null;
     }
 
@@ -179,17 +178,10 @@ public class StatsFragment extends Fragment {
         a.setText("Categories Values");
         chart.setDescription(a);
         chart.setRotationEnabled(true);
-        //pieChart.setUsePercentValues(true);
-        //pieChart.setHoleColor(Color.BLUE);
-        //pieChart.setCenterTextColor(Color.BLACK);
         chart.setHoleRadius(25f);
         chart.setTransparentCircleAlpha(0);
         chart.setCenterText("My Stats");
         chart.setCenterTextSize(10);
-        //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
-        //More options just check out the documentation!
-
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -219,17 +211,6 @@ public class StatsFragment extends Fragment {
 
                 }
 
-               /* int pos1 = e.toString().indexOf("y: ");
-                String sales = e.toString().substring(pos1 + 3);
-
-                for(int i = 0; i < yData.length; i++){
-                    if(yData[i] == Float.parseFloat(sales)){
-                        pos1 = i;
-                        break;
-                    }
-                }
-                String employee = xData[pos1];
-                Toast.makeText(getActivity(), "Employee " + employee + "\n" + "Sales: $" + sales + "K", Toast.LENGTH_SHORT).show();*/
             }
 
             @Override
@@ -254,22 +235,24 @@ public class StatsFragment extends Fragment {
 
         //add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.rgb(102, 178, 255));
+        for(int i = 0; i < xEntrys.size();i++)
+        {
+            colors.add(DataManager.getInstance().getCategory(xEntrys.get(i),null,null).get(0).getColor());
+
+        }
+       /* colors.add(Color.rgb(102, 178, 255));
         colors.add(Color.BLUE);
         colors.add(Color.RED);
         colors.add(Color.GREEN);
         colors.add(Color.CYAN);
         colors.add(Color.YELLOW);
-        colors.add(Color.MAGENTA);
+        colors.add(Color.MAGENTA);*/
 
         pieDataSet.setColors(colors);
-
-        //add legend to chart
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
-        //create pie data object
         PieData pieData = new PieData(pieDataSet);
         chart.setData(pieData);
         chart.invalidate();

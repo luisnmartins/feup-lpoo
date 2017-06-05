@@ -1,7 +1,10 @@
 package lpoo.pocketsave.View;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Matrix;
+import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.BoringLayout;
+import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,11 +47,22 @@ public class TransactionActivity extends AppCompatActivity {
     ImageView image;
     RadioGroup checkPayment;
     private boolean isCash = true;
+    Matrix matrix = new Matrix();
+    Matrix savedMatrix = new Matrix();
+    PointF startPoint = new PointF();
+    PointF midPoint = new PointF();
+    float oldDist = 1f;
+    static final int NONE = 0;
+    static final int DRAG = 1;
+    static final int ZOOM = 2;
+    int mode = NONE;
+    private Boolean istoEdit = false;
+
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -64,44 +79,72 @@ public class TransactionActivity extends AppCompatActivity {
 
         image = (ImageView) findViewById(R.id.receiptImage);
 
-        image.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }}
-        );
         image.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
+                ImageView view = (ImageView)v;
 
-                    return false;
-                }
-                if(event.getAction() == MotionEvent.ACTION_UP)
+                switch (event.getAction() & MotionEvent.ACTION_MASK)
                 {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    // Ensure that there's a camera activity to handle the intent
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        // Create the File where the photo should go
-                        File photoFile = null;
-                        try {
-                            photoFile = createImageFile();
-                        } catch (IOException ex) {
-                            // Error occurred while creating the File
+                    case MotionEvent.ACTION_DOWN:
+                        savedMatrix.set(matrix);
+                        startPoint.set(event.getX(),event.getY());
+                        mode = DRAG;
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        oldDist = spacing(event);
+                        if(oldDist > 10f)
+                        {
+                            savedMatrix.set(matrix);
+                            midPoint(midPoint,event);
+                            mode = ZOOM;
                         }
-                        // Continue only if the File was successfully created
-                        if (photoFile != null) {
-                            Uri photoURI = FileProvider.getUriForFile(getContext(),
-                                    "com.example.android.fileprovider",
-                                    photoFile);
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                            startActivityForResult(takePictureIntent, CAM_REQUEST);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        // Ensure that there's a camera activity to handle the intent
+                        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                            // Create the File where the photo should go
+                            File photoFile = null;
+                            try {
+                                photoFile = createImageFile();
+                            } catch (IOException ex) {
+                                // Error occurred while creating the File
+                            }
+                            // Continue only if the File was successfully created
+                            if (photoFile != null) {
+                                Uri photoURI = FileProvider.getUriForFile(getContext(),
+                                        "com.example.android.fileprovider",
+                                        photoFile);
+                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                                startActivityForResult(takePictureIntent, CAM_REQUEST);
+                            }
                         }
-                    }
+                        break;
+                    case MotionEvent.ACTION_POINTER_UP:
+                        mode = NONE;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if(mode == DRAG)
+                        {
+                            matrix.set(savedMatrix);
+                            matrix.postTranslate(event.getX() - startPoint.x,event.getY() - startPoint.y);
+
+                        }else if (mode == ZOOM)
+                        {
+                            float newDist = spacing(event);
+                            if(newDist >10f)
+                            {
+                                matrix.set(savedMatrix);
+                                float scale = newDist/oldDist;
+                                matrix.postScale(scale, scale, midPoint.x, midPoint.y);
+                            }
+                        }
+                        break;
                 }
-                return true;
+                view.setImageMatrix(matrix);
+                return  true;
             }
         });
 
@@ -115,6 +158,9 @@ public class TransactionActivity extends AppCompatActivity {
             toolbar.setTitle("Transaction - " + getIntent().getExtras().getString("Category"));
             setSupportActionBar(toolbar);
 
+        }else {
+            toolbar.setTitle("My Transaction");
+            setSupportActionBar(toolbar);
         }
 
 
@@ -211,10 +257,14 @@ public class TransactionActivity extends AppCompatActivity {
                         System.out.println("value" + valueDouble);
                         Bundle b = getIntent().getExtras();
                         long id = 0;
+                        long idTrans = 0;
+                        idTrans = b.getLong("myID");
                         if(b != null)
                           id = b.getLong("CatID");
-                        Log.d("CNEAS","MANDO PATH: " + mCurrentPhotoPath);
-                        DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
+                        if(istoEdit)
+                            DataManager.getInstance().addUpdateTransaction("Update",idTrans,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
+                        else
+                            DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
                         finish();
                         //TODO: change done value
 
@@ -249,9 +299,23 @@ public class TransactionActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         Boolean isAdd = b.getBoolean("isToAdd");
+        istoEdit= b.getBoolean("isToEdit");
         if(isAdd)
             return false;
         else{
+            if(istoEdit == true)
+            {
+                date.setText(b.getString("date"));
+                value.setText(Double.toString(b.getDouble("value")));
+                description.setText(b.getString("description"));
+                image.setImageDrawable(Drawable.createFromPath(b.getString("image")));
+                int cash = b.getInt("isCash");
+                if(cash == 1)
+                    isCash = true;
+                else isCash = false;
+                return true;
+            }
+
             value.setEnabled(false);
             value.setText(Double.toString(b.getDouble("value")));
             date.setEnabled(false);
@@ -260,6 +324,11 @@ public class TransactionActivity extends AppCompatActivity {
             description.setText(b.getString("description"));
             checkPayment.setEnabled(false);
             savebtn.setEnabled(false);
+            savebtn.setVisibility(View.INVISIBLE);
+            int cash = b.getInt("isCash");
+            if(cash == 1)
+                isCash = true;
+            else isCash = false;
             image.setImageDrawable(Drawable.createFromPath(b.getString("image")));
             image.setEnabled(false);
             Log.d("cenas","PATH IMAGEM" + b.getString("image"));
@@ -267,5 +336,20 @@ public class TransactionActivity extends AppCompatActivity {
 
         }
     }
+
+
+    @SuppressLint("FloatMath")
+    private float spacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float)Math.sqrt(x * x + y * y);
+    }
+
+    private void midPoint(PointF point, MotionEvent event) {
+        float x = event.getX(0) + event.getX(1);
+        float y = event.getY(0) + event.getY(1);
+        point.set(x / 2, y / 2);
+    }
+
 
 }

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -83,6 +84,9 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         private final TextView listDate;
         private final TextView listCat;
         private final ImageView CatIcon;
+        private final ImageView CatColor;
+        private final ArrayList<Category> categories;
+        private final ImageButton editTransButton;
 
         public ViewHolder(View v) {
             super(v);
@@ -90,12 +94,18 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
             listDate = (TextView) v.findViewById(R.id.listDate);
             listCat = (TextView) v.findViewById(R.id.listCat);
             CatIcon = (ImageView) v.findViewById(R.id.transIcon);
+            CatColor = (ImageView) v.findViewById(R.id.CatColor);
+            categories = DataManager.getInstance().getCategory(null,null,"Variable Expense");
+            editTransButton = (ImageButton) v.findViewById(R.id.editButtonOver);
             // Define click listener for the ViewHolder's View.
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    loadTransaction(mSortedList.get(getAdapterPosition()));
+                        loadTransaction(mSortedList.get(getAdapterPosition()),false);
+
+
+
 
 
 
@@ -109,6 +119,8 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         public TextView getListDate() {return listDate;}
         public TextView getListCat() {return listCat;}
         public ImageView getCatIcon() {return CatIcon;}
+        public ImageView getCatColor(){return CatColor;}
+        public ArrayList<Category> getCategoriesVariable() {return categories;}
 
         @Override
         public void preAnimateAddImpl(RecyclerView.ViewHolder holder) {
@@ -169,16 +181,31 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+        viewHolder.editTransButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loadTransaction(mSortedList.get(position),true);
+
+            }
+        });
+
         String value = Double.toString(mSortedList.get(position).getValue());
+        long catid = mSortedList.get(position).getCatID();
+        int index = viewHolder.getCategoriesVariable().indexOf(new Category(catid,null,0,false,1));
+        Category aux = viewHolder.getCategoriesVariable().get(index);
         viewHolder.getlistValue().setText(String.valueOf(value));
-        viewHolder.getListCat().setText(String.valueOf(mSortedList.get(position).getCatID()));
+        viewHolder.getListCat().setText(String.valueOf(aux.getTitle()));
         viewHolder.getListDate().setText(String.valueOf(mSortedList.get(position).getDate()));
         if(mSortedList.get(position).getImage() != null)
         {
 
+            viewHolder.getCatIcon().setImageResource(android.R.color.transparent);
             viewHolder.getCatIcon().setImageDrawable(Drawable.createFromPath(mSortedList.get(position).getImage()));
 
+
         }
+        viewHolder.getCatColor().setBackgroundColor(aux.getColor());
     }
 
     @Override
@@ -239,29 +266,24 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         mSortedList.endBatchedUpdates();
     }
 
-    public  void loadTransaction(Transaction t)
+    public  void loadTransaction(Transaction t,Boolean istoEdit)
     {
 
         Intent transactionIntent = new Intent(mContext,TransactionActivity.class);
         Bundle b = new Bundle();
         b.putBoolean("isToAdd",false);
+        if(istoEdit)
+            b.putBoolean("isToEdit",true);
         b.putDouble("value",t.getValue());
+        b.putInt("isCash",t.isCashMethod());
+        b.putLong("myID",t.getID());
         b.putString("description",t.getDescription());
         b.putString("date",t.getDate());
         b.putString("image",t.getImage());
         b.putLong("cat",t.getCatID());
         transactionIntent.putExtras(b);
         mContext.startActivity(transactionIntent);
-       /* Intent transactionIntent = new Intent(getA.this, TransactionActivity.class);
-        ArrayList<Category> aux = DataManager.getInstance().getCategory(((Button)view).getText().toString(),null,null);
-        System.out.println("a categoria e " + ((Button)view).getText().toString());
-        Category cat = aux.get(0);
-        System.out.println("a categoria e " + cat.getID());
-        Bundle b = new Bundle();
-        b.putLong("CatID",cat.getID());
-        b.putString("Category",cat.getTitle());
-        transactionIntent.putExtras(b);
-        MainActivity.this.startActivity(transactionIntent);*/
+
     }
 
 }

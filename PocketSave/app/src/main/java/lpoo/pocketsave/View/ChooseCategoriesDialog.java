@@ -31,8 +31,8 @@ public class ChooseCategoriesDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         ArrayList<Category> aux = new ArrayList<>();
-        aux.add(0,new Category(1,"Cenas",1,true));
-        aux.add(1,new Category(2,"consigo",1,true));
+        //aux.add(0,new Category(1,"Cenas",1,true));
+        //aux.add(1,new Category(2,"consigo",1,true));
         String[] categories = ListToArray(DataManager.getInstance().getCategory(null,null, "Variable Expense"));
 
         final ArrayAdapter<Category> arrayAdapter = new ArrayAdapter<Category>(getActivity(),android.R.layout.select_dialog_multichoice, aux);
