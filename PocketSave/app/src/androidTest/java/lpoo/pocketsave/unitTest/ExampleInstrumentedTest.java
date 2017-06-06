@@ -313,73 +313,6 @@ public class ExampleInstrumentedTest {
 
 
 
-    /*@Test
-    public void testAddChangeDeleteTransaction(){
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
-        DataManager.getInstance().startDB(appContext);
-        assertEquals(true, DataManager.getInstance().addOpenChangeUser("Add", "ola@ola.pt", "1234"));
-        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
-        assertEquals(true, DataManager.getInstance().addChangeCategory("Add",-1,"carro","income",false));
-        assertEquals(true, DataManager.getInstance().addChangeTransaction("Add", -1, 10.2, "1997-12-21", "test", 1, false));
-        assertEquals("1997-12-21", DataManager.getInstance().getTransactions(null, null, null).get(0).getDate());
-        assertEquals(true, DataManager.getInstance().addChangeTransaction("Update", 1, 21, "1997-12-21", "mudar", 1, true));
-        Transaction a = DataManager.getInstance().getTransactions("carro", "1997-12-20", "1997-12-21").get(0);
-        assertEquals(true, a.getDone());
-        assertEquals(true, DataManager.getInstance().DeleteElements("Transaction", a.getID()));
-
-    }
-
-    /*@Test
-    public void testgetDBTypeName(){
-
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        DatabaseSingleton.getInstance().createDB(appContext);
-        assertEquals(true, User.getInstance().signup("ola@ola.pt", "1234"));
-        Cursor cursor = DatabaseSingleton.getInstance().getDB().getType(Integer.toString(1));
-        assertEquals("income", cursor.getString(cursor.getColumnIndex(TYPE_NAME)));
-
-    }
-
-    /*@Test
-    public void testgetTransBetweenDates(){
-
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DatabaseSingleton.getInstance().createDB(appContext);
-        assertEquals(true, User.getInstance().addType("income"));
-        assertEquals(true, User.getInstance().addCategory("carro", "income"));
-        //add to category transaction vector and db
-        Transaction t1 = User.getInstance().getCategory("carro").addTransaction(10, "1997/12/21", "ola",true);
-        assertNotNull(User.getInstance().getCategory("carro").addTransaction(11, "1997/12/24", "ola2",true));
-        //only add db to test get db values between dates
-        DatabaseSingleton.getInstance().getDB().addTransaction(12, "1997/02/17", "JulietaQueChunga", 0, true);
-        DatabaseSingleton.getInstance().getDB().addTransaction(13, "1997/11/02", "baldaia", 1, true);
-        Map<Category,TreeSet<Transaction>> res;
-        res = User.getInstance().getAllTransactionsBetween("1997/12/21", "1997/12/23");
-        assertEquals(1, res.get(User.getInstance().getCategory("carro")).size());
-        res = User.getInstance().getAllTransactionsBetween("1995/05/10", "1997/12/24");
-        assertEquals(3, res.get(User.getInstance().getCategory("carro")).size());
-        res = User.getInstance().getAllTransactionsBetween("1997/01/01", "1997/11/02");
-        assertEquals(1, res.get(User.getInstance().getCategory("carro")).size());
-
-
-    }
-
-*/
-
 
 
    @Test
@@ -564,6 +497,8 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void getCatSuggestedValues(){
+
+
 
 
     }

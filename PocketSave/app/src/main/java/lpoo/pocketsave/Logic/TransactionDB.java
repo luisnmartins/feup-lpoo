@@ -51,6 +51,8 @@ public class TransactionDB implements CRUDDB<Transaction> {
     public boolean update(Transaction toUpdate){
         SQLiteDatabase db = dbH.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        Log.d(TAG, "ID toUdate: "+toUpdate.getID());
+        Log.d(TAG, "ID CAT: "+toUpdate.getCatID());
         contentValues.put(DatabaseHelper.TRANS_ID, toUpdate.getID());
         contentValues.put(DatabaseHelper.TRANS_VALUE, toUpdate.getValue());
         contentValues.put(DatabaseHelper.TRANS_DATE, toUpdate.getDate());

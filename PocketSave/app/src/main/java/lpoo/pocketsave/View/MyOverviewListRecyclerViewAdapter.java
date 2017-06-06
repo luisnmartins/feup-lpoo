@@ -280,6 +280,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         b.putString("description",t.getDescription());
         b.putString("date",t.getDate());
         b.putString("image",t.getImage());
+        Log.d("RECYCLER: ", ""+t.getCatID());
         b.putLong("cat",t.getCatID());
         transactionIntent.putExtras(b);
         mContext.startActivity(transactionIntent);
