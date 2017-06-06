@@ -100,8 +100,10 @@ public class Month extends AppCompatActivity {
                 Double ExpenseValue = Double.parseDouble(SetFixedExpenses.getText().toString());
                 long IncomeID = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
                 long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
-                DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,true, null,true);
-                DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,true, null,true);
+                Transaction income = new Transaction(IncomeValue, date, IncomeID, true, true);
+                Transaction expense = new Transaction(ExpenseValue, date, ExpenseID, true, true);
+                DataManager.getInstance().addUpdateTransaction("Add",income);
+                DataManager.getInstance().addUpdateTransaction("Add",expense);
                 Intent mainIntent = new Intent(Month.this, MainActivity.class);
                 Month.this.startActivity(mainIntent);
                 finish();
@@ -191,11 +193,15 @@ public class Month extends AppCompatActivity {
                 {
                     String date = returnFirstofMonth();
                     Double value = Double.parseDouble(SetCatValue.getText().toString());
+                    Transaction newTransaction;
                     if(trans == null){
-                        DataManager.getInstance().addUpdateTransaction("Add",-1,value,date,"estimativa",category.getID(),false, null,true);
+                        newTransaction = new Transaction(value, date, category.getID(), false, true);
+                        DataManager.getInstance().addUpdateTransaction("Add",newTransaction);
 
                     }else{
-                        DataManager.getInstance().addUpdateTransaction("Update",trans.getID(),value,date,"estimativa",category.getID(),false,null,true);
+                        newTransaction = new Transaction(value, date, category.getID(), false, true );
+                        newTransaction.setID(trans.getID());
+                        DataManager.getInstance().addUpdateTransaction("Update",newTransaction);
                     }
                     catValues.put(tempCatName, (double) value);
                     Double estimative = calculateBalance();

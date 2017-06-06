@@ -215,14 +215,15 @@ public class DataManager {
 
                 month = month.substring(month.indexOf('-') + 1, month.indexOf('-') + 3);
                 Log.d(TAG,"MES: " +month);
-                newTransaction = new Transaction(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)),
+                newTransaction = new Transaction(
                         cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)),
                         cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE)) > 0,
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)),
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH)) > 0);
+                newTransaction.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)));
+                newTransaction.setDescription(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)));
+                newTransaction.setImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
 
                 for (HashMap.Entry<Transaction, ArrayList<Integer>> it : transactions.entrySet()) {
                     if (it.getKey().equals(newTransaction)) {
@@ -279,14 +280,15 @@ public class DataManager {
 
             transactions = new ArrayList<Transaction>();
             do {
-                newTransaction = new Transaction(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)),
+                newTransaction = new Transaction(
                         cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)),
                         cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE)) > 0,
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)),
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH)) > 0);
+                newTransaction.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)));
+                newTransaction.setDescription(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)));
+                newTransaction.setImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
 
                 transactions.add(newTransaction);
             } while (cursor.moveToNext());

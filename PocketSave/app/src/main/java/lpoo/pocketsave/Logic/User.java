@@ -36,7 +36,10 @@ public class User {
             totalSaved =0;
         else {
             for (HashMap.Entry<String, Double> it : spents.entrySet()) {
-                totalSaved += it.getValue();
+                if(it.getKey().equals("Income"))
+                    totalSaved += it.getValue();
+                else
+                    totalSaved-= it.getValue();
             }
         }
 

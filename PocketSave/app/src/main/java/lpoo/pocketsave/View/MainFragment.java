@@ -28,6 +28,7 @@ import java.util.Random;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Suggestions;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
@@ -159,10 +160,10 @@ public class MainFragment extends Fragment {
 
     Double getCurrentBalance()
     {
-        Suggestions aux = new Suggestions();
+        Date d = new Date();
         Double balance = 0.0;
         Double spent = 0.0;
-        HashMap<String,Double> hashMap =DataManager.getInstance().getTotalSpentValues("Type",null,aux.getInitialDate(true,"current"),aux.getInitialDate(false,"current"),true);
+        HashMap<String,Double> hashMap =DataManager.getInstance().getTotalSpentValues("Type",null,d.getInitialDate(true,"current"),d.getInitialDate(false,"current"),true);
         if(hashMap != null)
         {
             for(HashMap.Entry<String,Double> it : hashMap.entrySet())
@@ -170,8 +171,8 @@ public class MainFragment extends Fragment {
               spent += it.getValue();
             }
         }
-        String d1 = aux.getInitialDate(true,"current");
-        String d2 = aux.getInitialDate(false,"current");
+        String d1 = d.getInitialDate(true,"current");
+        String d2 = d.getInitialDate(false,"current");
         ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Type","Income",d1,d2,true);
         if(trans != null)
         {

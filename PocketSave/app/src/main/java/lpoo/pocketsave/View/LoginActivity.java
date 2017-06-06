@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Suggestions;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
@@ -460,9 +461,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            Suggestions aux = new Suggestions();
+            Date d = new Date();
 
-            DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,aux.getInitialDate(false,"currentDate"));
+            DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,d.getInitialDate(false,"currentDate"));
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");

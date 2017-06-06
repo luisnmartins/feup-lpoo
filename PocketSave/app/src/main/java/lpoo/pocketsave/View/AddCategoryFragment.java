@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 /**
@@ -140,7 +141,8 @@ public class AddCategoryFragment extends Fragment {
                 {
                     Category cat_id = DataManager.getInstance().getCategory(catTitle.getText().toString(),null,null).get(0);
                     Double estimated_value = Double.parseDouble(catEstimaed.getText().toString());
-                    DataManager.getInstance().addUpdateTransaction("Add",-1,estimated_value,date,"estimated",cat_id.getID(),false,null,false);
+                    Transaction newTransaction = new Transaction(estimated_value, date, cat_id.getID(), false, false);
+                    DataManager.getInstance().addUpdateTransaction("Add",newTransaction);
                 }
 
                 getActivity().getSupportFragmentManager().popBackStack();

@@ -19,17 +19,7 @@ public class Transaction implements Comparable<Transaction>{
     private String image;
     private boolean cash;
 
-    public Transaction(long id, double value, String dateS, String description, long catID, boolean done, String image, boolean cash) {
 
-        this.id = id;
-        this.value = value;
-            this.date = dateS;
-        this.description = description;
-        this.done = done;
-        this.catID = catID;
-        this.image = image;
-        this.cash=cash;
-    }
 
     public Transaction(double value, String dateS, long catID, boolean done, boolean cash){
         this.value = value;
@@ -71,6 +61,14 @@ public class Transaction implements Comparable<Transaction>{
     }
 
     public String getImage(){return image;}
+
+    public void setImage(String image){
+        this.image = image;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
 
     public int isCashMethod(){return cash? 1: 0;}
 

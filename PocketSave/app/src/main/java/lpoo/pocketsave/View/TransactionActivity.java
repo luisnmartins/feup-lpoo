@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 public class TransactionActivity extends AppCompatActivity {
@@ -279,12 +280,20 @@ public class TransactionActivity extends AppCompatActivity {
                             id = b.getLong("cat");
                         }
                         Log.d("ACTIVITY", "CATTT: " + id);
+                        Transaction newTransaction;
                         if(istoEdit) {
-
-                            DataManager.getInstance().addUpdateTransaction("Update", idTrans, valueDouble, dateString, desc, id, true, mCurrentPhotoPath, isCash);
+                            newTransaction = new Transaction(valueDouble, dateString, id, true, isCash);
+                            newTransaction.setID(idTrans);
+                            newTransaction.setDescription(desc);
+                            newTransaction.setImage(mCurrentPhotoPath);
+                            DataManager.getInstance().addUpdateTransaction("Update", newTransaction);
                         }
-                        else
-                            DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
+                        else {
+                            newTransaction = new Transaction(valueDouble, dateString, id, true, isCash);
+                            newTransaction.setImage(mCurrentPhotoPath);
+                            newTransaction.setDescription(desc);
+                            DataManager.getInstance().addUpdateTransaction("Add", newTransaction);
+                        }
                         finish();
                         //TODO: change done value
 

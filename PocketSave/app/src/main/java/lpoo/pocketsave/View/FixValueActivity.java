@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 public class FixValueActivity extends AppCompatActivity {
@@ -59,6 +60,7 @@ public class FixValueActivity extends AppCompatActivity {
                     inputMoths.requestFocus();
                     return;
                 }
+                Transaction newTransaction;
                 if(isIncome)
                 {
                     for(int i = 0; i < monthsSelected.size();i++)
@@ -66,7 +68,9 @@ public class FixValueActivity extends AppCompatActivity {
                         Double dovalue = Double.parseDouble(value.getText().toString());
                         String date = "01-"+monthsSelected.get(i)+ "-" + Calendar.getInstance().get(Calendar.YEAR);
                         long cat_id = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
-                        DataManager.getInstance().addUpdateTransaction("Add",-1,dovalue,date,title.getText().toString(),cat_id,false,null,true);
+                        newTransaction = new Transaction(dovalue, date, cat_id, false, false);
+                        newTransaction.setDescription(title.getText().toString());
+                        DataManager.getInstance().addUpdateTransaction("Add",newTransaction);
                     }
 
                 }else
@@ -76,7 +80,9 @@ public class FixValueActivity extends AppCompatActivity {
                         Double dovalue = Double.parseDouble(value.getText().toString());
                         String date = "01-"+monthsSelected.get(i)+ "-" + Calendar.getInstance().get(Calendar.YEAR);
                         long cat_id = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
-                        DataManager.getInstance().addUpdateTransaction("Add",-1,dovalue,date,title.getText().toString(),cat_id,false,null,true);
+                        newTransaction = new Transaction(dovalue, date, cat_id, false, true);
+                        newTransaction.setDescription(title.getText().toString());
+                        DataManager.getInstance().addUpdateTransaction("Add",newTransaction);
                     }
                 }
                 finish();;
