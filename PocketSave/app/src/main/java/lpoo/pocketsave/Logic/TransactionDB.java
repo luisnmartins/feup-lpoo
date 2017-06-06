@@ -220,14 +220,14 @@ public class TransactionDB implements CRUDDB<Transaction> {
             cursor = db.rawQuery("SELECT P." + DatabaseHelper.TYPE_NAME + ", SUM(T." + DatabaseHelper.TRANS_VALUE + ") FROM " +
                     DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C, " + DatabaseHelper.TABLE_TYPE + " P " +
                     "WHERE P." + DatabaseHelper.TYPE_ID + " = C." + DatabaseHelper.CAT_TYPE_ID + " AND T." + DatabaseHelper.TRANS_CATEGORY_ID + " = " +
-                    "C." + DatabaseHelper.CAT_ID + " AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
+                    "C." + DatabaseHelper.CAT_ID + " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2+"' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
                     " GROUP BY P." + DatabaseHelper.TYPE_NAME, null);
 
         }else {
             cursor = db.rawQuery("SELECT P." + DatabaseHelper.TYPE_NAME + ", SUM(T." + DatabaseHelper.TRANS_VALUE + ") FROM " +
                     DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C, " + DatabaseHelper.TABLE_TYPE + " P " +
                     "WHERE P." + DatabaseHelper.TYPE_ID + " = C." + DatabaseHelper.CAT_TYPE_ID + " AND T." + DatabaseHelper.TRANS_CATEGORY_ID + " = " +
-                    "C." + DatabaseHelper.CAT_ID + " AND P." + DatabaseHelper.TYPE_NAME + " = '" + typeTitle + "' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
+                    "C." + DatabaseHelper.CAT_ID + " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2+"' AND P." + DatabaseHelper.TYPE_NAME + " = '" + typeTitle + "' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
                     " GROUP BY P." + DatabaseHelper.TYPE_NAME, null);
         }
 

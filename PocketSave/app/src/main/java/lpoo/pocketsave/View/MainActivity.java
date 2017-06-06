@@ -31,10 +31,12 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.DatabaseHelper;
+import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -313,8 +315,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if(id == R.id.nav_month)
         {
             closeAllFragments();
-            Intent transactionIntent = new Intent(MainActivity.this, Month.class);
-            MainActivity.this.startActivity(transactionIntent);
+            startMonth();
         }else if(id == R.id.nav_exit)
         {
             quitApp();
@@ -372,6 +373,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
+    public void startMonth()
+    {
+        Date d = new Date();
+        String d1;
+        d1 = d.getInitialDate(true,"current");
+        Intent monthIntent = new Intent(MainActivity.this,Month.class);
+        Bundle b = new Bundle();
+        b.putBoolean("isFirst",false);
+        HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
+        HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
+        if (transIncome == null)
+            return;
+        Double incomes = 0.0;
+        for(HashMap.Entry<String,Double> it : transIncome.entrySet())
+        {
+            incomes += it.getValue();
+        }
+        b.putDouble("incomeValue",incomes);
+        Double expenses = 0.0;
+        if(transExpense != null) {
+
+            for(HashMap.Entry<String,Double> it : transExpense.entrySet())
+            {
+                expenses += it.getValue();
+            }
+        }
+        b.putDouble("expenseValue",expenses);
+        monthIntent.putExtras(b);
+        MainActivity.this.startActivity(monthIntent);
+        finish();
+    }
 
 
 }

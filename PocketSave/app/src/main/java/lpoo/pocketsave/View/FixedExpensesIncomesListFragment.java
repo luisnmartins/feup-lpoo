@@ -141,8 +141,11 @@ public class FixedExpensesIncomesListFragment extends Fragment {
         Log.d("TESTE: ", TransType);
 
        HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType);
-        mHashmap = DataManager.getInstance().getTypeTransaction(TransType);
-        Log.d("hgh","SIZE DO HASH MAP DA CENA: " + mHashmap.size());
+        if(aux != null)
+        {
+            mHashmap = aux;
+        }
+
 
     }
 

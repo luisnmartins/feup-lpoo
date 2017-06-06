@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -414,23 +415,42 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 if(verifyMonth())
                 {
-                    Intent mainIntent = new Intent(LoginActivity.this, Month.class);
-                    LoginActivity.this.startActivity(mainIntent);
-                    Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
+                    Date d = new Date();
+                    String d1;
+                    d1 = d.getInitialDate(true,"current");
+                    Intent monthIntent = new Intent(LoginActivity.this,Month.class);
+                    Bundle b = new Bundle();
+                    b.putBoolean("isFirst",false);
+                    HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
+                    HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
+                    if (transIncome == null)
+                        return;
+                    Double incomes = 0.0;
+                    for(HashMap.Entry<String,Double> it : transIncome.entrySet())
+                    {
+                        incomes += it.getValue();
+                    }
+                    b.putDouble("incomeValue",incomes);
+                    Double expenses = 0.0;
+                    if(transExpense != null) {
 
+                        for(HashMap.Entry<String,Double> it : transExpense.entrySet())
+                        {
+                            expenses += it.getValue();
+                        }
+                    }
+                    b.putDouble("expenseValue",expenses);
+                    monthIntent.putExtras(b);
+                    LoginActivity.this.startActivity(monthIntent);
                     finish();
+                    Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
                 }else
                 {
-                    Intent settingsIntent = new Intent(LoginActivity.this,SettingsActivity.class);
-                    Bundle b = new Bundle();
-                    b.putBoolean("isFirst",true);
-                    settingsIntent.putExtras(b);
-                    LoginActivity.this.startActivity(settingsIntent);
-                    finish();
-                    /*Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+
+                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(mainIntent);
                     Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
-                    finish();*/
+                    finish();
                 }
 
             } else {
@@ -491,9 +511,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent mainIntent = new Intent(LoginActivity.this, Month.class);
-                LoginActivity.this.startActivity(mainIntent);
-                Toast.makeText(LoginActivity.this,"User created succesfully",Toast.LENGTH_LONG).show();
+                Intent settingsIntent = new Intent(LoginActivity.this,SettingsActivity.class);
+                Bundle b = new Bundle();
+                b.putBoolean("isFirst",true);
+                settingsIntent.putExtras(b);
+                LoginActivity.this.startActivity(settingsIntent);
                 finish();
             } else {
                 mEmailView.setError(getString(R.string.email_exists));

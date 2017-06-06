@@ -48,7 +48,7 @@ public class Month extends AppCompatActivity {
     private String tempCatName;
     private HashMap<String,Double> catValues = new HashMap<>();
     private ImageButton addCategory;
-    //private Boolean isIncome;
+    private Boolean isFirst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,12 @@ public class Month extends AppCompatActivity {
         initializeImageButtons();
         Bundle b = getIntent().getExtras();
         //isIncome = b.getBoolean("isIncome");
+        if(b != null)
+        {
+            isFirst = b.getBoolean("isFirst");
+            SetIncome.setText(Double.toString(b.getDouble("incomeValue")));
+            SetFixedExpenses.setText(Double.toString(b.getDouble("expenseValue")));
+        }
 
         addCategory = (ImageButton) findViewById(R.id.addCatMonth);
         addCategory.setOnClickListener(new View.OnClickListener() {
@@ -137,17 +143,11 @@ public class Month extends AppCompatActivity {
             }
         });
 
+
+
     }
 
 
-    public void addItemsOnSpinner()
-    {
-        //mSpinner = (Spinner) findViewById(R.id.categorycombobox);
-        List<String> list = new ArrayList<String>();
-        list.add("Cat1");
-        list.add("Cat2");
-        list.add("Cat3");
-    }
 
     public void initializeEditTexts()
     {
@@ -175,14 +175,15 @@ public class Month extends AppCompatActivity {
         editIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SetIncome.setEnabled(true);
+                //SetIncome.setEnabled(true);
             }
         });
 
         editFixedExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SetFixedExpenses.setEnabled(true);
+                //SetFixedExpenses.setEnabled(true);
+                goToSettings();
             }
         });
 
@@ -285,6 +286,21 @@ public class Month extends AppCompatActivity {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
+    }
+
+    public  void goToSettings()
+    {
+        Intent settingsIntent = new Intent(Month.this,SettingsActivity.class);
+        Bundle b = new Bundle();
+        if(isFirst)
+        b.putBoolean("isFirst",true);
+        else
+        {
+            b.putBoolean("isFirst",false);
+        }
+        settingsIntent.putExtras(b);
+        Month.this.startActivity(settingsIntent);
+        finish();
     }
 
 }

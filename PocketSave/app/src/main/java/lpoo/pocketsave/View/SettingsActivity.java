@@ -20,7 +20,12 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Date;
+import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -277,10 +282,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void prepareFirstMonth()
     {
+        firstMonth.setEnabled(true);
+        firstMonth.setVisibility(View.VISIBLE);
         firstMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                prepareNewMonth();
 
+                finish();
             }
         });
     }
@@ -288,9 +297,41 @@ public class SettingsActivity extends AppCompatActivity {
     public void prepareNewMonth()
     {
 
+        Date d = new Date();
+        String d1;
+        d1 = d.getInitialDate(true,"current");
+        Log.d("CENAS","DATA: " +d1);
         Intent monthIntent = new Intent(SettingsActivity.this,Month.class);
         Bundle b = new Bundle();
-        //Double income = DataManager.getInstance().getTotalSpentValues("Type","Income",)
+        b.putBoolean("isFirst",true);
+        HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
+        HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
+        if (transIncome == null)
+            return;
+        Double incomes = 0.0;
+        Log.d("CNEAS","SIZE DE TRANSINCOM: " + transIncome.size());
+        for(HashMap.Entry<String,Double> it : transIncome.entrySet())
+        {
+            incomes += it.getValue();
+        }
+        Log.d("CENAS","VALOR INCOMES:" +incomes);
+        b.putDouble("incomeValue",incomes);
+        Double expenses = 0.0;
+        if(transExpense != null) {
+
+            for(HashMap.Entry<String,Double> it : transExpense.entrySet())
+            {
+                expenses += it.getValue();
+            }
+        }
+        Log.d("CENAS","VALOR EXPENSE: " + expenses);
+        b.putDouble("expenseValue",expenses);
+        monthIntent.putExtras(b);
+        SettingsActivity.this.startActivity(monthIntent);
+
+
+
+
     }
 
 }

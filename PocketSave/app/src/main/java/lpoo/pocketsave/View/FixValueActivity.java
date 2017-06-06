@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,7 +67,8 @@ public class FixValueActivity extends AppCompatActivity {
                     for(int i = 0; i < monthsSelected.size();i++)
                     {
                         Double dovalue = Double.parseDouble(value.getText().toString());
-                        String date = "01-"+monthsSelected.get(i)+ "-" + Calendar.getInstance().get(Calendar.YEAR);
+                        String date = Calendar.getInstance().get(Calendar.YEAR) + "-" + monthsSelected.get(i)+ "-01";
+                        Log.d("CADA","CADA DATE: " + date);
                         long cat_id = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
                         newTransaction = new Transaction(dovalue, date, cat_id, false, false);
                         newTransaction.setDescription(title.getText().toString());
@@ -78,7 +80,7 @@ public class FixValueActivity extends AppCompatActivity {
                     for(int i = 0; i < monthsSelected.size();i++)
                     {
                         Double dovalue = Double.parseDouble(value.getText().toString());
-                        String date = "01-"+monthsSelected.get(i)+ "-" + Calendar.getInstance().get(Calendar.YEAR);
+                        String date = Calendar.getInstance().get(Calendar.YEAR) + "-" + monthsSelected.get(i)+ "-01";
                         long cat_id = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
                         newTransaction = new Transaction(dovalue, date, cat_id, false, true);
                         newTransaction.setDescription(title.getText().toString());
