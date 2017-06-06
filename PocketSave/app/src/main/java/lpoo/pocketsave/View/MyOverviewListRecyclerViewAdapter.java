@@ -195,6 +195,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         long catid = mSortedList.get(position).getCatID();
         Category temp = new Category(null, -1, false, 1);
         temp.setID(catid);
+        Log.d("CENAS","TEMP ID: " + temp.getID());
         int index = viewHolder.getCategoriesVariable().indexOf(temp);
         Category aux = viewHolder.getCategoriesVariable().get(index);
         viewHolder.getlistValue().setText(String.valueOf(value));

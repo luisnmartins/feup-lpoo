@@ -212,6 +212,7 @@ public class MainFragment extends Fragment {
                                    ArrayList<String> onLimit =  sug.onlimitCategory();
                                     if(onLimit == null || onLimit.isEmpty())
                                     {
+                                        sug_index++;
                                         return;
                                     }
                                     String msg = "Beware that you are almost reaching your expected values too soon in the following categories: ";
@@ -232,6 +233,7 @@ public class MainFragment extends Fragment {
                                     ArrayList<String>  toHigh = sug.compareCatValuesBefore();
                                     if(toHigh == null || toHigh.isEmpty())
                                     {
+                                        sug_index++;
                                         return ;
                                     }
                                     String msg = "Remember that you spent to much last month in the following categories: ";
@@ -251,6 +253,7 @@ public class MainFragment extends Fragment {
                                     ArrayList<String> toManyCash = sug.limitCashMethodCategory();
                                     if(toManyCash == null || toManyCash.isEmpty())
                                     {
+                                        sug_index = 0;
                                         return;
                                     }
                                     String msg = "I think your making too much small buys in the following categories: ";

@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavView = (NavigationView) findViewById(R.id.nav_view);
         mNavView.setNavigationItemSelectedListener(this);
-
         Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
         ((TextView)mNavView.getHeaderView(0).findViewById(R.id.User)).setText(DataManager.getInstance().getUser().getEmail());
         Double value = DataManager.getInstance().getUser().getTotalSaved();
@@ -91,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         totalvalue.setText("Total Saved "+ value);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
     }
 

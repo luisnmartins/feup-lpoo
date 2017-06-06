@@ -123,6 +123,8 @@ public class StatsFragment extends Fragment {
                     each_cat_spent = DataManager.getInstance().getTotalSpentValues("Category",null,from,to,true);
                     if(each_cat_spent != null) {
 
+                        each_cat_spent.remove("Fixed Expense");
+                        each_cat_spent.remove("Income");
                         for (HashMap.Entry<String, Double> it : each_cat_spent.entrySet()) {
                             Log.d("Tag", "O key de: " + it.getKey());
                             Log.d("Tag", "O value de: " + it.getValue());

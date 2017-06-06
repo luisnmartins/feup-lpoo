@@ -83,6 +83,8 @@ public class DataManager {
             User currUser = new User(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.USER_ID)),
                     cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_EMAIL)),
                     cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_PASSWORD)));
+            currUser.setSince(cursor.getString(cursor.getColumnIndex(DatabaseHelper.USER_SINCE)));
+            Log.d(TAG, "SINCE: "+currUser.getSince());
             cursor.close();
             return currUser;
         }
@@ -319,6 +321,7 @@ public class DataManager {
         String catType;
         double value;
         Cursor cursor;
+
         if (structure.equals("Category"))
             cursor = transaction.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
         else if (structure.equals("Type"))
@@ -327,6 +330,7 @@ public class DataManager {
             return null;
 
         if (cursor == null) {
+            Log.d(TAG, "CURSOS NULL");
             return null;
         }
 

@@ -7,13 +7,21 @@ public class DemoUser {
 
     public void addLastMonthTransactions(){
         Transaction income = new Transaction(1500, "2017-05-01", 1, true, false);
+        income.setDescription("Income");
         Transaction fixedExpense = new Transaction(800, "2017-05-01", 2, true, false);
+        fixedExpense.setDescription("expense");
         Transaction setEat = new Transaction(90, "2017-05-01", 3, false, false);
+        setEat.setDescription("setEat");
         Transaction setTransport = new Transaction(80, "2017-05-01", 4, false, false);
+        setTransport.setDescription("setTransport");
         Transaction setHealth = new Transaction(150, "2017-05-01", 5, false, false);
+        setHealth.setDescription("setHealth");
         Transaction setClothes = new Transaction(100, "2017-05-01", 6, false, false);
+        setClothes.setDescription("setClothes");
         Transaction setJoy = new Transaction(30, "2017-05-01", 7, false, false);
+        setJoy.setDescription("setJoy");
         Transaction setFood = new Transaction(250, "2017-05-01", 8, false, false);
+        setFood.setDescription("setFood");
         Transaction eat1 = new Transaction(18, "2017-05-01", 3, true, true);
         eat1.setDescription("Restaurante chinês");
         Transaction eat2 = new Transaction(20, "2017-05-08", 3, true, true);

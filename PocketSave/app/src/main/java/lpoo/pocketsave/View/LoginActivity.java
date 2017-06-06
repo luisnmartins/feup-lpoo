@@ -59,8 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
+     **/
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -260,12 +259,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -376,7 +373,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             try {
                 // Simulate network access.
@@ -424,35 +420,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 if(verifyMonth())
                 {
-                    Date d = new Date();
-                    String d1;
-                    d1 = d.getInitialDate(true,"current");
-                    Intent monthIntent = new Intent(LoginActivity.this,Month.class);
-                    Bundle b = new Bundle();
-                    b.putBoolean("isFirst",false);
-                    HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
-                    HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
-                    if (transIncome == null)
-                        return;
-                    Double incomes = 0.0;
-                    for(HashMap.Entry<String,Double> it : transIncome.entrySet())
-                    {
-                        incomes += it.getValue();
-                    }
-                    b.putDouble("incomeValue",incomes);
-                    Double expenses = 0.0;
-                    if(transExpense != null) {
-
-                        for(HashMap.Entry<String,Double> it : transExpense.entrySet())
-                        {
-                            expenses += it.getValue();
-                        }
-                    }
-                    b.putDouble("expenseValue",expenses);
-                    monthIntent.putExtras(b);
-                    LoginActivity.this.startActivity(monthIntent);
-                    finish();
-                    Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
+                    startMonth();
                 }else
                 {
 
@@ -499,7 +467,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Date d = new Date();
 
 
-            DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,d.getInitialDate(false,"currentDate"));
+            if(mEmail.equals("teste@") && mPassword.equals("teste"))
+            {
+                DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,"2017-04-01");
+            }else
+            {
+                DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,d.getInitialDate(false,"currentDate"));
+
+            }
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");
@@ -523,6 +498,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if(mEmail.equals("teste@") && mPassword.equals("teste"))
             {
                 new DemoUser().addLastMonthTransactions();
+                return null;
             }
             return true;
         }
@@ -532,14 +508,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mSignTask = null;
             showProgress(false);
 
-            if (success) {
+            if(success == null)
+            {
+               startMonth();
+            }
+             else if (success) {
                 Intent settingsIntent = new Intent(LoginActivity.this,SettingsActivity.class);
                 Bundle b = new Bundle();
                 b.putBoolean("isFirst",true);
                 settingsIntent.putExtras(b);
                 LoginActivity.this.startActivity(settingsIntent);
                 finish();
-            } else {
+            } else{
                 mEmailView.setError(getString(R.string.email_exists));
                 mEmailView.requestFocus();
             }
@@ -566,6 +546,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }else {
             return false;
         }
+    }
+
+    public void startMonth()
+    {
+        Date d = new Date();
+        String d1;
+        d1 = d.getInitialDate(true,"current");
+        Intent monthIntent = new Intent(LoginActivity.this,Month.class);
+        Bundle b = new Bundle();
+        b.putBoolean("isFirst",true);
+        HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
+        HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
+
+        Double incomes = 0.0;
+        if(transIncome != null)
+        {
+            for(HashMap.Entry<String,Double> it : transIncome.entrySet())
+            {
+                incomes += it.getValue();
+            }
+        }
+        b.putDouble("incomeValue",incomes);
+        Double expenses = 0.0;
+        if(transExpense != null) {
+
+            for(HashMap.Entry<String,Double> it : transExpense.entrySet())
+            {
+                expenses += it.getValue();
+            }
+        }
+        b.putDouble("expenseValue",expenses);
+        monthIntent.putExtras(b);
+        LoginActivity.this.startActivity(monthIntent);
+        finish();
+        Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
     }
 
 
