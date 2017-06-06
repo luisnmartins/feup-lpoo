@@ -289,7 +289,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 prepareNewMonth();
 
-                finish();
+
             }
         });
     }
@@ -328,7 +328,7 @@ public class SettingsActivity extends AppCompatActivity {
         b.putDouble("expenseValue",expenses);
         monthIntent.putExtras(b);
         SettingsActivity.this.startActivity(monthIntent);
-
+        finish();
 
 
 

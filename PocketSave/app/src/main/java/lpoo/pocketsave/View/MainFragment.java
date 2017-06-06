@@ -10,6 +10,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -164,14 +165,19 @@ public class MainFragment extends Fragment {
         Double balance = 0.0;
         Double spent = 0.0;
         HashMap<String,Double> hashMap =DataManager.getInstance().getTotalSpentValues("Type",null,d.getInitialDate(true,"current"),d.getInitialDate(false,"current"),true);
+       Log.d("CNEAS", "DATA DE BALANCE: " + d.getInitialDate(true,"current"));
+        Log.d("CNEAS", "DATA DE FIM BALANCE" + d.getInitialDate(false,"current"));
         if(hashMap != null)
         {
             for(HashMap.Entry<String,Double> it : hashMap.entrySet())
             {
-              spent += it.getValue();
+              if(it.getKey().equals("Fixed Expense") || it.getKey().equals("Variable Expense"))
+              {
+                  balance -= it.getValue();
+              }else balance += it.getValue();
             }
         }
-        String d1 = d.getInitialDate(true,"current");
+       /* String d1 = d.getInitialDate(true,"current");
         String d2 = d.getInitialDate(false,"current");
         ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Type","Income",d1,d2,true);
         if(trans != null)
@@ -182,7 +188,7 @@ public class MainFragment extends Fragment {
             }
         }
 
-        balance = balance - spent;
+        balance = balance - spent;*/
         return balance;
 
     }

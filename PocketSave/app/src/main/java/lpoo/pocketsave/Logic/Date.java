@@ -80,7 +80,7 @@ public class Date {
                 date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH))) + "-" + daysofmonths.get(c.get(Calendar.MONTH) - 2);
 
             } else {
-                date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH))) + 1 + "-" + daysofmonths.get(c.get(Calendar.MONTH) - 1);
+                date = c.get(Calendar.YEAR) + "-" + String.format("%02d", ((c.get(Calendar.MONTH))+1)) + 1 + "-" + daysofmonths.get(c.get(Calendar.MONTH) - 1);
             }
         }
         return date;

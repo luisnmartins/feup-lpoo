@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import lpoo.pocketsave.Demo.DemoUser;
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Date;
@@ -393,7 +394,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 DataManager.getInstance().addGetType("Add","Fixed Expense");
                 Category income = new Category("Income", DataManager.getInstance().addGetType("Get","Income"),false,1);
                 Category fixed = new Category("Fixed Expense", DataManager.getInstance().addGetType("Get", "Fixed Expense"), false, 1);
-                Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLUE);
+                Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.GREEN);
                 Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLACK);
                 Category health = new Category("Health", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.CYAN);
                 Category clothes = new Category("Clothes", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.MAGENTA);
@@ -497,13 +498,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             Date d = new Date();
 
+
             DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,d.getInitialDate(false,"currentDate"));
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");
             Category income = new Category("Income", DataManager.getInstance().addGetType("Get","Income"),false,1);
             Category fixed = new Category("Fixed Expense", DataManager.getInstance().addGetType("Get", "Fixed Expense"), false, 1);
-            Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLUE);
+            Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.GREEN);
             Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLACK);
             Category health = new Category("Health", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.CYAN);
             Category clothes = new Category("Clothes", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.MAGENTA);
@@ -517,6 +519,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DataManager.getInstance().addUpdateCategory("Add",clothes);
             DataManager.getInstance().addUpdateCategory("Add",joy);
             DataManager.getInstance().addUpdateCategory("Add",food);
+
+            if(mEmail.equals("teste@") && mPassword.equals("teste"))
+            {
+                new DemoUser().addLastMonthTransactions();
+            }
             return true;
         }
 
