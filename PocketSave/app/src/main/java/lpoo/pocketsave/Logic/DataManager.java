@@ -175,19 +175,10 @@ public class DataManager {
      * Add a new category or update one that already exists
      *
      * @param operation   String to know which operation should be made - "Add" or "Update"
-     * @param id          Id to identify the category that should be updated. Set -1 if is to add a new transaction
-     * @param value       Value of the transaction to be added or updated
-     * @param date        Date of the transaction to be added or updated
-     * @param description Date of the transaction to be added or updated
-     * @param catID       ID of the category of the new transaction
-     * @param done        True if the transaction is already done and false if not
-     * @param image       Path of the receipt image
-     * @param cash        true if is was paid with money and false if not
+     * @param newTransaction
      * @return Returns true if the transaction was added or updated and false if not
      */
-    public boolean addUpdateTransaction(String operation, long id, double value, String date, String description, long catID, boolean done, String image, boolean cash) {
-        Log.d(TAG, date);
-        Transaction newTransaction = new Transaction(id, value, date, description, catID, done, image, cash);
+    public boolean addUpdateTransaction(String operation, Transaction newTransaction){
         if (operation.equals("Add")) {
             return transaction.add(newTransaction);
         } else if (operation.equals("Update")) {

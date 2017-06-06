@@ -31,6 +31,14 @@ public class Transaction implements Comparable<Transaction>{
         this.cash=cash;
     }
 
+    public Transaction(double value, String dateS, long catID, boolean done, boolean cash){
+        this.value = value;
+        this.date = dateS;
+        this.done = done;
+        this.cash = cash;
+        this.catID = catID;
+    }
+
 
 
     public double getValue(){
@@ -49,6 +57,14 @@ public class Transaction implements Comparable<Transaction>{
 
     public boolean getDone(){ return this.done;}
 
+
+    public void setDate(String Date){
+        this.date = Date;
+    }
+
+    public void setValue(double value){
+        this.value = value;
+    }
 
     public String getDescription(){
         return description;

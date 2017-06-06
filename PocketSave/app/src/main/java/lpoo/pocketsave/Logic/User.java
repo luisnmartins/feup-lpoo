@@ -30,8 +30,8 @@ public class User {
 
     private void updateTotalSaved(){
         totalSaved =0;
-        Suggestions a = new Suggestions();
-        HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,a.getInitialDate(true, "current"), true);
+        Date d = new Date();
+        HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,d.getInitialDate(true, "current"), true);
         if(spents == null)
             totalSaved =0;
         else {

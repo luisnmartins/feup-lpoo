@@ -12,36 +12,17 @@ import java.util.zip.DeflaterOutputStream;
 
 public class Suggestions {
 
-    ArrayList<Integer> daysofmonths = new ArrayList<Integer>();
+
     static final double PERCENTAGE_DIFERENCE = 0.4;
 
     private static final String TAG = "Suggestions";
 
+    private Date d;
+
 
     public Suggestions() {
 
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        daysofmonths.add(31);
-        if (year % 4 == 0) {
-            if (year % 100 == 0) {
-                if (year % 400 == 0)
-                    daysofmonths.add(29);
-                else
-                    daysofmonths.add(28);
-            } else
-                daysofmonths.add(29);
-        } else
-            daysofmonths.add(28);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
+        d = new Date();
     }
 
 
@@ -55,11 +36,11 @@ public class Suggestions {
         Double occurred;
         Double expected;
         Calendar c = Calendar.getInstance();
-        String d1 = getInitialDate(true, "current");
-        String d2 = getInitialDate(false, "currentDate");
+        String d1 = d.getInitialDate(true, "current");
+        String d2 = d.getInitialDate(false, "currentDate");
         HashMap<String, Double> expectedValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d1, false);
         HashMap<String, Double> occurredValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d2, true);
-        double daysLeftperc = 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / daysofmonths.get(c.get(Calendar.MONTH));
+        double daysLeftperc = 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / d.getDaysofMonth(c.get(Calendar.MONTH));
         Log.d(TAG, "DIAS: " + daysLeftperc);
 
         if(expectedValues == null)
@@ -98,8 +79,8 @@ public class Suggestions {
         int numberOfCashTransactions;
 
 
-        String d1 = getInitialDate(true, "current");
-        String d2 = getInitialDate(false, "currentDate");
+        String d1 = d.getInitialDate(true, "current");
+        String d2 = d.getInitialDate(false, "currentDate");
 
         for (String exp : onLimit) {
             cashQuantity = 0;
@@ -132,8 +113,8 @@ public class Suggestions {
     public ArrayList<String> compareCatValuesBefore() {
 
         Calendar c = Calendar.getInstance();
-        String dBefore = getInitialDate(true, "last");
-        String dBeforeEnd = getInitialDate(false, "last");
+        String dBefore = d.getInitialDate(true, "last");
+        String dBeforeEnd = d.getInitialDate(false, "last");
         ArrayList<String> ret = new ArrayList<>();
 
         if (dBeforeEnd == null)
@@ -187,8 +168,8 @@ public class Suggestions {
     public HashMap<String, Double> suggestCatValues() {
         HashMap<String, Double> ret= null;
 
-        String dBefore = getInitialDate(true, "last");
-        String dBeforeEnd = getInitialDate(false, "last");
+        String dBefore = d.getInitialDate(true, "last");
+        String dBeforeEnd = d.getInitialDate(false, "last");
 
 
         HashMap<String, Double> catSpent = DataManager.getInstance().getTotalSpentValues("Category", null, dBefore, dBeforeEnd, true);
@@ -223,15 +204,15 @@ public class Suggestions {
      */
     public Double availableCurrentMonth(){
 
-        String dBefore = getInitialDate(true, "last");
-        String dBeforeEnd = getInitialDate(false, "last");
+        String dBefore = d.getInitialDate(true, "last");
+        String dBeforeEnd = d.getInitialDate(false, "last");
 
         Double perc = lastMonthBalance(dBefore, dBeforeEnd);
 
         if (perc == null)
             return null;
 
-        String currentDate = getInitialDate(true, "current");
+        String currentDate = d.getInitialDate(true, "current");
 
         Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
 
@@ -305,44 +286,6 @@ public class Suggestions {
     }
 
 
-    /**
-     * @param firstDay
-     * @param month
-     * @return
-     */
-    public String getInitialDate(Boolean firstDay, String month) {
-        Calendar c = Calendar.getInstance();
-        String date;
-        String monthget;
-        if (month.equals("currentDate")) {
-            date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH) + 1)) + "-" + String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
-            return date;
-        }
-        if (firstDay) {
-            if (month.equals("last")) {
-                if ((c.get(Calendar.MONTH)) == 0) {
-                    return null;
-                }
-                date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH))) + "-0" + 1;
-            } else {
 
-                date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH) + 1)) + "-0" + 1;
-
-            }
-
-        } else {
-            if (month.equals("last")) {
-
-                if ((c.get(Calendar.MONTH)) == 0) {
-                    return null;
-                }
-                date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH))) + "-" + daysofmonths.get(c.get(Calendar.MONTH) - 2);
-
-            } else {
-                date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH))) + 1 + "-" + daysofmonths.get(c.get(Calendar.MONTH) - 1);
-            }
-        }
-        return date;
-    }
 
 }
