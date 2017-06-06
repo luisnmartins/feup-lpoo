@@ -47,4 +47,16 @@ public class TypeDB {
         return -1;
 
     }
+
+    public String getTypeTitle(long id){
+        SQLiteDatabase db = dbH.getReadableDatabase();
+        Cursor cursor = db.query(DatabaseHelper.TABLE_TYPE, new String[]{DatabaseHelper.TYPE_NAME}, DatabaseHelper.TYPE_ID + "=?", new String[]{Long.toString(id)}, null, null, null);
+        if(cursor == null || cursor.getCount()<1)
+            return null;
+        if(cursor.moveToFirst()){
+            return cursor.getString(cursor.getColumnIndex(DatabaseHelper.TYPE_NAME));
+        }
+        cursor.close();
+        return null;
+    }
 }

@@ -36,7 +36,11 @@ public class Date {
         daysofmonths.add(31);
     }
 
-
+    /**
+     * Returns
+     * @param index
+     * @return
+     */
     public int getDaysofMonth(int index){
         return daysofmonths.get(index);
     }

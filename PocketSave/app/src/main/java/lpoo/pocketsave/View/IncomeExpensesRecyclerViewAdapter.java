@@ -64,8 +64,10 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
                 @Override
                 public void onClick(View v) {
 
-                    long cat_id = mkeys[getAdapterPosition()].getCatID();
-                    int index = categories.indexOf(new Category(cat_id,null,0,false,1));
+                    long catid = mkeys[getAdapterPosition()].getCatID();
+                    Category temp = new Category(null, -1, false, 1);
+                    temp.setID(catid);
+                    int index = categories.indexOf(temp);
                     Category aux = categories.get(index);
                     initiateMonth(getAdapterPosition(),aux);
                 }

@@ -21,6 +21,10 @@ public class DataManager {
 
     static private DataManager instance = null;
 
+    /**
+     * Initialize database Instance
+     * @param context Program context
+     */
     static public void startDB(Context context) {
         if (user == null) {
             DatabaseHelper.startDB(context);
@@ -31,6 +35,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * get singleton instance
+     * @return Returns singleton instance
+     */
     static public DataManager getInstance() {
         if (instance == null)
             instance = new DataManager();
@@ -90,7 +98,7 @@ public class DataManager {
      *
      * @param operation name of the operation - "Add" or "Update"
      * @param title     Name of the new type/ name of the type to get ID
-     * @return Retuns type ID
+     * @return Returns type ID
      */
     public long addGetType(String operation, String title) {
 
@@ -111,21 +119,18 @@ public class DataManager {
      * Add a new category or update one that already exists
      *
      * @param operation String to know which operation should be made - "Add" or "Update"
-     * @param title     Title of the category that should be added or updated
-     * @param type      type of the category that should be added or updated
-     * @param mainMenu  Boolean representing if this category is one of the 5 main categories or not
+     * @param newCategory Catgeory instance of the category to add
      * @return Returns true if the catgeory was added or updated and false if not
      */
-    public boolean addUpdateCategory(String operation, String title, String type, boolean mainMenu, int color) {
-        Category newCategory;
-        newCategory = new Category(-1, title, addGetType("Get", type), mainMenu, color);
+    public boolean addUpdateCategory(String operation, Category newCategory) {
+
         if (operation.equals("Add")) {
-            if (getCategory(title, false, type) == null)
+            if (getCategory(newCategory.getTitle(), false, type.getTypeTitle(newCategory.getTypeID())) == null)
                 return category.add(newCategory);
             else
                 return false;
         } else if (operation.equals("Update")) {
-            newCategory.setID(getCategory(title, mainMenu, type).get(0).getID());
+            newCategory.setID(getCategory(newCategory.getTitle(), newCategory.isMainMenu(), type.getTypeTitle(newCategory.getTypeID())).get(0).getID());
             return category.update(newCategory);
         }
         return false;
@@ -158,11 +163,11 @@ public class DataManager {
             do {
 
                 mainMenu = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_MAIN)) > 0;
-                newCategory = new Category(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_ID)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAT_TITLE)),
+                newCategory = new Category(cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAT_TITLE)),
                         cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_TYPE_ID)),
                         mainMenu,
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_COLOR)));
+                newCategory.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_ID)));
                 categories.add(newCategory);
 
             } while (cursor.moveToNext());
@@ -214,7 +219,6 @@ public class DataManager {
                 String month = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE));
 
                 month = month.substring(month.indexOf('-') + 1, month.indexOf('-') + 3);
-                Log.d(TAG,"MES: " +month);
                 newTransaction = new Transaction(
                         cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),

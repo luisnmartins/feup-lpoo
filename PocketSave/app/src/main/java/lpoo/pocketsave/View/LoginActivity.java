@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Suggestions;
@@ -390,15 +391,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 DataManager.getInstance().addGetType("Add","Income");
                 DataManager.getInstance().addGetType("Add","Variable Expense");
                 DataManager.getInstance().addGetType("Add","Fixed Expense");
-
-                DataManager.getInstance().addUpdateCategory("Add","Income","Income",false,1);
-                DataManager.getInstance().addUpdateCategory("Add","Fixed Expense","Fixed Expense",false,1);
-                DataManager.getInstance().addUpdateCategory("Add","Eat","Variable Expense",true,Color.BLUE);
-                DataManager.getInstance().addUpdateCategory("Add","Transport","Variable Expense",true,Color.BLACK);
-                DataManager.getInstance().addUpdateCategory("Add","Health","Variable Expense",true,Color.CYAN);
-                DataManager.getInstance().addUpdateCategory("Add","Clothes","Variable Expense",true,Color.MAGENTA);
-                DataManager.getInstance().addUpdateCategory("Add","Joy","Variable Expense",true,Color.YELLOW);
-                DataManager.getInstance().addUpdateCategory("Add","Food","Variable Expense",false,Color.RED);
+                Category income = new Category("Income", DataManager.getInstance().addGetType("Get","Income"),false,1);
+                Category fixed = new Category("Fixed Expense", DataManager.getInstance().addGetType("Get", "Fixed Expense"), false, 1);
+                Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLUE);
+                Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLACK);
+                Category health = new Category("Health", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.CYAN);
+                Category clothes = new Category("Clothes", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.MAGENTA);
+                Category joy = new Category("Joy", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.YELLOW);
+                Category food = new Category("Food", DataManager.getInstance().addGetType("Get", "Variable Expense"), false, Color.RED);
+                DataManager.getInstance().addUpdateCategory("Add", income);
+                DataManager.getInstance().addUpdateCategory("Add", fixed);
+                DataManager.getInstance().addUpdateCategory("Add",eat);
+                DataManager.getInstance().addUpdateCategory("Add",transport);
+                DataManager.getInstance().addUpdateCategory("Add",health);
+                DataManager.getInstance().addUpdateCategory("Add",clothes);
+                DataManager.getInstance().addUpdateCategory("Add",joy);
+                DataManager.getInstance().addUpdateCategory("Add",food);
                 return true;
 
             }
@@ -493,15 +501,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DataManager.getInstance().addGetType("Add","Income");
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");
-
-            DataManager.getInstance().addUpdateCategory("Add","Income","Income",false,1);
-            DataManager.getInstance().addUpdateCategory("Add","Fixed Expense","Fixed Expense",false,1);
-            DataManager.getInstance().addUpdateCategory("Add","Eat","Variable Expense",true, Color.BLUE);
-            DataManager.getInstance().addUpdateCategory("Add","Transport","Variable Expense",true,Color.BLACK);
-            DataManager.getInstance().addUpdateCategory("Add","Health","Variable Expense",true,Color.CYAN);
-            DataManager.getInstance().addUpdateCategory("Add","Clothes","Variable Expense",true,Color.MAGENTA);
-            DataManager.getInstance().addUpdateCategory("Add","Joy","Variable Expense",true,Color.YELLOW);
-            DataManager.getInstance().addUpdateCategory("Add","Food","Variable Expense",false,Color.RED);
+            Category income = new Category("Income", DataManager.getInstance().addGetType("Get","Income"),false,1);
+            Category fixed = new Category("Fixed Expense", DataManager.getInstance().addGetType("Get", "Fixed Expense"), false, 1);
+            Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLUE);
+            Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLACK);
+            Category health = new Category("Health", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.CYAN);
+            Category clothes = new Category("Clothes", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.MAGENTA);
+            Category joy = new Category("Joy", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.YELLOW);
+            Category food = new Category("Food", DataManager.getInstance().addGetType("Get", "Variable Expense"), false, Color.RED);
+            DataManager.getInstance().addUpdateCategory("Add", income);
+            DataManager.getInstance().addUpdateCategory("Add", fixed);
+            DataManager.getInstance().addUpdateCategory("Add",eat);
+            DataManager.getInstance().addUpdateCategory("Add",transport);
+            DataManager.getInstance().addUpdateCategory("Add",health);
+            DataManager.getInstance().addUpdateCategory("Add",clothes);
+            DataManager.getInstance().addUpdateCategory("Add",joy);
+            DataManager.getInstance().addUpdateCategory("Add",food);
             return true;
         }
 

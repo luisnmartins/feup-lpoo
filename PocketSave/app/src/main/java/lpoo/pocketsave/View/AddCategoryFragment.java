@@ -135,7 +135,8 @@ public class AddCategoryFragment extends Fragment {
                 int day = 1;
                 String date = year + "-" + month + "-" + day;
 
-                DataManager.getInstance().addUpdateCategory("Add",catTitle.getText().toString(),"Variable Expense",false,color);
+                Category newCategory = new Category(catTitle.getText().toString(), DataManager.getInstance().addGetType("Get", "Variable Expense"), false, color);
+                DataManager.getInstance().addUpdateCategory("Add", newCategory);
 
                 if(catEstimaed.isEnabled())
                 {
