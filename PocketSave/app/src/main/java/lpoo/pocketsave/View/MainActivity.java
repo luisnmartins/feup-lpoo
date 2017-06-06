@@ -305,6 +305,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             closeAllFragments();
             Intent settingsIntent = new Intent(MainActivity.this,SettingsActivity.class);
+            Bundle b = new Bundle();
+            b.putBoolean("isFirst",false);
+            settingsIntent.putExtras(b);
             MainActivity.this.startActivity(settingsIntent);
 
         }else if(id == R.id.nav_month)

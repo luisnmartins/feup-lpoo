@@ -421,10 +421,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     finish();
                 }else
                 {
-                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent settingsIntent = new Intent(LoginActivity.this,SettingsActivity.class);
+                    Bundle b = new Bundle();
+                    b.putBoolean("isFirst",true);
+                    settingsIntent.putExtras(b);
+                    LoginActivity.this.startActivity(settingsIntent);
+                    finish();
+                    /*Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(mainIntent);
                     Toast.makeText(LoginActivity.this,"User logged in",Toast.LENGTH_LONG).show();
-                    finish();
+                    finish();*/
                 }
 
             } else {

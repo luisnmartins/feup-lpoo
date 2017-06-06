@@ -29,8 +29,9 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioGroup listType;
     private EditText newPass, newEmail;
     private ImageButton editPass,editMail;
-    private Button save;
+    private Button save,firstMonth;
     private ImageButton addIncome,addExpense;
+    private Boolean isFirst = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,16 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.settingsToolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
+
+        Bundle b = new Bundle();
+        b = getIntent().getExtras();
+        if(b !=null)
+            isFirst = b.getBoolean("isFirst");
+        firstMonth = (Button) findViewById(R.id.firstMonthButton);
+        if(isFirst)
+        {
+            prepareFirstMonth();
+        }
 
         addIncome = (ImageButton) findViewById(R.id.newIncomeButton);
         addIncome.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +71,6 @@ public class SettingsActivity extends AppCompatActivity {
         listType.clearCheck();
 
         initializeAccountOptions();
-
-
         checkRadioButtonPressed();
 
 
@@ -107,6 +116,12 @@ public class SettingsActivity extends AppCompatActivity {
     void initializeSaveAccountChanges()
     {
         save = (Button) findViewById(R.id.saveSettingsChanges);
+        if(isFirst)
+        {
+            save.setEnabled(false);
+            save.setVisibility(View.INVISIBLE);
+            return;
+        }
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,5 +275,22 @@ public class SettingsActivity extends AppCompatActivity {
         SettingsActivity.this.startActivity(intentNewExpense);
     }
 
+    public void prepareFirstMonth()
+    {
+        firstMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void prepareNewMonth()
+    {
+
+        Intent monthIntent = new Intent(SettingsActivity.this,Month.class);
+        Bundle b = new Bundle();
+        //Double income = DataManager.getInstance().getTotalSpentValues("Type","Income",)
+    }
 
 }
