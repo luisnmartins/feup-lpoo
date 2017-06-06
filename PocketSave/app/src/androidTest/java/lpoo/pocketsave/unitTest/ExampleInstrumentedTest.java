@@ -498,9 +498,31 @@ public class ExampleInstrumentedTest {
     @Test
     public void getCatSuggestedValues(){
 
-
-
-
+        try {
+            useAppContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        DataManager.getInstance().startDB(appContext);
+        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
+        assertEquals(1, DataManager.getInstance().addGetType("Add", "Income"));
+        assertEquals(2, DataManager.getInstance().addGetType("Add", "Variable Expense"));
+        assertEquals(3, DataManager.getInstance().addGetType("Add", "Fixed Expense"));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "Income", "Income", false, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "Fixed Expense", "Fixed Expense", false, 1));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "food", "Variable Expense", true, 2));
+        assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", "shop", "Variable Expense", true, 3));
+        Suggestions sug = new Suggestions();
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1,500.0, sug.getInitialDate(true, "last"), "income last month", 1, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1,250.0, sug.getInitialDate(true, "last"), "fixed expenses last month", 2, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 50.0, sug.getInitialDate(true, "last"), "expected food", 3, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 100.0, sug.getInitialDate(true, "last"), "expected shop", 4, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 25.0, sug.getInitialDate(true, "last"), "spent food", 3, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1, 100.0, sug.getInitialDate(true, "last"), "spent spent shop", 4, true, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1,750.0, sug.getInitialDate(true, "current"), "income current month", 1, false, null, true));
+        assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", -1,400.0, sug.getInitialDate(true, "current"), "fixed expenses current month", 2, false, null, true));
+        assertEquals(null, sug.suggestCatValues());
     }
 
 

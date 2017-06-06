@@ -13,7 +13,7 @@ import java.util.zip.DeflaterOutputStream;
 public class Suggestions {
 
     ArrayList<Integer> daysofmonths = new ArrayList<Integer>();
-    static final double PERCENTAGE_DIFERENCE = 0.2;
+    static final double PERCENTAGE_DIFERENCE = 0.4;
 
     private static final String TAG = "Suggestions";
 
@@ -185,7 +185,7 @@ public class Suggestions {
      * @return Returns an hashmap with value as the name of the category and the value as the suggested value to that category
      */
     public HashMap<String, Double> suggestCatValues() {
-        HashMap<String, Double> ret = new HashMap<String, Double>();
+        HashMap<String, Double> ret= null;
 
         String dBefore = getInitialDate(true, "last");
         String dBeforeEnd = getInitialDate(false, "last");
@@ -194,12 +194,15 @@ public class Suggestions {
         HashMap<String, Double> catSpent = DataManager.getInstance().getTotalSpentValues("Category", null, dBefore, dBeforeEnd, true);
 
         Double lastMontSum = lastMontSumSpents(catSpent);
+        Log.d(TAG, "Last Month Sum: "+lastMontSum);
+
 
         Double available = availableCurrentMonth();
+        Log.d(TAG, "AVAILABLE THIS MONTH: "+available);
 
 
         if (Math.abs((1 - available / lastMontSum)) < PERCENTAGE_DIFERENCE) {
-
+            ret =  new HashMap<String, Double>();
 
             for (HashMap.Entry<String, Double> it : catSpent.entrySet()) {
 
@@ -233,12 +236,15 @@ public class Suggestions {
         Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
 
         Double currentFixedExpenses = DataManager.getInstance().getTotalSpentValues("Type", "Fixed Expense", currentDate, currentDate, false).get("Fixed Expense");
+        Log.d(TAG,"Month Income: "+currentIncome );
+        Log.d(TAG, "Month FIxed: "+currentFixedExpenses);
+        Log.d(TAG, "Perc: "+perc);
 
         if (currentFixedExpenses == null)
             return null;
 
 
-        Double available = currentIncome - currentFixedExpenses - perc * currentIncome;
+        Double available = currentIncome - currentFixedExpenses - (perc/100) * currentIncome;
 
         return available;
 
@@ -255,11 +261,12 @@ public class Suggestions {
         Double lastMontSum=0.0;
 
         for (HashMap.Entry<String, Double> it : catSpent.entrySet()) {
-            if (!(it.getKey().equals("Fixed Expense") || it.getKey().equals("Income"))) {
+            if (!it.getKey().equals("Fixed Expense") && !it.getKey().equals("Income")) {
                 lastMontSum += it.getValue();
 
             }
         }
+
         return lastMontSum;
     }
 
@@ -290,7 +297,8 @@ public class Suggestions {
 
         if (balance < 0)
             return null;
-        Double perc = (incomes - balance) / incomes * 100;
+
+        Double perc = balance / incomes * 100;
 
         return perc;
 

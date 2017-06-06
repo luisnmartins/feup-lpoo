@@ -48,7 +48,7 @@ public class Month extends AppCompatActivity {
     private String tempCatName;
     private HashMap<String,Double> catValues = new HashMap<>();
     private ImageButton addCategory;
-    private Boolean isIncome;
+    //private Boolean isIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class Month extends AppCompatActivity {
         initializeEditTexts();
         initializeImageButtons();
         Bundle b = getIntent().getExtras();
-        isIncome = b.getBoolean("isIncome");
+        //isIncome = b.getBoolean("isIncome");
 
         addCategory = (ImageButton) findViewById(R.id.addCatMonth);
         addCategory.setOnClickListener(new View.OnClickListener() {
