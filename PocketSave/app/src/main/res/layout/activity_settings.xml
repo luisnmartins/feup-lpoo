@@ -31,19 +31,20 @@
 
         <FrameLayout
             android:id="@+id/listContainer"
-            android:layout_width="343dp"
+            android:layout_width="0dp"
             android:layout_height="194dp"
-            android:layout_marginBottom="-7dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintHorizontal_bias="1.0">
+            app:layout_constraintVertical_bias="1.0">
 
 
         </FrameLayout>
@@ -61,7 +62,9 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/listContainer"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
             <RadioButton
                 android:id="@+id/IncomeButton"
@@ -93,7 +96,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintHorizontal_bias="0.235"
-            app:layout_constraintVertical_bias="0.315" />
+            app:layout_constraintVertical_bias="0.315"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <TextView
             android:id="@+id/settingsEmail"
@@ -109,7 +114,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <ImageButton
             android:id="@+id/allowEditNewEmail"
@@ -126,7 +133,9 @@
             app:srcCompat="@mipmap/ic_mode_edit_black_24dp"
             app:layout_constraintLeft_toRightOf="@+id/inputNewEmail"
             android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.305" />
+            app:layout_constraintHorizontal_bias="0.305"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <EditText
             android:id="@+id/inputNewPass"
@@ -143,7 +152,9 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintHorizontal_bias="0.235"
-            app:layout_constraintVertical_bias="0.254" />
+            app:layout_constraintVertical_bias="0.254"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <TextView
             android:id="@+id/settingsPass"
@@ -159,7 +170,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settingsEmail"
-            app:layout_constraintVertical_bias="0.97" />
+            app:layout_constraintVertical_bias="0.97"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <ImageButton
             android:id="@+id/editNewPassword"
@@ -176,12 +189,14 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/allowEditNewEmail"
             app:layout_constraintVertical_bias="0.335"
-            app:srcCompat="@mipmap/ic_mode_edit_black_24dp" />
+            app:srcCompat="@mipmap/ic_mode_edit_black_24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/saveSettingsChanges"
-            android:layout_width="78dp"
-            android:layout_height="41dp"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
             android:background="@color/colorPrimary"
             android:text="Save Changes"
             android:textColor="@android:color/white"
@@ -194,7 +209,9 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/listContainer"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <ImageButton
             android:id="@+id/newIncomeButton"
@@ -211,7 +228,9 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/listContainer"
             app:layout_constraintHorizontal_bias="0.342"
-            app:layout_constraintVertical_bias="0.898" />
+            app:layout_constraintVertical_bias="0.898"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <ImageButton
             android:id="@+id/newExpenseButton"
@@ -228,7 +247,9 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/listContainer"
             app:layout_constraintHorizontal_bias="0.342"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
 
     </android.support.constraint.ConstraintLayout>

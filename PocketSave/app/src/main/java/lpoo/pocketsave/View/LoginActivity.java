@@ -10,6 +10,8 @@ import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import java.util.Calendar;
+
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -387,14 +389,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 DataManager.getInstance().addGetType("Add","Variable Expense");
                 DataManager.getInstance().addGetType("Add","Fixed Expense");
 
-                DataManager.getInstance().addUpdateCategory("Add","Income","Income",false,187646548);
-                DataManager.getInstance().addUpdateCategory("Add","Fixed Expense","Fixed Expense",false,1879845);
-                DataManager.getInstance().addUpdateCategory("Add","Eat","Variable Expense",true,38795449);
-                DataManager.getInstance().addUpdateCategory("Add","Transport","Variable Expense",true,98975317);
-                DataManager.getInstance().addUpdateCategory("Add","Health","Variable Expense",true,878454316);
-                DataManager.getInstance().addUpdateCategory("Add","Clothes","Variable Expense",true,18787864);
-                DataManager.getInstance().addUpdateCategory("Add","Joy","Variable Expense",true,28787348);
-                DataManager.getInstance().addUpdateCategory("Add","Food","Variable Expense",false,874899);
+                DataManager.getInstance().addUpdateCategory("Add","Income","Income",false,1);
+                DataManager.getInstance().addUpdateCategory("Add","Fixed Expense","Fixed Expense",false,1);
+                DataManager.getInstance().addUpdateCategory("Add","Eat","Variable Expense",true,Color.BLUE);
+                DataManager.getInstance().addUpdateCategory("Add","Transport","Variable Expense",true,Color.BLACK);
+                DataManager.getInstance().addUpdateCategory("Add","Health","Variable Expense",true,Color.CYAN);
+                DataManager.getInstance().addUpdateCategory("Add","Clothes","Variable Expense",true,Color.MAGENTA);
+                DataManager.getInstance().addUpdateCategory("Add","Joy","Variable Expense",true,Color.YELLOW);
+                DataManager.getInstance().addUpdateCategory("Add","Food","Variable Expense",false,Color.RED);
                 return true;
 
             }
@@ -465,14 +467,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DataManager.getInstance().addGetType("Add","Variable Expense");
             DataManager.getInstance().addGetType("Add","Fixed Expense");
 
-            DataManager.getInstance().addUpdateCategory("Add","Income","Income",false,198486);
-            DataManager.getInstance().addUpdateCategory("Add","Fixed Expense","Fixed Expense",false,1879861);
-            DataManager.getInstance().addUpdateCategory("Add","Eat","Variable Expense",true,1879874);
-            DataManager.getInstance().addUpdateCategory("Add","Transport","Variable Expense",true,1878746462);
-            DataManager.getInstance().addUpdateCategory("Add","Health","Variable Expense",true,87932168);
-            DataManager.getInstance().addUpdateCategory("Add","Clothes","Variable Expense",true,486761654);
-            DataManager.getInstance().addUpdateCategory("Add","Joy","Variable Expense",true,1897958);
-            DataManager.getInstance().addUpdateCategory("Add","Food","Variable Expense",false,18784648);
+            DataManager.getInstance().addUpdateCategory("Add","Income","Income",false,1);
+            DataManager.getInstance().addUpdateCategory("Add","Fixed Expense","Fixed Expense",false,1);
+            DataManager.getInstance().addUpdateCategory("Add","Eat","Variable Expense",true, Color.BLUE);
+            DataManager.getInstance().addUpdateCategory("Add","Transport","Variable Expense",true,Color.BLACK);
+            DataManager.getInstance().addUpdateCategory("Add","Health","Variable Expense",true,Color.CYAN);
+            DataManager.getInstance().addUpdateCategory("Add","Clothes","Variable Expense",true,Color.MAGENTA);
+            DataManager.getInstance().addUpdateCategory("Add","Joy","Variable Expense",true,Color.YELLOW);
+            DataManager.getInstance().addUpdateCategory("Add","Food","Variable Expense",false,Color.RED);
             return true;
         }
 
@@ -506,7 +508,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int month = c.get(Calendar.MONTH);
         int day = 1;
         String date = year + "-" + month + "-" + day;
-        HashMap<String,Double> trans = DataManager.getInstance().getTotalSpentValues("Type","Income",date,date,false);
+        HashMap<String,Double> trans = DataManager.getInstance().getTotalSpentValues("Type","Income",date,date,true);
         if(trans == null)
         {
             return true;

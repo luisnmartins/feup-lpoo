@@ -85,7 +85,7 @@ public class TransactionDB implements CRUDDB<Transaction> {
     public Cursor getTypeTransactions(String typeID){
         SQLiteDatabase db = dbH.getReadableDatabase();
         Cursor cursor;
-        Log.d(TAG,"ID: "+ typeID);
+        Log.d(TAG,"ID: "+ dbH.getUserID());
         String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+DatabaseHelper.TRANS_DATE+", T."+DatabaseHelper.TRANS_DESCRIPTION+", T."+DatabaseHelper.TRANS_CATEGORY_ID+", T."+
                 DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+" FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+" C WHERE C."+DatabaseHelper.CAT_TYPE_ID+" = "+typeID+" AND T."+DatabaseHelper.TRANS_CATEGORY_ID+" = C."+DatabaseHelper.CAT_ID +" AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" ORDER BY T.Date";
         cursor = db.rawQuery(query, null);

@@ -186,6 +186,7 @@ public class DataManager {
      * @return Returns true if the transaction was added or updated and false if not
      */
     public boolean addUpdateTransaction(String operation, long id, double value, String date, String description, long catID, boolean done, String image, boolean cash) {
+        Log.d(TAG, date);
         Transaction newTransaction = new Transaction(id, value, date, description, catID, done, image, cash);
         if (operation.equals("Add")) {
             return transaction.add(newTransaction);
@@ -210,17 +211,19 @@ public class DataManager {
         ArrayList<Integer> months;
         boolean flag = false;
 
-
         Cursor cursor = transaction.getTypeTransactions(Long.toString(type.getTypeID(typeName)));
-        if (cursor == null)
+        if (cursor == null) {
+
             return null;
+        }
         if (cursor.moveToFirst()) {
 
             transactions = new HashMap<>();
             do {
                 String month = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE));
+
                 month = month.substring(month.indexOf('-') + 1, month.indexOf('-') + 3);
-                Log.d(TAG, month);
+                Log.d(TAG,"MES: " +month);
                 newTransaction = new Transaction(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)),
                         cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
@@ -234,15 +237,14 @@ public class DataManager {
                     if (it.getKey().equals(newTransaction)) {
                         it.getValue().add(Integer.valueOf(month));
                         flag = true;
+                        break;
                     }
                 }
-                if (flag) {
-                    if (transactions.get(newTransaction) == null) {
+                if (!flag) {
                         Log.d(TAG, "È NULL");
                         months = new ArrayList<>();
                         months.add(Integer.valueOf(month));
                         transactions.put(newTransaction, months);
-                    }
 
                 }
                 flag = false;

@@ -1,6 +1,7 @@
 package lpoo.pocketsave.View;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText newPass, newEmail;
     private ImageButton editPass,editMail;
     private Button save;
+    private ImageButton addIncome,addExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,21 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.settingsToolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
+
+        addIncome = (ImageButton) findViewById(R.id.newIncomeButton);
+        addIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prepareNewIncome();
+            }
+        });
+        addExpense = (ImageButton) findViewById(R.id.newExpenseButton);
+        addExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prepareNewExpense();
+            }
+        });
 
         listType = (RadioGroup) findViewById(R.id.radioGroupList);
         listType.clearCheck();
@@ -217,6 +235,29 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+
+    public void prepareNewIncome()
+    {
+        destroyFragment("overExpense");
+        destroyFragment("overIncome");
+        Intent intentNewIncome = new Intent(SettingsActivity.this,FixValueActivity.class);
+        Bundle b = new Bundle();
+        b.putBoolean("isIncome",true);
+        intentNewIncome.putExtras(b);
+        SettingsActivity.this.startActivity(intentNewIncome);
+    }
+
+    public void prepareNewExpense()
+    {
+        destroyFragment("overExpense");
+        destroyFragment("overIncome");
+        Intent intentNewExpense = new Intent(SettingsActivity.this,FixValueActivity.class);
+        Bundle b = new Bundle();
+        b.putBoolean("isIncome",false);
+        intentNewExpense.putExtras(b);
+        SettingsActivity.this.startActivity(intentNewExpense);
     }
 
 

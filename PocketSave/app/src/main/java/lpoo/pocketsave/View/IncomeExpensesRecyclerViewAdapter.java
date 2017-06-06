@@ -1,6 +1,8 @@
 package lpoo.pocketsave.View;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -25,6 +27,8 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
+import lpoo.pocketsave.Logic.Category;
+import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -43,16 +47,29 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
 
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder implements AnimateViewHolder {
         private final TextView listType;
         private final TextView listValue;
         private final TextView lisMonths;
+        private final ArrayList<Category> categories;
 
         public ViewHolder(View v) {
             super(v);
             listValue = (TextView) v.findViewById(R.id.valueSettings);
             listType = (TextView) v.findViewById(R.id.typeSettings);
             lisMonths = (TextView) v.findViewById(R.id.monthsSettings);
+            categories = DataManager.getInstance().getCategory(null,null,"Income");
+            categories.add(DataManager.getInstance().getCategory(null,null,"Fixed Expense").get(0));
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    long cat_id = mkeys[getAdapterPosition()].getCatID();
+                    int index = categories.indexOf(new Category(cat_id,null,0,false,1));
+                    Category aux = categories.get(index);
+                    initiateMonth(getAdapterPosition(),aux);
+                }
+            });
         }
 
         public TextView getlistValue() {
@@ -60,6 +77,7 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         }
         public TextView getListType() {return listType;}
         public TextView getLisMonths() {return lisMonths;}
+        public ArrayList<Category> getCategories(){return categories;}
 
         @Override
         public void preAnimateAddImpl(RecyclerView.ViewHolder holder) {
@@ -93,45 +111,12 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         }
     }
 
-    private final TreeMap<Transaction,ArrayList<Integer>> mSortedMap = new TreeMap<Transaction,ArrayList<Integer>>();
+    private  HashMap<Transaction,ArrayList<Integer>> mSortedMap = new HashMap<>();
+
+    HashMap<Transaction,ArrayList<Integer>> getmSortedMap(){return mSortedMap;}
 
 
-    private final SortedList<Transaction> mSortedList = new SortedList<>(Transaction.class, new SortedList.Callback<Transaction>() {
-        @Override
-        public int compare(Transaction a, Transaction b) {
-            return mComparator.compare(a, b);
-        }
 
-        @Override
-        public void onInserted(int position, int count) {
-            notifyItemRangeInserted(position, count);
-        }
-
-        @Override
-        public void onRemoved(int position, int count) {
-            notifyItemRangeRemoved(position, count);
-        }
-
-        @Override
-        public void onMoved(int fromPosition, int toPosition) {
-            notifyItemMoved(fromPosition, toPosition);
-        }
-
-        @Override
-        public void onChanged(int position, int count) {
-            notifyItemRangeChanged(position, count);
-        }
-
-        @Override
-        public boolean areContentsTheSame(Transaction oldItem, Transaction newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Override
-        public boolean areItemsTheSame(Transaction item1, Transaction item2) {
-            return item1 == item2;
-        }
-    });
 
 
 
@@ -143,10 +128,6 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
 
     }
 
-    public void setmComparator(Comparator<Transaction> comp)
-    {
-        mComparator = comp;
-    }
     @Override
     public IncomeExpensesRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
@@ -160,9 +141,19 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
     public void onBindViewHolder(IncomeExpensesRecyclerViewAdapter.ViewHolder viewHolder, final int position) {
 
         String value = Double.toString(mkeys[position].getValue());
+        Transaction transaction = mkeys[position];
+        ArrayList<Integer> aux = mSortedMap.get(transaction);
+        String months = new String();
+        if(!aux.isEmpty())
+        {
+            for(int i = 0; i < aux.size();i++)
+            {
+                months += aux.get(i);
+            }
+        }
         viewHolder.getlistValue().setText(String.valueOf(value));
-        viewHolder.getLisMonths().setText(String.valueOf(mkeys[position].getDate()));
-        viewHolder.getListType().setText(String.valueOf(mkeys[position].getCatID()));
+        viewHolder.getLisMonths().setText(String.valueOf(months));
+        viewHolder.getListType().setText(String.valueOf(mkeys[position].getDescription()));
     }
 
     @Override
@@ -189,32 +180,38 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         this.notifyItemInserted(position);
     }
 
-    public void add(Transaction tr)
-    {
-        mSortedList.add(tr);
-    }
 
     public void remove(Transaction tr)
     {
-        mSortedList.remove(tr);
+        mSortedMap.remove(tr);
+        notifyDataSetChanged();
     }
+
 
     public void add(HashMap<Transaction,ArrayList<Integer>> models) {
         if (models != null)
         {
-            mSortedMap.putAll(models);
+            mSortedMap = models;
             Log.d(TAG,"mSortedMap SIZE" + mSortedMap.size());
             mkeys = mSortedMap.keySet().toArray(new Transaction[models.size()]);
+            notifyDataSetChanged();
         }
 
     }
 
-    public void remove(List<Transaction> models) {
-        mSortedList.beginBatchedUpdates();
-        for (Transaction model : models) {
-            mSortedList.remove(model);
-        }
-        mSortedList.endBatchedUpdates();
+
+    public  void initiateMonth(int position,Category cat)
+    {
+        Intent newintent = new Intent(mContext,Month.class);
+        Bundle b = new Bundle();
+
+        if(cat.getTitle() == "Income")
+        b.putBoolean("isIncome",true);
+        else b.putBoolean("isIncome",false);
+        b.putDouble("income",mkeys[position].getValue());
+        newintent.putExtras(b);
+        mContext.startActivity(newintent);
     }
+
 
 }

@@ -1,10 +1,14 @@
 package lpoo.pocketsave.View;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,11 +24,15 @@ import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +65,7 @@ public class TransactionActivity extends AppCompatActivity {
     static final int ZOOM = 2;
     int mode = NONE;
     private Boolean istoEdit = false;
+    private ImageButton zoomImage;
 
 
 
@@ -71,7 +80,13 @@ public class TransactionActivity extends AppCompatActivity {
 
 
         showDialogDate();
-
+        zoomImage = (ImageButton) findViewById(R.id.zoomImage);
+        zoomImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImage();
+            }
+        });
         checkPayment = (RadioGroup) findViewById(R.id.radioGroupPaymentMethod);
         value = (EditText) findViewById(R.id.ValueText);
         description = (EditText) findViewById(R.id.DescriptionText);
@@ -262,7 +277,11 @@ public class TransactionActivity extends AppCompatActivity {
                         if(b != null)
                           id = b.getLong("CatID");
                         if(istoEdit)
-                            DataManager.getInstance().addUpdateTransaction("Update",idTrans,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
+                        {
+                            Log.d("OLA","O ID QUE RECEBE" + idTrans);
+                           boolean aux =  DataManager.getInstance().addUpdateTransaction("Update",idTrans,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
+                            Log.d("OLA","O DE UPDATE TRANSACTION" + aux);
+                        }
                         else
                             DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
                         finish();
@@ -329,6 +348,7 @@ public class TransactionActivity extends AppCompatActivity {
             if(cash == 1)
                 isCash = true;
             else isCash = false;
+            this.mCurrentPhotoPath = b.getString("image");
             image.setImageDrawable(Drawable.createFromPath(b.getString("image")));
             image.setEnabled(false);
             Log.d("cenas","PATH IMAGEM" + b.getString("image"));
@@ -349,6 +369,26 @@ public class TransactionActivity extends AppCompatActivity {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
         point.set(x / 2, y / 2);
+    }
+
+
+    public void showImage()
+    {
+        Dialog builder = new Dialog(this);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+            }
+        });
+
+        ImageView img = new ImageView(this);
+        img.setImageDrawable(Drawable.createFromPath(mCurrentPhotoPath));
+        builder.addContentView(img,new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
+
     }
 
 

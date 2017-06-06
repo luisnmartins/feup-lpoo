@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import lpoo.pocketsave.Logic.Category;
@@ -105,17 +106,12 @@ public class FixedExpensesIncomesListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settingslist_list, container, false);
         rootView.setTag(TAG);
 
-        // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.SettingsList);
-        if (getActivity().getIntent().getBooleanExtra("GRID", true)) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        } else {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        }
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
-        // LinearLayoutManager is used here, this will layout the elements in a similar fashion
-        // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
-        // elements are laid out.
+
         mAdapter = new IncomeExpensesRecyclerViewAdapter(getActivity(),mDataset,DATE_COMPARATOR);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.add(mHashmap);
@@ -142,9 +138,11 @@ public class FixedExpensesIncomesListFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
+        Log.d("TESTE: ", TransType);
 
        HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType);
         mHashmap = DataManager.getInstance().getTypeTransaction(TransType);
+        Log.d("hgh","SIZE DO HASH MAP DA CENA: " + mHashmap.size());
 
     }
 

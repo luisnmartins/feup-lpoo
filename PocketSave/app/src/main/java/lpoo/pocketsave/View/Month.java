@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,7 @@ public class Month extends AppCompatActivity {
     private String tempCatName;
     private HashMap<String,Double> catValues = new HashMap<>();
     private ImageButton addCategory;
+    private Boolean isIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class Month extends AppCompatActivity {
         setSupportActionBar(mytool);
         initializeEditTexts();
         initializeImageButtons();
+        Bundle b = getIntent().getExtras();
+        isIncome = b.getBoolean("isIncome");
 
         addCategory = (ImageButton) findViewById(R.id.addCatMonth);
         addCategory.setOnClickListener(new View.OnClickListener() {
@@ -90,18 +94,14 @@ public class Month extends AppCompatActivity {
                     return;
                 }
 
+                String date = returnFirstofMonth();
 
-                Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = 1;
-                String date = year + "-" + month + "-" + day;
                 Double IncomeValue = Double.parseDouble(SetIncome.getText().toString());
                 Double ExpenseValue = Double.parseDouble(SetFixedExpenses.getText().toString());
                 long IncomeID = DataManager.getInstance().getCategory("Income",null,null).get(0).getID();
                 long ExpenseID = DataManager.getInstance().getCategory("Fixed Expense",null,null).get(0).getID();
-                DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,false, null,true);
-                DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,false, null,true);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,IncomeValue,date,"Income",IncomeID,true, null,true);
+                DataManager.getInstance().addUpdateTransaction("Add",-1,ExpenseValue,date,"Expenses",ExpenseID,true, null,true);
                 Intent mainIntent = new Intent(Month.this, MainActivity.class);
                 Month.this.startActivity(mainIntent);
                 finish();
@@ -226,10 +226,7 @@ public class Month extends AppCompatActivity {
     public String returnFirstofMonth()
     {
         Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = 1;
-        String date = year + "-" + month + "-" + day;
+        String  date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH) + 1)) + "-0" + 1;
         return date;
     }
 

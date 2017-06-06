@@ -121,6 +121,11 @@ public class StatsFragment extends Fragment {
                     Log.d(TAG,"FROM: " + from);
                     Log.d(TAG,"TO: " + to);
                     each_cat_spent = DataManager.getInstance().getTotalSpentValues("Category",null,from,to,true);
+                    for(HashMap.Entry<String,Double> it : each_cat_spent.entrySet())
+                    {
+                        Log.d("Tag","O key de: " + it.getKey());
+                        Log.d("Tag","O value de: " + it.getValue());
+                    }
                     if(each_cat_spent != null)
                     {
                         Log.d(TAG,"TOTALSPENTVALUES TRUE");

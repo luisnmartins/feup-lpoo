@@ -62,6 +62,10 @@ public class Suggestions {
         double daysLeftperc = 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / daysofmonths.get(c.get(Calendar.MONTH));
         Log.d(TAG, "DIAS: " + daysLeftperc);
 
+        if(expectedValues == null)
+        {
+            return null;
+        }
 
         for (HashMap.Entry<String, Double> exp : expectedValues.entrySet()) {
             Log.d(TAG, exp.getKey());
@@ -139,6 +143,10 @@ public class Suggestions {
         HashMap<String, Double> estimated = DataManager.getInstance().getTotalSpentValues("Category", null, dBefore, dBefore, false);
         Double value;
 
+        if(estimated == null || history == null)
+        {
+            return null;
+        }
         for (HashMap.Entry<String, Double> it : estimated.entrySet()) {
 
             if (it.getKey().equals("Income") || it.getKey().equals("Fixed Expense")) {

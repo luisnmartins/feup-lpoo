@@ -3,6 +3,7 @@ package lpoo.pocketsave.View;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -93,6 +94,7 @@ public class AddCategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
 
         colorButton = (Button) view.findViewById(R.id.colorbutton);
+        colorButton.setBackgroundColor(Color.BLUE);
         colorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +200,7 @@ public class AddCategoryFragment extends Fragment {
         ColorPickerDialogBuilder
                 .with(getActivity())
                 .setTitle("Choose color")
-                .initialColor(999999999)
+                .initialColor(Color.BLUE)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(new OnColorSelectedListener() {

@@ -186,6 +186,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
             public void onClick(View v) {
 
                 loadTransaction(mSortedList.get(position),true);
+                notifyItemChanged(position);
 
             }
         });
@@ -275,6 +276,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         if(istoEdit)
             b.putBoolean("isToEdit",true);
         b.putDouble("value",t.getValue());
+        Log.d(TAG,"E O ID DA TRANSACAO" + t.getID());
         b.putInt("isCash",t.isCashMethod());
         b.putLong("myID",t.getID());
         b.putString("description",t.getDescription());
