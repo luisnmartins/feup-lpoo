@@ -29,10 +29,9 @@ public class User {
     };
 
     private void updateTotalSaved(){
-        Calendar c = Calendar.getInstance();
-        String currentDate = c.get(Calendar.YEAR)+"-"+String.format("%02d", c.get(Calendar.MONTH)+1)+String.format("%02d",c.get(Calendar.DAY_OF_MONTH));
         totalSaved =0;
-        HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since, currentDate, true);
+        Suggestions a = new Suggestions();
+        HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,a.getInitialDate(true, "current"), true);
         if(spents == null)
             totalSaved =0;
         else {

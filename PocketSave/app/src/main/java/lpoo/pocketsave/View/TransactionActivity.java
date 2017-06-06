@@ -66,6 +66,7 @@ public class TransactionActivity extends AppCompatActivity {
     int mode = NONE;
     private Boolean istoEdit = false;
     private ImageButton zoomImage;
+    Bundle b;
 
 
 
@@ -270,17 +271,17 @@ public class TransactionActivity extends AppCompatActivity {
                         String desc = description.getText().toString();
                         Double valueDouble = Double.parseDouble(value.getText().toString());
                         System.out.println("value" + valueDouble);
-                        Bundle b = getIntent().getExtras();
                         long id = 0;
                         long idTrans = 0;
                         idTrans = b.getLong("myID");
-                        if(b != null)
-                          id = b.getLong("CatID");
-                        if(istoEdit)
-                        {
-                            Log.d("OLA","O ID QUE RECEBE" + idTrans);
-                           boolean aux =  DataManager.getInstance().addUpdateTransaction("Update",idTrans,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
-                            Log.d("OLA","O DE UPDATE TRANSACTION" + aux);
+
+                        if(b != null) {
+                            id = b.getLong("cat");
+                        }
+                        Log.d("ACTIVITY", "CATTT: " + id);
+                        if(istoEdit) {
+
+                            DataManager.getInstance().addUpdateTransaction("Update", idTrans, valueDouble, dateString, desc, id, true, mCurrentPhotoPath, isCash);
                         }
                         else
                             DataManager.getInstance().addUpdateTransaction("Add",-1,valueDouble,dateString,desc,id,true,mCurrentPhotoPath,isCash);
@@ -316,7 +317,7 @@ public class TransactionActivity extends AppCompatActivity {
     boolean checkArguments()
     {
 
-        Bundle b = getIntent().getExtras();
+         b = getIntent().getExtras();
         Boolean isAdd = b.getBoolean("isToAdd");
         istoEdit= b.getBoolean("isToEdit");
         if(isAdd)

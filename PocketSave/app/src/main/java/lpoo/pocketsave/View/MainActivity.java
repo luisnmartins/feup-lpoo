@@ -80,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toast.makeText(MainActivity.this,"User logged in",Toast.LENGTH_LONG).show();
         ((TextView)mNavView.getHeaderView(0).findViewById(R.id.User)).setText(DataManager.getInstance().getUser().getEmail());
+        Double value = DataManager.getInstance().getUser().getTotalSaved();
+        TextView totalvalue = (TextView)mNavView.getHeaderView(0).findViewById(R.id.totalValue);
+        if(value>= 0)
+            totalvalue.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+        else
+            totalvalue.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+        totalvalue.setText("Total Saved "+ value);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -103,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Category cat = aux.get(0);
                 System.out.println("a categoria e " + cat.getID());
                 Bundle b = new Bundle();
-                b.putLong("CatID",cat.getID());
+                b.putLong("cat",cat.getID());
                 b.putString("Category",cat.getTitle());
                 b.putBoolean("isToAdd",true);
                 transactionIntent.putExtras(b);
