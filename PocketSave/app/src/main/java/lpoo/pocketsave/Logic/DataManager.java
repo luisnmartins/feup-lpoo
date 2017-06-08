@@ -1,13 +1,16 @@
 package lpoo.pocketsave.Logic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.prefs.PreferenceChangeEvent;
 
 
 public class DataManager {
@@ -90,6 +93,7 @@ public class DataManager {
         }
         return null;
     }
+
 
 
     //TYPE FUNCTIONS
@@ -182,7 +186,7 @@ public class DataManager {
      * Add a new category or update one that already exists
      *
      * @param operation   String to know which operation should be made - "Add" or "Update"
-     * @param newTransaction
+     * @param newTransaction Transaction instance to add or update
      * @return Returns true if the transaction was added or updated and false if not
      */
     public boolean addUpdateTransaction(String operation, Transaction newTransaction){
@@ -371,5 +375,15 @@ public class DataManager {
 
         }
     }
+
+    /**
+     * Delete all data from DataBase
+     */
+    public void clearDB(){
+        transaction.deleteAllTransactions();
+        category.deleteAllCategories();
+        user.deleteAllUsers();
+    }
+
 
 }

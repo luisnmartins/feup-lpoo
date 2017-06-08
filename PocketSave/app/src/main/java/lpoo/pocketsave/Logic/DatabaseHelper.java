@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final  String TYPE_ID = "_id";
     public static final String TYPE_NAME = "Name";
 
-
+    private static Context contextt;
     private long userID;
 
 
@@ -76,15 +76,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (instance == null){
             instance = new DatabaseHelper(context);
         }
+        contextt = context;
     }
 
+    /**
+     * Singleton instance
+     * @return Returns an instance of the DatabaseHelper
+     */
     static public DatabaseHelper getInstance(){
             if(instance == null)
                 throw new NullPointerException();
             return instance;
     }
 
-
+    /**
+     * Creates the database tables
+     * @param db database instance
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -117,6 +125,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     }
 
+    /**
+     * Upgrades DB
+     * @param db db instance
+     * @param oldVersion oldVersion
+     * @param newVersion NewVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_USER);
@@ -126,16 +140,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void deleteValues(SQLiteDatabase db){
-        //db.execSQL();
 
-    }
-
-
+    /**
+     * Set user id variable to be used in queries
+     * @param id User id
+     */
     public void setUserID(long id){
         this.userID = id;
     }
 
+    /**
+     * Get the current user ID
+     * @return Returns the user id
+     */
     public String getUserID(){
         return Long.toString(userID);
     }

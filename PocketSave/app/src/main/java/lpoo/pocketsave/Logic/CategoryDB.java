@@ -46,7 +46,8 @@ public class CategoryDB implements CRUDDB<Category> {
 
     /**
      * Update a category info
-     * @param toUpdate category instance with the updted info to update db
+     * @param toUpdate category instance with the updated info to update db
+     * @return Returns true if the category was updated and false if not
      */
     public boolean update(Category toUpdate){
         SQLiteDatabase db = dbH.getWritableDatabase();
@@ -77,6 +78,7 @@ public class CategoryDB implements CRUDDB<Category> {
     /**
      * Get a instance of the category
      * @param name name of the category for which the instance should be returned
+     * @param type Name of the type of the Category
      * @return Returns and instance of the category. Returns null if was not possible to get data.
      */
     public Cursor getCategory(String name, String type){
@@ -103,6 +105,7 @@ public class CategoryDB implements CRUDDB<Category> {
     /**
      * Get categories to be shown on the main menu
      * @param main if is true it returns info of the 5 pricipal catgeories, and if false it returns the other ones
+     * @param type Name of the type of the categories
      * @return Returns a cursor with the asked categories info
      */
     public Cursor getMainCategories(boolean main, String type){
@@ -119,5 +122,15 @@ public class CategoryDB implements CRUDDB<Category> {
         }
         else
             return cursor;
+    }
+
+    /**
+     * Delete all categories from db
+     */
+    public void deleteAllCategories() {
+        SQLiteDatabase db = dbH.getWritableDatabase();
+        db.delete(DatabaseHelper.TABLE_CATEGORY, null, null);
+        db.delete(DatabaseHelper.TABLE_TYPE, null, null);
+        db.close();
     }
 }

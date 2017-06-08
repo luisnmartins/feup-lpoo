@@ -20,7 +20,14 @@ public class Transaction implements Comparable<Transaction>{
     private boolean cash;
 
 
-
+    /**
+     *
+     * @param value
+     * @param dateS
+     * @param catID
+     * @param done
+     * @param cash
+     */
     public Transaction(double value, String dateS, long catID, boolean done, boolean cash){
         this.value = value;
         this.date = dateS;
@@ -30,7 +37,10 @@ public class Transaction implements Comparable<Transaction>{
     }
 
 
-
+    /**
+     *
+     * @return
+     */
     public double getValue(){
         return value;
     }
@@ -81,7 +91,8 @@ public class Transaction implements Comparable<Transaction>{
     @Override
     public boolean equals(Object obj) {
 
-        return this.catID == ((Transaction)obj).getCatID() && this.description.equals(((Transaction)obj).getDescription());
+            return this.catID == ((Transaction)obj).getCatID() && this.description.equals(((Transaction)obj).getDescription());
+
     }
 
 

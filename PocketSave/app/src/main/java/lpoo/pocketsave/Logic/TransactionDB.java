@@ -244,4 +244,13 @@ public class TransactionDB implements CRUDDB<Transaction> {
         }
 
     }
+
+    /**
+     * Delete all transactions from db
+     */
+    public void deleteAllTransactions() {
+        SQLiteDatabase db = dbH.getWritableDatabase();
+        db.delete(DatabaseHelper.TABLE_TRANSACTION, null, null);
+        db.close();
+    }
 }
