@@ -42,9 +42,8 @@ import lpoo.pocketsave.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener,SearchView.OnQueryTextListener{
 
-    Button more;
+
     Menu mOptionsMenu;
-    DatabaseHelper myDB;
     private DrawerLayout sDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
@@ -94,13 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public Context getcontext(){
-        return this;
-
-    }
-
-
-
     public void NewTransaction(View view){
 
 
@@ -146,8 +138,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.navigation_menu, menu);
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.main_menu, mOptionsMenu);
         mOptionsMenu.findItem(R.id.action_search).setVisible(false);
@@ -159,44 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
-
-
-    public void viewAll() {
-        more.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    /*    Cursor res = DatabaseSingleton.getInstance().getDB().getAllData();
-                        if(res.getCount() == 0) {
-                            // show message
-                            showMessage("Error","Nothing found");
-                            return;
-                        }
-
-                        StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("ID :"+ res.getString(0)+"\n");
-                            buffer.append("VALUE :"+ res.getString(1)+"\n");
-                            buffer.append("DATE :"+ res.getString(2)+"\n");
-                            buffer.append("Description :"+ res.getString(3)+"\n");
-                            buffer.append("Marks :"+ res.getString(3)+"\n\n");
-                        }
-
-                        // Show all data
-                        showMessage("Data",buffer.toString());*/
-                    }
-                }
-        );
-    }
-
-    public void showMessage(String title,String Message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

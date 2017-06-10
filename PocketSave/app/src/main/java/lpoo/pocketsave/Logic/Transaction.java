@@ -149,7 +149,7 @@ public class Transaction implements Comparable<Transaction>{
     @Override
     public boolean equals(Object obj) {
 
-            return this.catID == ((Transaction)obj).getCatID() && this.description.equals(((Transaction)obj).getDescription());
+            return this.catID == ((Transaction)obj).getCatID() && this.id == ((Transaction)obj).getID();
 
     }
 

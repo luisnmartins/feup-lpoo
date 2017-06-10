@@ -19,12 +19,12 @@
 
     </android.support.design.widget.TabLayout>
 
-    <android.support.v4.view.ViewPager
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tablayout"
-        android:id="@+id/viewpager">
+        android:id="@+id/linear_stats">
 
 
-    </android.support.v4.view.ViewPager>
+    </FrameLayout>
 </RelativeLayout>

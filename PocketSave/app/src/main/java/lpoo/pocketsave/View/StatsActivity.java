@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,14 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
-        customAdapter = new CustomAdapter(getSupportFragmentManager(),getApplicationContext());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment frag = new StatsFragment();
+        frag.setRetainInstance(true);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.linear_stats,frag,"stats");
+        fragmentTransaction.commit();
+
+        /*customAdapter = new CustomAdapter(getSupportFragmentManager(),getApplicationContext());
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(customAdapter);
@@ -55,7 +63,7 @@ public class StatsActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(tab.getPosition());
 
             }
-        });
+        });*/
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
@@ -101,9 +109,6 @@ public class StatsActivity extends AppCompatActivity {
     {
         DialogFragment newFragment = new DatePickerFragment().newInstance(v.getId());
         newFragment.show(getSupportFragmentManager(),"datePicker");
-        //Bundle args = newFragment.getArguments();
-        //int date[] = args.getIntArray("date");
-       // v.setText(date[0]+"/"+date[1]+"/"+date[2]);
 
     }
 
