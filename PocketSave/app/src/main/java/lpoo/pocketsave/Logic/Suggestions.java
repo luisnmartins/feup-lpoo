@@ -49,7 +49,7 @@ public class Suggestions {
         double daysLeftperc = 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / d.getDaysofMonth(c.get(Calendar.MONTH));
         Log.d(TAG, "DIAS: " + daysLeftperc);
 
-        if(expectedValues == null)
+        if(expectedValues == null || occurredValues == null)
         {
             return null;
         }
@@ -93,11 +93,16 @@ public class Suggestions {
         String d1 = d.getInitialDate(true, "current");
         String d2 = d.getInitialDate(false, "currentDate");
 
+        if(onLimit == null)
+            return null;
+
         for (String exp : onLimit) {
             cashQuantity = 0;
             numberOfCashTransactions = 0;
             ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Category", exp, d1, d2, true);
 
+            if(trans == null)
+                return null;
             for (int i = 0; i < trans.size(); i++) {
                 if (trans.get(i).isCashMethod() > 0) {
                     cashQuantity += trans.get(i).getValue();
@@ -176,7 +181,8 @@ public class Suggestions {
 
 
         HashMap<String, Double> catSpent = DataManager.getInstance().getTotalSpentValues("Category", null, dBefore, dBeforeEnd, true);
-
+        if(catSpent == null)
+            return null;
         Double lastMontSum = lastMontSumSpents(catSpent);
         Log.d(TAG, "Last Month Sum: "+lastMontSum);
 
@@ -184,6 +190,8 @@ public class Suggestions {
         Double available = availableCurrentMonth();
         Log.d(TAG, "AVAILABLE THIS MONTH: "+available);
 
+        if(available == null || lastMontSum == null)
+            return null;
 
         if (Math.abs((1 - available / lastMontSum)) < PERCENTAGE_DIFERENCE) {
             ret =  new HashMap<String, Double>();
@@ -218,10 +226,12 @@ public class Suggestions {
 
         String currentDate = d.getInitialDate(true, "current");
 
-        Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
+        Log.d(TAG," DATA: " +currentDate);
+
 
         Double currentFixedExpenses = DataManager.getInstance().getTotalSpentValues("Type", "Fixed Expense", currentDate, currentDate, false).get("Fixed Expense");
 
+        Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
 
         if (currentFixedExpenses == null)
             return null;
@@ -242,6 +252,7 @@ public class Suggestions {
     public Double lastMontSumSpents(HashMap<String, Double> catSpent){
 
         Double lastMontSum=0.0;
+
 
         for (HashMap.Entry<String, Double> it : catSpent.entrySet()) {
             if (!it.getKey().equals("Fixed Expense") && !it.getKey().equals("Income")) {
@@ -267,6 +278,8 @@ public class Suggestions {
         Double balance = 0.0;
 
         HashMap<String, Double> typeValues = DataManager.getInstance().getTotalSpentValues("Type", null, dBefore, dBeforeEnd, true);
+        if(typeValues == null)
+            return null;
         for (HashMap.Entry<String, Double> it : typeValues.entrySet()) {
             if (it.getKey().equals("Income")) {
                 incomes = it.getValue();

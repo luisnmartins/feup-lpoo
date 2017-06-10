@@ -498,7 +498,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if(mEmail.equals("teste@") && mPassword.equals("teste"))
             {
-                new DemoUser().addLastMonthTransactions();
+                new DemoUser().addDemoUser();
                 return null;
             }
             return true;

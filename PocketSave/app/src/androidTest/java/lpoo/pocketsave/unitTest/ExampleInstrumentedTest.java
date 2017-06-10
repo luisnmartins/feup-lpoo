@@ -166,6 +166,7 @@ public class ExampleInstrumentedTest {
         assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", newCategory));
         newCategory.setMainMenu(false);
         newCategory.setColor(2);
+        newCategory.setTitle("teste");
         assertEquals(true, DataManager.getInstance().addUpdateCategory("Update", newCategory));
 
 

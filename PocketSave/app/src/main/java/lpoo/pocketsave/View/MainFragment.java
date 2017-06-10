@@ -177,18 +177,6 @@ public class MainFragment extends Fragment {
               }else balance += it.getValue();
             }
         }
-       /* String d1 = d.getInitialDate(true,"current");
-        String d2 = d.getInitialDate(false,"current");
-        ArrayList<Transaction> trans = DataManager.getInstance().getTransactionsBetweenDates("Type","Income",d1,d2,true);
-        if(trans != null)
-        {
-            for(int i = 0; i < trans.size();i++)
-            {
-                balance += trans.get(i).getValue();
-            }
-        }
-
-        balance = balance - spent;*/
         return balance;
 
     }

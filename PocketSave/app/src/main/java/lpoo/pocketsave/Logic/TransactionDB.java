@@ -196,8 +196,8 @@ public class TransactionDB implements CRUDDB<Transaction> {
                     DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C WHERE " +
                     "T." + DatabaseHelper.TRANS_CATEGORY_ID + " = C." + DatabaseHelper.CAT_ID +
                     " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2 +
-                    "' AND C." + DatabaseHelper.CAT_TITLE + " = " + catTitle + " AND T." +DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
-                    " GROUP BY C." + DatabaseHelper.CAT_TITLE;
+                    "' AND C." + DatabaseHelper.CAT_TITLE + " = '" + catTitle + "' AND T." +DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) + " GROUP BY C." + DatabaseHelper.CAT_TITLE;
+
 
             cursor = db.rawQuery(query, null);
 

@@ -23,28 +23,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.921"
-        app:layout_constraintVertical_bias="0.578" />
-
-
-    <ImageButton
-        android:id="@+id/editIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_mode_edit_black_24dp"
-        android:layout_alignTop="@+id/Income"
-        android:layout_alignStart="@+id/editExpenses"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.812"
-        app:layout_constraintVertical_bias="0.153" />
-
+        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintVertical_bias="0.607" />
 
 
     <TextView
@@ -65,8 +45,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintVertical_bias="0.274" />
 
     <EditText
         android:id="@+id/SetIncome"
@@ -86,26 +66,26 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.548"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.273" />
 
     <ImageButton
         android:id="@+id/editExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_mode_edit_black_24dp"
         android:layout_alignTop="@+id/FixedExpenses"
-        android:layout_toEndOf="@+id/EstimatedVariableExpenses"
-        android:layout_marginStart="36dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.774"
-        app:layout_constraintVertical_bias="0.309" />
+        android:layout_toEndOf="@+id/EstimatedVariableExpenses"
+        android:background="@mipmap/ic_settings_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.267" />
 
     <TextView
         android:id="@+id/FixedExpenses"
@@ -124,8 +104,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.093"
-        app:layout_constraintVertical_bias="0.306" />
+        app:layout_constraintHorizontal_bias="0.122"
+        app:layout_constraintVertical_bias="0.4" />
 
     <EditText
         android:id="@+id/SetFixedExpenses"
@@ -145,7 +125,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.714"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintVertical_bias="0.399" />
 
     <TextView
         android:id="@+id/EstimatedVariableExpenses"
@@ -164,8 +144,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.165"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintHorizontal_bias="0.218" />
 
     <TextView
         android:id="@+id/categorycombobox"
@@ -185,8 +164,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.296"
-        app:layout_constraintVertical_bias="0.584" />
+        app:layout_constraintHorizontal_bias="0.31"
+        app:layout_constraintVertical_bias="0.599" />
 
     <EditText
         android:id="@+id/SetCatValue"
@@ -206,8 +185,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.755"
-        app:layout_constraintVertical_bias="0.584" />
+        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
         android:id="@+id/EstimatedBalance"
@@ -226,8 +205,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.425"
-        app:layout_constraintVertical_bias="0.703" />
+        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintVertical_bias="0.755" />
 
     <Button
         android:id="@+id/setMonth"
@@ -247,7 +226,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintVertical_bias="0.984" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/SetEstimatedValue"
@@ -266,7 +245,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintVertical_bias="0.824" />
+        app:layout_constraintVertical_bias="0.866" />
 
     <ImageButton
         android:id="@+id/addCatMonth"
@@ -285,7 +264,23 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintVertical_bias="0.601" />
+
+    <TextView
+        android:id="@+id/MonthSuggestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119" />
 
 </android.support.constraint.ConstraintLayout>

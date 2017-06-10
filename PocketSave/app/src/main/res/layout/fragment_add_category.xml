@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,13 +12,22 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
         android:text="Title"
         android:textSize="@dimen/text_margin"
         android:textStyle="bold"
+        android:layout_marginStart="8dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="28dp" />
+        android:layout_alignStart="@+id/textView14"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintVertical_bias="0.219" />
 
     <EditText
         android:id="@+id/CatTitle"
@@ -29,37 +38,38 @@
         android:inputType="textPersonName"
         android:layout_alignBaseline="@+id/textView10"
         android:layout_alignBottom="@+id/textView10"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Icon"
-        android:layout_marginTop="88dp"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:layout_below="@+id/CatTitle"
-        android:layout_alignStart="@+id/textView10" />
-
-    <ImageButton
-        android:id="@+id/CatIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_menu_camera"
-        android:layout_alignTop="@+id/textView12"
-        android:layout_alignStart="@+id/CatTitle" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.198" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_below="@+id/CatIcon"
-        android:layout_marginTop="66dp"
         android:textStyle="bold"
         android:textSize="16dp"
-        android:text="Background Color" />
+        android:text="Background Color"
+        android:layout_above="@+id/CatEstimated"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintVertical_bias="0.396" />
 
     <Button
         android:id="@+id/colorbutton"
@@ -68,7 +78,17 @@
         android:background="@android:color/white"
         android:layout_alignTop="@+id/textView14"
         android:layout_alignEnd="@+id/CatTitle"
-        android:layout_marginEnd="38dp" />
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintVertical_bias="0.399" />
 
     <TextView
         android:id="@+id/catEstimatedText"
@@ -76,10 +96,19 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView14"
         android:layout_below="@+id/colorbutton"
-        android:layout_marginTop="36dp"
         android:text="Estimated Value"
         android:textSize="16dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintVertical_bias="0.578" />
 
     <EditText
         android:id="@+id/CatEstimated"
@@ -87,9 +116,18 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/AddCat"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintVertical_bias="0.72" />
 
     <Button
         android:id="@+id/AddCat"
@@ -100,6 +138,15 @@
         android:textColor="@android:color/background_light"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/CatTitle"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintVertical_bias="0.984" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -30,7 +30,11 @@ import java.util.Set;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
+
 import lpoo.pocketsave.Logic.Date;
+
+import lpoo.pocketsave.Logic.Suggestions;
+
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -40,7 +44,7 @@ public class Month extends AppCompatActivity {
 
     private EditText  SetCatValue,SetFixedExpenses,SetIncome;
     private  EditText EstimatedValue;
-    private ImageButton editIncome,editFixedExpenses,saveCategory;
+    private ImageButton editFixedExpenses,saveCategory;
     private Button saveButton;
     private TextView cat;
     private Category category;
@@ -48,6 +52,7 @@ public class Month extends AppCompatActivity {
     private int categories_size=1;
     private String tempCatName;
     private HashMap<String,Double> catValues = new HashMap<>();
+    private HashMap<String, Double> recommendedCatValues;
     private ImageButton addCategory;
     private Boolean isFirst;
     private Double incomes;
@@ -65,15 +70,19 @@ public class Month extends AppCompatActivity {
         initializeImageButtons();
         startMonth();
         Bundle b = getIntent().getExtras();
-        if(incomes != null)
-        {
+        initializeSugText();
+        Suggestions sug = new Suggestions();
+        recommendedCatValues = sug.suggestCatValues();
+        if(incomes != null){
 
-            isFirst = b.getBoolean("isFirst");
-            SetIncome.setText(Double.toString(incomes));
-
+        	SetIncome.setText(Double.toString(incomes));
         }
         if(expenses != null){
             SetFixedExpenses.setText(Double.toString(expenses));
+        }
+        if(b != null)
+        {
+            isFirst = b.getBoolean("isFirst");   
         }
 
         addCategory = (ImageButton) findViewById(R.id.addCatMonth);
@@ -145,8 +154,19 @@ public class Month extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(!cat.getText().toString().equals("Choose Category"))
+                {
+                    if(recommendedCatValues != null)
+                    {
+                        String catname = s.toString();
+                        Double value =  recommendedCatValues.get(catname);
+                        if(value != null)
+                            SetCatValue.setText(Double.toString(value));
+                    }
                     SetCatValue.setEnabled(true);
-                else SetCatValue.setEnabled(false);
+                }
+                else {
+                    SetCatValue.setEnabled(false);
+                }
             }
         });
 
@@ -154,7 +174,26 @@ public class Month extends AppCompatActivity {
 
     }
 
+    public void initializeSugText()
+    {
+        String msg = "Remember that you spent to much last month in the following categories: ";
+        TextView sug = (TextView) findViewById(R.id.MonthSuggestion);
+        Suggestions aux = new Suggestions();
+        ArrayList<String>  toHigh = aux.compareCatValuesBefore();
+        if(toHigh != null && !toHigh.isEmpty())
+        {
+            for(int i = 0; i < toHigh.size();i++)
+            {
 
+
+                if(i != toHigh.size()-1)
+                {
+                    msg += toHigh.get(i) + ", ";
+                }else  msg += toHigh.get(i);
+            }
+            sug.setText(msg);
+        }
+    }
 
     public void initializeEditTexts()
     {
@@ -175,16 +214,10 @@ public class Month extends AppCompatActivity {
     }
     public void initializeImageButtons()
     {
-        editIncome = (ImageButton) findViewById(R.id.editIncome);
         editFixedExpenses = (ImageButton) findViewById(R.id.editExpenses);
         saveCategory = (ImageButton) findViewById(R.id.saveCategory);
 
-        editIncome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //SetIncome.setEnabled(true);
-            }
-        });
+
 
         editFixedExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,6 +261,9 @@ public class Month extends AppCompatActivity {
     public void getCategoriesList(View v)
     {
         DialogFragment dialog = new ChooseSpecificCatDialog();
+        Bundle b = new Bundle();
+        b.putBoolean("isMonth",true);
+        dialog.setArguments(b);
         dialog.show(getSupportFragmentManager(),"chooseCategories");
 
     }

@@ -113,4 +113,20 @@ public class DemoUser {
     }
 
 
+    public void addCurrentMonth(){
+
+        Transaction income = new Transaction(1400, "2017-06-01", 1, false, false);
+        income.setDescription("Income");
+        Transaction fixedExpense = new Transaction(800, "2017-06-01", 2, false, false);
+        fixedExpense.setDescription("expense");
+        DataManager.getInstance().addUpdateTransaction("Add", income);
+        DataManager.getInstance().addUpdateTransaction("Add", fixedExpense);
+    }
+
+    public void addDemoUser(){
+        addLastMonthTransactions();
+        addCurrentMonth();
+    }
+
+
 }
