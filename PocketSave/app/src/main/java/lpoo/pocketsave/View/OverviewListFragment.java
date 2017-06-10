@@ -226,7 +226,7 @@ public class OverviewListFragment extends Fragment implements SearchView.OnQuery
             mDataset = DataManager.getInstance().getTransactionsBetweenDates("Category",CatName,from,to,true);
         }else
         {
-            HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType);
+            HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType, false);
             mDataset = new ArrayList<Transaction>(aux.keySet());
 
         }

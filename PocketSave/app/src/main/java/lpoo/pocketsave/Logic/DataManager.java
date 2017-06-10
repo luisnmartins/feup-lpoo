@@ -201,7 +201,7 @@ public class DataManager {
      * @param typeName Name of the type to get transactions
      * @return Returns an hashmap with key equals to the asked transactions and value as the months of that type transaction or null if there is any error
      */
-    public HashMap<Transaction, ArrayList<Integer>> getTypeTransaction(String typeName) {
+    public HashMap<Transaction, ArrayList<Integer>> getTypeTransaction(String typeName, boolean done) {
 
 
         HashMap<Transaction, ArrayList<Integer>> transactions = null;
@@ -209,7 +209,7 @@ public class DataManager {
         ArrayList<Integer> months;
         boolean flag = false;
 
-        Cursor cursor = transaction.getTypeTransactions(Long.toString(type.getTypeID(typeName)));
+        Cursor cursor = transaction.getTypeTransactions(Long.toString(type.getTypeID(typeName)), done);
         if (cursor == null) {
 
             return null;

@@ -212,13 +212,13 @@ public class ExampleInstrumentedTest {
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
         Category newCategory = new Category("food", DataManager.getInstance().addGetType("Get", "income"), true, 1);
         assertEquals(true, DataManager.getInstance().addUpdateCategory("Add", newCategory));
-        Transaction t = new Transaction(10.0, "1997-02-01", 1, true, true);
+        Transaction t = new Transaction(10.0, "1997-02-01", 1, false, true);
         t.setDescription("ordenado");
-        Transaction t1 = new Transaction(10.0, "1997-05-01", 1, true, true);
+        Transaction t1 = new Transaction(10.0, "1997-05-01", 1, false, true);
         t1.setDescription("ordenado");
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", t));
         assertEquals(true, DataManager.getInstance().addUpdateTransaction("Add", t1));
-        HashMap<Transaction, ArrayList<Integer>> b =  DataManager.getInstance().getTypeTransaction("income");
+        HashMap<Transaction, ArrayList<Integer>> b =  DataManager.getInstance().getTypeTransaction("income", false);
         for(HashMap.Entry<Transaction, ArrayList<Integer> > it : b.entrySet()){
             ArrayList<Integer> a = it.getValue();
             assertEquals(2, a.size());

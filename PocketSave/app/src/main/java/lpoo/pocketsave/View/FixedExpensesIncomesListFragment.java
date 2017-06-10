@@ -140,7 +140,7 @@ public class FixedExpensesIncomesListFragment extends Fragment {
     private void initDataset() {
         Log.d("TESTE: ", TransType);
 
-       HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType);
+       HashMap<Transaction,ArrayList<Integer>> aux = DataManager.getInstance().getTypeTransaction(TransType, false);
         if(aux != null)
         {
             mHashmap = aux;
