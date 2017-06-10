@@ -42,6 +42,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(false, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "syfi", "2001-01-01"));
@@ -54,6 +55,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola2@ola.pt", "1234", "2001-01-01"));
@@ -71,6 +73,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Update","olaa@ola.pt", "1234", "2001-01-01"));
@@ -84,6 +87,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola2@ola.pt", "1234", "2001-01-01"));
@@ -95,6 +99,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -106,6 +111,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -119,6 +125,7 @@ public class ExampleInstrumentedTest {
     public void testAddCategory(){
 
        DataManager.getInstance().startDB(appContext);
+       DataManager.getInstance().setContext(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -132,6 +139,7 @@ public class ExampleInstrumentedTest {
     public void getCategory(){
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -145,6 +153,7 @@ public class ExampleInstrumentedTest {
     public void getMainCategories(){
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -159,6 +168,7 @@ public class ExampleInstrumentedTest {
     public void updateCategory(){
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -177,6 +187,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -192,6 +203,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -207,6 +219,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -232,6 +245,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -252,6 +266,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -273,6 +288,7 @@ public class ExampleInstrumentedTest {
 
 
        DataManager.getInstance().startDB(appContext);
+       DataManager.getInstance().setContext(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -297,6 +313,7 @@ public class ExampleInstrumentedTest {
 
 
        DataManager.getInstance().startDB(appContext);
+       DataManager.getInstance().setContext(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -322,6 +339,7 @@ public class ExampleInstrumentedTest {
 
 
        DataManager.getInstance().startDB(appContext);
+       DataManager.getInstance().setContext(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
        assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -346,6 +364,7 @@ public class ExampleInstrumentedTest {
 
 
         DataManager.getInstance().startDB(appContext);
+       DataManager.getInstance().setContext(appContext);
        DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -371,6 +390,7 @@ public class ExampleInstrumentedTest {
         Date d = new Date();
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -399,6 +419,7 @@ public class ExampleInstrumentedTest {
         Date d = new Date();
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -444,6 +465,7 @@ public class ExampleInstrumentedTest {
         Date d = new Date();
 
         DataManager.getInstance().startDB(appContext);
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "income"));
@@ -483,7 +505,7 @@ public class ExampleInstrumentedTest {
         Date d = new Date();
 
         DataManager.getInstance().startDB(appContext);
-
+        DataManager.getInstance().setContext(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "Income"));
