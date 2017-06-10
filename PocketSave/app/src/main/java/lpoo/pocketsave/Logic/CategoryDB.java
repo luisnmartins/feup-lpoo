@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 
-
 public class CategoryDB implements CRUDDB<Category> {
 
 

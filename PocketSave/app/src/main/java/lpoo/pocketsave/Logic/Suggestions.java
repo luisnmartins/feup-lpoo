@@ -1,34 +1,40 @@
 package lpoo.pocketsave.Logic;
 
 
-import android.provider.CalendarContract;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.zip.DeflaterOutputStream;
 
 public class Suggestions {
 
 
     static final double PERCENTAGE_DIFERENCE = 0.4;
+    static final double A_LOT_OF_CASH = 0.7;
+    static final double CASH_FREQ_QUANT = 20;
 
     private static final String TAG = "Suggestions";
 
     private Date d;
 
-
+    /**
+     * Initialize suggestions setting Date instance
+     */
     public Suggestions() {
 
         d = new Date();
     }
 
 
-    //CORRENTE
+
 
     //TODO: verificar se uma categoria esta acima (20%) do seu valor previsto comparativamente com o que ja passou do mes corrente
+
+    /**
+     * Verifies if any category's spents is big comparing with the day of the month
+     * @return Returns an array with the name of the categories in this situation
+     */
     public ArrayList<String> onlimitCategory() {
 
 
@@ -71,6 +77,11 @@ public class Suggestions {
     //TODO: Verificar o metodo de pagamento dominante e se for dinheiro verificar se o valor medio das transacoes
     // e de baixa quantia (<20€) - para categorias que estao muito proximo do limite
 
+    /**
+     * For the limit categories, it verifies if there's a lot of transactions of cash
+     * and in that case it verifies if the average quantity in not higher than 20€
+     * @return Returns an array with the name of the categories taht are in that situation
+     */
     public ArrayList<String> limitCashMethodCategory() {
 
         ArrayList<String> onLimit = onlimitCategory();
@@ -94,9 +105,9 @@ public class Suggestions {
                 }
             }
 
-            if (numberOfCashTransactions / trans.size() >= 0.7) {
+            if (numberOfCashTransactions / trans.size() >= A_LOT_OF_CASH) {
 
-                if (cashQuantity / numberOfCashTransactions < 20) {
+                if (cashQuantity / numberOfCashTransactions < CASH_FREQ_QUANT) {
                     ret.add(exp);
                 }
             }
@@ -106,10 +117,10 @@ public class Suggestions {
 
     }
 
-
-    //INICIO MES
-
-    //TODO: comparacao do ultimo mes para cada categoria verificando as que ficaram a baixo e as que ficaram a cima do valor previsto
+    /**
+     * Gets the name of categories which spent money in the previous month was higher than that was expected
+     * @return Returns an array with the name of the categories in that situation
+     */
     public ArrayList<String> compareCatValuesBefore() {
 
         Calendar c = Calendar.getInstance();
@@ -149,19 +160,11 @@ public class Suggestions {
     }
 
 
-    //TODO: verificar valores medios para os valores previstos e valores efetivos para cada categoria desde o inicio dos registos
-
-
-
-
-
-
-    //TODO: sugestao dos valores aproximados para o mes seguinte tendo em conta a variacao em termos de receitas
-    // e de despesas fixas e mantendo a mesma percentagem de poupanca do mes passado
 
 
     /**
-     * Suggests a expense value for each category
+     * Suggests an expense value for each category, considering the available money in the current month
+     * and the money spent in the last month in each category
      *
      * @return Returns an hashmap with value as the name of the category and the value as the suggested value to that category
      */
@@ -199,17 +202,18 @@ public class Suggestions {
 
 
     /**
-     *
-     * @return
+     * Calculates the money available to spend in variable expenses in the current month,
+     * considering the same savings percentage of the previous month
+     * @return Returns the quantity available in th current month
      */
     public Double availableCurrentMonth(){
 
         String dBefore = d.getInitialDate(true, "last");
         String dBeforeEnd = d.getInitialDate(false, "last");
 
-        Double perc = lastMonthBalance(dBefore, dBeforeEnd);
+        Double percLastMonth = lastMonthSavings(dBefore, dBeforeEnd);
 
-        if (perc == null)
+        if (percLastMonth == null)
             return null;
 
         String currentDate = d.getInitialDate(true, "current");
@@ -217,15 +221,13 @@ public class Suggestions {
         Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
 
         Double currentFixedExpenses = DataManager.getInstance().getTotalSpentValues("Type", "Fixed Expense", currentDate, currentDate, false).get("Fixed Expense");
-        Log.d(TAG,"Month Income: "+currentIncome );
-        Log.d(TAG, "Month FIxed: "+currentFixedExpenses);
-        Log.d(TAG, "Perc: "+perc);
+
 
         if (currentFixedExpenses == null)
             return null;
 
 
-        Double available = currentIncome - currentFixedExpenses - (perc/100) * currentIncome;
+        Double available = currentIncome - currentFixedExpenses - percLastMonth * currentIncome;
 
         return available;
 
@@ -233,7 +235,7 @@ public class Suggestions {
 
 
     /**
-     * Get the total value spent last month
+     * Gets the total value spent last month
      * @param catSpent Hash map with all categories and spent values
      * @return Returns the total value spent last Month
      */
@@ -254,11 +256,11 @@ public class Suggestions {
 
 
     /**
-     * Calculate the last Month Balance
+     * Calculates the last Month savings percentage
      *
      * @return Returns a double with the percentage of money that was not spent last month
      */
-    public Double lastMonthBalance(String dBefore, String dBeforeEnd) {
+    public Double lastMonthSavings(String dBefore, String dBeforeEnd) {
 
 
         Double incomes = 0.0;
@@ -279,7 +281,7 @@ public class Suggestions {
         if (balance < 0)
             return null;
 
-        Double perc = balance / incomes * 100;
+        Double perc = balance / incomes;
 
         return perc;
 

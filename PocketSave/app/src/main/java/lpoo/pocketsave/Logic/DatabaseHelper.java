@@ -1,20 +1,13 @@
 package lpoo.pocketsave.Logic;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
+
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.icu.text.RelativeDateTimeFormatter;
-import android.provider.Settings;
+
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TreeSet;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -60,10 +53,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final  String TYPE_ID = "_id";
     public static final String TYPE_NAME = "Name";
 
-    private static Context contextt;
     private long userID;
 
 
+    /**
+     * Creates a new database instance
+     * @param context Application Context
+     */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         //TODO: delete
@@ -72,11 +68,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     static private DatabaseHelper instance = null;
 
+    /**
+     * Initialize database with the program context
+     * @param context Application context
+     */
     static public void startDB(Context context){
         if (instance == null){
             instance = new DatabaseHelper(context);
         }
-        contextt = context;
     }
 
     /**
@@ -128,8 +127,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Upgrades DB
      * @param db db instance
-     * @param oldVersion oldVersion
-     * @param newVersion NewVersion
+     * @param oldVersion oldVersion number
+     * @param newVersion NewVersion number
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

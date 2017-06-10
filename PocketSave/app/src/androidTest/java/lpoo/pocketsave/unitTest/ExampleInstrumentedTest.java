@@ -34,29 +34,13 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
-    private Context appContext;
+    private Context appContext = InstrumentationRegistry.getTargetContext();
 
-    @Before
-    public void cleanDB(){
-        //DatabaseHelper.
-    }
-
-    @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("lpoo.pocketsave", appContext.getPackageName());
-    }
 
     @Test
     public void testSignUp(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -68,11 +52,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void testSignIn(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -88,11 +68,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void updateUser(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
@@ -105,11 +81,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void deleteUser(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
@@ -121,12 +93,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void testAddType(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -138,12 +105,6 @@ public class ExampleInstrumentedTest {
     public void testGetType(){
 
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -156,12 +117,7 @@ public class ExampleInstrumentedTest {
 
    @Test
     public void testAddCategory(){
-       try {
-           useAppContext();
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-       appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
        DataManager.getInstance().startDB(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -174,12 +130,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void getCategory(){
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -192,12 +143,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void getMainCategories(){
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -211,12 +157,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void updateCategory(){
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -233,12 +174,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void deleteCategory(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -253,11 +189,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void addTransactions(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -272,12 +204,6 @@ public class ExampleInstrumentedTest {
     @Test
     public void getTypeTransaction(){
 
-
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
@@ -303,12 +229,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void updateTransaction(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -328,12 +249,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void deleteTransaction(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -353,12 +269,8 @@ public class ExampleInstrumentedTest {
 
    @Test
     public void getTypeBetweenDates(){
-       try {
-           useAppContext();
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-       appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
+
        DataManager.getInstance().startDB(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -382,12 +294,7 @@ public class ExampleInstrumentedTest {
    @Test
     public void getCatBetweenDates(){
 
-       try {
-           useAppContext();
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-       appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
        DataManager.getInstance().startDB(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -412,12 +319,7 @@ public class ExampleInstrumentedTest {
    @Test
     public void getCatTotalSpent(){
 
-       try {
-           useAppContext();
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-       appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
        DataManager.getInstance().startDB(appContext);
        DataManager.getInstance().clearDB();
        assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -441,12 +343,7 @@ public class ExampleInstrumentedTest {
    @Test
     public void getTypeTotalSpent(){
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
        DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -472,12 +369,6 @@ public class ExampleInstrumentedTest {
 
         Date d = new Date();
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -506,12 +397,6 @@ public class ExampleInstrumentedTest {
 
         Date d = new Date();
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -556,12 +441,7 @@ public class ExampleInstrumentedTest {
     public void lastmonthCompare(){
 
         Date d = new Date();
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+
         DataManager.getInstance().startDB(appContext);
         DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
@@ -601,14 +481,9 @@ public class ExampleInstrumentedTest {
 
         Date d = new Date();
 
-        try {
-            useAppContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        appContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
-        DataManager.getInstance().clearDB();
         DataManager.getInstance().startDB(appContext);
+
+        DataManager.getInstance().clearDB();
         assertEquals(true, DataManager.getInstance().addOpenUpdateUser("Add", "ola@ola.pt", "1234", "2001-01-01"));
         assertEquals(1, DataManager.getInstance().addGetType("Add", "Income"));
         assertEquals(2, DataManager.getInstance().addGetType("Add", "Variable Expense"));

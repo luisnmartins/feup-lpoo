@@ -27,9 +27,14 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
+        totalSaved = 0;
 
     };
 
+
+    /**
+     * Updates total saved value with all avings from the beginning until the end of the last month
+     */
     public void updateTotalSaved(){
         totalSaved =0;
         Date d = new Date();
@@ -53,43 +58,54 @@ public class User {
 
     }
 
-    public void setSince(String data){
-        this.since = data;
+    /**
+     * Set registration date of the user
+     * @param date Registration date
+     */
+    public void setSince(String date){
+        this.since = date;
     }
 
+    /**
+     * Get the registration date of the user
+     * @return Returns the registration date of the user
+     */
     public String getSince(){
         return since;
     }
 
 
-    public User(String email, String password){
-
-        this.email = email;
-        this.id = -1;
-        totalSaved = 0;
-    }
-
+    /**
+     * Gets user's email
+     * @return Returns user's email
+     */
     public String getEmail(){
         return email;
     }
 
 
-
+    /**
+     * Update and get user's total saved
+     * @return Returns user's total saved
+     */
     public double getTotalSaved(){
 
         updateTotalSaved();
         return totalSaved;
     }
 
-
+    /**
+     * Get user's ID
+     * @return Returns user's ID
+     */
     public long getID(){
         return id;
     }
 
-    public void setID(long id){
-        this.id = id;
-    }
-
+    /**
+     * Get user's password
+     * @return Returns user's password
+     */
     public String getPassword(){
         return password;
     }

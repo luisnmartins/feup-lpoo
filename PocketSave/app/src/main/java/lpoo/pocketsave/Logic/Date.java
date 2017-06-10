@@ -2,10 +2,8 @@ package lpoo.pocketsave.Logic;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
-/**
- * Created by luisnmartins on 06/06/2017.
- */
 
 public class Date {
 

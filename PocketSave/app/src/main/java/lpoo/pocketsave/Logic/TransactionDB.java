@@ -88,8 +88,12 @@ public class TransactionDB implements CRUDDB<Transaction> {
         SQLiteDatabase db = dbH.getReadableDatabase();
         Cursor cursor;
         Log.d(TAG,"ID: "+ dbH.getUserID());
-        String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+DatabaseHelper.TRANS_DATE+", T."+DatabaseHelper.TRANS_DESCRIPTION+", T."+DatabaseHelper.TRANS_CATEGORY_ID+", T."+
-                DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+" FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+" C WHERE C."+DatabaseHelper.CAT_TYPE_ID+" = "+typeID+" AND T."+DatabaseHelper.TRANS_CATEGORY_ID+" = C."+DatabaseHelper.CAT_ID +" AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" ORDER BY T.Date";
+        String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+
+                        DatabaseHelper.TRANS_DATE+", T."+DatabaseHelper.TRANS_DESCRIPTION+", T."+DatabaseHelper.TRANS_CATEGORY_ID+", T."+
+                        DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+
+                " FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+
+                " C WHERE C."+DatabaseHelper.CAT_TYPE_ID+" = "+typeID+" AND T."+DatabaseHelper.TRANS_CATEGORY_ID+" = C."+DatabaseHelper.CAT_ID +
+                    " AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" ORDER BY T.Date";
         cursor = db.rawQuery(query, null);
 
         if(cursor == null || cursor.getCount()<1){
@@ -118,10 +122,12 @@ public class TransactionDB implements CRUDDB<Transaction> {
     public Cursor getCatTransactionsBetweenDates(String catTitle, String d1, String d2, boolean done){
 
         SQLiteDatabase db = dbH.getReadableDatabase();
-        String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+DatabaseHelper.TRANS_DATE+", T."+DatabaseHelper.TRANS_DESCRIPTION+", T."+DatabaseHelper.TRANS_CATEGORY_ID+", T."+
-                DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+" FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+
-                " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."
-                + DatabaseHelper.CAT_TITLE+ " = '"+catTitle+"' AND C."+DatabaseHelper.CAT_ID+" = T."+DatabaseHelper.TRANS_CATEGORY_ID+" AND T."+DatabaseHelper.TRANS_DONE+" = "+((done) ? 1 : 0)+" AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" ORDER BY Date";
+        String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+DatabaseHelper.TRANS_DATE+", T."+DatabaseHelper.TRANS_DESCRIPTION+
+                                ", T."+DatabaseHelper.TRANS_CATEGORY_ID+", T."+DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+
+                        " FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+
+                        " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."+ DatabaseHelper.CAT_TITLE+ " = '"+catTitle+
+                            "' AND C."+DatabaseHelper.CAT_ID+" = T."+DatabaseHelper.TRANS_CATEGORY_ID+" AND T."+DatabaseHelper.TRANS_DONE+" = "+((done) ? 1 : 0)+
+                            " AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" ORDER BY Date";
         Cursor cursor  = db.rawQuery(query, null);
 
 
@@ -145,9 +151,13 @@ public class TransactionDB implements CRUDDB<Transaction> {
     public Cursor getTypeTransactionsBetweenDates( String typeID, String d1, String d2, boolean done){
 
         SQLiteDatabase db = dbH.getReadableDatabase();
-        String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+DatabaseHelper.TRANS_DATE+", T."+DatabaseHelper.TRANS_DESCRIPTION+", T."+DatabaseHelper.TRANS_CATEGORY_ID+", T."+
-                DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+" FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+" C WHERE T.Date BETWEEN '"+
-                d1+"' AND '"+d2+"' AND C."+DatabaseHelper.CAT_TYPE_ID+" = "+typeID+ " AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" AND T."+DatabaseHelper.TRANS_DONE+" = "+((done) ? 1 : 0)+" ORDER BY T.Date";
+        String query = "SELECT T."+DatabaseHelper.TRANS_ID+", T."+DatabaseHelper.TRANS_VALUE+", T."+DatabaseHelper.TRANS_DATE+
+                                ", T."+DatabaseHelper.TRANS_DESCRIPTION+", T."+DatabaseHelper.TRANS_CATEGORY_ID+
+                                 ", T."+ DatabaseHelper.TRANS_DONE+", T."+DatabaseHelper.TRANS_IMAGE+", T."+DatabaseHelper.TRANS_CASH+
+                                " FROM "+DatabaseHelper.TABLE_TRANSACTION+" T, "+DatabaseHelper.TABLE_CATEGORY+
+                                " C WHERE T.Date BETWEEN '"+ d1+"' AND '"+d2+"' AND C."+DatabaseHelper.CAT_TYPE_ID+" = "+typeID+
+                                            " AND C."+DatabaseHelper.CAT_USER_ID+" = "+dbH.getUserID()+" AND T."+DatabaseHelper.TRANS_DONE+" = "+((done) ? 1 : 0)+
+                                " ORDER BY T.Date";
 
         Cursor cursor = db.rawQuery(query, null);
         if(cursor == null || cursor.getCount()<1){
@@ -186,7 +196,8 @@ public class TransactionDB implements CRUDDB<Transaction> {
                     DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C WHERE " +
                     "T." + DatabaseHelper.TRANS_CATEGORY_ID + " = C." + DatabaseHelper.CAT_ID +
                     " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2 +
-                    "' AND C." + DatabaseHelper.CAT_TITLE + " = " + catTitle + " AND T." +DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) + " GROUP BY C." + DatabaseHelper.CAT_TITLE;
+                    "' AND C." + DatabaseHelper.CAT_TITLE + " = " + catTitle + " AND T." +DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
+                    " GROUP BY C." + DatabaseHelper.CAT_TITLE;
 
             cursor = db.rawQuery(query, null);
 
@@ -217,17 +228,20 @@ public class TransactionDB implements CRUDDB<Transaction> {
         Cursor cursor;
         if(typeTitle == null){
 
-            cursor = db.rawQuery("SELECT P." + DatabaseHelper.TYPE_NAME + ", SUM(T." + DatabaseHelper.TRANS_VALUE + ") FROM " +
-                    DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C, " + DatabaseHelper.TABLE_TYPE + " P " +
+            cursor = db.rawQuery("SELECT P." + DatabaseHelper.TYPE_NAME + ", SUM(T." + DatabaseHelper.TRANS_VALUE +
+                    ") FROM " + DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C, " + DatabaseHelper.TABLE_TYPE + " P " +
                     "WHERE P." + DatabaseHelper.TYPE_ID + " = C." + DatabaseHelper.CAT_TYPE_ID + " AND T." + DatabaseHelper.TRANS_CATEGORY_ID + " = " +
-                    "C." + DatabaseHelper.CAT_ID + " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2+"' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
+                    "C." + DatabaseHelper.CAT_ID + " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2+
+                    "' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
                     " GROUP BY P." + DatabaseHelper.TYPE_NAME, null);
 
         }else {
             cursor = db.rawQuery("SELECT P." + DatabaseHelper.TYPE_NAME + ", SUM(T." + DatabaseHelper.TRANS_VALUE + ") FROM " +
                     DatabaseHelper.TABLE_TRANSACTION + " T, " + DatabaseHelper.TABLE_CATEGORY + " C, " + DatabaseHelper.TABLE_TYPE + " P " +
                     "WHERE P." + DatabaseHelper.TYPE_ID + " = C." + DatabaseHelper.CAT_TYPE_ID + " AND T." + DatabaseHelper.TRANS_CATEGORY_ID + " = " +
-                    "C." + DatabaseHelper.CAT_ID + " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2+"' AND P." + DatabaseHelper.TYPE_NAME + " = '" + typeTitle + "' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() + "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
+                    "C." + DatabaseHelper.CAT_ID + " AND T." + DatabaseHelper.TRANS_DATE + " BETWEEN '" + d1 + "' AND '" + d2+
+                    "' AND P." + DatabaseHelper.TYPE_NAME + " = '" + typeTitle + "' AND C." + DatabaseHelper.CAT_USER_ID + " = '" + dbH.getUserID() +
+                    "' AND T." + DatabaseHelper.TRANS_DONE + " = " + ((done) ? 1 : 0) +
                     " GROUP BY P." + DatabaseHelper.TYPE_NAME, null);
         }
 

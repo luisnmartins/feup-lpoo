@@ -1,6 +1,5 @@
 package lpoo.pocketsave.Logic;
 
-import java.util.Objects;
 
 public class Category {
 
@@ -90,13 +89,20 @@ public class Category {
         this.mainMenu = value;
     }
 
-
+    /**
+     * Get category as text
+     * @return Returns Category title
+     */
     @Override
     public String toString() {
         return this.getTitle();
     }
 
-
+    /**
+     * Compares 2 categories verifying if the ids are the same
+     * @param obj Category to compare with
+     * @return Returns true if 2 Categories are the same and false if not
+     */
     @Override
     public boolean equals(Object obj)
     {
