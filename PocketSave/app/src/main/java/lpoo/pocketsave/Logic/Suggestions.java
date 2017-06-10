@@ -93,6 +93,9 @@ public class Suggestions {
         String d1 = d.getInitialDate(true, "current");
         String d2 = d.getInitialDate(false, "currentDate");
 
+        if(onLimit == null)
+            return null;
+
         for (String exp : onLimit) {
             cashQuantity = 0;
             numberOfCashTransactions = 0;
@@ -187,6 +190,8 @@ public class Suggestions {
         Double available = availableCurrentMonth();
         Log.d(TAG, "AVAILABLE THIS MONTH: "+available);
 
+        if(available == null || lastMontSum == null)
+            return null;
 
         if (Math.abs((1 - available / lastMontSum)) < PERCENTAGE_DIFERENCE) {
             ret =  new HashMap<String, Double>();
@@ -221,10 +226,12 @@ public class Suggestions {
 
         String currentDate = d.getInitialDate(true, "current");
 
-        Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
+        Log.d(TAG," DATA: " +currentDate);
+
 
         Double currentFixedExpenses = DataManager.getInstance().getTotalSpentValues("Type", "Fixed Expense", currentDate, currentDate, false).get("Fixed Expense");
 
+        Double currentIncome = DataManager.getInstance().getTotalSpentValues("Type", "Income", currentDate, currentDate, false).get("Income");
 
         if (currentFixedExpenses == null)
             return null;

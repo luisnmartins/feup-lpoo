@@ -38,7 +38,7 @@ public class User {
     public void updateTotalSaved(){
         totalSaved =0;
         Date d = new Date();
-        HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,d.getInitialDate(true, "current"), true);
+        HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,d.getInitialDate(false, "last"), true);
 
         if(spents == null) {
 

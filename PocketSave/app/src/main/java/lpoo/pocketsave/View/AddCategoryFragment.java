@@ -162,9 +162,7 @@ public class AddCategoryFragment extends Fragment {
                 if(isEdit){
                     String catName = getArguments().getString("catName");
                     Category aux = DataManager.getInstance().getCategory(catName,false,"Variable Expense").get(0);
-                  //  Log.d("CENAS", );
-
-                    //aux.setTitle(catTitle.getText().toString());
+                    aux.setTitle(catTitle.getText().toString());
                     aux.setColor(color);
                     DataManager.getInstance().addUpdateCategory("Update", aux);
 

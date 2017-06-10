@@ -1,5 +1,6 @@
 package lpoo.pocketsave.View;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -103,6 +105,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                         loadTransaction(mSortedList.get(getAdapterPosition()),false);
+                    ((AppCompatActivity) mContext).getSupportFragmentManager().popBackStack();
 
 
 
@@ -186,7 +189,7 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
             public void onClick(View v) {
 
                 loadTransaction(mSortedList.get(position),true);
-                notifyItemChanged(position);
+                ((AppCompatActivity) mContext).getSupportFragmentManager().popBackStack();
 
             }
         });
@@ -201,14 +204,14 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         viewHolder.getlistValue().setText(String.valueOf(value));
         viewHolder.getListCat().setText(String.valueOf(aux.getTitle()));
         viewHolder.getListDate().setText(String.valueOf(mSortedList.get(position).getDate()));
-        /*if(mSortedList.get(position).getImage() != null)
+        if(mSortedList.get(position).getImage() != null)
         {
 
             viewHolder.getCatIcon().setImageResource(android.R.color.transparent);
             viewHolder.getCatIcon().setImageDrawable(Drawable.createFromPath(mSortedList.get(position).getImage()));
 
 
-        }*/
+        }
         viewHolder.getCatColor().setBackgroundColor(aux.getColor());
     }
 

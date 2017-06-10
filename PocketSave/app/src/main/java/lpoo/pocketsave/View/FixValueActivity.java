@@ -55,7 +55,7 @@ public class FixValueActivity extends AppCompatActivity {
                     return;
 
                 }
-                if(monthsSelected.isEmpty() || monthsSelected == null)
+                if(monthsSelected == null)
                 {
                     inputMoths.setError("Select the months!");
                     inputMoths.requestFocus();
