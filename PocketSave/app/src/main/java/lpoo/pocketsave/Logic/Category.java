@@ -89,6 +89,17 @@ public class Category {
         this.mainMenu = value;
     }
 
+
+    /**
+     *
+     * Set category title
+     * @param title the new title of the category
+     */
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
     /**
      * Get category as text
      * @return Returns Category title

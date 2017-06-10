@@ -124,7 +124,7 @@ public class DataManager {
         if (operation.equals("Add")) {
             return getCategory(newCategory.getTitle(), false, type.getTypeTitle(newCategory.getTypeID())) == null && category.add(newCategory);
         } else if (operation.equals("Update")) {
-            newCategory.setID(getCategory(newCategory.getTitle(), newCategory.isMainMenu(), type.getTypeTitle(newCategory.getTypeID())).get(0).getID());
+            newCategory.setID(getCategory(newCategory.getTitle(), null , type.getTypeTitle(newCategory.getTypeID())).get(0).getID());
             return category.update(newCategory);
         }
         return false;

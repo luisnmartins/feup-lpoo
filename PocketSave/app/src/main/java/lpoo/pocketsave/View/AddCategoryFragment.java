@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,7 @@ public class AddCategoryFragment extends Fragment {
             Category category = DataManager.getInstance().getCategory(catName,null,"Variable Expense").get(0);
             catTitle.setText(category.getTitle());
             colorButton.setBackgroundColor(category.getColor());
+            color = category.getColor();
             HashMap<String,Double> aux = DataManager.getInstance().getTotalSpentValues("Category",category.getTitle(),d1,d2,false);
             Double estimated = aux.get(category.getTitle());
             catEstimaed.setText(Double.toString(estimated));
@@ -158,9 +160,16 @@ public class AddCategoryFragment extends Fragment {
 
                 Category newCategory = new Category(catTitle.getText().toString(), DataManager.getInstance().addGetType("Get", "Variable Expense"), false, color);
                 if(isEdit){
-                    DataManager.getInstance().addUpdateCategory("Update", newCategory);
+                    String catName = getArguments().getString("catName");
+                    Category aux = DataManager.getInstance().getCategory(catName,false,"Variable Expense").get(0);
+                  //  Log.d("CENAS", );
+
+                    //aux.setTitle(catTitle.getText().toString());
+                    aux.setColor(color);
+                    DataManager.getInstance().addUpdateCategory("Update", aux);
 
                 }else{
+
                     DataManager.getInstance().addUpdateCategory("Add", newCategory);
 
                 }
