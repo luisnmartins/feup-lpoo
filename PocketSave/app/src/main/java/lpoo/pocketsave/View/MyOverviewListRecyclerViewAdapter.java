@@ -201,14 +201,14 @@ public class MyOverviewListRecyclerViewAdapter extends RecyclerView.Adapter<MyOv
         viewHolder.getlistValue().setText(String.valueOf(value));
         viewHolder.getListCat().setText(String.valueOf(aux.getTitle()));
         viewHolder.getListDate().setText(String.valueOf(mSortedList.get(position).getDate()));
-        if(mSortedList.get(position).getImage() != null)
+        /*if(mSortedList.get(position).getImage() != null)
         {
 
             viewHolder.getCatIcon().setImageResource(android.R.color.transparent);
             viewHolder.getCatIcon().setImageDrawable(Drawable.createFromPath(mSortedList.get(position).getImage()));
 
 
-        }
+        }*/
         viewHolder.getCatColor().setBackgroundColor(aux.getColor());
     }
 

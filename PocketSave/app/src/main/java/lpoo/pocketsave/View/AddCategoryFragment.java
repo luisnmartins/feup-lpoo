@@ -21,9 +21,11 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -49,8 +51,8 @@ public class AddCategoryFragment extends Fragment {
     private Button save,colorButton;
     private EditText catEstimaed;
     private EditText catTitle;
-    private ImageButton catIcon;
-    private int  color = 9999999;
+    private Boolean isEdit = false;
+    private int  color = Color.BLUE;
 
 
     private OnFragmentInteractionListener mListener;
@@ -93,6 +95,10 @@ public class AddCategoryFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
+        Bundle b = getArguments();
+        if(b != null)
+            isEdit = b.getBoolean("isEdit");
+
 
         colorButton = (Button) view.findViewById(R.id.colorbutton);
         colorButton.setBackgroundColor(Color.BLUE);
@@ -104,7 +110,25 @@ public class AddCategoryFragment extends Fragment {
         });
         catEstimaed = (EditText) view.findViewById(R.id.CatEstimated);
         catTitle = (EditText) view.findViewById(R.id.CatTitle);
-        catIcon = (ImageButton) view.findViewById(R.id.CatIcon);
+
+        if(isEdit)
+        {
+
+            Date d = new Date();
+            String d1 = d.getInitialDate(true,"current");
+            String d2 = d.getInitialDate(false,"currentDate");
+
+            String catName = b.getString("catName");
+            Category category = DataManager.getInstance().getCategory(catName,null,"Variable Expense").get(0);
+            catTitle.setText(category.getTitle());
+            colorButton.setBackgroundColor(category.getColor());
+            HashMap<String,Double> aux = DataManager.getInstance().getTotalSpentValues("Category",category.getTitle(),d1,d2,false);
+            Double estimated = aux.get(category.getTitle());
+            catEstimaed.setText(Double.toString(estimated));
+            catEstimaed.setEnabled(false);
+
+
+        }
 
         Boolean hide = false;
         if(getArguments() != null)
@@ -129,14 +153,17 @@ public class AddCategoryFragment extends Fragment {
                 {
                     return;
                 }
-                Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = 1;
-                String date = year + "-" + month + "-" + day;
+                Date d = new Date();
+                String date = d.getInitialDate(true,"current");
 
                 Category newCategory = new Category(catTitle.getText().toString(), DataManager.getInstance().addGetType("Get", "Variable Expense"), false, color);
-                DataManager.getInstance().addUpdateCategory("Add", newCategory);
+                if(isEdit){
+                    DataManager.getInstance().addUpdateCategory("Update", newCategory);
+
+                }else{
+                    DataManager.getInstance().addUpdateCategory("Add", newCategory);
+
+                }
 
                 if(catEstimaed.isEnabled())
                 {

@@ -3,16 +3,19 @@
 
     <item android:id="@+id/nav_transactions"
         android:icon="@mipmap/ic_attach_money_black_24dp"
-        android:title="My Transactions" />
-
-    <item android:id="@+id/nav_overview"
-        android:icon="@mipmap/ic_view_list_black_24dp"
-        android:title="Overview"
-        />
+        android:title="My Transactions Stats" />
 
     <item android:id="@+id/nav_month"
         android:title= "Month"
         android:icon="@mipmap/ic_schedule_black_24dp">
+
+    </item>
+
+    <item
+        android:id="@+id/nav_cat"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Categories">
+
 
     </item>
 

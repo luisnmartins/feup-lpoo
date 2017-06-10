@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         int id = item.getItemId();
 
-        if(id == R.id.nav_overview)
+       /* if(id == R.id.nav_overview)
         {
             mOptionsMenu.findItem(R.id.action_search).setVisible(true);
             mOptionsMenu.setGroupVisible(R.id.overGroup,true);;
@@ -294,13 +294,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             b.putString("TransType","Variable Expense");
             frag.setArguments(b);
             setFragment(frag,"over");
-        }else if(id == R.id.nav_transactions)
+        }else*/
+       if(id == R.id.nav_transactions)
         {
             closeAllFragments();
             Intent transactionIntent = new Intent(MainActivity.this, StatsActivity.class);
             MainActivity.this.startActivity(transactionIntent);
 
-        }else if(id == R.id.nav_logout)
+        }else if (id == R.id.nav_cat)
+        {
+            closeAllFragments();
+            initializeCatDialog();
+        }
+        else if(id == R.id.nav_logout)
         {
             this.logOut();
         }else if(id == R.id.nav_settings)
@@ -404,6 +410,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         monthIntent.putExtras(b);
         MainActivity.this.startActivity(monthIntent);
         finish();
+    }
+
+    public void initializeCatDialog()
+    {
+        DialogFragment dialog = new ChooseSpecificCatDialog();
+        Bundle b = new Bundle();
+        b.putBoolean("isMonth",false);
+        dialog.setArguments(b);
+        dialog.show(getSupportFragmentManager(),"chooseCategories");
     }
 
 

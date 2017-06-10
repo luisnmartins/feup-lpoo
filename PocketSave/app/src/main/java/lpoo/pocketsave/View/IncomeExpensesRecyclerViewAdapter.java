@@ -150,7 +150,7 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         {
             for(int i = 0; i < aux.size();i++)
             {
-                months += aux.get(i);
+                months += aux.get(i)+ " ";
             }
         }
         viewHolder.getlistValue().setText(String.valueOf(value));
