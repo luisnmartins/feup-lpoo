@@ -1,20 +1,13 @@
 package lpoo.pocketsave.Logic;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
+
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.icu.text.RelativeDateTimeFormatter;
-import android.provider.Settings;
+
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TreeSet;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -60,10 +53,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final  String TYPE_ID = "_id";
     public static final String TYPE_NAME = "Name";
 
-
     private long userID;
 
 
+    /**
+     * Creates a new database instance
+     * @param context Application Context
+     */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         //TODO: delete
@@ -72,19 +68,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     static private DatabaseHelper instance = null;
 
+    /**
+     * Initialize database with the program context
+     * @param context Application context
+     */
     static public void startDB(Context context){
         if (instance == null){
             instance = new DatabaseHelper(context);
         }
     }
 
+    /**
+     * Singleton instance
+     * @return Returns an instance of the DatabaseHelper
+     */
     static public DatabaseHelper getInstance(){
             if(instance == null)
                 throw new NullPointerException();
             return instance;
     }
 
-
+    /**
+     * Creates the database tables
+     * @param db database instance
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -117,6 +124,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     }
 
+    /**
+     * Upgrades DB
+     * @param db db instance
+     * @param oldVersion oldVersion number
+     * @param newVersion NewVersion number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_USER);
@@ -126,16 +139,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void deleteValues(SQLiteDatabase db){
-        //db.execSQL();
 
-    }
-
-
+    /**
+     * Set user id variable to be used in queries
+     * @param id User id
+     */
     public void setUserID(long id){
         this.userID = id;
     }
 
+    /**
+     * Get the current user ID
+     * @return Returns the user id
+     */
     public String getUserID(){
         return Long.toString(userID);
     }

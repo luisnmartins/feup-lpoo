@@ -15,6 +15,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled = true
         }
     }
 }
@@ -37,4 +38,9 @@ dependencies {
     compile 'com.github.BlacKCaT27:CurrencyEditText:v1.4.4'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     testCompile 'junit:junit:4.12'
+}
+
+apply plugin: 'jacoco'
+jacoco {
+    toolVersion = "0.7.5.201505241946"
 }

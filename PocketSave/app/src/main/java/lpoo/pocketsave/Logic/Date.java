@@ -2,15 +2,16 @@ package lpoo.pocketsave.Logic;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
-/**
- * Created by luisnmartins on 06/06/2017.
- */
 
 public class Date {
 
     ArrayList<Integer> daysofmonths = new ArrayList<Integer>();
 
+    /**
+     * Create a date and array of number of days
+     */
     public Date(){
         int year = Calendar.getInstance().get(Calendar.YEAR);
         daysofmonths.add(31);
@@ -37,9 +38,9 @@ public class Date {
     }
 
     /**
-     * Returns
-     * @param index
-     * @return
+     * Gets the number of days of a specific month
+     * @param index Index of month to get days
+     * @return Returns the number of days of a specific month
      */
     public int getDaysofMonth(int index){
         return daysofmonths.get(index);
@@ -47,9 +48,10 @@ public class Date {
 
 
     /**
-     * @param firstDay
-     * @param month
-     * @return
+     * Get a String with the date asked
+     * @param firstDay True if is the first day of the month and false if not
+     * @param month string to set the month to get or the current Date - "last", "curent" and "currentDate"
+     * @return Returns the asked date
      */
     public String getInitialDate(Boolean firstDay, String month) {
         Calendar c = Calendar.getInstance();

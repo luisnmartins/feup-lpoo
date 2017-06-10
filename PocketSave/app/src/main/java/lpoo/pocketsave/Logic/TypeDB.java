@@ -17,6 +17,7 @@ public class TypeDB {
     /**
      * Add a new type
      * @param title name of the type
+     * @return Returns the ID of the type added
      */
     public long addType(String title){
 
@@ -48,6 +49,11 @@ public class TypeDB {
 
     }
 
+    /**
+     * Get a type title with the ID
+     * @param id ID of the type to get
+     * @return Returns the asked type name
+     */
     public String getTypeTitle(long id){
         SQLiteDatabase db = dbH.getReadableDatabase();
         Cursor cursor = db.query(DatabaseHelper.TABLE_TYPE, new String[]{DatabaseHelper.TYPE_NAME}, DatabaseHelper.TYPE_ID + "=?", new String[]{Long.toString(id)}, null, null, null);

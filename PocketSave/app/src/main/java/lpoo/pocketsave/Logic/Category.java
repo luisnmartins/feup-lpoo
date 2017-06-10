@@ -1,6 +1,5 @@
 package lpoo.pocketsave.Logic;
 
-import java.util.Objects;
 
 public class Category {
 
@@ -24,14 +23,21 @@ public class Category {
 
     }
 
-
+    /**
+     * Gets the Category color
+     * @return Returns the color
+     */
     public int getColor(){
         return this.color;
     }
 
+    public void setColor(int color){
+        this.color = color;
+    }
+
     /**
-     *
-     * @return
+     * Gets the category ID
+     * @return Returns the id
      */
     public long getID(){
 
@@ -39,11 +45,19 @@ public class Category {
     }
 
 
-
+    /**
+     * Gets the Category Title
+     * @return Returns the title
+     */
     public String getTitle() {
         return title;
     }
 
+
+    /**
+     * Get the Type ID
+     * @return Returns the id
+     */
     public long getTypeID() {
         return typeID;
     }
@@ -58,18 +72,37 @@ public class Category {
     }
 
 
-
+    /**
+     * Get if the category should be shown in the main Menu
+     * @return Returns true if it is to
+     */
     public boolean isMainMenu() {
         return mainMenu;
     }
 
 
+    /**
+     * Set if the category is to be displayed in the main Menu
+     * @param value True if is to display and false if not
+     */
+    public void setMainMenu(boolean value){
+        this.mainMenu = value;
+    }
+
+    /**
+     * Get category as text
+     * @return Returns Category title
+     */
     @Override
     public String toString() {
         return this.getTitle();
     }
 
-
+    /**
+     * Compares 2 categories verifying if the ids are the same
+     * @param obj Category to compare with
+     * @return Returns true if 2 Categories are the same and false if not
+     */
     @Override
     public boolean equals(Object obj)
     {

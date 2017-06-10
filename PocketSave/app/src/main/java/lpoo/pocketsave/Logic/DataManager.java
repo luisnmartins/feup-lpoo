@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import java.util.HashMap;
-import java.util.TreeSet;
+
 
 
 public class DataManager {
@@ -92,9 +92,6 @@ public class DataManager {
     }
 
 
-    //TYPE FUNCTIONS
-
-
     /**
      * Add a new type and returns the id of the type
      *
@@ -115,8 +112,6 @@ public class DataManager {
     }
 
 
-    //CATEGORY FUNCTIONS
-
     /**
      * Add a new category or update one that already exists
      *
@@ -127,10 +122,7 @@ public class DataManager {
     public boolean addUpdateCategory(String operation, Category newCategory) {
 
         if (operation.equals("Add")) {
-            if (getCategory(newCategory.getTitle(), false, type.getTypeTitle(newCategory.getTypeID())) == null)
-                return category.add(newCategory);
-            else
-                return false;
+            return getCategory(newCategory.getTitle(), false, type.getTypeTitle(newCategory.getTypeID())) == null && category.add(newCategory);
         } else if (operation.equals("Update")) {
             newCategory.setID(getCategory(newCategory.getTitle(), newCategory.isMainMenu(), type.getTypeTitle(newCategory.getTypeID())).get(0).getID());
             return category.update(newCategory);
@@ -145,6 +137,7 @@ public class DataManager {
      *                 this variable should be "mainMenuCategories". If is null it will return all current user's categories
      * @param main     If is a main category then this represents if is to get the 5 visible categories or the other ones.
      *                 If null, it will return return the categories considering only catTitle value.
+     * @param type     Title of the type of the category to get
      * @return Returns an array containing the categories
      */
     public ArrayList<Category> getCategory(String catTitle, Boolean main, String type) {
@@ -182,7 +175,7 @@ public class DataManager {
      * Add a new category or update one that already exists
      *
      * @param operation   String to know which operation should be made - "Add" or "Update"
-     * @param newTransaction
+     * @param newTransaction Transaction instance to add or update
      * @return Returns true if the transaction was added or updated and false if not
      */
     public boolean addUpdateTransaction(String operation, Transaction newTransaction){
@@ -284,7 +277,7 @@ public class DataManager {
 
         if (cursor.moveToFirst()) {
 
-            transactions = new ArrayList<Transaction>();
+            transactions = new ArrayList<>();
             do {
                 newTransaction = new Transaction(
                         cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
@@ -322,12 +315,16 @@ public class DataManager {
         double value;
         Cursor cursor;
 
-        if (structure.equals("Category"))
-            cursor = transaction.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
-        else if (structure.equals("Type"))
-            cursor = transaction.getTypeTotalValueSpent(catTitle_typeTitle, d1, d2, done);
-        else
-            return null;
+        switch (structure) {
+            case "Category":
+                cursor = transaction.getCategoryTotalValueSpent(catTitle_typeTitle, d1, d2, done);
+                break;
+            case "Type":
+                cursor = transaction.getTypeTotalValueSpent(catTitle_typeTitle, d1, d2, done);
+                break;
+            default:
+                return null;
+        }
 
         if (cursor == null) {
             Log.d(TAG, "CURSOS NULL");
@@ -335,7 +332,7 @@ public class DataManager {
         }
 
         if (cursor.moveToFirst()) {
-            categories = new HashMap<String, Double>();
+            categories = new HashMap<>();
 
             do {
                 catType = cursor.getString(0);
@@ -371,5 +368,15 @@ public class DataManager {
 
         }
     }
+
+    /**
+     * Delete all data from DataBase
+     */
+    public void clearDB(){
+        transaction.deleteAllTransactions();
+        category.deleteAllCategories();
+        user.deleteAllUsers();
+    }
+
 
 }

@@ -118,4 +118,14 @@ public class UserDB {
     }
 
 
+    /**
+     * Delete all users from db
+     */
+    public void deleteAllUsers() {
+        SQLiteDatabase db = dbH.getWritableDatabase();
+        db.delete(DatabaseHelper.TABLE_USER, null, null);
+        db.close();
+    }
+
+
 }
