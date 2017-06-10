@@ -3,7 +3,6 @@
 Java Project - object oriented programming
 
 
-
 ## Members Group
 
     Carlos Miguel da Silva de Freitas - up201504749
@@ -15,38 +14,62 @@ Java Project - object oriented programming
 ![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/PocketSaveUML.png)
 <br>
 
-### Each Class brief description<br>
-
-  **PocketSave** - main class of the application that verifies sign in/up of an user and creates an instance the DB to be used to add and get user's informations.<br>
+### Setup/Instalação<br>
+    
+  **Aplicação** - Para executar o apk, basta instalar o ficheiro disponibilizado num dispositivo android - versao minima 4.4 (API 19)<br>
   
-  **User** - has an instance of financialsettings and statistics of the user. Set account settings ( email, password)<br>
+  **Projeto** - Para correr o projeto basta abri-lo com o android studio e compilar. Deve existir um dispositivo ligado, ou um dispositvo emulado para que a aplicacao corra.
   
-  **PremiumUser** - has an instance of suggestions. responsible for verifying monthly payment validation ( date and value).<br>
-  
-  **DataBase** - add and get all the informations from the DB.<br>
-  
-  **Statistics** - responsible for checking and getting the values necessary to draw charts of them<br>
-  
-  **FinancialSettings** -  set user's financial settings (incomes, fixed expenses and montly estimated values)<br>
-  
-  **Suggestions** - responsible for making calculations to get estimated values of the user expenses so that it can,according to the                     results,give,if needed, a specific "alert" to the user <br>
   <br><br>
-## Design Patterns
------
+### Padrões de Desenho
 
-### Singleton<br>
-
- *We intend to use the singleton design pattern on the DataBase and User classes because, logically speaking, it makes sense that only one user is logged in at the same time as also there is only one database that stores all data of the application.*<br>
- 
- **More about the Singleton Design Patter in :** https://sourcemaking.com/design_patterns/singleton
+   **Singleton** - Existem duas classes que usam este padrão de desenho: DatabaseHelper e DataManager. A primeira classe gere  toda a parte de criação e acesso a base de dados. Já a classe DataManager gere a comunicação e transferencia de dados entre a base de dados e as classes de design/cálculo.
+   
+   **Adapter** - 
 
 <br><br>
-## Behavioural Aspects State Machine
------
+### Decisões Relevantes
 
-![alt text](https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/DFA.jpg)<br><br>
+Foi implementada uma base de dados para guardar toda a informacao utilizada na aplicacao. Esta base de dados divide-se em 5 classes:</br>
+   **DatabaseHelper** - que serve para fazer a criação da base de dados.
+   **TransactionDB** - responsável pelas funções de CRUD relativas às transações
+   **TransactionDB** - responsável pelas funções de CRUD relativas às transações
+   **CategoryDB** responsável pelas funções de CRUD relativas às categorias
+   **TypeDB** - responsável pelas funções de CRUD relativas aos tipos de Categorias existentes - “Income”, “Variable Expense” e “Fixed Expense”
+   **UserDB** -  responsável pelas funções de CRUD relativas ao User.
+   
+Para converse entre os tipos de dados da base de dados e os utilizados no projeto ( com divisão por classes) foi utilizada a classe DataManager, responsável pela comunicação com as classes da base de dados e parsing da informação obtida.
+
 
 <br><br>
+
+### Dificuldades Encontradas
+
+Uma das maiores dificuldades foi a estruturação da parte lógica. De facto a articulação da base de dados com a estrutura de classes orientadoras da aplicação não foi muito fácil dado a necessidade de compactação das funções de escrita e leitura na base de dados. Outro dos problemas prendia-se com o facto de os valores de retorno das funções de get da base de dados não ser compatível com as classes do programa e haver portanto necessidade de fazer parsing destes mesmos resultados. 
+
+
+<br><br>
+
+### Conclusões
+
+Durante a realização do trabalho perante as várias dificuldades encontradas 
+
+
+<br><br>
+
+### Distribuição do Trabalho
+
+Luis Martins - 40h (50%)
+    - Implementação da base de dados
+    - Implementação do DataManager
+    - Implementação dos testes unitários
+    - Implementação das funções de sugestão
+
+Carlos Freitas -  (50%)
+    - Implementacao de toda a parte gráfica
+    - Contribuicao na implementação das sugestões
+    - Implementa
+
 ## GUI DESIGN
 -----
 ***Intro***<br>
@@ -84,19 +107,6 @@ Java Project - object oriented programming
 
 ## UNIT TESTING
 
------
+Para verificar o código da parte lógica foram realizados vários testes testando as várias funções existentes.
 
-+*Verify Sign in.* <br>
-+*Add/Edit transactions.* <br>
-+*Add/Edit/Remove category.*  <br>
-+*Add/Edit/Remove User.* <br>
-+*Add/Edit/Remove Income/Fixed Expense.* <br>
-+*Verify total balance.* <br>
-+*Verify category balance.* <br>
-+*Verify transactions between dates.* <br>
-+*Verify new month.* <br>
-+*Verify save receipt image.* <br>
-+*Verify set menu category.* <br>
-+*Verify suggestions (for specific cases)* <br>
-
-*More will be added later*<br>
+Estes testes encontram-se dentro do projeto na pasta lpoo.pocketsave.unitTest
