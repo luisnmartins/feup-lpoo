@@ -418,9 +418,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                if(verifyMonth())
+
+                if(DataManager.getInstance().verifyMonth())
                 {
-                    startMonth();
+                    goMonth();
                 }else
                 {
 
@@ -510,7 +511,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if(success == null)
             {
-               startMonth();
+                goMonth();
             }
              else if (success) {
                 Intent settingsIntent = new Intent(LoginActivity.this,SettingsActivity.class);
@@ -532,51 +533,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    public boolean verifyMonth()
-    {
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = 1;
-        String date = year + "-" + month + "-" + day;
-        HashMap<String,Double> trans = DataManager.getInstance().getTotalSpentValues("Type","Income",date,date,true);
-        if(trans == null)
-        {
-            return true;
-        }else {
-            return false;
-        }
-    }
 
-    public void startMonth()
+
+    public void goMonth()
     {
-        Date d = new Date();
-        String d1;
-        d1 = d.getInitialDate(true,"current");
+
         Intent monthIntent = new Intent(LoginActivity.this,Month.class);
         Bundle b = new Bundle();
         b.putBoolean("isFirst",true);
-        HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
-        HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
-
-        Double incomes = 0.0;
-        if(transIncome != null)
-        {
-            for(HashMap.Entry<String,Double> it : transIncome.entrySet())
-            {
-                incomes += it.getValue();
-            }
-        }
-        b.putDouble("incomeValue",incomes);
-        Double expenses = 0.0;
-        if(transExpense != null) {
-
-            for(HashMap.Entry<String,Double> it : transExpense.entrySet())
-            {
-                expenses += it.getValue();
-            }
-        }
-        b.putDouble("expenseValue",expenses);
         monthIntent.putExtras(b);
         LoginActivity.this.startActivity(monthIntent);
         finish();

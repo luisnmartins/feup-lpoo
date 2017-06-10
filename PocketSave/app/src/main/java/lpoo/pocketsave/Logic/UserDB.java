@@ -74,8 +74,9 @@ public class UserDB {
         if(cursor == null || cursor.getCount()<1)
             return false;
         if(cursor.moveToFirst()) {
-
-            dbH.setUserID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.USER_ID)));
+            long id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.USER_ID));
+            dbH.setUserID(id);
+            DataManager.getInstance().savePreferences(id);
 
             cursor.close();
             return true;

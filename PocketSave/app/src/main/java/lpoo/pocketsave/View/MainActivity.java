@@ -302,6 +302,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if(id == R.id.nav_logout)
         {
+            DataManager.getInstance().savePreferences(-1);
             this.logOut();
         }else if(id == R.id.nav_settings)
         {

@@ -30,6 +30,7 @@ import java.util.Set;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
+import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
@@ -49,6 +50,8 @@ public class Month extends AppCompatActivity {
     private HashMap<String,Double> catValues = new HashMap<>();
     private ImageButton addCategory;
     private Boolean isFirst;
+    private Double incomes;
+    private Double expenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +63,17 @@ public class Month extends AppCompatActivity {
         setSupportActionBar(mytool);
         initializeEditTexts();
         initializeImageButtons();
+        startMonth();
         Bundle b = getIntent().getExtras();
-        //isIncome = b.getBoolean("isIncome");
-        if(b != null)
+        if(incomes != null)
         {
+
             isFirst = b.getBoolean("isFirst");
-            SetIncome.setText(Double.toString(b.getDouble("incomeValue")));
-            SetFixedExpenses.setText(Double.toString(b.getDouble("expenseValue")));
+            SetIncome.setText(Double.toString(incomes));
+
+        }
+        if(expenses != null){
+            SetFixedExpenses.setText(Double.toString(expenses));
         }
 
         addCategory = (ImageButton) findViewById(R.id.addCatMonth);
@@ -301,6 +308,39 @@ public class Month extends AppCompatActivity {
         settingsIntent.putExtras(b);
         Month.this.startActivity(settingsIntent);
         finish();
+    }
+
+
+    public void startMonth()
+    {
+        Date d = new Date();
+        String d1;
+        d1 = d.getInitialDate(true,"current");
+
+
+        HashMap<String,Double> transIncome = DataManager.getInstance().getTotalSpentValues("Type","Income",d1,d1,false);
+        HashMap<String,Double> transExpense = DataManager.getInstance().getTotalSpentValues("Type","Fixed Expense",d1,d1,false);
+
+        Double incomes = 0.0;
+        if(transIncome != null)
+        {
+            for(HashMap.Entry<String,Double> it : transIncome.entrySet())
+            {
+                incomes += it.getValue();
+            }
+        }
+        this.incomes = incomes;
+        Double expenses = 0.0;
+        if(transExpense != null) {
+
+            for(HashMap.Entry<String,Double> it : transExpense.entrySet())
+            {
+                expenses += it.getValue();
+            }
+        }
+        this.expenses = expenses;
+
+
     }
 
 }

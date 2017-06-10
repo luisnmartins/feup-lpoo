@@ -1,11 +1,14 @@
 package lpoo.pocketsave.Logic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 
@@ -18,6 +21,7 @@ public class DataManager {
     static private TransactionDB transaction;
 
     private static final String TAG = "DataManager";
+    static private Context contextt;
 
     static private DataManager instance = null;
 
@@ -33,6 +37,10 @@ public class DataManager {
             type = new TypeDB();
             transaction = new TransactionDB();
         }
+    }
+
+    public void setContext(Context context){
+        contextt = context;
     }
 
     /**
@@ -377,6 +385,66 @@ public class DataManager {
         category.deleteAllCategories();
         user.deleteAllUsers();
     }
+
+
+    /**
+     * Saves a new id in the android preferences
+     *
+     * @param id id to be saved
+     */
+    public void savePreferences(long id) {
+        SharedPreferences settings;
+        SharedPreferences.Editor editor;
+
+        settings = PreferenceManager.getDefaultSharedPreferences(contextt);
+        editor = settings.edit();
+        editor.putLong("USER LOGGED", id);
+
+        editor.commit();
+    }
+
+    /**
+     * Returns the id in the android preferences
+     *
+     * @return id in the android preferences
+     */
+    public long getPreferences() {
+        SharedPreferences settings;
+        long id;
+
+        settings = PreferenceManager.getDefaultSharedPreferences(contextt);
+        id = settings.getLong("USER LOGGED", -1);
+
+        return id;
+    }
+
+    /**
+     * Initialize user auto log in
+     */
+    public void initPreferences(){
+        long id = getPreferences();
+        if(id != -1){
+            DatabaseHelper.getInstance().setUserID(id);
+        }
+    }
+
+    /**
+     * Verify if the current month is already set
+     * @return Returns true if it isn't already set and false otherwise
+     */
+    public boolean verifyMonth()
+    {
+        Date d = new Date();
+        String date = d.getInitialDate(true, "current");
+        HashMap<String,Double> trans = getTotalSpentValues("Type","Income",date,date,true);
+        if(trans == null)
+        {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
 
 }
