@@ -25,7 +25,7 @@ Java Project - object oriented programming
 
    **Singleton** - Existem duas classes que usam este padrão de desenho: DatabaseHelper e DataManager. A primeira classe gere  toda a parte de criação e acesso a base de dados. Já a classe DataManager gere a comunicação e transferencia de dados entre a base de dados e as classes de design/cálculo.
    
-   **Adapter** - 
+   **Adapter** - Foi necessário o uso de Adapters personalizados de forma a que o RecyclerView, que lista todas as transacoes de uma categoria, possa listar a partir de um HashMap.
 
 <br><br>
 ### Decisões Relevantes
