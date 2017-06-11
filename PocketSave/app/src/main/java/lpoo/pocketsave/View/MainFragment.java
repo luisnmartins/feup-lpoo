@@ -200,7 +200,7 @@ public class MainFragment extends Fragment {
             public void run() {
                 try{
                     while(!isInterrupted()){
-                        Thread.sleep(10000);
+                        Thread.sleep(3000);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -250,7 +250,7 @@ public class MainFragment extends Fragment {
                                     ArrayList<String> toManyCash = sug.limitCashMethodCategory();
                                     if(toManyCash == null || toManyCash.isEmpty())
                                     {
-                                        sug_index = 0;
+                                        sug_index ++;
                                         return;
                                     }
                                     String msg = "I think your making too much small buys in the following categories: ";
@@ -262,6 +262,18 @@ public class MainFragment extends Fragment {
                                         }else  msg += toManyCash.get(i);
                                     }
                                     suggestionsBox.setText(msg);
+                                    sug_index ++;
+                                }else if(sug_index == 3)
+                                {
+                                    suggestionsBox.setText("Save 1 more euro a day and you´ll feel ok!");
+                                    sug_index++;
+                                }else if(sug_index == 4)
+                                {
+                                    suggestionsBox.setText("Look at your pocket and pay attention to your credit card!");
+                                    sug_index++;
+                                }else if(sug_index  == 5)
+                                {
+                                    suggestionsBox.setText("Let´s try to reach a better balance than last  month");
                                     sug_index = 0;
                                 }
 

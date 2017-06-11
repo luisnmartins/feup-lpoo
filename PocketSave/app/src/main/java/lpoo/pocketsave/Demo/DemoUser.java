@@ -6,6 +6,10 @@ import lpoo.pocketsave.Logic.*;
 public class DemoUser {
 
     public void addLastMonthTransactions(){
+        Transaction income1 = new Transaction(1500, "2017-05-01", 1, false, false);
+        income1.setDescription("Income");
+        Transaction fixedExpense1 = new Transaction(800, "2017-05-01", 2, false, false);
+        fixedExpense1.setDescription("expense");
         Transaction income = new Transaction(1500, "2017-05-01", 1, true, false);
         income.setDescription("Income");
         Transaction fixedExpense = new Transaction(800, "2017-05-01", 2, true, false);
@@ -75,6 +79,8 @@ public class DemoUser {
         Transaction f6 = new Transaction(45, "2017-05-28", 8, true, true);
         f6.setDescription("Pingo Doce");
 
+        DataManager.getInstance().addUpdateTransaction("Add", income1);
+        DataManager.getInstance().addUpdateTransaction("Add", fixedExpense1);
         DataManager.getInstance().addUpdateTransaction("Add", income);
         DataManager.getInstance().addUpdateTransaction("Add", fixedExpense);
         DataManager.getInstance().addUpdateTransaction("Add", setEat);

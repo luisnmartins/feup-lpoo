@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -162,8 +163,13 @@ public class Month extends AppCompatActivity {
                     {
                         String catname = s.toString();
                         Double value =  recommendedCatValues.get(catname);
-                        if(value != null)
-                            SetCatValue.setText(Double.toString(value));
+                        DecimalFormat aux = new DecimalFormat("#.##");
+
+                        if(value != null){
+                            String valuestr = aux.format(value);
+                            SetCatValue.setText(valuestr);
+                        }
+
                     }
                     SetCatValue.setEnabled(true);
                 }
@@ -252,7 +258,9 @@ public class Month extends AppCompatActivity {
                     }
                     catValues.put(tempCatName, (double) value);
                     Double estimative = calculateBalance();
-                    EstimatedValue.setText(Double.toString(estimative));
+                    DecimalFormat aux = new DecimalFormat("#.##");
+                    String estimatvestr = aux.format(estimative);
+                    EstimatedValue.setText(estimatvestr);
                     SetCatValue.setText("");
 
 

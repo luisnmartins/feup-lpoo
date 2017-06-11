@@ -236,17 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         int id = item.getItemId();
 
-       /* if(id == R.id.nav_overview)
-        {
-            mOptionsMenu.findItem(R.id.action_search).setVisible(true);
-            mOptionsMenu.setGroupVisible(R.id.overGroup,true);;
-            mToolbar.setTitle("Overview");
-            OverviewListFragment frag = new OverviewListFragment();
-            Bundle b = new Bundle();
-            b.putString("TransType","Variable Expense");
-            frag.setArguments(b);
-            setFragment(frag,"over");
-        }else*/
+
        if(id == R.id.nav_transactions)
         {
             closeAllFragments();
