@@ -40,8 +40,6 @@ Foi implementada uma base de dados para guardar toda a informacao utilizada na a
    
 Para converse entre os tipos de dados da base de dados e os utilizados no projeto ( com divisão por classes) foi utilizada a classe DataManager, responsável pela comunicação com as classes da base de dados e parsing da informação obtida.
 
-
-
 <br><br>
 
 ### Funcionalidades
@@ -53,6 +51,7 @@ Para o desenvolvimento da aplicação, achamos pertinente utilizar os seguintes 
  **Inteligência Artificial** - Para ajudar o utilizador na sua gestão financeira, foram desenvolvidas algumas funções. Estas funçes baseiam-se no histórico existente e, através deste aconselham-no.
 
 
+<br><br>
 
 ### Dificuldades Encontradas
 
@@ -80,7 +79,7 @@ Carlos Freitas -  (50%)<br>
     - Implementacao de toda a parte gráfica<br>
     - Contribuicao na implementação das sugestões<br>
     - Implementa <br>
-<br>
+<br><br>
 ## GUI DESIGN
 -----
 ***Intro***<br>
@@ -115,7 +114,7 @@ Carlos Freitas -  (50%)<br>
 -----
 
 
-
+<br><br>
 ## UNIT TESTING
 
 Para verificar o código da parte lógica foram realizados vários testes verifição as diferentes funções existentes.
