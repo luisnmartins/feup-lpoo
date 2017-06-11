@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="categories">
-        <item>Cat1</item>
-        <item>Cat2</item>
-        <item>Cat3</item>
-        <item>Cat4</item>
-        <item>Cat5</item>
-    </string-array>
-
+    
     <string-array name="months">
         <item>01</item>
         <item>02</item>
@@ -22,6 +15,18 @@
         <item>10</item>
         <item>11</item>
         <item>12</item>
+    </string-array>
+    
+    <string-array name="DefaultCategories">
+        <item>Eat</item>
+        <item>Transport</item>
+        <item>Health</item>
+        <item>Clothes</item>
+        <item>Joy</item>
+        <item>Sports</item>
+        <item>Communications</item>
+        <item>Travel</item>
+        <item>Pets</item>
     </string-array>
 
 
