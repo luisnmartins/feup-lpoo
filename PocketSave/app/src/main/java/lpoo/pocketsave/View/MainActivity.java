@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragment.setRetainInstance(true);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.linear_main, fragment);
+        fragmentTransaction.replace(R.id.linear_main, fragment,"mainFrag");
         fragmentTransaction.commit();
 
         mNavView = (NavigationView) findViewById(R.id.nav_view);
@@ -274,7 +274,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if(id == R.id.nav_exit)
         {
             quitApp();
-        }
+        }else if(id == R.id.nav_menucat)
+       {
+           initializeChooseMenuCatsDialog();
+       }
         sDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
 
@@ -349,6 +352,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         b.putBoolean("isMonth",false);
         dialog.setArguments(b);
         dialog.show(getSupportFragmentManager(),"chooseCategories");
+    }
+
+    public void initializeChooseMenuCatsDialog()
+    {
+        DialogFragment dialog = new ChooseCategoriesForMain();
+        dialog.show(getSupportFragmentManager(),"chooseMainCategories");
+    }
+
+    public void setCatsText()
+    {
+        MainFragment fragment = (MainFragment) getSupportFragmentManager().findFragmentByTag("mainFrag");
+        if(fragment != null)
+            fragment.setCatsText(fragment.getRootView());
     }
 
 

@@ -11,6 +11,12 @@
         android:title="Your Categories">
     </item>
 
+
+    <item
+        android:id="@+id/nav_menucat"
+        android:icon="@mipmap/ic_view_list_black_24dp"
+        android:title="Choose Main Menu Categories"></item>
+
     <item android:id="@+id/nav_settings"
         android:icon="@mipmap/ic_settings_black_24dp"
         android:title="Settings" />

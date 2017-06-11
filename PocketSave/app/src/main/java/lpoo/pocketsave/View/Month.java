@@ -183,6 +183,7 @@ public class Month extends AppCompatActivity {
     {
         String msg = "Remember that you spent to much last month in the following categories: ";
         TextView sug = (TextView) findViewById(R.id.MonthSuggestion);
+        sug.setText("");
         Suggestions aux = new Suggestions();
         ArrayList<String>  toHigh = aux.compareCatValuesBefore();
         if(toHigh != null && !toHigh.isEmpty())

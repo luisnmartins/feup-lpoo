@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -41,6 +42,7 @@ public class MainFragment extends Fragment {
 
 
     Thread t;
+    private  View rootView;
     private TextView suggestionsBox;
     public MainFragment() {
         // Required empty public constructor
@@ -54,8 +56,9 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.content_main, container, false);
+        rootView = inflater.inflate(R.layout.content_main, container, false);
         initializeAllButtons(rootView);
+        setCatsText(rootView);
         suggestionsBox = (TextView) rootView.findViewById(R.id.suggestionsText);
         suggestionsBox.setText("");
         createThread();
@@ -64,6 +67,10 @@ public class MainFragment extends Fragment {
     }
 
 
+    public View getRootView()
+    {
+        return rootView;
+    }
     @Override
     public void onDetach() {
         super.onDetach();
@@ -279,5 +286,29 @@ public class MainFragment extends Fragment {
     public void onStop() {
         super.onStop();
         t.interrupt();
+    }
+
+
+    public void setCatsText(View view)
+    {
+        ArrayList<TextView> aux = new ArrayList<>();
+        TextView text1 = (TextView) view.findViewById(R.id.Cat1btn);
+        aux.add(text1);
+        TextView text2 = (TextView) view.findViewById(R.id.Cat2btn);
+        aux.add(text2);
+        TextView text3 = (TextView) view.findViewById(R.id.Cat3btn);
+        aux.add(text3);
+        TextView text4 = (TextView) view.findViewById(R.id.Cat4btn);
+        aux.add(text4);
+        TextView text5 = (TextView) view.findViewById(R.id.Cat5btn);
+        aux.add(text5);
+        ArrayList<Category> cats = DataManager.getInstance().getCategory("mainMenuCategories",true,"Variable Expense");
+
+        for(int i = 0; i < cats.size();i++)
+        {
+            aux.get(i).setText(cats.get(i).toString());
+        }
+
+
     }
 }

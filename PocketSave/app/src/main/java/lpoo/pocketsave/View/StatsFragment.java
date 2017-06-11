@@ -32,6 +32,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
@@ -311,5 +312,11 @@ public class StatsFragment extends Fragment {
         {
             getFragmentManager().popBackStack();
         }
+    }
+
+
+    public void startCatsTexts()
+    {
+        ArrayList<Category> aux = DataManager.getInstance().getCategory("mainMenuCategory",true,null);
     }
 }
