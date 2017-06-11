@@ -49,6 +49,8 @@ Para o desenvolvimento da aplicação, achamos pertinente utilizar os seguintes 
  **Mobile** - Para ser possível ao utilizador associar uma imagem da fatura às suas transacções, foi utilizada a câmara do telemóvel.
  
  **Inteligência Artificial** - Para ajudar o utilizador na sua gestão financeira, foram desenvolvidas algumas funções. Estas funçes baseiam-se no histórico existente e, através deste aconselham-no.
+ 
+ **API'S** - Foram utilizadas api's externas para a escolha da cor de cada categoria (ColorPicker) e para a apresentação do gráfico circular existente nas estatisticas (MAndroidChart)
 
 
 <br><br>
@@ -77,8 +79,9 @@ Luis Martins - 40h (50%)<br>
 
 Carlos Freitas -  (50%)<br>
     - Implementacao de toda a parte gráfica<br>
+    - Implementacao da ligação entre a logica e a parte grafica do programa<br>
     - Contribuicao na implementação das sugestões<br>
-    - Implementa <br>
+    
 <br><br>
 ## GUI DESIGN
 -----
