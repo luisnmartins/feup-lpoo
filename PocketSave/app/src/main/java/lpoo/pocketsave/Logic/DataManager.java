@@ -315,14 +315,11 @@ public class DataManager {
             case "Type":
                 cursor = transaction.getTypeTotalValueSpent(catTitle_typeTitle, d1, d2, done);
                 break;
-            default:
-                return null;
+            default: return null;
         }
 
-        if (cursor == null) {
-            Log.d(TAG, "CURSOR NULL");
+        if (cursor == null)
             return null;
-        }
 
         if (cursor.moveToFirst()) {
             categories = new HashMap<>();
@@ -330,10 +327,7 @@ public class DataManager {
             do {
                 catType = cursor.getString(0);
                 value = cursor.getDouble(1);
-                Log.d(TAG, "CAT: " + catType);
-                Log.d(TAG, "VALUE: " + value);
                 categories.put(catType, value);
-
             } while (cursor.moveToNext());
             cursor.close();
         }

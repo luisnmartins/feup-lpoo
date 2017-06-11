@@ -46,7 +46,7 @@ public class Suggestions {
         HashMap<String, Double> expectedValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d1, false);
         HashMap<String, Double> occurredValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d2, true);
         double daysLeftperc = 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / d.getDaysofMonth(c.get(Calendar.MONTH));
-        Log.d(TAG, "DIAS: " + daysLeftperc);
+
 
         if(expectedValues == null || occurredValues == null)
         {
@@ -63,10 +63,9 @@ public class Suggestions {
                 expected = exp.getValue();
 
                 double moneyPerc = 100 - occurred * 100 / expected;
-                Log.d("TESTES: FIM ", "Dias: " + daysLeftperc);
-                Log.d("TESTES: FIM ", "DINHEIRO: " + moneyPerc);
+
                 if (daysLeftperc - moneyPerc > 20) {
-                    Log.d("TESTES: FIM ", exp.getKey());
+
                     limitCategories.add(exp.getKey());
                 }
             }
@@ -121,6 +120,8 @@ public class Suggestions {
         return ret;
 
     }
+
+
 
     /**
      * Gets the name of categories which spent money in the previous month was higher than that was expected

@@ -248,13 +248,8 @@ public class TransactionDB implements CRUDDB<Transaction> {
             cursor.close();
             return null;
         }
-        else {
-
-            if(cursor.moveToFirst()) {
-                return cursor;
-            }else
-                return null;
-        }
+        else
+            return cursor;
 
     }
 
