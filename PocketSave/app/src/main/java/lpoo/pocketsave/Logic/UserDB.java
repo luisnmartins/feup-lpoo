@@ -34,10 +34,8 @@ class UserDB {
             Log.d(TAG, "Error adding the new user\n");
             return false;
         }
-        else
-        {
+
             return openUser(email, password);
-        }
 
     }
 
@@ -52,8 +50,8 @@ class UserDB {
         Cursor cursor = db.query(DatabaseHelper.TABLE_USER, null, DatabaseHelper.USER_ID+"=?", new String[]{dbH.getUserID()}, null, null, null);
         if(cursor == null || cursor.getCount()<1)
             return null;
-        else
-            return cursor;
+
+        return cursor;
 
     }
 
@@ -78,10 +76,9 @@ class UserDB {
             cursor.close();
             return true;
         }
-        else{
             cursor.close();
             return false;
-        }
+
 
     }
 

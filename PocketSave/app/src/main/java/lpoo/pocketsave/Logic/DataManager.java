@@ -166,12 +166,7 @@ public class DataManager {
             categories = new ArrayList<>();
             do {
 
-                mainMenu = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_MAIN)) > 0;
-                newCategory = new Category(cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAT_TITLE)),
-                        cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_TYPE_ID)),
-                        mainMenu,
-                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_COLOR)));
-                newCategory.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_ID)));
+               newCategory = createCategory(cursor);
                 categories.add(newCategory);
 
             } while (cursor.moveToNext());
@@ -207,9 +202,7 @@ public class DataManager {
 
 
         HashMap<Transaction, ArrayList<Integer>> transactions = null;
-        Transaction newTransaction;
-        ArrayList<Integer> months;
-        boolean flag = false;
+
 
         Cursor cursor = transaction.getTypeTransactions(Long.toString(type.getTypeID(typeName)), done);
         if (cursor == null) {
@@ -220,26 +213,7 @@ public class DataManager {
 
             transactions = new HashMap<>();
             do {
-                String month = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE));
-
-                month = month.substring(month.indexOf('-') + 1, month.indexOf('-') + 3);
-                newTransaction = createTransaction(cursor);
-
-                for (HashMap.Entry<Transaction, ArrayList<Integer>> it : transactions.entrySet()) {
-                    if (it.getKey().equals(newTransaction)) {
-                        it.getValue().add(Integer.valueOf(month));
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                        Log.d(TAG, "È NULL");
-                        months = new ArrayList<>();
-                        months.add(Integer.valueOf(month));
-                        transactions.put(newTransaction, months);
-
-                }
-                flag = false;
+                setMonths(transactions, cursor);
 
             } while (cursor.moveToNext());
             cursor.close();
@@ -247,6 +221,32 @@ public class DataManager {
         }
         return transactions;
 
+    }
+
+    /**
+     * Set months in incomes and expenses
+     * @param transactions transactions hashmap
+     * @param cursor Cursor of the transactions
+     */
+    public void setMonths(HashMap<Transaction, ArrayList<Integer>> transactions, Cursor cursor){
+        String month = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE));
+        ArrayList<Integer> months;
+        month = month.substring(month.indexOf('-') + 1, month.indexOf('-') + 3);
+        Transaction newTransaction = createTransaction(cursor);
+        boolean flag = false;
+
+        for (HashMap.Entry<Transaction, ArrayList<Integer>> it : transactions.entrySet()) {
+            if (it.getKey().equals(newTransaction)) {
+                it.getValue().add(Integer.valueOf(month));
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            months = new ArrayList<>();
+            months.add(Integer.valueOf(month));
+            transactions.put(newTransaction, months);
+        }
     }
 
 
@@ -263,7 +263,6 @@ public class DataManager {
     public ArrayList<Transaction> getTransactionsBetweenDates(String structure, String catTitle_typeTitle, String d1, String d2, boolean done) {
 
         ArrayList<Transaction> transactions = null;
-        Transaction newTransaction;
         Cursor cursor = null;
         if (structure.equals("Category"))
             cursor = transaction.getCatTransactionsBetweenDates(catTitle_typeTitle, d1, d2, done);
@@ -271,18 +270,14 @@ public class DataManager {
             cursor = transaction.getTypeTransactionsBetweenDates(Long.toString(type.getTypeID(catTitle_typeTitle)), d1, d2, done);
 
         if (cursor == null) {
-
-            Log.d(TAG, "CURSOR NULL");
             return null;
         }
-
         if (cursor.moveToFirst()) {
 
             transactions = new ArrayList<>();
             do {
 
-                newTransaction = createTransaction(cursor);
-                transactions.add(newTransaction);
+                transactions.add(createTransaction(cursor));
             } while (cursor.moveToNext());
             cursor.close();
         }
@@ -304,8 +299,6 @@ public class DataManager {
     public HashMap<String, Double> getTotalSpentValues(String structure, String catTitle_typeTitle, String d1, String d2, Boolean done) {
 
         HashMap<String, Double> categories = null;
-        String catType;
-        double value;
         Cursor cursor;
 
         switch (structure) {
@@ -322,17 +315,30 @@ public class DataManager {
             return null;
 
         if (cursor.moveToFirst()) {
-            categories = new HashMap<>();
-
-            do {
-                catType = cursor.getString(0);
-                value = cursor.getDouble(1);
-                categories.put(catType, value);
-            } while (cursor.moveToNext());
-            cursor.close();
+          categories = setTotalSpents(cursor);
         }
         return categories;
     }
+
+
+    public HashMap<String, Double> setTotalSpents(Cursor cursor){
+        HashMap<String, Double> categories = new HashMap<>();
+        String catType;
+        double value;
+
+
+        do {
+            catType = cursor.getString(0);
+            value = cursor.getDouble(1);
+            categories.put(catType, value);
+        } while (cursor.moveToNext());
+        cursor.close();
+
+        return  categories;
+
+    }
+
+
 
     /**
      * Delete and element from database
@@ -437,6 +443,19 @@ public class DataManager {
         newTransaction.setImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
 
         return newTransaction;
+    }
+
+    private Category createCategory(Cursor cursor){
+        Category newCategory;
+        boolean mainMenu;
+        mainMenu = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_MAIN)) > 0;
+        newCategory = new Category(cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAT_TITLE)),
+                cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_TYPE_ID)),
+                mainMenu,
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.CAT_COLOR)));
+        newCategory.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.CAT_ID)));
+
+        return newCategory;
     }
 
 

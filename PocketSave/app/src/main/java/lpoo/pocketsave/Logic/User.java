@@ -37,10 +37,9 @@ public class User {
         Date d = new Date();
         HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,d.getInitialDate(false, "last"), true);
 
-        if(spents == null) {
-
+        if(spents == null)
             totalSaved = 0;
-        }
+
         else {
             for (HashMap.Entry<String, Double> it : spents.entrySet()) {
                 if(it.getKey().equals("Income"))
@@ -49,8 +48,6 @@ public class User {
                     totalSaved-= it.getValue();
             }
         }
-
-        Log.d(TAG,"TOTAL SAVED " + totalSaved);
 
     }
 

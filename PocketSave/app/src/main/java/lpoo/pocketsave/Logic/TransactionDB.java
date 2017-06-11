@@ -100,13 +100,7 @@ public class TransactionDB implements CRUDDB<Transaction> {
             cursor.close();
             return null;
         }
-
-        else{
-
-            return cursor;
-
-        }
-
+        return cursor;
 
     }
 
@@ -131,9 +125,11 @@ public class TransactionDB implements CRUDDB<Transaction> {
         Cursor cursor  = db.rawQuery(query, null);
 
 
-        if(cursor == null || cursor.getCount()<1)
+        if(cursor == null || cursor.getCount()<1) {
+            cursor.close();
             return null;
-        else
+        }
+
             return cursor;
 
     }
@@ -164,7 +160,6 @@ public class TransactionDB implements CRUDDB<Transaction> {
             cursor.close();
             return null;
         }
-        else
             return cursor;
 
     }
@@ -207,9 +202,8 @@ public class TransactionDB implements CRUDDB<Transaction> {
             cursor.close();
             return null;
         }
-        else {
             return cursor;
-        }
+
     }
 
 
@@ -248,7 +242,6 @@ public class TransactionDB implements CRUDDB<Transaction> {
             cursor.close();
             return null;
         }
-        else
             return cursor;
 
     }

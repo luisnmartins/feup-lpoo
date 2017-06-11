@@ -33,12 +33,10 @@ public class CategoryDB implements CRUDDB<Category> {
         long result = db.insert(DatabaseHelper.TABLE_CATEGORY,null, contentValues);
         if(result == -1)
             return false;
-        else
-        {
-            System.out.println("Category added successfully\n");
-            newCategory.setID(result);
-            return true;
-        }
+
+        newCategory.setID(result);
+        return true;
+
 
     }
 
@@ -95,7 +93,7 @@ public class CategoryDB implements CRUDDB<Category> {
 
             return null;
         }
-        else
+
             return cursor;
 
     }
@@ -119,7 +117,7 @@ public class CategoryDB implements CRUDDB<Category> {
             cursor.close();
             return null;
         }
-        else
+
             return cursor;
     }
 

@@ -14,26 +14,20 @@ public class Date {
     public Date(){
         int year = Calendar.getInstance().get(Calendar.YEAR);
         daysofmonths.add(31);
-        if (year % 4 == 0) {
-            if (year % 100 == 0) {
-                if (year % 400 == 0)
-                    daysofmonths.add(29);
-                else
-                    daysofmonths.add(28);
-            } else
-                daysofmonths.add(29);
-        } else
+        if ((year % 4 == 0) && (year%100 !=0) || (year%400 == 0))
+            daysofmonths.add(29);
+         else
             daysofmonths.add(28);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
-        daysofmonths.add(30);
-        daysofmonths.add(31);
+
+        for(int i=0; i<10; i++){
+            if(i== 5 || i%2 == 0){
+                daysofmonths.add(31);
+            }
+            else
+                daysofmonths.add(30);
+
+        }
+
     }
 
     /**

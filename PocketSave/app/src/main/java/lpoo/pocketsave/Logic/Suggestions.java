@@ -40,26 +40,19 @@ public class Suggestions {
         ArrayList<String> limitCategories = new ArrayList<>();
         Double occurred;
         Double expected;
-        Calendar c = Calendar.getInstance();
         String d1 = d.getInitialDate(true, "current");
         String d2 = d.getInitialDate(false, "currentDate");
         HashMap<String, Double> expectedValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d1, false);
         HashMap<String, Double> occurredValues = DataManager.getInstance().getTotalSpentValues("Category", null, d1, d2, true);
-        double daysLeftperc = 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / d.getDaysofMonth(c.get(Calendar.MONTH));
+        double daysLeftperc = getDaysLeftMonth();
 
 
-        if(expectedValues == null || occurredValues == null)
-        {
+        if(expectedValues == null || occurredValues == null) {
             return null;
         }
-
         for (HashMap.Entry<String, Double> exp : expectedValues.entrySet()) {
-            Log.d(TAG, exp.getKey());
-            if(exp.getKey().equals("Income") || exp.getKey().equals("Fixed Expense"))
-            {
-                continue;
-            }
-            if ((occurred = occurredValues.get(exp.getKey())) != null) {
+
+            if (!exp.getKey().equals("Income") && !exp.getKey().equals("Fixed Expense") && (occurred = occurredValues.get(exp.getKey())) != null) {
                 expected = exp.getValue();
 
                 double moneyPerc = 100 - occurred * 100 / expected;
@@ -75,6 +68,15 @@ public class Suggestions {
 
     }
 
+    /**
+     * Calculates the percentage until the end of the month
+     * @return Returns the percentage
+     */
+    public double getDaysLeftMonth(){
+        Calendar c = Calendar.getInstance();
+        return 100 - c.get(Calendar.DAY_OF_MONTH) * 100 / d.getDaysofMonth(c.get(Calendar.MONTH));
+    }
+
 
     /**
      * For the limit categories, it verifies if there's a lot of transactions of cash
@@ -87,7 +89,6 @@ public class Suggestions {
         ArrayList<String> ret = new ArrayList<>();
         int cashQuantity;
         int numberOfCashTransactions;
-
 
         String d1 = d.getInitialDate(true, "current");
         String d2 = d.getInitialDate(false, "currentDate");
@@ -109,11 +110,9 @@ public class Suggestions {
                 }
             }
 
-            if (numberOfCashTransactions / trans.size() >= A_LOT_OF_CASH) {
+            if ((numberOfCashTransactions / trans.size() >= A_LOT_OF_CASH) && (cashQuantity / numberOfCashTransactions < CASH_FREQ_QUANT)) {
 
-                if (cashQuantity / numberOfCashTransactions < CASH_FREQ_QUANT) {
                     ret.add(exp);
-                }
             }
 
         }
@@ -147,15 +146,10 @@ public class Suggestions {
         }
         for (HashMap.Entry<String, Double> it : estimated.entrySet()) {
 
-            if (it.getKey().equals("Income") || it.getKey().equals("Fixed Expense")) {
-                continue;
-            }
 
-            if((value = history.get(it.getKey())) != null) {
+            if(!it.getKey().equals("Income") && !it.getKey().equals("Fixed Expense") && (value = history.get(it.getKey())) != null && it.getValue() < value) {
 
-                if (it.getValue() < value) {
                     ret.add(it.getKey());
-                }
             }
         }
 

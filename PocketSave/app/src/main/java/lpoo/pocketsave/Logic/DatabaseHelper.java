@@ -94,33 +94,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY, "+
-                USER_NAME+" STRING UNIQUE, "+ USER_EMAIL+" STRING UNIQUE, "+USER_SINCE+" STRING NOT NULL, "+USER_PASSWORD+" STRING NOT NULL, "+
-                USER_TOTALSAVED+" REAL)";
-        String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY, "+
-                CAT_TITLE+" STRING, "+CAT_MAIN+" BOOLEAN NOT NULL, "+CAT_COLOR+" INTEGER NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+") ON DELETE CASCADE);";
-        String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
-        String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY, "+
-                TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
-                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, "+TRANS_CASH+" BOOLEAN NOT NULL, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+") ON DELETE CASCADE);";
-
-        Log.d(TAG, create_category);
-
-        System.out.println(create_user);
-        Log.d(TAG, create_category);
-        System.out.println(create_type);
-        Log.d(TAG, create_transaction);
-
 
     try{
-        db.execSQL(create_type);
-        db.execSQL(create_user);
-        db.execSQL(create_category);
-        db.execSQL(create_transaction);
+       createType(db);
+        createUser(db);
+        createCategory(db);
+        createTransaction(db);
         System.out.println("Success querying\n");
     } catch (SQLException e){
         System.out.println("Error querying\n");
     }
+    }
+
+    /**
+     * Create type table
+     * @param db database instance
+     */
+    private void createType(SQLiteDatabase db){
+        String create_type = "create table "+ TABLE_TYPE + " ("+TYPE_ID+" INTEGER PRIMARY KEY, "+TYPE_NAME+" STRING NOT NULL UNIQUE)";
+        db.execSQL(create_type);
+    }
+
+    /**
+     * Create User table
+     * @param db database instance
+     */
+    private void createUser(SQLiteDatabase db){
+        String create_user = "create table " + TABLE_USER + " ("+USER_ID+" INTEGER PRIMARY KEY, "+
+                USER_NAME+" STRING UNIQUE, "+ USER_EMAIL+" STRING UNIQUE, "+USER_SINCE+" STRING NOT NULL, "+USER_PASSWORD+" STRING NOT NULL, "+
+                USER_TOTALSAVED+" REAL)";
+        db.execSQL(create_user);
+    }
+
+    /**
+     * Create Category table
+     * @param db database instance
+     */
+    private void createCategory(SQLiteDatabase db){
+        String create_category = "create table "+ TABLE_CATEGORY+" ("+CAT_ID+" INTEGER PRIMARY KEY, "+
+                CAT_TITLE+" STRING, "+CAT_MAIN+" BOOLEAN NOT NULL, "+CAT_COLOR+" INTEGER NOT NULL, "+CAT_TYPE_ID+" INTEGER REFERENCES "+TABLE_TYPE+" ("+TYPE_ID+"), "+CAT_USER_ID+" INTEGER REFERENCES "+TABLE_USER+" ("+USER_ID+") ON DELETE CASCADE);";
+        db.execSQL(create_category);
+    }
+
+    /**
+     * Create Transaction table
+     * @param db database instance
+     */
+    private void createTransaction(SQLiteDatabase db){
+        String create_transaction = "create table "+TABLE_TRANSACTION+" ("+TRANS_ID+" INTEGER PRIMARY KEY, "+
+                TRANS_VALUE+" REAL NOT NULL, "+TRANS_DATE+" STRING NOT NULL, "+
+                TRANS_DESCRIPTION+ " STRING, "+TRANS_DONE+" BOOLEAN NOT NULL, "+TRANS_IMAGE+" STRING, "+TRANS_CASH+" BOOLEAN NOT NULL, " +TRANS_CATEGORY_ID+" INTEGER REFERENCES "+TABLE_CATEGORY + " ("+CAT_ID+") ON DELETE CASCADE);";
+        db.execSQL(create_transaction);
     }
 
     /**
