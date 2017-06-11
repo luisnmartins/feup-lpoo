@@ -116,7 +116,7 @@ Carlos Freitas -  (50%)<br>
 ## USER MANUAL
 -----
 ***Login***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/Login.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/Login.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SetMonthWithHistory.png" width="250"><br>
 1 - O utilizador devera escrever o email da conta que ja existe,ou pretende criar<br>
 2 - O utlizador coloca a palavra passe correspondente ao email colocado ou a password da conta que pretende criar<br>
 3 - Verifica se a combinacao email + password corresponde a user existente. Se nao existir da mensagem de erro e pede ao user para voltar a escrever email+password,caso contrario, verifica se a conta a ser aberta ja deu os valores previstos gastos nas categorias no mes atual, se nao , o user e dirigido diretamente para o SetMonth (exemplo imagem SetMonthWithHistory), de outra forma, o user e dirigido para o menu principal<br>
@@ -125,7 +125,7 @@ Carlos Freitas -  (50%)<br>
 
 -----
 ***Add Fixed Value***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddFixedValue.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddFixedValue.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SelectMonths.png" width="250"><br>
 1 - Zona correspondente onde o utilizador deverá inserir o titulo do valor fixo que quer guardar (campo obrigatorio), por exemplo, ordenado despesa da luz, etc<br>
 2 - Valor que ganha ou gasta por cada "iteracao" do valor fixo<br>
 3 - Escolha dos meses do ano atual em que esta transacao e definitivamente realizada, o utilizador ao carregar no "Choose Month" e carregado um Multiple Choice Dialog em que o utilizador escolhe os meses(exemplo do Dialog na imagem SelectMonths.png)<br>
@@ -133,14 +133,14 @@ Carlos Freitas -  (50%)<br>
 -----
  
 ***Settings***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/Settings_signup.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/Settings_signup.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SettingsVerifyPass.png" width="250"><br>
 Exemplo da view dos Settings quando e criado uma conta.<br>
 
 Atenção pontos 1 e 2 nao sao uteis nesta fase pois so interessa adicionar os Incomes e os Fixed Expense para o utilizador poder fazer o set dos gastos previstos para o mes atual, logo nao e possivel alterar as definicoes de conta nesta fase, para isso e necessario o utilizador abrir os settings a partir do menu principal<br>
 
 1 - Ao carregar e aberto uma dialog (como vimos na imagem SettingsVerifyPass) em que e pedido o utilzador para verificar a pass, permitindo a alteracao do campo do email<br>
 2 - Mesma logica do ponto 1 so que permite a alteracao da password<br>
-3 - Apos o user adicionar Incomes e Expenses , atraves dos pontos 4 e 5 ao clicar no Set First Month e aberto a pagina do Month(imagem SetMonth)<br>
+3 - Apos o user adicionar Incomes e Expenses , atraves dos pontos 4 e 5 ao clicar no Set First Month e aberto a pagina do Month<br>
 	ATENCAO: este botao so se encontra na primeira fez que um user faz login, em qualquer outra circunstancia este botao e substituido por outro que permite guardar as alteracaos feitas a conta (pontos 1 e 2 )<br>
 4 e 5 -Ao carregar no mais e aberto para a janela de AddFixedValue correspondente ao tipo escolhido Income/Expenses. O radioGroup Income/Expense permite escolher quais as transacoes a listar no frameLayout que se encontra na parte inferior (como na imagem SettingsWithIncome)	<br>
 
@@ -161,23 +161,23 @@ Atenção pontos 1 e 2 nao sao uteis nesta fase pois so interessa adicionar os I
 
 -----
 ***Main Menu***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/MainMenu.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/MainMenu.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/CategoriesOutOfMenu.png" width="250"><br>
 Menu Inicial da App<br>
 
 1 - Campo onde aparece sugestoes dadas pela AI, quando possivel.<br>
-2 - See Statistics que quando pressionado e aberto a janela Categories Stats (imagem CategoryStats ) que permite ao user ver uma grafico a demonstrar o gasto em cada categoria,etc...<br>
+2 - See Statistics que quando pressionado e aberto a janela Categories Stats que permite ao user ver uma grafico a demonstrar o gasto em cada categoria,etc...<br>
 3 - Balanco do utilizador no mes atual<br>
 4 - Botao more que abre o dialog com o resto das categorias existentes de forma o utilizador adicionar transacoes a essas categorias (como na Imagem CategoriesOutOfMenu)<br>
-5 - Botoes das categorias pertencentes ao menu principal, ao ser clicado o utilizador podera adicionar uma transacao a essa categoria (como na Imagem AddTransaction)<br>
-6 - Permite adicionar uma nova categoria (como e visto na imagem AddNewCategory)<br>
+5 - Botoes das categorias pertencentes ao menu principal, ao ser clicado o utilizador podera adicionar uma transacao a essa categoria<br>
+6 - Permite adicionar uma nova categoria<br>
 
 -----
 ***SideBar***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SideDrawer (2).png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SideDrawer (2).png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/EditCategoriesDialog.png" width="250"><br>
 1 - Valor total que o utilizador salvou (ou nao) desde que comecou a usar a aplicacao<br>
 2 - Email do utilizador<br>
 3 - Abre a janela Category Stats (mesma reacao que o My Statistics no menu principal)<br>
-4 - Abre uma dialog (como na imagem EditCategoriesDialog) com as categorias criadas pelo utilizador de forma o utilizador poder alteralas <br>
+4 - Abre uma dialog com as categorias criadas pelo utilizador de forma o utilizador poder altera-las <br>
 5 - Abre um dialog que permite o utilizador escolher exatamente 5 categorias (das existentes) que ele queira que aparecam diretamente no menu principal<br>
 6 - Abre os settings<br>
 7 - Da logout da conta aberta<br>
@@ -205,12 +205,12 @@ Cada item da lista corresponde a uma transacao<br>
 2 - Categoria correspondente + cor carateristica dessa categoria<br>
 3 - Data exata quando foi realizada a transacao<br>
 4 - Botao que permite editar a respetiva transacao<br>
-	Se o utilizador carregar num item sem ser no botao descrito em 4, o utilizador podera visualizar as carateristicas da transacao (como visto na imagem SeeTransaction1)
+	Se o utilizador carregar num item sem ser no botao descrito em 4, o utilizador podera visualizar as carateristicas da transacao
 <br>
 
 -----
 ***Add Transaction***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddTransaction.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddTransaction.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/ZoomPhotoEx.png" width="250"><br>
 Exemplo de Adicionar uma transacao na categoria Eat<br><br>
 
 1 - O user insere o valor gasto na transacao<br>
@@ -218,11 +218,11 @@ Exemplo de Adicionar uma transacao na categoria Eat<br><br>
 3 - Descricao (opcional) da transacao realizada<br>
 4 - Utilizador escolhe se a transacao foi realizada em dinheiro ou com cartao de credito/multibanco<br>
 5 - Abre a camara do telemovel de forma a permitir o utilizador adicionar uma imagem da fatura/recibo da transacao<br>
-6 - Faz zoom da imagem tirada pelo utilizador no ponto 5 (como na Imagem ZoomPhotoEx)<br>
+6 - Faz zoom da imagem tirada pelo utilizador no ponto 5<br>
 
 -----
 ***Add a Category***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddNewCategory.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddNewCategory.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/ColorPicker.png" width="250"><br>
 Janela em que o utilizador adiciona uma nova categoria<br><br>
 
 1 - Titulo da categoria<br>
