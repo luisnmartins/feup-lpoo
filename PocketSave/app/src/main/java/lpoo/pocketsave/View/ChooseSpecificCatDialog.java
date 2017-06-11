@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.blackcat.currencyedittext.CurrencyEditText;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import lpoo.pocketsave.Logic.Category;
 import lpoo.pocketsave.Logic.DataManager;
@@ -37,17 +39,23 @@ public class ChooseSpecificCatDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        //testList();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-       final ArrayList<Category> aux = DataManager.getInstance().getCategory(null,null,"Variable Expense");
-
         Bundle b = getArguments();
         if(b != null)
             isMonth = b.getBoolean("isMonth");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+       final ArrayList<Category> aux = DataManager.getInstance().getCategory(null,null,"Variable Expense");
+        if(!isMonth)
+        {
+            deleteDefaults(aux);
+        }
+
+
+
 
         final ListAdapter adapter = new ArrayAdapterWithIcon(getActivity(),aux);
         if(isMonth)
         ((Month) getActivity()).setCategories_size(adapter.getCount());
+
 
         builder.setTitle("Categories").setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
@@ -98,6 +106,22 @@ public class ChooseSpecificCatDialog extends DialogFragment {
             fragmentTransaction.replace(R.id.linear_main,frag,"addCat");
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+        }
+    }
+
+    public void deleteDefaults(ArrayList<Category> categories)
+    {
+        List<String> defaults = Arrays.asList(getResources().getStringArray(R.array.DefaultCategories));
+
+
+
+        for(int i = 0; i < categories.size(); i++)
+        {
+            if(defaults.contains(categories.get(i).getTitle()))
+            {
+                categories.remove(i);
+                i--;
+            }
         }
     }
 

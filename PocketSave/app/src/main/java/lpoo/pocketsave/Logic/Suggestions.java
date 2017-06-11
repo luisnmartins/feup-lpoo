@@ -56,6 +56,10 @@ public class Suggestions {
 
         for (HashMap.Entry<String, Double> exp : expectedValues.entrySet()) {
             Log.d(TAG, exp.getKey());
+            if(exp.getKey().equals("Income") || exp.getKey().equals("Fixed Expense"))
+            {
+                continue;
+            }
             if ((occurred = occurredValues.get(exp.getKey())) != null) {
                 expected = exp.getValue();
 

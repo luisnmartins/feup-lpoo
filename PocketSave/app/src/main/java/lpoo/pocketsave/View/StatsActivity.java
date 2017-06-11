@@ -20,7 +20,6 @@ public class StatsActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    CustomAdapter customAdapter;
 
 
     @Override
@@ -66,44 +65,6 @@ public class StatsActivity extends AppCompatActivity {
         });*/
     }
 
-    private class CustomAdapter extends FragmentPagerAdapter {
-        private String fragments [] = {"Category Stats","Stats2"};
-        public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
-
-            super(supportFragmentManager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0: {
-
-                    return new StatsFragment();
-
-                }
-                case 1:{
-                    return new CatStatsFragment();
-                }
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragments[position];
-        }
-    }
-    public void setCatsChoose(View view)
-    {
-        DialogFragment dialog = new ChooseCategoriesDialog();
-        dialog.show(getSupportFragmentManager(),"ChooseCategoriesDialog");
-    }
 
     public void showDatePickerDialog(View v)
     {

@@ -210,6 +210,7 @@ public class IncomeExpensesRecyclerViewAdapter extends RecyclerView.Adapter<Inco
         if(cat.getTitle() == "Income")
         b.putBoolean("isIncome",true);
         else b.putBoolean("isIncome",false);
+        b.putBoolean("isFirst",false);
         b.putDouble("income",mkeys[position].getValue());
         newintent.putExtras(b);
         mContext.startActivity(newintent);

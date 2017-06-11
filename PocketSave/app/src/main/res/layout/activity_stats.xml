@@ -6,18 +6,17 @@
     android:layout_height="match_parent"
     tools:context="lpoo.pocketsave.View.StatsActivity">
 
-    <android.support.design.widget.TabLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/tablayout"
         android:background="@color/colorPrimary"
-        app:tabMode="fixed"
-        app:tabIndicatorColor="@android:color/holo_green_light"
-        app:tabGravity="fill">
+        app:title="Categories Stats"
+        app:titleTextColor="@android:color/background_light">
 
-    </android.support.design.widget.TabLayout>
+    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:layout_width="wrap_content"

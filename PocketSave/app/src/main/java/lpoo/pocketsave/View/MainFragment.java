@@ -57,6 +57,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.content_main, container, false);
         initializeAllButtons(rootView);
         suggestionsBox = (TextView) rootView.findViewById(R.id.suggestionsText);
+        suggestionsBox.setText("");
         createThread();
         ((TextView)rootView.findViewById(R.id.BalanceText)).setText(getCurrentBalance().toString());
         return rootView;
@@ -68,6 +69,7 @@ public class MainFragment extends Fragment {
         super.onDetach();
         MainActivity activity = (MainActivity) getActivity();
         activity.getmToolbar().setTitle("Main Menu");
+        t.interrupt();
     }
 
     public void initializeButton(final View view,int buttonID)

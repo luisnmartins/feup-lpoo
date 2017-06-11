@@ -40,7 +40,7 @@ import lpoo.pocketsave.Logic.Date;
 import lpoo.pocketsave.Logic.Transaction;
 import lpoo.pocketsave.R;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ChooseStatsDialog.ChooseStatsListener,SearchView.OnQueryTextListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener{
 
 
     Menu mOptionsMenu;
@@ -271,35 +271,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             settingsIntent.putExtras(b);
             MainActivity.this.startActivity(settingsIntent);
 
-        }else if(id == R.id.nav_month)
-        {
-            closeAllFragments();
-            startMonth();
-        }else if(id == R.id.nav_exit)
+        } else if(id == R.id.nav_exit)
         {
             quitApp();
         }
         sDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-
-    }
-
-
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        mToolbar.setTitle("Stats");
-        setFragment(new StatsFragment(),"stats");
-
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        mToolbar.setTitle("Stats");
-        setFragment(new CatStatsFragment(),"stats");
 
     }
 

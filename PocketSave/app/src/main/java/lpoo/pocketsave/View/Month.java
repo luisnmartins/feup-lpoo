@@ -66,11 +66,17 @@ public class Month extends AppCompatActivity {
         mytool.setTitle("Month");
         mytool.setLogo(R.mipmap.ic_schedule_black_24dp);
         setSupportActionBar(mytool);
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+        {
+            isFirst = b.getBoolean("isFirst");
+        }
+
         initializeEditTexts();
         initializeImageButtons();
         startMonth();
-        Bundle b = getIntent().getExtras();
         initializeSugText();
+
         Suggestions sug = new Suggestions();
         recommendedCatValues = sug.suggestCatValues();
         if(incomes != null){
@@ -80,10 +86,7 @@ public class Month extends AppCompatActivity {
         if(expenses != null){
             SetFixedExpenses.setText(Double.toString(expenses));
         }
-        if(b != null)
-        {
-            isFirst = b.getBoolean("isFirst");   
-        }
+
 
         addCategory = (ImageButton) findViewById(R.id.addCatMonth);
         addCategory.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +172,8 @@ public class Month extends AppCompatActivity {
                 }
             }
         });
+        if(!isFirst)
+            diaableAll();
 
 
 
@@ -247,6 +252,8 @@ public class Month extends AppCompatActivity {
                     catValues.put(tempCatName, (double) value);
                     Double estimative = calculateBalance();
                     EstimatedValue.setText(Double.toString(estimative));
+                    SetCatValue.setText("");
+
 
                 }else
                 {
@@ -377,6 +384,20 @@ public class Month extends AppCompatActivity {
         this.expenses = expenses;
 
 
+    }
+
+    void diaableAll()
+    {
+        SetCatValue.setEnabled(false);
+        SetFixedExpenses.setEnabled(false);
+        SetIncome.setEnabled(false);
+        saveCategory.setEnabled(false);
+        saveCategory.setVisibility(View.INVISIBLE);
+        saveButton.setEnabled(false);
+        saveButton.setVisibility(View.INVISIBLE);
+        cat.setEnabled(false);
+        addCategory.setEnabled(false);
+        addCategory.setVisibility(View.INVISIBLE);
     }
 
 }

@@ -391,11 +391,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Category income = new Category("Income", DataManager.getInstance().addGetType("Get","Income"),false,1);
                 Category fixed = new Category("Fixed Expense", DataManager.getInstance().addGetType("Get", "Fixed Expense"), false, 1);
                 Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.GREEN);
-                Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLACK);
+                Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLUE);
                 Category health = new Category("Health", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.CYAN);
                 Category clothes = new Category("Clothes", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.MAGENTA);
                 Category joy = new Category("Joy", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.YELLOW);
-                Category food = new Category("Food", DataManager.getInstance().addGetType("Get", "Variable Expense"), false, Color.RED);
+                Category sports = new Category("Sports", DataManager.getInstance().addGetType("Get", "Variable Expense"), false, Color.RED);
+                Category comm = new Category("Communications",DataManager.getInstance().addGetType("Get","Variable Expense"),false,Color.GRAY);
+                Category travel = new Category("Travel",DataManager.getInstance().addGetType("Get","Variable Expense"),false,Color.WHITE);
+                Category pets = new Category("Pets",DataManager.getInstance().addGetType("Get","Variable Expense"),false,Color.argb(1,160,82,45));
                 DataManager.getInstance().addUpdateCategory("Add", income);
                 DataManager.getInstance().addUpdateCategory("Add", fixed);
                 DataManager.getInstance().addUpdateCategory("Add",eat);
@@ -403,7 +406,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 DataManager.getInstance().addUpdateCategory("Add",health);
                 DataManager.getInstance().addUpdateCategory("Add",clothes);
                 DataManager.getInstance().addUpdateCategory("Add",joy);
-                DataManager.getInstance().addUpdateCategory("Add",food);
+                DataManager.getInstance().addUpdateCategory("Add",sports);
+                DataManager.getInstance().addUpdateCategory("Add",comm);
+                DataManager.getInstance().addUpdateCategory("Add",travel);
+                DataManager.getInstance().addUpdateCategory("Add",pets);
+
+
+
                 return true;
 
             }
@@ -460,6 +469,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
 
+            Boolean isDemo = false;
             if(DataManager.getInstance().addOpenUpdateUser("Open",mEmail,mPassword,null))
             {
                 return false;
@@ -470,6 +480,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if(mEmail.equals("teste@") && mPassword.equals("teste"))
             {
+                isDemo = true;
                 DataManager.getInstance().addOpenUpdateUser("Add",mEmail,mPassword,"2017-04-01");
             }else
             {
@@ -482,11 +493,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Category income = new Category("Income", DataManager.getInstance().addGetType("Get","Income"),false,1);
             Category fixed = new Category("Fixed Expense", DataManager.getInstance().addGetType("Get", "Fixed Expense"), false, 1);
             Category eat = new Category("Eat", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.GREEN);
-            Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLACK);
+            Category transport = new Category("Transport", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.BLUE);
             Category health = new Category("Health", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.CYAN);
             Category clothes = new Category("Clothes", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.MAGENTA);
             Category joy = new Category("Joy", DataManager.getInstance().addGetType("Get", "Variable Expense"), true, Color.YELLOW);
-            Category food = new Category("Food", DataManager.getInstance().addGetType("Get", "Variable Expense"), false, Color.RED);
+            Category sports = new Category("Sports", DataManager.getInstance().addGetType("Get", "Variable Expense"), false, Color.RED);
+            Category comm = new Category("Communications",DataManager.getInstance().addGetType("Get","Variable Expense"),false,Color.GRAY);
+            Category travel = new Category("Travel",DataManager.getInstance().addGetType("Get","Variable Expense"),false,Color.WHITE);
+            Category pets = new Category("Pets",DataManager.getInstance().addGetType("Get","Variable Expense"),false,Color.argb(1,160,82,45));
             DataManager.getInstance().addUpdateCategory("Add", income);
             DataManager.getInstance().addUpdateCategory("Add", fixed);
             DataManager.getInstance().addUpdateCategory("Add",eat);
@@ -494,9 +508,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DataManager.getInstance().addUpdateCategory("Add",health);
             DataManager.getInstance().addUpdateCategory("Add",clothes);
             DataManager.getInstance().addUpdateCategory("Add",joy);
-            DataManager.getInstance().addUpdateCategory("Add",food);
+            DataManager.getInstance().addUpdateCategory("Add",sports);
+            DataManager.getInstance().addUpdateCategory("Add",comm);
+            DataManager.getInstance().addUpdateCategory("Add",travel);
+            DataManager.getInstance().addUpdateCategory("Add",pets);
 
-            if(mEmail.equals("teste@") && mPassword.equals("teste"))
+
+
+            if(isDemo)
             {
                 new DemoUser().addDemoUser();
                 return null;
