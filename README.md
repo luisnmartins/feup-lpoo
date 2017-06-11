@@ -119,7 +119,7 @@ Carlos Freitas -  (50%)<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/Login.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SetMonthWithHistory.png" width="250"><br>
 1 - O utilizador devera escrever o email da conta que ja existe,ou pretende criar<br>
 2 - O utlizador coloca a palavra passe correspondente ao email colocado ou a password da conta que pretende criar<br>
-3 - Verifica se a combinacao email + password corresponde a user existente. Se nao existir da mensagem de erro e pede ao user para voltar a escrever email+password,caso contrario, verifica se a conta a ser aberta ja deu os valores previstos gastos nas categorias no mes atual, se nao , o user e dirigido diretamente para o SetMonth (exemplo imagem SetMonthWithHistory), de outra forma, o user e dirigido para o menu principal<br>
+3 - Verifica se a combinacao email + password corresponde a user existente. Se nao existir da mensagem de erro e pede ao user para voltar a escrever email+password,caso contrario, verifica se a conta a ser aberta ja deu os valores previstos gastos nas categorias no mes atual, se nao , o user e dirigido diretamente para o SetMonth, de outra forma, o user e dirigido para o menu principal<br>
 4 - Cria o user email+password caso essa combinacao nao existe,ao criar o user abre os settings no "modo" de sign up ou seja de forma o utilizador adicionar os seus expenses e incomes.
 <br><br>
 
@@ -128,7 +128,7 @@ Carlos Freitas -  (50%)<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddFixedValue.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/SelectMonths.png" width="250"><br>
 1 - Zona correspondente onde o utilizador deverá inserir o titulo do valor fixo que quer guardar (campo obrigatorio), por exemplo, ordenado despesa da luz, etc<br>
 2 - Valor que ganha ou gasta por cada "iteracao" do valor fixo<br>
-3 - Escolha dos meses do ano atual em que esta transacao e definitivamente realizada, o utilizador ao carregar no "Choose Month" e carregado um Multiple Choice Dialog em que o utilizador escolhe os meses(exemplo do Dialog na imagem SelectMonths.png)<br>
+3 - Escolha dos meses do ano atual em que esta transacao e definitivamente realizada, o utilizador ao carregar no "Choose Month" e carregado um Multiple Choice Dialog em que o utilizador escolhe os meses<br>
 
 -----
  
@@ -138,11 +138,11 @@ Exemplo da view dos Settings quando e criado uma conta.<br>
 
 Atenção pontos 1 e 2 nao sao uteis nesta fase pois so interessa adicionar os Incomes e os Fixed Expense para o utilizador poder fazer o set dos gastos previstos para o mes atual, logo nao e possivel alterar as definicoes de conta nesta fase, para isso e necessario o utilizador abrir os settings a partir do menu principal<br>
 
-1 - Ao carregar e aberto uma dialog (como vimos na imagem SettingsVerifyPass) em que e pedido o utilzador para verificar a pass, permitindo a alteracao do campo do email<br>
+1 - Ao carregar e aberto uma dialog em que e pedido o utilzador para verificar a pass, permitindo a alteracao do campo do email<br>
 2 - Mesma logica do ponto 1 so que permite a alteracao da password<br>
 3 - Apos o user adicionar Incomes e Expenses , atraves dos pontos 4 e 5 ao clicar no Set First Month e aberto a pagina do Month<br>
 	ATENCAO: este botao so se encontra na primeira fez que um user faz login, em qualquer outra circunstancia este botao e substituido por outro que permite guardar as alteracaos feitas a conta (pontos 1 e 2 )<br>
-4 e 5 -Ao carregar no mais e aberto para a janela de AddFixedValue correspondente ao tipo escolhido Income/Expenses. O radioGroup Income/Expense permite escolher quais as transacoes a listar no frameLayout que se encontra na parte inferior (como na imagem SettingsWithIncome)	<br>
+4 e 5 -Ao carregar no mais e aberto para a janela de AddFixedValue correspondente ao tipo escolhido Income/Expenses. O radioGroup Income/Expense permite escolher quais as transacoes a listar no frameLayout que se encontra na parte inferior	<br>
 
 -----
 ***Set Month***<br>
@@ -167,7 +167,7 @@ Menu Inicial da App<br>
 1 - Campo onde aparece sugestoes dadas pela AI, quando possivel.<br>
 2 - See Statistics que quando pressionado e aberto a janela Categories Stats que permite ao user ver uma grafico a demonstrar o gasto em cada categoria,etc...<br>
 3 - Balanco do utilizador no mes atual<br>
-4 - Botao more que abre o dialog com o resto das categorias existentes de forma o utilizador adicionar transacoes a essas categorias (como na Imagem CategoriesOutOfMenu)<br>
+4 - Botao more que abre o dialog com o resto das categorias existentes de forma o utilizador adicionar transacoes a essas categorias<br>
 5 - Botoes das categorias pertencentes ao menu principal, ao ser clicado o utilizador podera adicionar uma transacao a essa categoria<br>
 6 - Permite adicionar uma nova categoria<br>
 
@@ -189,7 +189,7 @@ Menu Inicial da App<br>
 
 
 1 - Layout que apresentara o grafico circular<br>
-		exemplo do grafico em CategoryStatsExample cada setor do grafico corresponde ao valor total gasto numa categoria entre as datas dadas, o utilizador ao clicar num setor abrira a lista com todas as transacoes correspondentes a respetiva categoria (como em CategoriesOverview)
+		exemplo do grafico em CategoryStatsExample cada setor do grafico corresponde ao valor total gasto numa categoria entre as datas dadas, o utilizador ao clicar num setor abrira a lista com todas as transacoes correspondentes a respetiva categoria
  <br>
 2 - Escolha das datas <br>
 3 - Inicializar o grafico com as transacoes entre as datas escolhidas (caso haja alguma);<br>
@@ -210,11 +210,11 @@ Cada item da lista corresponde a uma transacao<br>
 
 -----
 ***Add Transaction***<br>
-<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddTransaction.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/ZoomPhotoEx.png" width="250"><br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddTransaction.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/ZoomPhotoEx.png" width="250"><img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/DatePickerDialog.png" width="250"><br>
 Exemplo de Adicionar uma transacao na categoria Eat<br><br>
 
 1 - O user insere o valor gasto na transacao<br>
-2 - Abre um dialog  (como na imagem DatePickerDialog) deforma o utilizador escolher a data em que a transacao foi realizado<br>
+2 - Abre um dialog de forma o utilizador escolher a data em que a transacao foi realizado<br>
 3 - Descricao (opcional) da transacao realizada<br>
 4 - Utilizador escolhe se a transacao foi realizada em dinheiro ou com cartao de credito/multibanco<br>
 5 - Abre a camara do telemovel de forma a permitir o utilizador adicionar uma imagem da fatura/recibo da transacao<br>
@@ -226,7 +226,7 @@ Exemplo de Adicionar uma transacao na categoria Eat<br><br>
 Janela em que o utilizador adiciona uma nova categoria<br><br>
 
 1 - Titulo da categoria<br>
-2 - Cor carateristica da categoria (visivel na demonstracao do grafico circular), escolhe a cor a partir de um colorpicker (demonstradao na imagem ColorPicker)<br>
+2 - Cor carateristica da categoria (visivel na demonstracao do grafico circular), escolhe a cor a partir de um colorpicker<br>
 3* - Valor estimado que o utilizador prentende gastar no resto do mes atual<br>
 	Este parametro nao se encontra presente se o utilizador adicionar uma categoria enquanto se encontra a fazer set do mes
 <br>
