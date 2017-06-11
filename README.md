@@ -113,6 +113,15 @@ Carlos Freitas -  (50%)<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources/Mokups/Mokups/Statistics.png" width="600"><br><br>
 -----
 
+## USER MANUAL
+-----
+***login***<br>
+<img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/Login.png" width="250">1 - O utilizador devera escrever o email da conta que ja existe,ou pretende criar<br>
+2 - O utlizador coloca a palavra passe correspondente ao email colocado ou a password da conta que pretende criar<br>
+3 - Verifica se a combinacao email + password corresponde a user existente. Se nao existir da mensagem de erro e pede ao user para voltar a escrever email+password,caso contrario, verifica se a conta a ser aberta ja deu os valores previstos gastos nas categorias no mes atual, se nao , o user e dirigido diretamente para o SetMonth (exemplo imagem SetMonthWithHistory), de outra forma, o user e dirigido para o menu principal<br>
+4 - Cria o user email+password caso essa combinacao nao existe,ao criar o user abre os settings no "modo" de sign up ou seja de forma o utilizador adicionar os seus expenses e incomes.
+<br><br>
+
 
 <br><br>
 ## UNIT TESTING
