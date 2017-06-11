@@ -30,18 +30,29 @@ Java Project - object oriented programming
 <br><br>
 ### Decisões Relevantes
 
-Foi implementada uma base de dados para guardar toda a informacao utilizada na aplicacao. Esta base de dados divide-se em 5 classes:</br>
-   **DatabaseHelper** - que serve para fazer a criação da base de dados.
-   **TransactionDB** - responsável pelas funções de CRUD relativas às transações
-   **TransactionDB** - responsável pelas funções de CRUD relativas às transações
-   **CategoryDB** responsável pelas funções de CRUD relativas às categorias
-   **TypeDB** - responsável pelas funções de CRUD relativas aos tipos de Categorias existentes - “Income”, “Variable Expense” e “Fixed Expense”
-   **UserDB** -  responsável pelas funções de CRUD relativas ao User.
+Foi implementada uma base de dados para guardar toda a informacao utilizada na aplicacao. Esta base de dados divide-se em 5 classes:<br>
+   **DatabaseHelper** - que serve para fazer a criação da base de dados.<br>
+   **TransactionDB** - responsável pelas funções de CRUD relativas às transações<br>
+   **TransactionDB** - responsável pelas funções de CRUD relativas às transações<br>
+   **CategoryDB** responsável pelas funções de CRUD relativas às categorias<br>
+   **TypeDB** - responsável pelas funções de CRUD relativas aos tipos de Categorias existentes - “Income”, “Variable Expense” e “Fixed Expense” <br>
+   **UserDB** -  responsável pelas funções de CRUD relativas ao User.<br>
    
 Para converse entre os tipos de dados da base de dados e os utilizados no projeto ( com divisão por classes) foi utilizada a classe DataManager, responsável pela comunicação com as classes da base de dados e parsing da informação obtida.
 
 
+
 <br><br>
+
+### Funcionalidades
+
+Para o desenvolvimento da aplicação, achamos pertinente utilizar os seguintes recursos:
+
+ **Mobile** - Para ser possível ao utilizador associar uma imagem da fatura às suas transacções, foi utilizada a câmara do telemóvel.
+ 
+ **Inteligência Artificial** - Para ajudar o utilizador na sua gestão financeira, foram desenvolvidas algumas funções. Estas funçes baseiam-se no histórico existente e, através deste aconselham-no.
+
+
 
 ### Dificuldades Encontradas
 
@@ -52,24 +63,24 @@ Uma das maiores dificuldades foi a estruturação da parte lógica. De facto a a
 
 ### Conclusões
 
-Durante a realização do trabalho perante as várias dificuldades encontradas 
+O realização deste projeto contribuiu para o desenvolvimento das nossa capacidades de trabalho em equipa, bem como para a conceção de projetos utilizando Android (linguagem Java) e bases de dados em SQL.
 
 
 <br><br>
 
 ### Distribuição do Trabalho
 
-Luis Martins - 40h (50%)
-    - Implementação da base de dados
-    - Implementação do DataManager
-    - Implementação dos testes unitários
-    - Implementação das funções de sugestão
+Luis Martins - 40h (50%)<br>
+    - Implementação da base de dados<br>
+    - Implementação do DataManager<br>
+    - Implementação dos testes unitários<br>
+    - Implementação das funções de sugestão<br>
 
-Carlos Freitas -  (50%)
-    - Implementacao de toda a parte gráfica
-    - Contribuicao na implementação das sugestões
-    - Implementa
-
+Carlos Freitas -  (50%)<br>
+    - Implementacao de toda a parte gráfica<br>
+    - Contribuicao na implementação das sugestões<br>
+    - Implementa <br>
+<br>
 ## GUI DESIGN
 -----
 ***Intro***<br>
@@ -107,6 +118,6 @@ Carlos Freitas -  (50%)
 
 ## UNIT TESTING
 
-Para verificar o código da parte lógica foram realizados vários testes testando as várias funções existentes.
+Para verificar o código da parte lógica foram realizados vários testes verifição as diferentes funções existentes.
 
-Estes testes encontram-se dentro do projeto na pasta lpoo.pocketsave.unitTest
+Estes testes encontram-se dentro do projeto na pasta PocketSave/app/src/androidTest/java/lpoo/pocketsave/unitTest
