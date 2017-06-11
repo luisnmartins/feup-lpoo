@@ -2,12 +2,11 @@ package lpoo.pocketsave.Logic;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 
 public class Date {
 
-    ArrayList<Integer> daysofmonths = new ArrayList<Integer>();
+    private final ArrayList<Integer> daysofmonths = new ArrayList<>();
 
     /**
      * Create a date and array of number of days
@@ -50,13 +49,12 @@ public class Date {
     /**
      * Get a String with the date asked
      * @param firstDay True if is the first day of the month and false if not
-     * @param month string to set the month to get or the current Date - "last", "curent" and "currentDate"
+     * @param month string to set the month to get or the current Date - "last", "current" and "currentDate"
      * @return Returns the asked date
      */
     public String getInitialDate(Boolean firstDay, String month) {
         Calendar c = Calendar.getInstance();
         String date;
-        String monthget;
         if (month.equals("currentDate")) {
             date = c.get(Calendar.YEAR) + "-" + String.format("%02d", (c.get(Calendar.MONTH) + 1)) + "-" + String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
             return date;

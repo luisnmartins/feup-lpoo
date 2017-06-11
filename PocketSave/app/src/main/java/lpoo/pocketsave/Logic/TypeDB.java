@@ -7,11 +7,11 @@ import android.util.Log;
 
 
 
-public class TypeDB {
+class TypeDB {
 
     private static final String TAG = "UserDB";
 
-    private DatabaseHelper dbH = DatabaseHelper.getInstance();
+    private final DatabaseHelper dbH = DatabaseHelper.getInstance();
 
 
     /**

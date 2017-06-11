@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "Database";
 
-    public static final String DATABASE_NAME = "PocketSave.db";
+    private static final String DATABASE_NAME = "PocketSave.db";
 
     //Tables
     public static final String TABLE_USER = "user_table";
@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //User Table Columns
     public static final String USER_ID = "_id";
-    public static final String USER_NAME = "Username";
+    private static final String USER_NAME = "Username";
     public static final String USER_EMAIL = "Email";
     public static final String USER_PASSWORD = "Password";
     public static final String USER_TOTALSAVED = "TotalSaved";
@@ -60,9 +60,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Creates a new database instance
      * @param context Application Context
      */
-    public DatabaseHelper(Context context) {
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
-        //TODO: delete
 
     }
 

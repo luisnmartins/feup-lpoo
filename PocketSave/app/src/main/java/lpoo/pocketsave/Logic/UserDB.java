@@ -7,11 +7,11 @@ import android.util.Log;
 
 
 
-public class UserDB {
+class UserDB {
 
     private static final String TAG = "UserDB";
 
-    private DatabaseHelper dbH = DatabaseHelper.getInstance();
+    private final DatabaseHelper dbH = DatabaseHelper.getInstance();
 
     //USER FUNCTIONS
 
@@ -36,10 +36,7 @@ public class UserDB {
         }
         else
         {
-            if(openUser(email, password))
-                return true;
-            else
-                return false;
+            return openUser(email, password);
         }
 
     }
@@ -94,18 +91,14 @@ public class UserDB {
      * @param password password to be updated
      * @return Returns true if user was updated and false if not
      */
-    public boolean updateUser(String email, String password, Double totalSaved){
+    public boolean updateUser(String email, String password, Double totalSaved) {
 
         SQLiteDatabase db = dbH.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.USER_EMAIL,email);
+        contentValues.put(DatabaseHelper.USER_EMAIL, email);
         contentValues.put(DatabaseHelper.USER_PASSWORD, password);
         contentValues.put(DatabaseHelper.USER_TOTALSAVED, totalSaved);
-        if(db.update(DatabaseHelper.TABLE_USER, contentValues, DatabaseHelper.USER_ID+"= ?",new String[] { dbH.getUserID()})>0) {
-            return openUser(email, password);
-        }
-        else
-            return false;
+        return db.update(DatabaseHelper.TABLE_USER, contentValues, DatabaseHelper.USER_ID + "= ?", new String[]{dbH.getUserID()}) > 0 && openUser(email, password);
 
     }
 

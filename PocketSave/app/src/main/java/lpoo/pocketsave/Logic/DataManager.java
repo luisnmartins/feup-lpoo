@@ -8,7 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import java.util.Calendar;
+
 import java.util.HashMap;
 
 
@@ -124,8 +124,8 @@ public class DataManager {
      * Add a new category or update one that already exists
      *
      * @param operation String to know which operation should be made - "Add" or "Update"
-     * @param newCategory Catgeory instance of the category to add
-     * @return Returns true if the catgeory was added or updated and false if not
+     * @param newCategory Category instance of the category to add
+     * @return Returns true if the category was added or updated and false if not
      */
     public boolean addUpdateCategory(String operation, Category newCategory) {
 
@@ -152,7 +152,9 @@ public class DataManager {
         ArrayList<Category> categories = null;
         Category newCategory;
         boolean mainMenu;
-        if (catTitle == "mainMenuCategories") {
+        if(catTitle == null)
+            cursor = category.getCategory(catTitle, type);
+        else if (catTitle.equals("mainMenuCategories")) {
             cursor = category.getMainCategories(main, type);
         } else
             cursor = category.getCategory(catTitle, type);
@@ -221,15 +223,7 @@ public class DataManager {
                 String month = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE));
 
                 month = month.substring(month.indexOf('-') + 1, month.indexOf('-') + 3);
-                newTransaction = new Transaction(
-                        cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
-                        cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
-                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE)) > 0,
-                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH)) > 0);
-                newTransaction.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)));
-                newTransaction.setDescription(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)));
-                newTransaction.setImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
+                newTransaction = createTransaction(cursor);
 
                 for (HashMap.Entry<Transaction, ArrayList<Integer>> it : transactions.entrySet()) {
                     if (it.getKey().equals(newTransaction)) {
@@ -278,7 +272,7 @@ public class DataManager {
 
         if (cursor == null) {
 
-            Log.d(TAG, "CUROSR NULL");
+            Log.d(TAG, "CURSOR NULL");
             return null;
         }
 
@@ -286,16 +280,8 @@ public class DataManager {
 
             transactions = new ArrayList<>();
             do {
-                newTransaction = new Transaction(
-                        cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
-                        cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
-                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE)) > 0,
-                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH)) > 0);
-                newTransaction.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)));
-                newTransaction.setDescription(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)));
-                newTransaction.setImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
 
+                newTransaction = createTransaction(cursor);
                 transactions.add(newTransaction);
             } while (cursor.moveToNext());
             cursor.close();
@@ -334,7 +320,7 @@ public class DataManager {
         }
 
         if (cursor == null) {
-            Log.d(TAG, "CURSOS NULL");
+            Log.d(TAG, "CURSOR NULL");
             return null;
         }
 
@@ -436,14 +422,28 @@ public class DataManager {
         Date d = new Date();
         String date = d.getInitialDate(true, "current");
         HashMap<String,Double> trans = getTotalSpentValues("Type","Income",date,date,true);
-        if(trans == null)
-        {
-            return true;
-        }else {
-            return false;
-        }
+        return trans == null;
     }
 
+    /**
+     * Create a transaction
+     * @param cursor cursor used to create a transaction
+     * @return Returns the transaction created
+     */
+    private Transaction createTransaction(Cursor cursor){
+        Transaction newTransaction;
+        newTransaction = new Transaction(
+                cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.TRANS_VALUE)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DATE)),
+                cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_CATEGORY_ID)),
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_DONE)) > 0,
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TRANS_CASH)) > 0);
+        newTransaction.setID(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TRANS_ID)));
+        newTransaction.setDescription(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_DESCRIPTION)));
+        newTransaction.setImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRANS_IMAGE)));
+
+        return newTransaction;
+    }
 
 
 }

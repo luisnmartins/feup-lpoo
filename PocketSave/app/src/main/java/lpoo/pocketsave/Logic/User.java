@@ -3,20 +3,17 @@ package lpoo.pocketsave.Logic;
 
 import android.util.Log;
 
-import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 
 public class User {
 
     private static final String TAG = "User";
 
-    private String email;
+    private final String email;
     private double totalSaved;
-    private String password;
+    private final String password;
     private String since;
-    private long id;
+    private final long id;
 
 
     /**
@@ -29,13 +26,13 @@ public class User {
         this.password = password;
         totalSaved = 0;
 
-    };
+    }
 
 
     /**
-     * Updates total saved value with all avings from the beginning until the end of the last month
+     * Updates total saved value with all Savings from the beginning until the end of the last month
      */
-    public void updateTotalSaved(){
+    private void updateTotalSaved(){
         totalSaved =0;
         Date d = new Date();
         HashMap<String, Double> spents = DataManager.getInstance().getTotalSpentValues("Type", null,since,d.getInitialDate(false, "last"), true);
@@ -46,7 +43,6 @@ public class User {
         }
         else {
             for (HashMap.Entry<String, Double> it : spents.entrySet()) {
-                Log.d(TAG,"ENTROU");
                 if(it.getKey().equals("Income"))
                     totalSaved += it.getValue();
                 else

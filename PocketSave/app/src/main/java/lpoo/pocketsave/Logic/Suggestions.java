@@ -10,13 +10,13 @@ import java.util.HashMap;
 public class Suggestions {
 
 
-    static final double PERCENTAGE_DIFERENCE = 0.4;
-    static final double A_LOT_OF_CASH = 0.7;
-    static final double CASH_FREQ_QUANT = 20;
+    private static final double PERCENTAGE_DIFFERENCE = 0.4;
+    private static final double A_LOT_OF_CASH = 0.7;
+    private static final double CASH_FREQ_QUANT = 20;
 
     private static final String TAG = "Suggestions";
 
-    private Date d;
+    private final Date d;
 
     /**
      * Initialize suggestions setting Date instance
@@ -29,7 +29,6 @@ public class Suggestions {
 
 
 
-    //TODO: verificar se uma categoria esta acima (20%) do seu valor previsto comparativamente com o que ja passou do mes corrente
 
     /**
      * Verifies if any category's spents is big comparing with the day of the month
@@ -77,9 +76,6 @@ public class Suggestions {
 
     }
 
-
-    //TODO: Verificar o metodo de pagamento dominante e se for dinheiro verificar se o valor medio das transacoes
-    // e de baixa quantia (<20€) - para categorias que estao muito proximo do limite
 
     /**
      * For the limit categories, it verifies if there's a lot of transactions of cash
@@ -132,7 +128,7 @@ public class Suggestions {
      */
     public ArrayList<String> compareCatValuesBefore() {
 
-        Calendar c = Calendar.getInstance();
+
         String dBefore = d.getInitialDate(true, "last");
         String dBeforeEnd = d.getInitialDate(false, "last");
         ArrayList<String> ret = new ArrayList<>();
@@ -197,8 +193,8 @@ public class Suggestions {
         if(available == null || lastMontSum == null)
             return null;
 
-        if (Math.abs((1 - available / lastMontSum)) < PERCENTAGE_DIFERENCE) {
-            ret =  new HashMap<String, Double>();
+        if (Math.abs((1 - available / lastMontSum)) < PERCENTAGE_DIFFERENCE) {
+            ret = new HashMap<>();
 
             for (HashMap.Entry<String, Double> it : catSpent.entrySet()) {
 
@@ -218,7 +214,7 @@ public class Suggestions {
      * considering the same savings percentage of the previous month
      * @return Returns the quantity available in th current month
      */
-    public Double availableCurrentMonth(){
+    private Double availableCurrentMonth(){
 
         String dBefore = d.getInitialDate(true, "last");
         String dBeforeEnd = d.getInitialDate(false, "last");
@@ -241,9 +237,7 @@ public class Suggestions {
             return null;
 
 
-        Double available = currentIncome - currentFixedExpenses - percLastMonth * currentIncome;
-
-        return available;
+        return currentIncome - currentFixedExpenses - percLastMonth * currentIncome;
 
     }
 
@@ -253,7 +247,7 @@ public class Suggestions {
      * @param catSpent Hash map with all categories and spent values
      * @return Returns the total value spent last Month
      */
-    public Double lastMontSumSpents(HashMap<String, Double> catSpent){
+    private Double lastMontSumSpents(HashMap<String, Double> catSpent){
 
         Double lastMontSum=0.0;
 
@@ -275,7 +269,7 @@ public class Suggestions {
      *
      * @return Returns a double with the percentage of money that was not spent last month
      */
-    public Double lastMonthSavings(String dBefore, String dBeforeEnd) {
+    private Double lastMonthSavings(String dBefore, String dBeforeEnd) {
 
 
         Double incomes = 0.0;
@@ -298,9 +292,7 @@ public class Suggestions {
         if (balance < 0)
             return null;
 
-        Double perc = balance / incomes;
-
-        return perc;
+        return balance / incomes;
 
     }
 

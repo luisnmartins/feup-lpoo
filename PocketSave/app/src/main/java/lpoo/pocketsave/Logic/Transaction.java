@@ -3,21 +3,15 @@ package lpoo.pocketsave.Logic;
 
 import android.support.annotation.NonNull;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class Transaction implements Comparable<Transaction>{
     private long id;
     private double value;
     private String date;
     private String description;
-    private long catID;
-    private boolean done;
+    private final long catID;
+    private final boolean done;
     private String image;
-    private boolean cash;
+    private final boolean cash;
 
 
     /**
@@ -26,7 +20,7 @@ public class Transaction implements Comparable<Transaction>{
      * @param dateS Transaction's date as "yyyy-MM-dd"
      * @param catID Category id of the transaction
      * @param done True if the transaction already happened and false otherwise
-     * @param cash True if it was paied with money and false otherwise
+     * @param cash True if it was payed with money and false otherwise
      */
     public Transaction(double value, String dateS, long catID, boolean done, boolean cash){
         this.value = value;
@@ -87,8 +81,8 @@ public class Transaction implements Comparable<Transaction>{
     public boolean getDone(){ return this.done;}
 
     /**
-     * Get if the Transaction was paied with cash
-     * @return Returns if the Transaction was paied with cash
+     * Get if the Transaction was payed with cash
+     * @return Returns if the Transaction was payed with cash
      */
     public int isCashMethod(){return cash? 1: 0;}
 
@@ -135,6 +129,7 @@ public class Transaction implements Comparable<Transaction>{
      * @param o Transactions to compare with
      * @return Returns negative if this.value < o.getValue, 0 if they are equals and true if this.value > o.getValue()
      */
+    @NonNull
     @Override
     public int compareTo(@NonNull Transaction o) {
 
@@ -157,8 +152,8 @@ public class Transaction implements Comparable<Transaction>{
     }
 
     /**
-     * Code to order the transactions recyclerview
-     * @return Returns the position of the transaction in the recyclerview
+     * Code to order the transactions recycler view
+     * @return Returns the position of the transaction in the recycler view
      */
     @Override
     public int hashCode() {

@@ -10,7 +10,7 @@ public class TransactionDB implements CRUDDB<Transaction> {
 
     private static final String TAG = "UserDB";
 
-    private DatabaseHelper dbH = DatabaseHelper.getInstance();
+    private final DatabaseHelper dbH = DatabaseHelper.getInstance();
 
 
     /**
@@ -51,7 +51,7 @@ public class TransactionDB implements CRUDDB<Transaction> {
     public boolean update(Transaction toUpdate){
         SQLiteDatabase db = dbH.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        Log.d(TAG, "ID toUdate: "+toUpdate.getID());
+        Log.d(TAG, "ID toUpdate: "+toUpdate.getID());
         Log.d(TAG, "ID CAT: "+toUpdate.getCatID());
         contentValues.put(DatabaseHelper.TRANS_ID, toUpdate.getID());
         contentValues.put(DatabaseHelper.TRANS_VALUE, toUpdate.getValue());
@@ -224,7 +224,6 @@ public class TransactionDB implements CRUDDB<Transaction> {
     public Cursor getTypeTotalValueSpent(String typeTitle, String d1, String d2, boolean done){
 
         SQLiteDatabase db = dbH.getReadableDatabase();
-        Double value;
         Cursor cursor;
         if(typeTitle == null){
 
