@@ -122,6 +122,7 @@ Carlos Freitas -  (50%)<br>
 3 - Verifica se a combinacao email + password corresponde a user existente. Se nao existir da mensagem de erro e pede ao user para voltar a escrever email+password,caso contrario, verifica se a conta a ser aberta ja deu os valores previstos gastos nas categorias no mes atual, se nao , o user e dirigido diretamente para o SetMonth (exemplo imagem SetMonthWithHistory), de outra forma, o user e dirigido para o menu principal<br>
 4 - Cria o user email+password caso essa combinacao nao existe,ao criar o user abre os settings no "modo" de sign up ou seja de forma o utilizador adicionar os seus expenses e incomes.
 <br><br>
+
 -----
 ***Add Fixed Value***<br>
 <img src="https://github.com/luisnmartins/LPOO1617_T3G03/blob/final-project-delivery/Resources//LPOOManual/AddFixedValue.png" width="250"><br>
@@ -230,7 +231,9 @@ Janela em que o utilizador adiciona uma nova categoria<br><br>
 	Este parametro nao se encontra presente se o utilizador adicionar uma categoria enquanto se encontra a fazer set do mes
 <br>
 4 - Guarda a nova categoria<br>
+
 -----
+
 
 
 
